@@ -36,7 +36,11 @@ function CardRow({
   onMouseOut: () => void;
 }) {
   return (
-    <div style={{ cursor: "pointer" }} onMouseEnter={onMouseOver}>
+    <div
+      style={{ cursor: "pointer" }}
+      onMouseEnter={onMouseOver}
+      onMouseOut={onMouseOut}
+    >
       {card.front && card.front.title}
     </div>
   );
@@ -69,7 +73,6 @@ function CardHover({
 export default function Cards() {
   const [nameFilter, setNameFilter] = useState(null);
   const [cardHover, setCardHover] = useState({ card: null, location: null });
-  console.log("woohoo hooks are working!");
   return (
     <div>
       <Toolbar />
@@ -102,7 +105,7 @@ export default function Cards() {
                     location: { x: e.pageX, y: e.pageY },
                   })
                 }
-                onMouseOut={() => console.log("on mouse out:")}
+                onMouseOut={() => setCardHover({ card: null, location: null })}
               />
             );
           })}
