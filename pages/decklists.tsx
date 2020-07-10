@@ -1,10 +1,10 @@
-import Toolbar from "../components/Toolbar";
+import { Toolbar, Content } from "../components/Toolbar";
 
 export default function DeckLists() {
   return (
     <div>
       <Toolbar />
-      Decklists
+      <Content>Decklists</Content>
     </div>
   );
 }

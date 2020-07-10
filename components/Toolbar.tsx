@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Link from "next/link";
 
+const contentWidth = 960;
+
 const ToolbarContainer = styled.div`
   background-color: #222;
   height: 80px;
@@ -12,7 +14,7 @@ const ToolbarContainer = styled.div`
 
 const ToolbarContent = styled.div`
   display: flex;
-  width: 960px;
+  width: ${contentWidth}px;
   align-items: center;
 `;
 
@@ -22,7 +24,20 @@ const ToolbarLink = styled.div`
   cursor: pointer;
 `;
 
-export default function Toolbar() {
+const ContentContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export function Content({ children }) {
+  return (
+    <ContentContainer>
+      <div style={{ width: contentWidth + "px" }}>{children}</div>
+    </ContentContainer>
+  );
+}
+
+export function Toolbar() {
   return (
     <ToolbarContainer>
       <ToolbarContent>
