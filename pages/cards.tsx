@@ -36,23 +36,45 @@ function CardRow({
   onMouseOut: () => void;
 }) {
   return (
-    <div
-      style={{ cursor: "pointer" }}
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
-    >
+    <div style={{ cursor: "pointer" }} onMouseEnter={onMouseOver}>
       {card.front && card.front.title}
+    </div>
+  );
+}
+
+function CardHover({
+  card,
+  location = {},
+}: {
+  card: Card;
+  location: { x: number; y: number };
+}) {
+  if (!location) {
+    return null;
+  }
+  return (
+    <div
+      style={{
+        pointerEvents: "none",
+        position: "absolute",
+        left: location.x,
+        top: location.y,
+      }}
+    >
+      <img src={card.front.imageUrl} style={{ height: "400px" }}></img>
     </div>
   );
 }
 
 export default function Cards() {
   const [nameFilter, setNameFilter] = useState(null);
+  const [cardHover, setCardHover] = useState({ card: null, location: null });
   console.log("woohoo hooks are working!");
   return (
     <div>
       <Toolbar />
       <Content>
+        <CardHover {...cardHover} />
         <div>
           <input
             onKeyUp={(e) => setNameFilter(e.target.value)}
@@ -74,7 +96,12 @@ export default function Cards() {
             return (
               <CardRow
                 card={card}
-                onMouseOver={() => console.log("hovering:", card.id)}
+                onMouseOver={(e) =>
+                  setCardHover({
+                    card: card,
+                    location: { x: e.pageX, y: e.pageY },
+                  })
+                }
                 onMouseOut={() => console.log("on mouse out:")}
               />
             );
