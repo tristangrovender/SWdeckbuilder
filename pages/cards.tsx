@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Toolbar, Content } from "../components/Toolbar";
 import { LightCards } from "../cards/Light";
 import { DarkCards } from "../cards/Dark";
+import { CardIcon } from "../components/card-icon";
 
 interface Card {
   id: number;
@@ -36,12 +37,20 @@ function CardRow({
   onMouseOut: () => void;
 }) {
   return (
-    <div
-      style={{ cursor: "pointer" }}
-      onMouseEnter={onMouseOver}
-      onMouseOut={onMouseOut}
-    >
-      {card.front && card.front.title}
+    <div style={{ cursor: "pointer", display: "flex" }}>
+      <div
+        onMouseEnter={onMouseOver}
+        onMouseOut={onMouseOut}
+        style={{
+          width: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CardIcon style={{ pointerEvents: "none", width: "20px" }} />
+      </div>
+      <div>{card.front && card.front.title}</div>
     </div>
   );
 }
@@ -61,8 +70,8 @@ function CardHover({
       style={{
         pointerEvents: "none",
         position: "absolute",
-        left: location.x,
         top: location.y,
+        left: location.x,
       }}
     >
       <img src={card.front.imageUrl} style={{ height: "400px" }}></img>
@@ -85,7 +94,8 @@ export default function Cards() {
           ></input>
         </div>
 
-        <div>
+        <div style={{ display: "flex" }}>
+          <div style={{ fontWeight: "bold", width: "50px" }}>Card</div>
           <div style={{ fontWeight: "bold" }}>Name</div>
         </div>
         {LightCards.filter((card) => {
@@ -98,6 +108,7 @@ export default function Cards() {
           .map((card) => {
             return (
               <CardRow
+                key={card.id}
                 card={card}
                 onMouseOver={(e) =>
                   setCardHover({
