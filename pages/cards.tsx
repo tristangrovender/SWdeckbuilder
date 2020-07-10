@@ -44,6 +44,9 @@ export default function Cards() {
           ></input>
         </div>
 
+        <div>
+          <div style={{ fontWeight: "bold" }}>Name</div>
+        </div>
         {LightCards.filter((card) => {
           if (!nameFilter) {
             return true;
