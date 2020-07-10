@@ -1,10 +1,10 @@
 import Toolbar from "../components/Toolbar";
 
-export default function Home() {
+export default function Cards() {
   return (
-    <div className="App">
+    <div>
       <Toolbar />
-      Homepage
+      cards
     </div>
   );
 }
