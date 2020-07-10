@@ -6,11 +6,13 @@ const ToolbarContainer = styled.div`
   color: #ccc;
   justify-content: center;
   align-items: center;
+  display: flex;
 `;
 
 const ToolbarContent = styled.div`
   width: 960px;
   align-items: center;
+  justify-content: center;
 `;
 
 export default function Toolbar() {
