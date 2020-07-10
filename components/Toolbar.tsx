@@ -10,15 +10,25 @@ const ToolbarContainer = styled.div`
 `;
 
 const ToolbarContent = styled.div`
+  display: flex;
   width: 960px;
   align-items: center;
-  justify-content: center;
+`;
+
+const ToolbarLink = styled.div`
+  margin-right: 25px;
+  cursor: pointer;
 `;
 
 export default function Toolbar() {
   return (
     <ToolbarContainer>
-      <ToolbarContent>Toolbar</ToolbarContent>
+      <ToolbarContent>
+        <ToolbarLink>SW:CCG DB</ToolbarLink>
+        <ToolbarLink>My decks</ToolbarLink>
+        <ToolbarLink>Decklists</ToolbarLink>
+        <ToolbarLink>Cards</ToolbarLink>
+      </ToolbarContent>
     </ToolbarContainer>
   );
 }
