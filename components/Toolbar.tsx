@@ -1,3 +1,9 @@
+import styled from "styled-components";
+
+const ToolbarContainer = styled.div`
+  background-color: blue;
+`;
+
 export default function Toolbar() {
-    return <h1>Toolbar</h1>;
+  return <ToolbarContainer>Toolbar</ToolbarContainer>;
 }
