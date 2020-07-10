@@ -44,7 +44,7 @@ function CardRow({
 
 function CardHover({
   card,
-  location = {},
+  location,
 }: {
   card: Card;
   location: { x: number; y: number };
