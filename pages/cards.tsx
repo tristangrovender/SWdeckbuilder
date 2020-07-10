@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Toolbar, Content } from "../components/Toolbar";
+import { Toolbar, Content, Page } from "../components/Toolbar";
 import { LightCards } from "../cards/Light";
 import { DarkCards } from "../cards/Dark";
 import { CardIcon } from "../components/card-icon";
@@ -86,7 +86,7 @@ export default function Cards() {
   const [nameFilter, setNameFilter] = useState(null);
   const [cardHover, setCardHover] = useState({ card: null, location: null });
   return (
-    <div>
+    <Page>
       <Toolbar />
       <Content>
         <CardHover {...cardHover} />
@@ -127,6 +127,6 @@ export default function Cards() {
             );
           })}
       </Content>
-    </div>
+    </Page>
   );
 }
