@@ -3,6 +3,11 @@ import Link from "next/link";
 
 const contentWidth = 960;
 
+export const Page = styled.div`
+  background-color: #ecf0f1;
+  height: 100vh;
+`;
+
 const ToolbarContainer = styled.div`
   background-color: #222;
   height: 80px;
