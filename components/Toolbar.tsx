@@ -5,7 +5,7 @@ const contentWidth = 960;
 
 export const Page = styled.div`
   background-color: #ecf0f1;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 const ToolbarContainer = styled.div`
