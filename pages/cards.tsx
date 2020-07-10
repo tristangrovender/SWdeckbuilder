@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Toolbar, Content } from "../components/Toolbar";
 import { LightCards } from "../cards/Light";
 import { DarkCards } from "../cards/Dark";
 
 export default function Cards() {
+  const [test, setTest] = useState([]);
+  console.log("woohoo hooks are working!");
   return (
     <div>
       <Toolbar />
