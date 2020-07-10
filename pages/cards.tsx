@@ -26,8 +26,24 @@ interface Card {
   legacy: boolean;
 }
 
-function CardRow({ card }: { card: Card }) {
-  return <div>{card.front && card.front.title}</div>;
+function CardRow({
+  card,
+  onMouseOver,
+  onMouseOut,
+}: {
+  card: Card;
+  onMouseOver: () => void;
+  onMouseOut: () => void;
+}) {
+  return (
+    <div
+      style={{ cursor: "pointer" }}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+    >
+      {card.front && card.front.title}
+    </div>
+  );
 }
 
 export default function Cards() {
@@ -55,7 +71,13 @@ export default function Cards() {
         })
           .slice(0, 30)
           .map((card) => {
-            return <CardRow card={card} />;
+            return (
+              <CardRow
+                card={card}
+                onMouseOver={() => console.log("hovering:", card.id)}
+                onMouseOut={() => console.log("on mouse out:")}
+              />
+            );
           })}
       </Content>
     </div>
