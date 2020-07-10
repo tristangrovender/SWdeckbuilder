@@ -50,7 +50,10 @@ function CardRow({
       >
         <CardIcon style={{ pointerEvents: "none", width: "20px" }} />
       </div>
-      <div>{card.front && card.front.title}</div>
+      <div style={{ flex: 40 }}>{card.front && card.front.title}</div>
+      <div style={{ flex: 10 }}>{card.side}</div>
+      <div style={{ flex: 10 }}>{card.front.type}</div>
+      <div style={{ flex: 10 }}>{card.set}</div>
     </div>
   );
 }
@@ -96,7 +99,10 @@ export default function Cards() {
 
         <div style={{ display: "flex" }}>
           <div style={{ fontWeight: "bold", width: "50px" }}>Card</div>
-          <div style={{ fontWeight: "bold" }}>Name</div>
+          <div style={{ fontWeight: "bold", flex: 40 }}>Name</div>
+          <div style={{ fontWeight: "bold", flex: 10 }}>Side</div>
+          <div style={{ fontWeight: "bold", flex: 10 }}>Type</div>
+          <div style={{ fontWeight: "bold", flex: 10 }}>Set</div>
         </div>
         {LightCards.filter((card) => {
           if (!nameFilter) {
