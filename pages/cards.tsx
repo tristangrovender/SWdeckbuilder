@@ -103,7 +103,16 @@ export default function Cards() {
 
         <div style={{ display: "flex" }}>
           <div style={{ fontWeight: "bold", width: "50px" }}>Card</div>
-          <div style={{ fontWeight: "bold", flex: 40 }}>Name</div>
+          <div
+            style={{
+              fontWeight: "bold",
+              flex: 40,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            Name
+          </div>
           <div style={{ fontWeight: "bold", flex: 10 }}>Side</div>
           <div style={{ fontWeight: "bold", flex: 10 }}>Type</div>
           <div style={{ fontWeight: "bold", flex: 10 }}>Set</div>
@@ -113,7 +122,9 @@ export default function Cards() {
             if (!nameFilter) {
               return true;
             }
-            return card.front.title.includes(nameFilter);
+            return card.front.title
+              .toLowerCase()
+              .includes(nameFilter.toLowerCase());
           })
             .slice(0, 30)
             .map((card, i) => {
