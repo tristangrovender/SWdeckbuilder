@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Toolbar, Content, Page } from "../components/Toolbar";
 import { cards } from "../cards/cards";
 import { CardIcon } from "../components/card-icon";
+import Link from "next/link";
 
-interface Card {
+export interface Card {
   id: number;
   side: string;
   rarity: string;
@@ -53,7 +54,9 @@ function CardRow({
       >
         <CardIcon style={{ pointerEvents: "none", width: "20px" }} />
       </div>
-      <div style={{ flex: 40 }}>{card.front && card.front.title}</div>
+      <div style={{ flex: 40 }}>
+        <Link href={`/card/${card.id}`}>{card.front && card.front.title}</Link>
+      </div>
       <div style={{ flex: 10 }}>{card.side}</div>
       <div style={{ flex: 10 }}>{card.front.type}</div>
       <div style={{ flex: 10 }}>{card.set}</div>

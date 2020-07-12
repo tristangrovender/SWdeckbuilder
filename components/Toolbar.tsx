@@ -50,13 +50,13 @@ export function Toolbar() {
           <ToolbarLink>SW:CCG DB</ToolbarLink>
         </Link>
         <Link href="/my-decks">
-          <ToolbarLink>My decks</ToolbarLink>
+          <ToolbarLink style={{ fontSize: "14px" }}>My decks</ToolbarLink>
         </Link>
         <Link href="/decklists">
-          <ToolbarLink>Decklists</ToolbarLink>
+          <ToolbarLink style={{ fontSize: "14px" }}>Decklists</ToolbarLink>
         </Link>
         <Link href="/cards">
-          <ToolbarLink>Cards</ToolbarLink>
+          <ToolbarLink style={{ fontSize: "14px" }}>Cards</ToolbarLink>
         </Link>
       </ToolbarContent>
     </ToolbarContainer>
