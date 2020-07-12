@@ -4,7 +4,7 @@ import { cards } from "../cards/cards";
 import { CardIcon } from "../components/card-icon";
 import Link from "next/link";
 
-interface Card {
+export interface Card {
   id: number;
   side: string;
   rarity: string;
