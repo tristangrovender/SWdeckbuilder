@@ -1,10 +1,12 @@
 import { Page, Toolbar, Content } from "../../components/Toolbar";
 import { useRouter } from "next/router";
+import { cards } from "../../cards/cards";
 
 export default function CardPage(params) {
   const router = useRouter();
   const { id: cardId } = router.query;
-  console.log("Card ID:", cardId);
+  const card = cards.find(({ id }) => id.toString() === cardId);
+  console.log("card:", card);
   return (
     <Page>
       <Toolbar />
