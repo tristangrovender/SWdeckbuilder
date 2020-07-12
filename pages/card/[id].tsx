@@ -15,7 +15,11 @@ export default function CardPage(params) {
     <Page>
       <Toolbar />
       <Content>
-        <img src={card.front.imageUrl} style={{ height: "500px" }}></img>
+        <h2>{card.front.title}</h2>
+        <div style={{ display: "flex" }}>
+          <div>{card.front.gametext}</div>
+          <img src={card.front.imageUrl} style={{ height: "500px" }}></img>
+        </div>
       </Content>
     </Page>
   );
