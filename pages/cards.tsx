@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Toolbar, Content, Page } from "../components/Toolbar";
-import { LightCards } from "../cards/Light";
-import { DarkCards } from "../cards/Dark";
+import { cards } from "../cards/cards";
 import { CardIcon } from "../components/card-icon";
 
 interface Card {
@@ -118,14 +117,15 @@ export default function Cards() {
           <div style={{ fontWeight: "bold", flex: 10 }}>Set</div>
         </div>
         <div style={{ border: "1px solid grey" }}>
-          {LightCards.filter((card) => {
-            if (!nameFilter) {
-              return true;
-            }
-            return card.front.title
-              .toLowerCase()
-              .includes(nameFilter.toLowerCase());
-          })
+          {cards
+            .filter((card) => {
+              if (!nameFilter) {
+                return true;
+              }
+              return card.front.title
+                .toLowerCase()
+                .includes(nameFilter.toLowerCase());
+            })
             .slice(0, 30)
             .map((card, i) => {
               return (
