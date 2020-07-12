@@ -5,8 +5,9 @@ const Tile = styled.div`
   background-color: white;
   /* border: 3px solid red; */
   color: white;
-  width: 500px;
+  width: 450px;
   height: 125px;
+  margin-bottom: 40px;
 `;
 
 const TileBannerImage = styled.img`
