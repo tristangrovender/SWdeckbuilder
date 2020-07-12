@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Toolbar, Content } from "../components/Toolbar";
-import { LightCards } from "../cards/Light";
-import { DarkCards } from "../cards/Dark";
+import { Toolbar, Content, Page } from "../components/Toolbar";
+import { cards } from "../cards/cards";
 import { CardIcon } from "../components/card-icon";
 
 interface Card {
@@ -29,15 +28,19 @@ interface Card {
 
 function CardRow({
   card,
+  rowColor,
   onMouseOver,
   onMouseOut,
 }: {
   card: Card;
+  rowColor: string;
   onMouseOver: () => void;
   onMouseOut: () => void;
 }) {
   return (
-    <div style={{ cursor: "pointer", display: "flex" }}>
+    <div
+      style={{ cursor: "pointer", display: "flex", backgroundColor: rowColor }}
+    >
       <div
         onMouseEnter={onMouseOver}
         onMouseOut={onMouseOut}
@@ -86,7 +89,7 @@ export default function Cards() {
   const [nameFilter, setNameFilter] = useState(null);
   const [cardHover, setCardHover] = useState({ card: null, location: null });
   return (
-    <div>
+    <Page>
       <Toolbar />
       <Content>
         <CardHover {...cardHover} />
@@ -99,34 +102,51 @@ export default function Cards() {
 
         <div style={{ display: "flex" }}>
           <div style={{ fontWeight: "bold", width: "50px" }}>Card</div>
-          <div style={{ fontWeight: "bold", flex: 40 }}>Name</div>
+          <div
+            style={{
+              fontWeight: "bold",
+              flex: 40,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            Name
+          </div>
           <div style={{ fontWeight: "bold", flex: 10 }}>Side</div>
           <div style={{ fontWeight: "bold", flex: 10 }}>Type</div>
           <div style={{ fontWeight: "bold", flex: 10 }}>Set</div>
         </div>
-        {LightCards.filter((card) => {
-          if (!nameFilter) {
-            return true;
-          }
-          return card.front.title.includes(nameFilter);
-        })
-          .slice(0, 30)
-          .map((card) => {
-            return (
-              <CardRow
-                key={card.id}
-                card={card}
-                onMouseOver={(e) =>
-                  setCardHover({
-                    card: card,
-                    location: { x: e.pageX, y: e.pageY },
-                  })
-                }
-                onMouseOut={() => setCardHover({ card: null, location: null })}
-              />
-            );
-          })}
+        <div style={{ border: "1px solid grey" }}>
+          {cards
+            .filter((card) => {
+              if (!nameFilter) {
+                return true;
+              }
+              return card.front.title
+                .toLowerCase()
+                .includes(nameFilter.toLowerCase());
+            })
+            .slice(0, 30)
+            .map((card, i) => {
+              return (
+                <CardRow
+                  key={card.id}
+                  rowColor={i % 2 ? "#f5f5f5" : "white"}
+                  card={card}
+                  onMouseOver={(e) =>
+                    setCardHover({
+                      card: card,
+                      location: { x: e.pageX, y: e.pageY },
+                    })
+                  }
+                  onMouseOut={() =>
+                    setCardHover({ card: null, location: null })
+                  }
+                />
+              );
+            })}
+        </div>
       </Content>
-    </div>
+    </Page>
   );
 }
