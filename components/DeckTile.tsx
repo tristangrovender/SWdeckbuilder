@@ -29,16 +29,38 @@ const TileBannerDeckContents = styled.div`
   font-size: 14px;
 `;
 
-export function DeckTile() {
+export function DeckTile({
+  title,
+  author,
+  days,
+  deck,
+  cardBreakdown
+}: {
+  title: string;
+  author: string;
+  days: number;
+  deck: string;
+  cardBreakdown: {
+    characters: number;
+    effects: number;
+    weapons: number;
+    interrupts: number;
+    objectives: number;
+  };
+}) {
   return (
     <Tile>
       <TileBanner>
-        May the 4th be with you
-        <TileBannerAuthor>by darthvoodoo 2 · days ago</TileBannerAuthor>
+        {title}
+        <TileBannerAuthor>
+          by {author} · {days} days ago
+        </TileBannerAuthor>
       </TileBanner>
-      <TileBannerDeck>Deck: Dark</TileBannerDeck>
+      <TileBannerDeck>Deck: {deck}</TileBannerDeck>
       <TileBannerDeckContents>
-        35 Characters • 10 Effects • 13 Weapons • 15 Interrupts • 3 Objectives
+        {cardBreakdown.characters} Characters • {cardBreakdown.effects} Effects
+        • {cardBreakdown.weapons} Weapons • {cardBreakdown.interrupts}{" "}
+        Interrupts • {cardBreakdown.objectives} Objectives
       </TileBannerDeckContents>
     </Tile>
   );

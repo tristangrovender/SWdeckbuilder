@@ -31,7 +31,19 @@ export default function Home() {
           <HomePageH2>
             Deckbuilder for the Star Wars Customizable Card Game
           </HomePageH2>
-          <DeckTile />
+          <DeckTile
+            title="May the 4th be with you"
+            author="darthvoodoo"
+            days={2}
+            deck="Dark"
+            cardBreakdown={{
+              characters: 35,
+              effects: 10,
+              weapons: 13,
+              interrupts: 15,
+              objectives: 3
+            }}
+          />
         </HomePageContent>
       </Content>
     </Page>
