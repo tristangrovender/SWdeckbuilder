@@ -78,10 +78,10 @@ function CardPanel({ cards }: { cards: Card[] }) {
               width: "300px",
               height: "400px",
               border: "2px solid grey",
-
               backgroundColor: "#292e3c",
               margin: "10px",
               color: "white",
+              overflowY: "scroll",
             }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
