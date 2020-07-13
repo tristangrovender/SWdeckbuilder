@@ -7,19 +7,52 @@ import {
   Side,
   Card,
 } from "../../../components/card-search-table/card.interface";
-import { url } from "inspector";
+import styled from "styled-components";
 
-function CardPanelRow({ card }: { card: Card }) {
+const CardPanelRowContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: #292e3c;
+  color: white;
+  padding-left: 3px;
+  border: 1px solid transparent;
+
+  &:hover {
+    border: 1px solid #fcd144;
+  }
+`;
+
+const CardControlButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fcd144;
+  border-left: 1px solid #2f2f2f;
+  height: 100%;
+  width: 30px;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+  }
+`;
+
+function CardPanelRow({
+  card,
+  count,
+  removeCard,
+  addCard,
+}: {
+  card: Card;
+  count: number;
+  removeCard: () => void;
+  addCard: () => void;
+}) {
+  const [isHovering, setHovering] = useState(false);
   return (
-    <div
-      style={{
-        display: "flex",
-        marginBottom: "1px",
-        justifyContent: "space-between",
-        backgroundColor: "#292e3c",
-        color: "white",
-        paddingLeft: "3px",
-      }}
+    <CardPanelRowContainer
+      onMouseOver={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
     >
       <div style={{ flex: 50 }}>{card.front.title}</div>
       <div
@@ -29,6 +62,7 @@ function CardPanelRow({ card }: { card: Card }) {
           backgroundSize: "240px",
           width: "130px",
           flex: 45,
+          position: "relative",
         }}
       >
         <div
@@ -38,6 +72,21 @@ function CardPanelRow({ card }: { card: Card }) {
             height: "100%",
           }}
         ></div>
+        <div
+          style={{
+            display: isHovering ? "flex" : "none",
+            zIndex: 10,
+            position: "absolute",
+            top: "0px",
+            right: "0px",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.4)",
+            userSelect: "none",
+          }}
+        >
+          <CardControlButton onClick={removeCard}>-</CardControlButton>
+          <CardControlButton onClick={addCard}>+</CardControlButton>
+        </div>
       </div>
       <div
         style={{
@@ -49,13 +98,33 @@ function CardPanelRow({ card }: { card: Card }) {
           flex: 5,
         }}
       >
-        1
+        {count > 1 ? count : null}
       </div>
-    </div>
+    </CardPanelRowContainer>
   );
 }
 
-function CardPanel({ cards }: { cards: Card[] }) {
+function groupCards(cards: Card[]): { count: number; card: Card }[] {
+  const cardsByCount = cards.reduce((all, card) => {
+    if (!all[card.id]) {
+      all[card.id] = { card, count: 1 };
+    } else {
+      all[card.id].count += 1;
+    }
+    return all;
+  }, {});
+  return Object.values(cardsByCount);
+}
+
+function CardPanel({
+  cards,
+  addCard,
+  removeCard,
+}: {
+  cards: Card[];
+  addCard: (card: Card) => void;
+  removeCard: (card: Card) => void;
+}) {
   return (
     <StickyContainer>
       <Sticky>
@@ -66,13 +135,17 @@ function CardPanel({ cards }: { cards: Card[] }) {
               width: "300px",
               height: "400px",
               border: "2px solid grey",
-
               backgroundColor: "#292e3c",
               margin: "10px",
               color: "white",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <img src="/images/Dark.png" style={{ height: "50px" }}></img>
 
               <div
@@ -83,14 +156,23 @@ function CardPanel({ cards }: { cards: Card[] }) {
                   flexGrow: 1,
                 }}
               >
-                <div contentEditable={true} style={{ marginLeft: "-30px" }}>
-                  Un-named Deck
-                </div>
+                <span contentEditable={true}>Un-named Deck</span>
+                <span style={{ color: "rgba(255,255,255,0.5)" }}>
+                  &nbsp;({cards.length}/60)
+                </span>
               </div>
             </div>
-            {cards.map((card, i) => (
-              <CardPanelRow key={i} card={card} />
-            ))}
+            <div style={{ overflowY: "scroll", height: "400px" }}>
+              {groupCards(cards).map(({ card, count }, i) => (
+                <CardPanelRow
+                  key={i}
+                  card={card}
+                  count={count}
+                  removeCard={() => removeCard(card)}
+                  addCard={() => addCard(card)}
+                />
+              ))}
+            </div>
           </div>
         )}
       </Sticky>
@@ -103,6 +185,10 @@ export default function EditDeck(params) {
   const [deckCards, setDeckCards] = useState([]);
   const addCard = (card: Card) => {
     setDeckCards([...deckCards, card]);
+  };
+  const removeCard = (cardToRemove: Card) => {
+    const index = deckCards.findIndex((card) => card.id == cardToRemove.id);
+    setDeckCards([...deckCards.slice(0, index), ...deckCards.slice(index + 1)]);
   };
   const { id: deckId } = router.query;
   if (!deckId) {
@@ -122,7 +208,11 @@ export default function EditDeck(params) {
         <div style={{ display: "flex" }}>
           {/* TODO showSide will need to come from /deck/new choice */}
           <CardSearchTable showSide={Side.dark} onCardSelected={addCard} />
-          <CardPanel cards={deckCards}></CardPanel>
+          <CardPanel
+            cards={deckCards}
+            addCard={addCard}
+            removeCard={removeCard}
+          ></CardPanel>
         </div>
       </Content>
     </Page>
