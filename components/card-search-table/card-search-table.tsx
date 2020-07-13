@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CardIcon } from "./card-icon";
 import Link from "next/link";
 import { Card, Side } from "./card.interface";
 
@@ -102,7 +101,7 @@ export function CardSearchTable({
   }
   const showSideColumn = !Boolean(showSide);
   return (
-    <div style={{ width: "100%" }}>
+    <div>
       <CardHover {...cardHover} />
       <div>
         <input
