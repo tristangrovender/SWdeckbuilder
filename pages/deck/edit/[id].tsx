@@ -1,8 +1,13 @@
 import { Page, Toolbar, Content } from "../../../components/Toolbar";
 import { useRouter } from "next/router";
+import { CardSearchTable } from "../../../components/card-search-table/card-search-table";
 
 function CardPanel() {
-  return <div>Card Panel</div>;
+  return (
+    <div style={{ width: "300px", height: "400px", border: "1px solid red" }}>
+      Card Panel
+    </div>
+  );
 }
 
 export default function EditDeck(params) {
@@ -24,7 +29,7 @@ export default function EditDeck(params) {
       <Content>
         <div contentEditable={true}>Un-named Deck</div>
         <div style={{ display: "flex" }}>
-          <div>card search table</div>
+          <CardSearchTable />
           <CardPanel></CardPanel>
         </div>
       </Content>
