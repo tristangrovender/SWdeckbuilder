@@ -1,9 +1,7 @@
 import styled from "styled-components";
-// import dark from "../public/images/dark.png";
 
 const Tile = styled.div`
   background-color: white;
-  /* border: 3px solid red; */
   color: white;
   width: 450px;
   height: 125px;
