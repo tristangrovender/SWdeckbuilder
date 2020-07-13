@@ -31,7 +31,10 @@ export default function EditDeck(params) {
         <div contentEditable={true}>Un-named Deck</div>
         <div style={{ display: "flex" }}>
           {/* TODO showSide will need to come from /deck/new choice */}
-          <CardSearchTable showSide={Side.dark} />
+          <CardSearchTable
+            showSide={Side.dark}
+            onCardSelected={(card) => console.log("card selected", card)}
+          />
           <CardPanel></CardPanel>
         </div>
       </Content>

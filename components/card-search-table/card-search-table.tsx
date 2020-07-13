@@ -9,16 +9,19 @@ function CardRow({
   showSideColumn,
   onMouseOver,
   onMouseOut,
+  onClick,
 }: {
   card: Card;
   rowColor: string;
   showSideColumn: boolean;
   onMouseOver: (event: any) => void;
   onMouseOut: () => void;
+  onClick: () => void;
 }) {
   return (
     <div
       style={{ cursor: "pointer", display: "flex", backgroundColor: rowColor }}
+      onClick={onClick}
     >
       <div
         onMouseEnter={onMouseOver}
@@ -70,7 +73,13 @@ export async function getCards() {
   return (await import("../../cards/cards.json")).default;
 }
 
-export function CardSearchTable({ showSide }: { showSide?: Side }) {
+export function CardSearchTable({
+  showSide,
+  onCardSelected,
+}: {
+  showSide?: Side;
+  onCardSelected: (card: Card) => void;
+}) {
   const [nameFilter, setNameFilter] = useState(null);
   const [cardHover, setCardHover] = useState({ card: null, location: null });
   const [cards, setCards] = useState(null);
@@ -138,6 +147,7 @@ export function CardSearchTable({ showSide }: { showSide?: Side }) {
                   })
                 }
                 onMouseOut={() => setCardHover({ card: null, location: null })}
+                onClick={() => onCardSelected(card)}
               />
             );
           })}
