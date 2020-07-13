@@ -2,22 +2,36 @@ import { Toolbar, Content, Page } from "../components/Toolbar";
 import { dummyDeck } from "../cards/dummyDecks";
 import styled from "styled-components";
 import Favorite from "@material-ui/icons/Favorite";
-import { red } from "@material-ui/core/colors";
+import { DeckFilter } from "../components/DeckFilter";
+
+const BodyContainer = styled.div`
+  display: flex;
+  background-color: white;
+  /* border: 3px solid red; */
+  margin-top: 30px;
+  border-radius: 5px;
+`;
+
+const DeckFilterContainer = styled.div`
+  width: 20%;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  margin-right: 70px;
+`;
 
 const Table = styled.div`
-  background-color: grey;
   color: white;
   height: 100vh;
-  margin-top: 30px;
-  width: 75%;
+  width: 65%;
+  /* border: 3px solid black; */
 `;
 
 const DeckDiv = styled.div`
   display: flex;
   height: 75px;
-  background-color: #ecf0f1;
+  /* background-color: #ecf0f1; */
   color: black;
-  border-top: 1px dotted grey;
+  border-bottom: 1px solid grey;
 `;
 
 const Image = styled.img`
@@ -28,7 +42,7 @@ const Image = styled.img`
 const TitleAuthorContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 75%;
   margin-left: 10px;
 `;
 
@@ -45,9 +59,11 @@ const Author = styled.div`
 const IconDaysDiv = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: flex-end;
   padding-bottom: 12px;
+  flex-grow: 1;
+  margin-right: 20px;
 `;
 
 const HeartDiv = styled.div`
@@ -68,26 +84,35 @@ export default function DeckLists() {
     <Page>
       <Toolbar />
       <Content>
-        <Table>
-          {dummyDeck.map(deck => (
-            <DeckDiv key={deck.id}>
-              <Image src={deck.img}></Image>
-              <TitleAuthorContainer>
-                <Title>{deck.title}</Title>
-                <Author>By {deck.author}</Author>
-              </TitleAuthorContainer>
-              <IconDaysDiv>
-                <HeartDiv>
-                  <Favorite
-                    style={{ color: "red", fontSize: "14px" }}
-                  ></Favorite>
-                  0
-                </HeartDiv>
-                <Days>{deck.days} days ago</Days>
-              </IconDaysDiv>
-            </DeckDiv>
-          ))}
-        </Table>
+        <BodyContainer>
+          <DeckFilterContainer>
+            <DeckFilter></DeckFilter>
+          </DeckFilterContainer>
+          <Table>
+            {dummyDeck.map(deck => (
+              <DeckDiv key={deck.id}>
+                <Image src={deck.img}></Image>
+                <TitleAuthorContainer>
+                  <Title>{deck.title}</Title>
+                  <Author>By {deck.author}</Author>
+                </TitleAuthorContainer>
+                <IconDaysDiv>
+                  <HeartDiv>
+                    <Favorite
+                      style={{
+                        color: "red",
+                        fontSize: "14px",
+                        marginRight: "4px"
+                      }}
+                    ></Favorite>
+                    0
+                  </HeartDiv>
+                  <Days>{deck.days} days ago</Days>
+                </IconDaysDiv>
+              </DeckDiv>
+            ))}
+          </Table>
+        </BodyContainer>
       </Content>
     </Page>
   );
