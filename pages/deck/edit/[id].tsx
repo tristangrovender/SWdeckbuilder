@@ -9,7 +9,7 @@ import {
 } from "../../../components/card-search-table/card.interface";
 import { url } from "inspector";
 
-function CardPanelRow({ card }: { card: Card }) {
+function CardPanelRow({ card, count }: { card: Card; count: number }) {
   return (
     <div
       style={{
@@ -49,10 +49,22 @@ function CardPanelRow({ card }: { card: Card }) {
           flex: 5,
         }}
       >
-        1
+        {count > 1 ? count : null}
       </div>
     </div>
   );
+}
+
+function groupCards(cards: Card[]): { count: number; card: Card }[] {
+  const cardsByCount = cards.reduce((all, card) => {
+    if (!all[card.id]) {
+      all[card.id] = { card, count: 1 };
+    } else {
+      all[card.id].count += 1;
+    }
+    return all;
+  }, {});
+  return Object.values(cardsByCount);
 }
 
 function CardPanel({ cards }: { cards: Card[] }) {
@@ -88,8 +100,8 @@ function CardPanel({ cards }: { cards: Card[] }) {
                 </div>
               </div>
             </div>
-            {cards.map((card, i) => (
-              <CardPanelRow key={i} card={card} />
+            {groupCards(cards).map(({ card, count }, i) => (
+              <CardPanelRow key={i} card={card} count={count} />
             ))}
           </div>
         )}
