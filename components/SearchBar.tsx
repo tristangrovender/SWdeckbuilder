@@ -3,6 +3,7 @@ import styled from "styled-components";
 const SearchBarContainer = styled.input`
   color: lightslategrey;
   height: 25px;
+  padding: 15px 10px;
 `;
 
 export function SearchBar() {
@@ -10,16 +11,18 @@ export function SearchBar() {
     <div>
       <SearchBarContainer
         type="text"
-        defaultValue="card search"
+        placeholder="card search"
       ></SearchBarContainer>
     </div>
   );
 }
 
-// Make a decent search css search bar
+// Make a css search bar
 
-// Add state and the ability to change values
+// Add state/the ability to change values
 
 // show autocomplete for cards
+//
 
 // hit enter to accept autocomplete and go to that card page
+//
