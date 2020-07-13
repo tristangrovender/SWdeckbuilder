@@ -21,13 +21,14 @@ function CardPanelRow({ card }: { card: Card }) {
         paddingLeft: "3px",
       }}
     >
-      <div>{card.front.title}</div>
+      <div style={{ flex: 50 }}>{card.front.title}</div>
       <div
         style={{
           backgroundImage: `url(${card.front.imageUrl})`,
           backgroundPosition: "-24px -130px",
           backgroundSize: "240px",
           width: "130px",
+          flex: 45,
         }}
       >
         <div
@@ -37,6 +38,18 @@ function CardPanelRow({ card }: { card: Card }) {
             height: "100%",
           }}
         ></div>
+      </div>
+      <div
+        style={{
+          color: "#fcd144",
+          fontSize: "12px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 5,
+        }}
+      >
+        1
       </div>
     </div>
   );
