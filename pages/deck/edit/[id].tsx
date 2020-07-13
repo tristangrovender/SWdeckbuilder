@@ -1,6 +1,10 @@
 import { Page, Toolbar, Content } from "../../../components/Toolbar";
 import { useRouter } from "next/router";
 
+function CardPanel() {
+  return <div>Card Panel</div>;
+}
+
 export default function EditDeck(params) {
   const router = useRouter();
   const { id: deckId } = router.query;
@@ -17,7 +21,13 @@ export default function EditDeck(params) {
   return (
     <Page>
       <Toolbar />
-      <Content>Edit Deck</Content>
+      <Content>
+        <div contentEditable={true}>Un-named Deck</div>
+        <div style={{ display: "flex" }}>
+          <div>card search table</div>
+          <CardPanel></CardPanel>
+        </div>
+      </Content>
     </Page>
   );
 }
