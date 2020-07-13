@@ -81,10 +81,11 @@ function CardPanelRow({
             right: "0px",
             height: "100%",
             backgroundColor: "rgba(0,0,0,0.4)",
+            userSelect: "none",
           }}
         >
-          <CardControlButton onClick={addCard}>+</CardControlButton>
           <CardControlButton onClick={removeCard}>-</CardControlButton>
+          <CardControlButton onClick={addCard}>+</CardControlButton>
         </div>
       </div>
       <div
@@ -155,9 +156,10 @@ function CardPanel({
                   flexGrow: 1,
                 }}
               >
-                <div contentEditable={true} style={{ marginLeft: "-30px" }}>
-                  Un-named Deck
-                </div>
+                <span contentEditable={true}>Un-named Deck</span>
+                <span style={{ color: "rgba(255,255,255,0.5)" }}>
+                  &nbsp;({cards.length}/60)
+                </span>
               </div>
             </div>
             <div style={{ overflowY: "scroll", height: "400px" }}>
