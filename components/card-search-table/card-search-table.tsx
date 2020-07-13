@@ -95,7 +95,6 @@ export function CardSearchTable({
   style?: CSSProperties;
   onCardSelected: (card: Card) => void;
 }) {
-  const [nameFilter, setNameFilter] = useState(null);
   const [cardHover, setCardHover] = useState({ card: null, location: null });
   const [cards, setCards] = useState(null);
   if (cards === null) {
@@ -106,12 +105,6 @@ export function CardSearchTable({
   return (
     <div style={{ ...style }}>
       <CardHover {...cardHover} />
-      <div>
-        <input
-          onKeyUp={(e) => setNameFilter((e.target as any).value)}
-          placeholder="Card Name"
-        ></input>
-      </div>
 
       <div style={{ display: "flex" }}>
         <div
@@ -138,14 +131,14 @@ export function CardSearchTable({
             }
             return true;
           })
-          .filter((card) => {
-            if (!nameFilter) {
-              return true;
-            }
-            return card.front.title
-              .toLowerCase()
-              .includes(nameFilter.toLowerCase());
-          })
+          // .filter((card) => {
+          //   if (!nameFilter) {
+          //     return true;
+          //   }
+          //   return card.front.title
+          //     .toLowerCase()
+          //     .includes(nameFilter.toLowerCase());
+          // })
           .slice(0, 30)
           .map((card, i) => {
             return (

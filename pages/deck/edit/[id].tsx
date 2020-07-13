@@ -8,6 +8,7 @@ import {
   Card,
 } from "../../../components/card-search-table/card.interface";
 import styled from "styled-components";
+import { CardFiltersBar } from "../../../components/card-search-table/card-filters-bar";
 
 const CardPanelRowContainer = styled.div`
   display: flex;
@@ -205,6 +206,7 @@ export default function EditDeck(params) {
     <Page>
       <Toolbar />
       <div style={{ display: "flex" }}>
+        <CardFiltersBar />
         {/* TODO showSide will need to come from /deck/new choice */}
         <CardSearchTable
           showSide={Side.dark}
