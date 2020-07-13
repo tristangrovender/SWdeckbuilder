@@ -6,11 +6,13 @@ import { Card } from "./card.interface";
 function CardRow({
   card,
   rowColor,
+  showSide,
   onMouseOver,
   onMouseOut,
 }: {
   card: Card;
   rowColor: string;
+  showSide: boolean;
   onMouseOver: (event: any) => void;
   onMouseOut: () => void;
 }) {
@@ -33,7 +35,7 @@ function CardRow({
       <div style={{ flex: 40 }}>
         <Link href={`/card/${card.id}`}>{card.front && card.front.title}</Link>
       </div>
-      <div style={{ flex: 10 }}>{card.side}</div>
+      {showSide ? <div style={{ flex: 10 }}>{card.side}</div> : null}
       <div style={{ flex: 10 }}>{card.front.type}</div>
       <div style={{ flex: 10 }}>{card.set}</div>
     </div>
@@ -68,7 +70,7 @@ export async function getCards() {
   return (await import("../../cards/cards.json")).default;
 }
 
-export function CardSearchTable() {
+export function CardSearchTable({ showSide = true }: { showSide?: boolean }) {
   const [nameFilter, setNameFilter] = useState(null);
   const [cardHover, setCardHover] = useState({ card: null, location: null });
   const [cards, setCards] = useState(null);
@@ -98,7 +100,9 @@ export function CardSearchTable() {
         >
           Name
         </div>
-        <div style={{ fontWeight: "bold", flex: 10 }}>Side</div>
+        {showSide ? (
+          <div style={{ fontWeight: "bold", flex: 10 }}>Side</div>
+        ) : null}
         <div style={{ fontWeight: "bold", flex: 10 }}>Type</div>
         <div style={{ fontWeight: "bold", flex: 10 }}>Set</div>
       </div>
@@ -119,6 +123,7 @@ export function CardSearchTable() {
                 key={card.id}
                 rowColor={i % 2 ? "#f5f5f5" : "white"}
                 card={card}
+                showSide={showSide}
                 onMouseOver={(e) =>
                   setCardHover({
                     card: card,

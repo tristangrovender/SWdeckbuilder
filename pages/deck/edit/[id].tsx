@@ -29,7 +29,7 @@ export default function EditDeck(params) {
       <Content>
         <div contentEditable={true}>Un-named Deck</div>
         <div style={{ display: "flex" }}>
-          <CardSearchTable />
+          <CardSearchTable showSide={false} />
           <CardPanel></CardPanel>
         </div>
       </Content>
