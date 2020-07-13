@@ -23,24 +23,19 @@ function CardRow({
       style={{ cursor: "pointer", display: "flex", backgroundColor: rowColor }}
       onClick={onClick}
     >
-      <div
-        onMouseEnter={onMouseOver}
-        onMouseOut={onMouseOut}
-        style={{
-          width: "50px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CardIcon style={{ pointerEvents: "none", width: "20px" }} />
-      </div>
-      <div style={{ flex: 40 }}>
-        <Link href={`/card/${card.id}`}>{card.front && card.front.title}</Link>
+      <div style={{ flex: 40, alignItems: "center", display: "flex" }}>
+        <a
+          href={`/card/${card.id}`}
+          onMouseEnter={onMouseOver}
+          onMouseOut={onMouseOut}
+          style={{ marginLeft: "10px" }}
+        >
+          {card.front && card.front.title}
+        </a>
       </div>
       {showSideColumn ? <div style={{ flex: 10 }}>{card.side}</div> : null}
-      <div style={{ flex: 10 }}>{card.front.type}</div>
-      <div style={{ flex: 10 }}>{card.set}</div>
+      <div style={{ flex: 10, marginRight: "5px" }}>{card.front.type}</div>
+      <div style={{ flex: 10, marginRight: "5px" }}>{card.set}</div>
     </div>
   );
 }
@@ -89,7 +84,7 @@ export function CardSearchTable({
   }
   const showSideColumn = !Boolean(showSide);
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <CardHover {...cardHover} />
       <div>
         <input
@@ -99,7 +94,6 @@ export function CardSearchTable({
       </div>
 
       <div style={{ display: "flex" }}>
-        <div style={{ fontWeight: "bold", width: "50px" }}>Card</div>
         <div
           style={{
             fontWeight: "bold",
