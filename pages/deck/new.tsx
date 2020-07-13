@@ -16,7 +16,9 @@ export default function NewDeck() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              cursor: "pointer",
             }}
+            onClick={() => setSide("dark")}
           >
             <img src="/images/dark.png"></img>
             <div
@@ -26,7 +28,6 @@ export default function NewDeck() {
                 cursor: "pointer",
                 justifyContent: "center",
               }}
-              onClick={() => setSide("dark")}
             >
               <Radio
                 checked={side === "dark"}
@@ -42,7 +43,9 @@ export default function NewDeck() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              cursor: "pointer",
             }}
+            onClick={() => setSide("light")}
           >
             <img src="/images/light.png"></img>
             <div
@@ -52,7 +55,6 @@ export default function NewDeck() {
                 cursor: "pointer",
                 justifyContent: "center",
               }}
-              onClick={() => setSide("light")}
             >
               <Radio
                 checked={side === "light"}
