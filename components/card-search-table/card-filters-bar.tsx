@@ -31,7 +31,7 @@ export function CardFiltersBar() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "3px 7px",
+          padding: "2px 7px",
           marginRight: "10px",
         }}
       >
@@ -44,6 +44,7 @@ export function CardFiltersBar() {
           border: "1px solid #6f6f6f",
           display: "flex",
           alignItems: "center",
+          padding: "2px 0px",
           paddingRight: "10px",
           justifyContent: "center",
         }}
