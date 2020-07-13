@@ -1,6 +1,11 @@
+export enum Side {
+  light = "Light",
+  dark = "Dark",
+}
+
 export interface Card {
   id: number;
-  side: string;
+  side: Side;
   rarity: string;
   set: string;
   front: {

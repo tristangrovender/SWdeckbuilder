@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { CardIcon } from "./card-icon";
 import Link from "next/link";
-import { Card } from "./card.interface";
+import { Card, Side } from "./card.interface";
 
 function CardRow({
   card,
   rowColor,
-  showSide,
+  showSideColumn,
   onMouseOver,
   onMouseOut,
 }: {
   card: Card;
   rowColor: string;
-  showSide: boolean;
+  showSideColumn: boolean;
   onMouseOver: (event: any) => void;
   onMouseOut: () => void;
 }) {
@@ -35,7 +35,7 @@ function CardRow({
       <div style={{ flex: 40 }}>
         <Link href={`/card/${card.id}`}>{card.front && card.front.title}</Link>
       </div>
-      {showSide ? <div style={{ flex: 10 }}>{card.side}</div> : null}
+      {showSideColumn ? <div style={{ flex: 10 }}>{card.side}</div> : null}
       <div style={{ flex: 10 }}>{card.front.type}</div>
       <div style={{ flex: 10 }}>{card.set}</div>
     </div>
@@ -70,7 +70,7 @@ export async function getCards() {
   return (await import("../../cards/cards.json")).default;
 }
 
-export function CardSearchTable({ showSide = true }: { showSide?: boolean }) {
+export function CardSearchTable({ showSide }: { showSide?: Side }) {
   const [nameFilter, setNameFilter] = useState(null);
   const [cardHover, setCardHover] = useState({ card: null, location: null });
   const [cards, setCards] = useState(null);
@@ -78,6 +78,7 @@ export function CardSearchTable({ showSide = true }: { showSide?: boolean }) {
     getCards().then(setCards);
     return <div>Loading Cards</div>;
   }
+  const showSideColumn = !Boolean(showSide);
   return (
     <div>
       <CardHover {...cardHover} />
@@ -100,7 +101,7 @@ export function CardSearchTable({ showSide = true }: { showSide?: boolean }) {
         >
           Name
         </div>
-        {showSide ? (
+        {showSideColumn ? (
           <div style={{ fontWeight: "bold", flex: 10 }}>Side</div>
         ) : null}
         <div style={{ fontWeight: "bold", flex: 10 }}>Type</div>
@@ -108,6 +109,12 @@ export function CardSearchTable({ showSide = true }: { showSide?: boolean }) {
       </div>
       <div style={{ border: "1px solid grey" }}>
         {cards
+          .filter((card) => {
+            if (showSide) {
+              return card.side === showSide;
+            }
+            return true;
+          })
           .filter((card) => {
             if (!nameFilter) {
               return true;
@@ -123,7 +130,7 @@ export function CardSearchTable({ showSide = true }: { showSide?: boolean }) {
                 key={card.id}
                 rowColor={i % 2 ? "#f5f5f5" : "white"}
                 card={card}
-                showSide={showSide}
+                showSideColumn={showSideColumn}
                 onMouseOver={(e) =>
                   setCardHover({
                     card: card,
