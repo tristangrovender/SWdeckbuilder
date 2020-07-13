@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Toolbar, Content, Page } from "../components/Toolbar";
-import { cards } from "../cards/cards";
 import { CardIcon } from "../components/card-icon";
 import Link from "next/link";
 
@@ -88,9 +87,23 @@ function CardHover({
   );
 }
 
+export async function getCards() {
+  return (await import("../cards/cards.json")).default;
+}
+
 export default function Cards() {
   const [nameFilter, setNameFilter] = useState(null);
   const [cardHover, setCardHover] = useState({ card: null, location: null });
+  const [cards, setCards] = useState(null);
+  if (cards === null) {
+    getCards().then(setCards);
+    return (
+      <Page>
+        <Toolbar />
+        <Content>Loading Cards</Content>
+      </Page>
+    );
+  }
   return (
     <Page>
       <Toolbar />

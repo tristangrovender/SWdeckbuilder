@@ -1,10 +1,20 @@
+import { useState } from "react";
 import { Page, Toolbar, Content } from "../../components/Toolbar";
 import { useRouter } from "next/router";
-import { cards } from "../../cards/cards";
-import { Card } from "../cards";
+import { Card, getCards } from "../cards";
 
 export default function CardPage(params) {
   const router = useRouter();
+  const [cards, setCards] = useState(null);
+  if (cards === null) {
+    getCards().then(setCards);
+    return (
+      <Page>
+        <Toolbar />
+        <Content>Loading card...</Content>
+      </Page>
+    );
+  }
   const { id: cardId } = router.query;
   const card: Card = cards.find(({ id }) => id.toString() === cardId);
   console.log("card:", card);
