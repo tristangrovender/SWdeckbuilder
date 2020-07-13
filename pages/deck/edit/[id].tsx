@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Page, Toolbar, Content } from "../../../components/Toolbar";
+import { StickyContainer, Sticky } from "react-sticky";
 import { useRouter } from "next/router";
 import { CardSearchTable } from "../../../components/card-search-table/card-search-table";
 import {
@@ -42,12 +43,25 @@ function CardPanelRow({ card }: { card: Card }) {
 
 function CardPanel({ cards }: { cards: Card[] }) {
   return (
-    <div style={{ width: "300px", height: "400px", border: "1px solid red" }}>
-      Card Panel
-      {cards.map((card, i) => (
-        <CardPanelRow key={i} card={card} />
-      ))}
-    </div>
+    <StickyContainer>
+      <Sticky>
+        {({ style }) => (
+          <div
+            style={{
+              ...style,
+              width: "300px",
+              height: "400px",
+              border: "1px solid red",
+            }}
+          >
+            Card Panel
+            {cards.map((card, i) => (
+              <CardPanelRow key={i} card={card} />
+            ))}
+          </div>
+        )}
+      </Sticky>
+    </StickyContainer>
   );
 }
 
