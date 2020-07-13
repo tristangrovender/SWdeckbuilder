@@ -34,8 +34,26 @@ function CardRow({
         </a>
       </div>
       {showSideColumn ? <div style={{ flex: 10 }}>{card.side}</div> : null}
-      <div style={{ flex: 10, marginRight: "5px" }}>{card.front.type}</div>
-      <div style={{ flex: 10, marginRight: "5px" }}>{card.set}</div>
+      <div
+        style={{
+          flex: 10,
+          marginRight: "5px",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        {card.front.type}
+      </div>
+      <div
+        style={{
+          flex: 10,
+          marginRight: "5px",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        {card.set}
+      </div>
     </div>
   );
 }
