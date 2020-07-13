@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Toolbar, Content, Page } from "../../components/Toolbar";
 import Button from "@material-ui/core/Button";
 import Radio from "@material-ui/core/Radio";
+import Link from "next/link";
 
 export default function NewDeck() {
   const [side, setSide] = useState("dark");
@@ -66,9 +67,11 @@ export default function NewDeck() {
             </div>
           </div>
         </div>
-        <Button variant="contained" color="primary">
-          Create deck
-        </Button>
+        <Link href="/deck/edit/111">
+          <Button variant="contained" color="primary">
+            Create deck
+          </Button>
+        </Link>
       </Content>
     </Page>
   );
