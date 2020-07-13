@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Toolbar, Content, Page } from "../../components/Toolbar";
 import Button from "@material-ui/core/Button";
 import Radio from "@material-ui/core/Radio";
+import Link from "next/link";
 
 export default function NewDeck() {
   const [side, setSide] = useState("dark");
@@ -16,7 +17,9 @@ export default function NewDeck() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              cursor: "pointer",
             }}
+            onClick={() => setSide("dark")}
           >
             <img src="/images/dark.png"></img>
             <div
@@ -26,7 +29,6 @@ export default function NewDeck() {
                 cursor: "pointer",
                 justifyContent: "center",
               }}
-              onClick={() => setSide("dark")}
             >
               <Radio
                 checked={side === "dark"}
@@ -42,7 +44,9 @@ export default function NewDeck() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              cursor: "pointer",
             }}
+            onClick={() => setSide("light")}
           >
             <img src="/images/light.png"></img>
             <div
@@ -52,7 +56,6 @@ export default function NewDeck() {
                 cursor: "pointer",
                 justifyContent: "center",
               }}
-              onClick={() => setSide("light")}
             >
               <Radio
                 checked={side === "light"}
@@ -64,9 +67,11 @@ export default function NewDeck() {
             </div>
           </div>
         </div>
-        <Button variant="contained" color="primary">
-          Create deck
-        </Button>
+        <Link href="/deck/edit/111">
+          <Button variant="contained" color="primary">
+            Create deck
+          </Button>
+        </Link>
       </Content>
     </Page>
   );
