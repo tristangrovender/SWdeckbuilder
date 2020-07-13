@@ -88,12 +88,12 @@ export async function getCards() {
 
 export function CardSearchTable({
   showSide,
-  onCardSelected,
+  onCardSelected = () => {},
   style = {},
 }: {
   showSide?: Side;
   style?: CSSProperties;
-  onCardSelected: (card: Card) => void;
+  onCardSelected?: (card: Card) => void;
 }) {
   const [cardHover, setCardHover] = useState({ card: null, location: null });
   const [cards, setCards] = useState(null);
