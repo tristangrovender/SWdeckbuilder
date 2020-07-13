@@ -34,7 +34,7 @@ function CardRow({
 }: {
   card: Card;
   rowColor: string;
-  onMouseOver: () => void;
+  onMouseOver: (event: any) => void;
   onMouseOut: () => void;
 }) {
   return (
@@ -111,7 +111,7 @@ export default function Cards() {
         <CardHover {...cardHover} />
         <div>
           <input
-            onKeyUp={(e) => setNameFilter(e.target.value)}
+            onKeyUp={(e) => setNameFilter((e.target as any).value)}
             placeholder="Card Name"
           ></input>
         </div>
