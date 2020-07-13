@@ -204,17 +204,22 @@ export default function EditDeck(params) {
   return (
     <Page>
       <Toolbar />
-      <Content>
-        <div style={{ display: "flex" }}>
-          {/* TODO showSide will need to come from /deck/new choice */}
-          <CardSearchTable showSide={Side.dark} onCardSelected={addCard} />
-          <CardPanel
-            cards={deckCards}
-            addCard={addCard}
-            removeCard={removeCard}
-          ></CardPanel>
-        </div>
-      </Content>
+      <div style={{ display: "flex" }}>
+        {/* TODO showSide will need to come from /deck/new choice */}
+        <CardSearchTable
+          showSide={Side.dark}
+          onCardSelected={addCard}
+          style={{
+            width: "70vw",
+            marginLeft: "3vw",
+          }}
+        />
+        <CardPanel
+          cards={deckCards}
+          addCard={addCard}
+          removeCard={removeCard}
+        ></CardPanel>
+      </div>
     </Page>
   );
 }

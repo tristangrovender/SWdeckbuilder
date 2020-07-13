@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Card, Side } from "./card.interface";
+import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
 function CardRow({
   card,
@@ -88,8 +89,10 @@ export async function getCards() {
 export function CardSearchTable({
   showSide,
   onCardSelected,
+  style = {},
 }: {
   showSide?: Side;
+  style?: CSSProperties;
   onCardSelected: (card: Card) => void;
 }) {
   const [nameFilter, setNameFilter] = useState(null);
@@ -101,7 +104,7 @@ export function CardSearchTable({
   }
   const showSideColumn = !Boolean(showSide);
   return (
-    <div>
+    <div style={{ ...style }}>
       <CardHover {...cardHover} />
       <div>
         <input
