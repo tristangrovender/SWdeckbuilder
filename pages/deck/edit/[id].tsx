@@ -6,13 +6,46 @@ import {
   Side,
   Card,
 } from "../../../components/card-search-table/card.interface";
+import { url } from "inspector";
+
+function CardPanelRow({ card }: { card: Card }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        border: "1px solid grey",
+        justifyContent: "space-between",
+        backgroundColor: "#292e3c",
+        color: "white",
+      }}
+    >
+      <div>{card.front.title}</div>
+      <div
+        style={{
+          backgroundImage: `url(${card.front.imageUrl})`,
+          backgroundPosition: "-24px -130px",
+          backgroundSize: "240px",
+          width: "130px",
+        }}
+      >
+        <div
+          style={{
+            background:
+              "linear-gradient(to left, rgba(255,255,255,0) 0%,rgb(41, 46, 60) 100%)",
+            height: "100%",
+          }}
+        ></div>
+      </div>
+    </div>
+  );
+}
 
 function CardPanel({ cards }: { cards: Card[] }) {
   return (
     <div style={{ width: "300px", height: "400px", border: "1px solid red" }}>
       Card Panel
       {cards.map((card, i) => (
-        <div key={i}>{card.front.title}</div>
+        <CardPanelRow key={i} card={card} />
       ))}
     </div>
   );
