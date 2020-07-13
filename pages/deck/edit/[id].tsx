@@ -30,8 +30,9 @@ const CardControlButton = styled.div`
   border-left: 1px solid #2f2f2f;
   height: 100%;
   width: 30px;
+  cursor: pointer;
 
-  $:hover {
+  &:hover {
     color: white;
   }
 `;
