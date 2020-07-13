@@ -22,9 +22,27 @@ const CardPanelRowContainer = styled.div`
   }
 `;
 
+const CardControlButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fcd144;
+  border-left: 1px solid #2f2f2f;
+  height: 100%;
+  width: 30px;
+
+  $:hover {
+    color: white;
+  }
+`;
+
 function CardPanelRow({ card, count }: { card: Card; count: number }) {
+  const [isHovering, setHovering] = useState(false);
   return (
-    <CardPanelRowContainer>
+    <CardPanelRowContainer
+      onMouseOver={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
       <div style={{ flex: 50 }}>{card.front.title}</div>
       <div
         style={{
@@ -33,6 +51,7 @@ function CardPanelRow({ card, count }: { card: Card; count: number }) {
           backgroundSize: "240px",
           width: "130px",
           flex: 45,
+          position: "relative",
         }}
       >
         <div
@@ -42,6 +61,20 @@ function CardPanelRow({ card, count }: { card: Card; count: number }) {
             height: "100%",
           }}
         ></div>
+        <div
+          style={{
+            display: isHovering ? "flex" : "none",
+            zIndex: 10,
+            position: "absolute",
+            top: "0px",
+            right: "0px",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.4)",
+          }}
+        >
+          <CardControlButton>+</CardControlButton>
+          <CardControlButton>-</CardControlButton>
+        </div>
       </div>
       <div
         style={{
