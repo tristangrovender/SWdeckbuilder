@@ -37,7 +37,17 @@ const CardControlButton = styled.div`
   }
 `;
 
-function CardPanelRow({ card, count }: { card: Card; count: number }) {
+function CardPanelRow({
+  card,
+  count,
+  removeCard,
+  addCard,
+}: {
+  card: Card;
+  count: number;
+  removeCard: () => void;
+  addCard: () => void;
+}) {
   const [isHovering, setHovering] = useState(false);
   return (
     <CardPanelRowContainer
@@ -73,8 +83,8 @@ function CardPanelRow({ card, count }: { card: Card; count: number }) {
             backgroundColor: "rgba(0,0,0,0.4)",
           }}
         >
-          <CardControlButton>+</CardControlButton>
-          <CardControlButton>-</CardControlButton>
+          <CardControlButton onClick={addCard}>+</CardControlButton>
+          <CardControlButton onClick={removeCard}>-</CardControlButton>
         </div>
       </div>
       <div
@@ -105,7 +115,15 @@ function groupCards(cards: Card[]): { count: number; card: Card }[] {
   return Object.values(cardsByCount);
 }
 
-function CardPanel({ cards }: { cards: Card[] }) {
+function CardPanel({
+  cards,
+  addCard,
+  removeCard,
+}: {
+  cards: Card[];
+  addCard: (card: Card) => void;
+  removeCard: (card: Card) => void;
+}) {
   return (
     <StickyContainer>
       <Sticky>
@@ -144,7 +162,13 @@ function CardPanel({ cards }: { cards: Card[] }) {
             </div>
             <div style={{ overflowY: "scroll", height: "400px" }}>
               {groupCards(cards).map(({ card, count }, i) => (
-                <CardPanelRow key={i} card={card} count={count} />
+                <CardPanelRow
+                  key={i}
+                  card={card}
+                  count={count}
+                  removeCard={() => removeCard(card)}
+                  addCard={() => addCard(card)}
+                />
               ))}
             </div>
           </div>
@@ -159,6 +183,10 @@ export default function EditDeck(params) {
   const [deckCards, setDeckCards] = useState([]);
   const addCard = (card: Card) => {
     setDeckCards([...deckCards, card]);
+  };
+  const removeCard = (cardToRemove: Card) => {
+    const index = deckCards.findIndex((card) => card.id == cardToRemove.id);
+    setDeckCards([...deckCards.slice(0, index), ...deckCards.slice(index + 1)]);
   };
   const { id: deckId } = router.query;
   if (!deckId) {
@@ -178,7 +206,11 @@ export default function EditDeck(params) {
         <div style={{ display: "flex" }}>
           {/* TODO showSide will need to come from /deck/new choice */}
           <CardSearchTable showSide={Side.dark} onCardSelected={addCard} />
-          <CardPanel cards={deckCards}></CardPanel>
+          <CardPanel
+            cards={deckCards}
+            addCard={addCard}
+            removeCard={removeCard}
+          ></CardPanel>
         </div>
       </Content>
     </Page>
