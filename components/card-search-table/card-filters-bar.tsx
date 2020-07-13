@@ -1,3 +1,3 @@
 export function CardFiltersBar() {
-  return <div>CardFiltersBar</div>;
+  return <div style={{ display: "flex", flexGrow: "1" }}>CardFiltersBar</div>;
 }
