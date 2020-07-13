@@ -14,10 +14,11 @@ function CardPanelRow({ card }: { card: Card }) {
     <div
       style={{
         display: "flex",
-        border: "1px solid grey",
+        marginBottom: "1px",
         justifyContent: "space-between",
         backgroundColor: "#292e3c",
         color: "white",
+        paddingLeft: "3px",
       }}
     >
       <div>{card.front.title}</div>
@@ -51,10 +52,29 @@ function CardPanel({ cards }: { cards: Card[] }) {
               ...style,
               width: "300px",
               height: "400px",
-              border: "1px solid red",
+              border: "2px solid grey",
+
+              backgroundColor: "#292e3c",
+              margin: "10px",
+              color: "white",
             }}
           >
-            Card Panel
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src="/images/Dark.png" style={{ height: "50px" }}></img>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexGrow: 1,
+                }}
+              >
+                <div contentEditable={true} style={{ marginLeft: "-30px" }}>
+                  Un-named Deck
+                </div>
+              </div>
+            </div>
             {cards.map((card, i) => (
               <CardPanelRow key={i} card={card} />
             ))}
@@ -86,7 +106,6 @@ export default function EditDeck(params) {
     <Page>
       <Toolbar />
       <Content>
-        <div contentEditable={true}>Un-named Deck</div>
         <div style={{ display: "flex" }}>
           {/* TODO showSide will need to come from /deck/new choice */}
           <CardSearchTable showSide={Side.dark} onCardSelected={addCard} />
