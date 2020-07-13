@@ -81,10 +81,14 @@ function CardPanel({ cards }: { cards: Card[] }) {
               backgroundColor: "#292e3c",
               margin: "10px",
               color: "white",
-              overflowY: "scroll",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <img src="/images/Dark.png" style={{ height: "50px" }}></img>
 
               <div
@@ -100,9 +104,11 @@ function CardPanel({ cards }: { cards: Card[] }) {
                 </div>
               </div>
             </div>
-            {groupCards(cards).map(({ card, count }, i) => (
-              <CardPanelRow key={i} card={card} count={count} />
-            ))}
+            <div style={{ overflowY: "scroll", height: "400px" }}>
+              {groupCards(cards).map(({ card, count }, i) => (
+                <CardPanelRow key={i} card={card} count={count} />
+              ))}
+            </div>
           </div>
         )}
       </Sticky>
