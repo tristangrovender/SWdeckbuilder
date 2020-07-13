@@ -7,20 +7,24 @@ import {
   Side,
   Card,
 } from "../../../components/card-search-table/card.interface";
-import { url } from "inspector";
+import styled from "styled-components";
+
+const CardPanelRowContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: #292e3c;
+  color: white;
+  padding-left: 3px;
+  border: 1px solid transparent;
+
+  &:hover {
+    border: 1px solid #fcd144;
+  }
+`;
 
 function CardPanelRow({ card, count }: { card: Card; count: number }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        marginBottom: "1px",
-        justifyContent: "space-between",
-        backgroundColor: "#292e3c",
-        color: "white",
-        paddingLeft: "3px",
-      }}
-    >
+    <CardPanelRowContainer>
       <div style={{ flex: 50 }}>{card.front.title}</div>
       <div
         style={{
@@ -51,7 +55,7 @@ function CardPanelRow({ card, count }: { card: Card; count: number }) {
       >
         {count > 1 ? count : null}
       </div>
-    </div>
+    </CardPanelRowContainer>
   );
 }
 
