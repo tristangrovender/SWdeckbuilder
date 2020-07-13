@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { SearchBar } from "../components/SearchBar";
 
 const contentWidth = 960;
 
@@ -21,6 +22,11 @@ const ToolbarContent = styled.div`
   display: flex;
   width: ${contentWidth}px;
   align-items: center;
+  /* 
+  :nth-last-child(0) {
+    align-self: flex-end;
+    color: red;
+  } */
 `;
 
 const ToolbarLink = styled.div`
@@ -58,6 +64,8 @@ export function Toolbar() {
         <Link href="/cards">
           <ToolbarLink style={{ fontSize: "14px" }}>Cards</ToolbarLink>
         </Link>
+        <div style={{ flexGrow: 1 }}></div>
+        <SearchBar></SearchBar>
       </ToolbarContent>
     </ToolbarContainer>
   );

@@ -7,7 +7,6 @@ import { DeckFilter } from "../components/DeckFilter";
 const BodyContainer = styled.div`
   display: flex;
   background-color: white;
-  /* border: 3px solid red; */
   margin-top: 30px;
   border-radius: 5px;
 `;
@@ -23,13 +22,11 @@ const Table = styled.div`
   color: white;
   height: 100vh;
   width: 65%;
-  /* border: 3px solid black; */
 `;
 
 const DeckDiv = styled.div`
   display: flex;
   height: 75px;
-  /* background-color: #ecf0f1; */
   color: black;
   border-bottom: 1px solid grey;
 `;
