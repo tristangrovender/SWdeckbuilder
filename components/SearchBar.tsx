@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { getCards } from "../components/card-search-table/card-search-table";
 import { CardSnippet } from "./card-snippet";
+import Router from "next/router";
 
 // 3. Go to card page when clicked
 // 4. Press enter brings to card page with that filter applied
@@ -31,9 +32,12 @@ export function SearchBar() {
   const [cards, setCards] = useState([]);
   const [focus, setFocus] = useState(false);
 
-  const handleSearchInputChanges = (e) => {
+  const handleSearchInputChanges = e => {
     if (e.keyCode === 13) {
-      console.log("enter!!");
+      Router.push({
+        pathname: "/cards",
+        query: { title: searchValue }
+      });
     } else {
       setSearchValue(e.target.value);
     }
@@ -51,7 +55,7 @@ export function SearchBar() {
       <SearchBarContainer
         style={{
           transitionDuration: "200ms",
-          width: focus ? "300px" : "175px",
+          width: focus ? "300px" : "175px"
         }}
         type="text"
         placeholder="card search"
@@ -61,13 +65,13 @@ export function SearchBar() {
       />
       {searchValue.length === 0 ? null : (
         <ResultsDropdown style={focus ? {} : { display: "none" }}>
-          {matchingResults.slice(0, 5).map((card) => (
+          {matchingResults.slice(0, 5).map(card => (
             <CardSnippet
               card={card}
-              onMouseDown={() => console.log("Clicked!", card.id)}
+              onMouseDown={() => Router.push(`/card/${card.id}`)}
               style={{
                 padding: "1px",
-                cursor: "pointer",
+                cursor: "pointer"
               }}
             />
           ))}
