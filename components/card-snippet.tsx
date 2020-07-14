@@ -24,14 +24,14 @@ export function CardSnippet({
   isHovering,
   removeCard,
   addCard,
-  onClick,
+  onMouseDown,
 }: {
   card: Card;
   style: CSSProperties;
   isHovering?: boolean;
   removeCard?: () => void;
   addCard?: () => void;
-  onClick?: () => void;
+  onMouseDown?: () => void;
 }) {
   const [url, setUrl] = useState(card.front.imageUrl);
   useEffect(() => {
@@ -39,7 +39,7 @@ export function CardSnippet({
   }, [card.front.imageUrl]);
   return (
     <div
-      onMouseDown={onClick}
+      onMouseDown={onMouseDown}
       style={{
         ...style,
         display: "flex",
