@@ -9,19 +9,23 @@ function CardRow({
   showSideColumn,
   onMouseOver,
   onMouseOut,
-  onClick,
+  onAdd,
 }: {
   card: Card;
   rowColor: string;
   showSideColumn: boolean;
   onMouseOver: (event: any) => void;
   onMouseOut: () => void;
-  onClick: () => void;
+  onAdd: () => void;
 }) {
   return (
     <div
-      style={{ cursor: "pointer", display: "flex", backgroundColor: rowColor }}
-      onClick={onClick}
+      style={{
+        cursor: onAdd ? "copy" : "initial",
+        display: "flex",
+        backgroundColor: rowColor,
+      }}
+      onClick={onAdd}
     >
       <div style={{ flex: 40, alignItems: "center", display: "flex" }}>
         <a
@@ -154,7 +158,7 @@ export function CardSearchTable({
                   })
                 }
                 onMouseOut={() => setCardHover({ card: null, location: null })}
-                onClick={() => onCardSelected(card)}
+                onAdd={() => onCardSelected(card)}
               />
             );
           })}
