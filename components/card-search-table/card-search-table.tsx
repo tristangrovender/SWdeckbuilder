@@ -2,6 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Card, Side } from "./card.interface";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
+import AddIcon from "@material-ui/icons/Add";
 
 function CardRow({
   card,
@@ -21,11 +22,9 @@ function CardRow({
   return (
     <div
       style={{
-        cursor: onAdd ? "copy" : "initial",
         display: "flex",
         backgroundColor: rowColor,
       }}
-      onClick={onAdd}
     >
       <div style={{ flex: 40, alignItems: "center", display: "flex" }}>
         <a
@@ -57,6 +56,16 @@ function CardRow({
         }}
       >
         {card.set}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginRight: "2px",
+        }}
+      >
+        <AddIcon onClick={onAdd} style={{ cursor: "pointer" }} />
       </div>
     </div>
   );
@@ -126,6 +135,7 @@ export function CardSearchTable({
         ) : null}
         <div style={{ fontWeight: "bold", flex: 10 }}>Type</div>
         <div style={{ fontWeight: "bold", flex: 10 }}>Set</div>
+        <div style={{ width: "40px" }}></div>
       </div>
       <div style={{ border: "1px solid grey" }}>
         {cards

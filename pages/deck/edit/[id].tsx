@@ -174,7 +174,7 @@ function CardPanel({
                     justifyContent: "center",
                   }}
                 >
-                  Click a row in the table to add a card.
+                  Click add in the table to add cards to your deck
                 </div>
               ) : (
                 groupCards(cards).map(({ card, count }, i) => (
