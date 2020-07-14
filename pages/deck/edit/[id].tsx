@@ -147,7 +147,7 @@ function CardPanel({
                 alignItems: "center",
               }}
             >
-              <img src="/images/Dark.png" style={{ height: "50px" }}></img>
+              <img src="/images/dark.png" style={{ height: "50px" }}></img>
 
               <div
                 style={{
