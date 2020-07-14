@@ -24,12 +24,14 @@ export function CardSnippet({
   isHovering,
   removeCard,
   addCard,
+  onClick
 }: {
   card: Card;
   style: CSSProperties;
   isHovering?: boolean;
   removeCard?: () => void;
   addCard?: () => void;
+  onClick?: () => void;
 }) {
   const [url, setUrl] = useState(card.front.imageUrl);
   useEffect(() => {
@@ -37,12 +39,13 @@ export function CardSnippet({
   }, [card.front.imageUrl]);
   return (
     <div
+      onClick={onClick}
       style={{
         ...style,
         display: "flex",
         justifyContent: "space-between",
         backgroundColor: "#292e3c",
-        flexGrow: 1,
+        flexGrow: 1
       }}
     >
       <div
@@ -52,7 +55,7 @@ export function CardSnippet({
           backgroundColor: "#292e3c",
           color: "white",
           overflow: "hidden",
-          textOverflow: "ellipsis",
+          textOverflow: "ellipsis"
         }}
       >
         {card.front.title}
@@ -63,14 +66,14 @@ export function CardSnippet({
           backgroundPosition: "-24px -130px",
           backgroundSize: "240px",
           width: "50%",
-          position: "relative",
+          position: "relative"
         }}
         onLoad={() => console.log("loaded")}
       >
         <img
           src={url}
           style={{ display: "none" }}
-          onError={(e) =>
+          onError={e =>
             setUrl(
               card.side === Side.dark ? "/images/dark.png" : "/images/light.png"
             )
@@ -80,7 +83,7 @@ export function CardSnippet({
           style={{
             background:
               "linear-gradient(to left, rgba(255,255,255,0) 0%,rgb(41, 46, 60) 100%)",
-            height: "100%",
+            height: "100%"
           }}
         ></div>
         <div
@@ -92,7 +95,7 @@ export function CardSnippet({
             right: "0px",
             height: "100%",
             backgroundColor: "rgba(0,0,0,0.4)",
-            userSelect: "none",
+            userSelect: "none"
           }}
         >
           <CardControlButton onClick={removeCard}>-</CardControlButton>

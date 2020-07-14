@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { getCards } from "../components/card-search-table/card-search-table";
 import { CardSnippet } from "./card-snippet";
 
-// 1. When the search bar is active transition to the width of results
-// 2. when the search bar is not active dont so results
+// 3. Go to card page when clicked
+// 4. Press enter brings to card page with that filter applied
+// 5. Add no results display when there are no matches
 
 const SearchBarContainer = styled.input`
   /* border: 3px solid red; */
@@ -28,7 +29,7 @@ const ResultsDropdown = styled.div`
 export function SearchBar() {
   const [searchValue, setSearchValue] = useState("");
   const [cards, setCards] = useState([]);
-  const [clicked, setFocus] = useState(false);
+  const [focus, setFocus] = useState(false);
 
   const handleSearchInputChanges = e => {
     if (e.keyCode === 13) {
@@ -46,28 +47,39 @@ export function SearchBar() {
     return cardName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
   });
   return (
-    <div style={{ position: "relative" }}>
+    <div
+      style={{ position: "relative" }}
+      onFocus={() => {
+        setFocus(true);
+      }}
+      onBlur={() => {
+        setFocus(false);
+      }}
+    >
       <SearchBarContainer
         style={{
           transitionDuration: "200ms",
-          width: clicked ? "300px" : "175px"
+          width: focus ? "300px" : "175px"
         }}
         type="text"
         placeholder="card search"
-        onKeyDown={handleSearchInputChanges}
+        onKeyUp={handleSearchInputChanges}
         onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
       />
-      <ResultsDropdown style={clicked ? {} : { display: "none" }}>
-        {matchingResults.slice(0, 5).map(card => (
-          <CardSnippet
-            card={card}
-            style={{
-              padding: "1px"
-            }}
-          />
-        ))}
-      </ResultsDropdown>
+      {searchValue.length === 0 ? null : (
+        <ResultsDropdown style={focus ? {} : { display: "none" }}>
+          {matchingResults.slice(0, 5).map(card => (
+            <CardSnippet
+              card={card}
+              onClick={() => console.log("Clicked!", card.id)}
+              style={{
+                padding: "1px",
+                cursor: "pointer"
+              }}
+            />
+          ))}
+        </ResultsDropdown>
+      )}
     </div>
   );
 }
