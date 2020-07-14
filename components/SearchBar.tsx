@@ -57,6 +57,9 @@ export function SearchBar() {
   );
 }
 
+// 1. When the search bar is active transition to the width of results
+// 2. when the search bar is not active dont so results
+
 // Make a css search bar
 
 // Add state/the ability to change values
