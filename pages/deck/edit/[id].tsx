@@ -45,9 +45,9 @@ function CardSnippet({
   addCard,
 }: {
   card: Card;
-  isHovering: boolean;
-  removeCard: () => void;
-  addCard: () => void;
+  isHovering?: boolean;
+  removeCard?: () => void;
+  addCard?: () => void;
 }) {
   return (
     <>
@@ -106,8 +106,8 @@ function CardPanelRow({
 }: {
   card: Card;
   count: number;
-  removeCard: () => void;
-  addCard: () => void;
+  removeCard?: () => void;
+  addCard?: () => void;
 }) {
   const [isHovering, setHovering] = useState(false);
   return (
