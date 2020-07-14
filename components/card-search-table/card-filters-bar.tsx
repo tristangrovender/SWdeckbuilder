@@ -3,6 +3,10 @@ import styled from "styled-components";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import BlurOnIcon from "@material-ui/icons/BlurOn";
+import FlagIcon from "@material-ui/icons/Flag";
+import GavelIcon from "@material-ui/icons/Gavel";
 
 const Input = styled.input`
   background-color: transparent;
@@ -71,10 +75,10 @@ export function CardFiltersBar() {
       </div>
       <FilterIcon Icon={MenuBookIcon} text={"Set: All"} />
       <FilterIcon Icon={SupervisorAccountIcon} text={"Type: All"} />
-      <FilterIcon Icon={SupervisorAccountIcon} text={"Destiny: All"} />
-      <FilterIcon Icon={SupervisorAccountIcon} text={"Power: All"} />
-      <FilterIcon Icon={SupervisorAccountIcon} text={"Deploy: All"} />
-      <FilterIcon Icon={SupervisorAccountIcon} text={"Forfeit: All"} />
+      <FilterIcon Icon={BlurOnIcon} text={"Destiny: All"} />
+      <FilterIcon Icon={GavelIcon} text={"Power: All"} />
+      <FilterIcon Icon={ArrowUpwardIcon} text={"Deploy: All"} />
+      <FilterIcon Icon={FlagIcon} text={"Forfeit: All"} />
     </div>
   );
 }
