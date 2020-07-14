@@ -8,6 +8,14 @@ const SearchBarContainer = styled.input`
   padding: 15px 10px;
 `;
 
+const ResultsDropdown = styled.div`
+  position: absolute;
+  width: 200px;
+  min-height: 100px;
+  background-color: white;
+  color: black;
+`;
+
 export function SearchBar() {
   const [searchValue, setSearchValue] = useState("");
   const [cards, setCards] = useState([]);
@@ -35,19 +43,11 @@ export function SearchBar() {
         placeholder="card search"
         onKeyDown={handleSearchInputChanges}
       />
-      <div
-        style={{
-          position: "absolute",
-          width: "200px",
-          minHeight: "100px",
-          backgroundColor: "white",
-          color: "black"
-        }}
-      >
+      <ResultsDropdown>
         {matchingResults.slice(0, 3).map(card => (
           <div>{card.front.title}</div>
         ))}
-      </div>
+      </ResultsDropdown>
     </div>
   );
 }
