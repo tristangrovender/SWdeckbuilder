@@ -54,6 +54,7 @@ export function CardFiltersBar() {
         display: "flex",
         flexGrow: 1,
         backgroundColor: "#2d2d2f",
+        justifyContent: "center",
         padding: "10px",
         color: "white",
         alignItems: "center",
