@@ -42,7 +42,7 @@ export function CardSnippet({
     >
       <div
         style={{
-          flex: 50,
+          width: "50%",
           whiteSpace: "nowrap",
           backgroundColor: "#292e3c",
           color: "white",
@@ -57,8 +57,7 @@ export function CardSnippet({
           backgroundImage: `url(${card.front.imageUrl})`,
           backgroundPosition: "-24px -130px",
           backgroundSize: "240px",
-          width: "130px",
-          flex: 45,
+          width: "50%",
           position: "relative",
         }}
       >
