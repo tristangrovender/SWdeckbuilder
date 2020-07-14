@@ -17,7 +17,7 @@ function CardRow({
   showSideColumn: boolean;
   onMouseOver: (event: any) => void;
   onMouseOut: () => void;
-  onAdd: () => void;
+  onAdd?: () => void;
 }) {
   return (
     <div
@@ -57,16 +57,18 @@ function CardRow({
       >
         {card.set}
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginRight: "2px",
-        }}
-      >
-        <AddIcon onClick={onAdd} style={{ cursor: "pointer" }} />
-      </div>
+      {onAdd ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginRight: "2px",
+          }}
+        >
+          <AddIcon onClick={onAdd} style={{ cursor: "pointer" }} />
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -101,7 +103,7 @@ export async function getCards() {
 
 export function CardSearchTable({
   showSide,
-  onCardSelected = () => {},
+  onCardSelected,
   style = {},
 }: {
   showSide?: Side;
@@ -143,7 +145,7 @@ export function CardSearchTable({
         ) : null}
         <div style={{ fontWeight: "bold", flex: 10 }}>Type</div>
         <div style={{ fontWeight: "bold", flex: 10 }}>Set</div>
-        <div style={{ width: "40px" }}></div>
+        {onCardSelected ? <div style={{ width: "40px" }}></div> : null}
       </div>
       <div style={{ border: "1px solid grey" }}>
         {
@@ -169,7 +171,7 @@ export function CardSearchTable({
                   })
                 }
                 onMouseOut={() => setCardHover({ card: null, location: null })}
-                onAdd={() => onCardSelected(card)}
+                onAdd={onCardSelected ? () => onCardSelected(card) : null}
               />
             );
           })
