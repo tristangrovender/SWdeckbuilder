@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { getCards } from "../components/card-search-table/card-search-table";
 import { CardSnippet } from "./card-snippet";
 
+// 1. When the search bar is active transition to the width of results
+// 2. when the search bar is not active dont so results
+
 const SearchBarContainer = styled.input`
+  /* border: 3px solid red; */
   color: lightslategrey;
   height: 25px;
   padding: 15px 10px;
@@ -18,14 +22,15 @@ const ResultsDropdown = styled.div`
   width: 300px;
   background-color: white;
   color: black;
-  left: -130px;
+  /* left: -120px; */
 `;
 
 export function SearchBar() {
   const [searchValue, setSearchValue] = useState("");
   const [cards, setCards] = useState([]);
+  const [clicked, setFocus] = useState(false);
 
-  const handleSearchInputChanges = (e) => {
+  const handleSearchInputChanges = e => {
     if (e.keyCode === 13) {
       console.log("enter!!");
     } else {
@@ -40,32 +45,29 @@ export function SearchBar() {
   const matchingResults = cards.filter(({ front: { title: cardName } }) => {
     return cardName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
   });
-
   return (
     <div style={{ position: "relative" }}>
       <SearchBarContainer
+        style={{
+          transitionDuration: "200ms",
+          width: clicked ? "300px" : "175px"
+        }}
         type="text"
         placeholder="card search"
         onKeyDown={handleSearchInputChanges}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
       />
-      <ResultsDropdown>
-        {matchingResults.slice(0, 3).map((card) => (
-          <CardSnippet card={card} style={{ padding: "1px" }} />
+      <ResultsDropdown style={clicked ? {} : { display: "none" }}>
+        {matchingResults.slice(0, 5).map(card => (
+          <CardSnippet
+            card={card}
+            style={{
+              padding: "1px"
+            }}
+          />
         ))}
       </ResultsDropdown>
     </div>
   );
 }
-
-// 1. When the search bar is active transition to the width of results
-// 2. when the search bar is not active dont so results
-
-// Make a css search bar
-
-// Add state/the ability to change values
-
-// show autocomplete for cards
-//
-
-// hit enter to accept autocomplete and go to that card page
-//
