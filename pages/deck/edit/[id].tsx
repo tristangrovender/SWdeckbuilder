@@ -52,9 +52,9 @@ function CardPanelRow({
           color: "#fcd144",
           fontSize: "12px",
           display: "flex",
+          width: "15px",
           justifyContent: "center",
           alignItems: "center",
-          flex: 5,
         }}
       >
         {count > 1 ? count : null}

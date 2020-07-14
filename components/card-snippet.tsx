@@ -1,5 +1,6 @@
 import { Card } from "./card-search-table/card.interface";
 import styled from "styled-components";
+import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
 const CardControlButton = styled.div`
   display: flex;
@@ -18,21 +19,33 @@ const CardControlButton = styled.div`
 
 export function CardSnippet({
   card,
+  style,
   isHovering,
   removeCard,
   addCard,
 }: {
   card: Card;
+  style: CSSProperties;
   isHovering?: boolean;
   removeCard?: () => void;
   addCard?: () => void;
 }) {
   return (
-    <>
+    <div
+      style={{
+        ...style,
+        display: "flex",
+        justifyContent: "space-between",
+        backgroundColor: "#292e3c",
+        flexGrow: 1,
+      }}
+    >
       <div
         style={{
           flex: 50,
           whiteSpace: "nowrap",
+          backgroundColor: "#292e3c",
+          color: "white",
           overflow: "hidden",
           textOverflow: "ellipsis",
         }}
@@ -72,6 +85,6 @@ export function CardSnippet({
           <CardControlButton onClick={addCard}>+</CardControlButton>
         </div>
       </div>
-    </>
+    </div>
   );
 }

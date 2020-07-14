@@ -1,26 +1,31 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { getCards } from "../components/card-search-table/card-search-table";
+import { CardSnippet } from "./card-snippet";
 
 const SearchBarContainer = styled.input`
   color: lightslategrey;
   height: 25px;
   padding: 15px 10px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const ResultsDropdown = styled.div`
+  border: 1px solid white;
   position: absolute;
-  width: 200px;
-  min-height: 100px;
+  width: 300px;
   background-color: white;
   color: black;
+  left: -130px;
 `;
 
 export function SearchBar() {
   const [searchValue, setSearchValue] = useState("");
   const [cards, setCards] = useState([]);
 
-  const handleSearchInputChanges = e => {
+  const handleSearchInputChanges = (e) => {
     if (e.keyCode === 13) {
       console.log("enter!!");
     } else {
@@ -44,8 +49,8 @@ export function SearchBar() {
         onKeyDown={handleSearchInputChanges}
       />
       <ResultsDropdown>
-        {matchingResults.slice(0, 3).map(card => (
-          <div>{card.front.title}</div>
+        {matchingResults.slice(0, 3).map((card) => (
+          <CardSnippet card={card} style={{ padding: "1px" }} />
         ))}
       </ResultsDropdown>
     </div>
