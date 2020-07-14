@@ -106,15 +106,17 @@ function CardPanelRow({
 }
 
 function groupCards(cards: Card[]): { count: number; card: Card }[] {
-  const cardsByCount = cards.reduce((all, card) => {
+  const cardsByCount = cards.reduce((all, card, index) => {
     if (!all[card.id]) {
-      all[card.id] = { card, count: 1 };
+      all[card.id] = { card, count: 1, index };
     } else {
       all[card.id].count += 1;
     }
     return all;
   }, {});
-  return Object.values(cardsByCount);
+  return Object.values(cardsByCount).sort(
+    ({ index: a }, { index: b }) => a - b
+  ) as { count: number; card: Card }[];
 }
 
 function CardPanel({
