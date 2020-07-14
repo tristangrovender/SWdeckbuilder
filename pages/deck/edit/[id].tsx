@@ -164,15 +164,29 @@ function CardPanel({
               </div>
             </div>
             <div style={{ overflowY: "scroll", height: "400px" }}>
-              {groupCards(cards).map(({ card, count }, i) => (
-                <CardPanelRow
-                  key={i}
-                  card={card}
-                  count={count}
-                  removeCard={() => removeCard(card)}
-                  addCard={() => addCard(card)}
-                />
-              ))}
+              {cards.length === 0 ? (
+                <div
+                  style={{
+                    marginTop: "20px",
+                    display: "flex",
+                    color: "rgba(255,255,255,0.5)",
+                    fontSize: "12px",
+                    justifyContent: "center",
+                  }}
+                >
+                  Click a row in the table to add a card.
+                </div>
+              ) : (
+                groupCards(cards).map(({ card, count }, i) => (
+                  <CardPanelRow
+                    key={i}
+                    card={card}
+                    count={count}
+                    removeCard={() => removeCard(card)}
+                    addCard={() => addCard(card)}
+                  />
+                ))
+              )}
             </div>
           </div>
         )}
