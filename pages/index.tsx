@@ -50,11 +50,11 @@ export default function Home() {
               days={2}
               description="Fast paced, high stakes, fun deck"
               cardBreakdown={{
-                characters: 35,
+                characters: 25,
                 effects: 10,
                 weapons: 13,
-                interrupts: 15,
-                objectives: 3
+                interrupts: 7,
+                objectives: 5
               }}
             />
             <DeckTile
@@ -64,11 +64,11 @@ export default function Home() {
               days={10}
               description="Slow methodical deck good against many types"
               cardBreakdown={{
-                characters: 45,
-                effects: 14,
-                weapons: 9,
-                interrupts: 5,
-                objectives: 7
+                characters: 40,
+                effects: 5,
+                weapons: 10,
+                interrupts: 2,
+                objectives: 3
               }}
             />
             <DeckTile
@@ -80,8 +80,8 @@ export default function Home() {
               cardBreakdown={{
                 characters: 10,
                 effects: 10,
-                weapons: 37,
-                interrupts: 3,
+                weapons: 20,
+                interrupts: 15,
                 objectives: 5
               }}
             />
@@ -95,8 +95,8 @@ export default function Home() {
                 characters: 33,
                 effects: 11,
                 weapons: 14,
-                interrupts: 9,
-                objectives: 5
+                interrupts: 1,
+                objectives: 1
               }}
             />
             <DeckTile
@@ -106,10 +106,10 @@ export default function Home() {
               days={12}
               description="Slow methodical deck good against many types"
               cardBreakdown={{
-                characters: 37,
-                effects: 12,
-                weapons: 19,
-                interrupts: 7,
+                characters: 39,
+                effects: 1,
+                weapons: 11,
+                interrupts: 5,
                 objectives: 4
               }}
             />
@@ -123,7 +123,7 @@ export default function Home() {
                 characters: 33,
                 effects: 10,
                 weapons: 12,
-                interrupts: 7,
+                interrupts: 2,
                 objectives: 3
               }}
             />

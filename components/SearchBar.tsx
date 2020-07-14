@@ -4,9 +4,7 @@ import { getCards } from "../components/card-search-table/card-search-table";
 import { CardSnippet } from "./card-snippet";
 import Router from "next/router";
 
-// 3. Go to card page when clicked
-// 4. Press enter brings to card page with that filter applied
-// 5. Add no results display when there are no matches
+// Autocomplete
 
 const SearchBarContainer = styled.input`
   /* border: 3px solid red; */

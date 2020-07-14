@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Card, Side } from "./card.interface";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import AddIcon from "@material-ui/icons/Add";
+import { CardFilters } from "./card-filters-bar";
 
 function CardRow({
   card,
@@ -104,8 +105,10 @@ export async function getCards() {
 export function CardSearchTable({
   showSide,
   onCardSelected,
+  filters,
   style = {},
 }: {
+  filters?: CardFilters;
   showSide?: Side;
   style?: CSSProperties;
   onCardSelected?: (card: Card) => void;
@@ -123,6 +126,14 @@ export function CardSearchTable({
         return card.side === showSide;
       }
       return true;
+    })
+    .filter((card) => {
+      if (!filters || !filters.titleFilter) {
+        return true;
+      }
+      return card.front.title
+        .toLowerCase()
+        .includes(filters.titleFilter.toLowerCase());
     })
     .slice(0, 100);
   return (
@@ -148,34 +159,24 @@ export function CardSearchTable({
         {onCardSelected ? <div style={{ width: "40px" }}></div> : null}
       </div>
       <div style={{ border: "1px solid grey" }}>
-        {
-          // .filter((card) => {
-          //   if (!nameFilter) {
-          //     return true;
-          //   }
-          //   return card.front.title
-          //     .toLowerCase()
-          //     .includes(nameFilter.toLowerCase());
-          // })
-          filteredCards.map((card, i) => {
-            return (
-              <CardRow
-                key={card.id}
-                rowColor={i % 2 ? "#f5f5f5" : "white"}
-                card={card}
-                showSideColumn={showSideColumn}
-                onMouseOver={(e) =>
-                  setCardHover({
-                    card: card,
-                    location: { x: e.pageX, y: e.pageY },
-                  })
-                }
-                onMouseOut={() => setCardHover({ card: null, location: null })}
-                onAdd={onCardSelected ? () => onCardSelected(card) : null}
-              />
-            );
-          })
-        }
+        {filteredCards.map((card, i) => {
+          return (
+            <CardRow
+              key={card.id}
+              rowColor={i % 2 ? "#f5f5f5" : "white"}
+              card={card}
+              showSideColumn={showSideColumn}
+              onMouseOver={(e) =>
+                setCardHover({
+                  card: card,
+                  location: { x: e.pageX, y: e.pageY },
+                })
+              }
+              onMouseOut={() => setCardHover({ card: null, location: null })}
+              onAdd={onCardSelected ? () => onCardSelected(card) : null}
+            />
+          );
+        })}
       </div>
 
       {filteredCards.length === 100 ? (
