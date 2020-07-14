@@ -27,7 +27,7 @@ export function CardSnippet({
   onMouseDown,
 }: {
   card: Card;
-  style: CSSProperties;
+  style?: CSSProperties;
   isHovering?: boolean;
   removeCard?: () => void;
   addCard?: () => void;
