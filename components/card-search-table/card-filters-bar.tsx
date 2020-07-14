@@ -46,8 +46,17 @@ function FilterIcon({ Icon, text }: { Icon: any; text: string }) {
     </div>
   );
 }
+export interface CardFilters {
+  titleFilter: string;
+}
 
-export function CardFiltersBar() {
+export function CardFiltersBar({
+  filters,
+  onUpdateFilters,
+}: {
+  filters?: CardFilters;
+  onUpdateFilters: (cardFilters: CardFilters) => void;
+}) {
   return (
     <div
       style={{
@@ -72,7 +81,13 @@ export function CardFiltersBar() {
         }}
       >
         <SearchIcon style={{ transform: "rotate(90deg)" }} />
-        <Input placeholder="Search"></Input>
+        <Input
+          placeholder="Search"
+          defaultValue={filters && filters.titleFilter}
+          onKeyUp={(e) =>
+            onUpdateFilters({ ...filters, titleFilter: e.target.value })
+          }
+        ></Input>
       </div>
       <FilterIcon Icon={MenuBookIcon} text={"Set: All"} />
       <FilterIcon Icon={SupervisorAccountIcon} text={"Type: All"} />

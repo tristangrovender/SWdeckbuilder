@@ -158,6 +158,7 @@ function CardPanel({
 export default function EditDeck(params) {
   const router = useRouter();
   const [deckCards, setDeckCards] = useState([]);
+  const [filters, updateFilters] = useState(undefined);
   const addCard = (card: Card) => {
     setDeckCards([...deckCards, card]);
   };
@@ -180,12 +181,16 @@ export default function EditDeck(params) {
     <Page>
       <Toolbar />
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <CardFiltersBar />
+        <CardFiltersBar
+          filters={filters}
+          onUpdateFilters={(filters) => updateFilters(filters)}
+        />
         {/* TODO showSide will need to come from /deck/new choice */}
         <div style={{ display: "flex" }}>
           <CardSearchTable
             showSide={Side.dark}
             onCardSelected={addCard}
+            filters={filters}
             style={{
               width: "70vw",
               marginLeft: "3vw",
