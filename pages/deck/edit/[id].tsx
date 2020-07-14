@@ -38,24 +38,29 @@ const CardControlButton = styled.div`
   }
 `;
 
-function CardPanelRow({
+function CardSnippet({
   card,
-  count,
+  isHovering,
   removeCard,
   addCard,
 }: {
   card: Card;
-  count: number;
+  isHovering: boolean;
   removeCard: () => void;
   addCard: () => void;
 }) {
-  const [isHovering, setHovering] = useState(false);
   return (
-    <CardPanelRowContainer
-      onMouseOver={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-    >
-      <div style={{ flex: 50 }}>{card.front.title}</div>
+    <>
+      <div
+        style={{
+          flex: 50,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }}
+      >
+        {card.front.title}
+      </div>
       <div
         style={{
           backgroundImage: `url(${card.front.imageUrl})`,
@@ -89,6 +94,33 @@ function CardPanelRow({
           <CardControlButton onClick={addCard}>+</CardControlButton>
         </div>
       </div>
+    </>
+  );
+}
+
+function CardPanelRow({
+  card,
+  count,
+  removeCard,
+  addCard,
+}: {
+  card: Card;
+  count: number;
+  removeCard: () => void;
+  addCard: () => void;
+}) {
+  const [isHovering, setHovering] = useState(false);
+  return (
+    <CardPanelRowContainer
+      onMouseOver={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
+      <CardSnippet
+        card={card}
+        removeCard={removeCard}
+        addCard={addCard}
+        isHovering={isHovering}
+      />
       <div
         style={{
           color: "#fcd144",
