@@ -2,6 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Card, Side } from "./card.interface";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
+import AddIcon from "@material-ui/icons/Add";
 
 function CardRow({
   card,
@@ -9,19 +10,21 @@ function CardRow({
   showSideColumn,
   onMouseOver,
   onMouseOut,
-  onClick,
+  onAdd,
 }: {
   card: Card;
   rowColor: string;
   showSideColumn: boolean;
   onMouseOver: (event: any) => void;
   onMouseOut: () => void;
-  onClick: () => void;
+  onAdd?: () => void;
 }) {
   return (
     <div
-      style={{ cursor: "pointer", display: "flex", backgroundColor: rowColor }}
-      onClick={onClick}
+      style={{
+        display: "flex",
+        backgroundColor: rowColor,
+      }}
     >
       <div style={{ flex: 40, alignItems: "center", display: "flex" }}>
         <a
@@ -54,6 +57,18 @@ function CardRow({
       >
         {card.set}
       </div>
+      {onAdd ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginRight: "2px",
+          }}
+        >
+          <AddIcon onClick={onAdd} style={{ cursor: "pointer" }} />
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -88,7 +103,7 @@ export async function getCards() {
 
 export function CardSearchTable({
   showSide,
-  onCardSelected = () => {},
+  onCardSelected,
   style = {},
 }: {
   showSide?: Side;
@@ -102,6 +117,14 @@ export function CardSearchTable({
     return <div>Loading Cards</div>;
   }
   const showSideColumn = !Boolean(showSide);
+  const filteredCards = cards
+    .filter((card) => {
+      if (showSide) {
+        return card.side === showSide;
+      }
+      return true;
+    })
+    .slice(0, 100);
   return (
     <div style={{ ...style }}>
       <CardHover {...cardHover} />
@@ -122,15 +145,10 @@ export function CardSearchTable({
         ) : null}
         <div style={{ fontWeight: "bold", flex: 10 }}>Type</div>
         <div style={{ fontWeight: "bold", flex: 10 }}>Set</div>
+        {onCardSelected ? <div style={{ width: "40px" }}></div> : null}
       </div>
       <div style={{ border: "1px solid grey" }}>
-        {cards
-          .filter((card) => {
-            if (showSide) {
-              return card.side === showSide;
-            }
-            return true;
-          })
+        {
           // .filter((card) => {
           //   if (!nameFilter) {
           //     return true;
@@ -139,8 +157,7 @@ export function CardSearchTable({
           //     .toLowerCase()
           //     .includes(nameFilter.toLowerCase());
           // })
-          .slice(0, 30)
-          .map((card, i) => {
+          filteredCards.map((card, i) => {
             return (
               <CardRow
                 key={card.id}
@@ -154,11 +171,27 @@ export function CardSearchTable({
                   })
                 }
                 onMouseOut={() => setCardHover({ card: null, location: null })}
-                onClick={() => onCardSelected(card)}
+                onAdd={onCardSelected ? () => onCardSelected(card) : null}
               />
             );
-          })}
+          })
+        }
       </div>
+
+      {filteredCards.length === 100 ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "grey",
+            fontSize: "12px",
+            margin: "10px 0px",
+          }}
+        >
+          Please apply filters to see more cards
+        </div>
+      ) : null}
     </div>
   );
 }

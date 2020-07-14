@@ -106,15 +106,17 @@ function CardPanelRow({
 }
 
 function groupCards(cards: Card[]): { count: number; card: Card }[] {
-  const cardsByCount = cards.reduce((all, card) => {
+  const cardsByCount = cards.reduce((all, card, index) => {
     if (!all[card.id]) {
-      all[card.id] = { card, count: 1 };
+      all[card.id] = { card, count: 1, index };
     } else {
       all[card.id].count += 1;
     }
     return all;
   }, {});
-  return Object.values(cardsByCount);
+  return Object.values(cardsByCount).sort(
+    ({ index: a }, { index: b }) => a - b
+  ) as { count: number; card: Card }[];
 }
 
 function CardPanel({
@@ -164,15 +166,29 @@ function CardPanel({
               </div>
             </div>
             <div style={{ overflowY: "scroll", height: "400px" }}>
-              {groupCards(cards).map(({ card, count }, i) => (
-                <CardPanelRow
-                  key={i}
-                  card={card}
-                  count={count}
-                  removeCard={() => removeCard(card)}
-                  addCard={() => addCard(card)}
-                />
-              ))}
+              {cards.length === 0 ? (
+                <div
+                  style={{
+                    marginTop: "20px",
+                    display: "flex",
+                    color: "rgba(255,255,255,0.5)",
+                    fontSize: "12px",
+                    justifyContent: "center",
+                  }}
+                >
+                  Click add in the table to add cards to your deck
+                </div>
+              ) : (
+                groupCards(cards).map(({ card, count }, i) => (
+                  <CardPanelRow
+                    key={i}
+                    card={card}
+                    count={count}
+                    removeCard={() => removeCard(card)}
+                    addCard={() => addCard(card)}
+                  />
+                ))
+              )}
             </div>
           </div>
         )}
