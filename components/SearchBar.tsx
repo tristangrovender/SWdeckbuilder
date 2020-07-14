@@ -31,7 +31,7 @@ export function SearchBar() {
   const [cards, setCards] = useState([]);
   const [focus, setFocus] = useState(false);
 
-  const handleSearchInputChanges = e => {
+  const handleSearchInputChanges = (e) => {
     if (e.keyCode === 13) {
       console.log("enter!!");
     } else {
@@ -47,34 +47,27 @@ export function SearchBar() {
     return cardName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
   });
   return (
-    <div
-      style={{ position: "relative" }}
-      onFocus={() => {
-        setFocus(true);
-      }}
-      onBlur={() => {
-        setFocus(false);
-      }}
-    >
+    <div style={{ position: "relative" }}>
       <SearchBarContainer
         style={{
           transitionDuration: "200ms",
-          width: focus ? "300px" : "175px"
+          width: focus ? "300px" : "175px",
         }}
         type="text"
         placeholder="card search"
         onKeyUp={handleSearchInputChanges}
         onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
       />
       {searchValue.length === 0 ? null : (
         <ResultsDropdown style={focus ? {} : { display: "none" }}>
-          {matchingResults.slice(0, 5).map(card => (
+          {matchingResults.slice(0, 5).map((card) => (
             <CardSnippet
               card={card}
-              onClick={() => console.log("Clicked!", card.id)}
+              onMouseDown={() => console.log("Clicked!", card.id)}
               style={{
                 padding: "1px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             />
           ))}
