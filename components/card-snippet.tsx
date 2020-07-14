@@ -1,4 +1,5 @@
-import { Card } from "./card-search-table/card.interface";
+import { useState, useEffect, useRef } from "react";
+import { Card, Side } from "./card-search-table/card.interface";
 import styled from "styled-components";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
@@ -30,6 +31,10 @@ export function CardSnippet({
   removeCard?: () => void;
   addCard?: () => void;
 }) {
+  const [url, setUrl] = useState(card.front.imageUrl);
+  useEffect(() => {
+    setUrl(card.front.imageUrl);
+  }, [card.front.imageUrl]);
   return (
     <div
       style={{
@@ -42,7 +47,7 @@ export function CardSnippet({
     >
       <div
         style={{
-          flex: 50,
+          width: "50%",
           whiteSpace: "nowrap",
           backgroundColor: "#292e3c",
           color: "white",
@@ -54,14 +59,23 @@ export function CardSnippet({
       </div>
       <div
         style={{
-          backgroundImage: `url(${card.front.imageUrl})`,
+          backgroundImage: `url(${url})`,
           backgroundPosition: "-24px -130px",
           backgroundSize: "240px",
-          width: "130px",
-          flex: 45,
+          width: "50%",
           position: "relative",
         }}
+        onLoad={() => console.log("loaded")}
       >
+        <img
+          src={url}
+          style={{ display: "none" }}
+          onError={(e) =>
+            setUrl(
+              card.side === Side.dark ? "/images/dark.png" : "/images/light.png"
+            )
+          }
+        ></img>
         <div
           style={{
             background:
