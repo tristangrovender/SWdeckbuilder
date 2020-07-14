@@ -21,6 +21,7 @@ const ResultsDropdown = styled.div`
   border: 1px solid white;
   position: absolute;
   width: 300px;
+  display: none;
   background-color: white;
   color: black;
   /* left: -120px; */
