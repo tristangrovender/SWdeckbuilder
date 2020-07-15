@@ -78,7 +78,14 @@ function FilterIcon({
   const [open, setOpen] = useState(false);
   return (
     <FilterIconContainer>
-      <div onClick={() => setOpen(!open)}>
+      <div
+        onClick={() => setOpen(!open)}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <Icon
           style={{
             fontSize: "30px",
