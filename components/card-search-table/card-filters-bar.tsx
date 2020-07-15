@@ -13,6 +13,20 @@ import { useState } from "react";
 import { Radio } from "@material-ui/core";
 import { darkBlue } from "../../utils/colors";
 
+const FilterOptionsContainer = styled.div`
+  position: absolute;
+  background-color: ${darkBlue};
+  color: white;
+  max-height: 400px;
+  overflow-y: scroll;
+  top: 37px;
+  left: 0px;
+  padding: 10px;
+  font-size: 14px;
+  width: 200px;
+  border: 1px solid black;
+`;
+
 const ClickableFilterIcon = styled.div`
   display: flex;
   align-items: center;
@@ -104,21 +118,7 @@ function FilterIcon({
         />
       </ClickableFilterIcon>
       {open ? (
-        <div
-          style={{
-            position: "absolute",
-            backgroundColor: darkBlue,
-            color: "white",
-            maxHeight: "400px",
-            overflowY: "scroll",
-            top: "37px",
-            left: "0px",
-            padding: "10px",
-            fontSize: "14px",
-            width: "200px",
-            border: "1px solid black",
-          }}
-        >
+        <FilterOptionsContainer>
           {["All", ...options].map((option, i) => (
             <div
               key={i}
@@ -131,7 +131,7 @@ function FilterIcon({
               <div>{option}</div>
             </div>
           ))}
-        </div>
+        </FilterOptionsContainer>
       ) : null}
     </FilterIconContainer>
   );
