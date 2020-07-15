@@ -185,6 +185,9 @@ export interface CardFilters {
   set?: string;
   type?: string;
   destiny?: string;
+  power?: string;
+  deploy?: string;
+  forfeit?: string;
 }
 
 export function CardFiltersBar({
@@ -206,6 +209,30 @@ export function CardFiltersBar({
         .map(({ front: { destiny } }) => destiny)
         .filter(Boolean)
         .map((destiny) => destiny.toString())
+    )
+  );
+  const powerOptions = sortAlphabetically(
+    unique(
+      allCards
+        .map(({ front: { power } }) => power)
+        .filter(Boolean)
+        .map((power) => power.toString())
+    )
+  );
+  const deployOptions = sortAlphabetically(
+    unique(
+      allCards
+        .map(({ front: { deploy } }) => deploy)
+        .filter(Boolean)
+        .map((deploy) => deploy.toString())
+    )
+  );
+  const forfeitOptions = sortAlphabetically(
+    unique(
+      allCards
+        .map(({ front: { forfeit } }) => forfeit)
+        .filter(Boolean)
+        .map((forfeit) => forfeit.toString())
     )
   );
   return (
@@ -250,20 +277,29 @@ export function CardFiltersBar({
       <FilterIcon
         Icon={GavelIcon}
         name={"Power:"}
-        active={DEFAULT_OPTION}
-        onOptionChosen={() => {}}
+        active={(filters && filters.power) || DEFAULT_OPTION}
+        options={powerOptions}
+        onOptionChosen={(option) => {
+          onUpdateFilters({ ...filters, power: option });
+        }}
       />
       <FilterIcon
         Icon={ArrowUpwardIcon}
         name={"Deploy:"}
-        active={DEFAULT_OPTION}
-        onOptionChosen={() => {}}
+        active={(filters && filters.deploy) || DEFAULT_OPTION}
+        options={deployOptions}
+        onOptionChosen={(option) => {
+          onUpdateFilters({ ...filters, deploy: option });
+        }}
       />
       <FilterIcon
         Icon={FlagIcon}
         name={"Forfeit:"}
-        active={DEFAULT_OPTION}
-        onOptionChosen={() => {}}
+        active={(filters && filters.forfeit) || DEFAULT_OPTION}
+        options={forfeitOptions}
+        onOptionChosen={(option) => {
+          onUpdateFilters({ ...filters, forfeit: option });
+        }}
       />
     </CardFilterBarContainer>
   );
