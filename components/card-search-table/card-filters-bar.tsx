@@ -77,14 +77,22 @@ const Input = styled.input`
 
 export function applyFilters(allCards: Card[], filters: CardFilters) {
   // TODO add side filter
-  return allCards.filter((card) => {
-    if (!filters || !filters.titleFilter) {
-      return true;
-    }
-    return card.front.title
-      .toLowerCase()
-      .includes(filters.titleFilter.toLowerCase());
-  });
+  return allCards
+    .filter((card) => {
+      if (!filters || !filters.set || filters.set === DEFAULT_OPTION) {
+        return true;
+      }
+
+      return card.set === filters.set;
+    })
+    .filter((card) => {
+      if (!filters || !filters.titleFilter) {
+        return true;
+      }
+      return card.front.title
+        .toLowerCase()
+        .includes(filters.titleFilter.toLowerCase());
+    });
 }
 
 const DEFAULT_OPTION = "All";
