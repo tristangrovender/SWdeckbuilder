@@ -22,11 +22,6 @@ const ToolbarContent = styled.div`
   display: flex;
   width: ${contentWidth}px;
   align-items: center;
-  /* 
-  :nth-last-child(0) {
-    align-self: flex-end;
-    color: red;
-  } */
 `;
 
 const ToolbarLink = styled.div`

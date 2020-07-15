@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { getCards } from "../components/card-search-table/card-search-table";
 import { CardSnippet } from "./card-snippet";
 import Router from "next/router";
+import NoResultSnippet from "../components/NoResultSnippet";
 
 // Autocomplete
 
@@ -22,7 +23,6 @@ const ResultsDropdown = styled.div`
   width: 300px;
   background-color: white;
   color: black;
-  /* left: -120px; */
 `;
 
 export function SearchBar() {
@@ -48,6 +48,30 @@ export function SearchBar() {
   const matchingResults = cards.filter(({ front: { title: cardName } }) => {
     return cardName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
   });
+
+  console.log(matchingResults);
+
+  const matchingResultsComponent = matchingResults.slice(0, 8).map(card => (
+    <CardSnippet
+      card={card}
+      onMouseDown={() => Router.push(`/card/${card.id}`)}
+      style={{
+        padding: "1px",
+        cursor: "pointer"
+      }}
+    />
+  ));
+
+  const cardResults = (
+    <ResultsDropdown style={focus ? {} : { display: "none" }}>
+      {matchingResults.length > 0 ? (
+        matchingResultsComponent
+      ) : (
+        <NoResultSnippet />
+      )}
+    </ResultsDropdown>
+  );
+
   return (
     <div style={{ position: "relative" }}>
       <SearchBarContainer
@@ -61,20 +85,7 @@ export function SearchBar() {
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
       />
-      {searchValue.length === 0 ? null : (
-        <ResultsDropdown style={focus ? {} : { display: "none" }}>
-          {matchingResults.slice(0, 5).map(card => (
-            <CardSnippet
-              card={card}
-              onMouseDown={() => Router.push(`/card/${card.id}`)}
-              style={{
-                padding: "1px",
-                cursor: "pointer"
-              }}
-            />
-          ))}
-        </ResultsDropdown>
-      )}
+      {searchValue.length === 0 ? null : cardResults}
     </div>
   );
 }
