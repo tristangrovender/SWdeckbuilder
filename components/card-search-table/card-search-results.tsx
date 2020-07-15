@@ -52,9 +52,11 @@ function CardRow({
         style={{
           flex: 10,
           marginRight: "5px",
-          display: "flex",
-          alignItems: "center",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
         }}
+        title={card.set}
       >
         {card.set}
       </div>
