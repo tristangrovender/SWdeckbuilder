@@ -102,6 +102,31 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
       );
     })
     .filter((card) => {
+      if (!filters || !filters.forfeit || filters.forfeit === DEFAULT_OPTION) {
+        return true;
+      }
+
+      return (
+        card.front.forfeit && card.front.forfeit.toString() === filters.forfeit
+      );
+    })
+    .filter((card) => {
+      if (!filters || !filters.deploy || filters.deploy === DEFAULT_OPTION) {
+        return true;
+      }
+
+      return (
+        card.front.deploy && card.front.deploy.toString() === filters.deploy
+      );
+    })
+    .filter((card) => {
+      if (!filters || !filters.power || filters.power === DEFAULT_OPTION) {
+        return true;
+      }
+
+      return card.front.power && card.front.power.toString() === filters.power;
+    })
+    .filter((card) => {
       if (!filters || !filters.titleFilter) {
         return true;
       }
