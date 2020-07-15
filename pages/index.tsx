@@ -79,7 +79,7 @@ export default function Home() {
               author="darthWillMaulYou"
               days={7}
               description="Weapons galore"
-              rating={3}
+              rating={2.5}
               cardBreakdown={{
                 characters: 16,
                 effects: 8,
@@ -94,7 +94,7 @@ export default function Home() {
               author="Falconator"
               days={15}
               description="Fast paced, high stakes, fun deck"
-              rating={4}
+              rating={4.5}
               cardBreakdown={{
                 characters: 33,
                 effects: 11,
@@ -109,7 +109,7 @@ export default function Home() {
               author="solo547"
               days={12}
               description="Slow methodical deck good against many types"
-              rating={4}
+              rating={3.5}
               cardBreakdown={{
                 characters: 39,
                 effects: 1,

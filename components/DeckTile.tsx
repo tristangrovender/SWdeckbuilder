@@ -113,7 +113,7 @@ export function DeckTile({
           color2={"#ffd700"}
           edit={false}
           value={rating}
-          half={false} // allow half numbers
+          half={true}
         />
         <RatingText>133 ratings</RatingText>
       </TileRatingContainer>
