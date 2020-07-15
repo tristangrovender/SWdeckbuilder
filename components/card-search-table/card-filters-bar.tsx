@@ -9,8 +9,10 @@ import FlagIcon from "@material-ui/icons/Flag";
 import GavelIcon from "@material-ui/icons/Gavel";
 import { Card } from "./card.interface";
 import { unique, sortAlphabetically } from "../../utils/utils";
+import { useState } from "react";
 
 const FilterIconContainer = styled.div`
+  position: relative;
   border-radius: 50px;
   border: 1px solid #6f6f6f;
   display: flex;
@@ -62,9 +64,18 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
   });
 }
 
-function FilterIcon({ Icon, text }: { Icon: any; text: string }) {
+function FilterIcon({
+  Icon,
+  text,
+  options,
+}: {
+  Icon: any;
+  text: string;
+  options?: string[];
+}) {
+  const [open, setOpen] = useState(false);
   return (
-    <FilterIconContainer>
+    <FilterIconContainer onClick={() => setOpen(!open)}>
       <Icon
         style={{
           fontSize: "30px",
@@ -76,7 +87,30 @@ function FilterIcon({ Icon, text }: { Icon: any; text: string }) {
       ></Icon>
       <div style={{ marginLeft: "3px" }}>{text}</div>
 
-      <ExpandMoreIcon style={{ marginLeft: "5px", fontSize: "16px" }} />
+      <ExpandMoreIcon
+        style={{
+          marginLeft: "5px",
+          fontSize: "16px",
+        }}
+      />
+      {open ? (
+        <div
+          style={{
+            position: "absolute",
+            backgroundColor: "white",
+            color: "black",
+            maxHeight: "400px",
+            overflowY: "scroll",
+            top: "37px",
+            left: "0px",
+            padding: "10px",
+          }}
+        >
+          {["All", ...options].map((option, i) => (
+            <div key={i}>{option}</div>
+          ))}
+        </div>
+      ) : null}
     </FilterIconContainer>
   );
 }
@@ -107,7 +141,7 @@ export function CardFiltersBar({
           }
         ></Input>
       </SearchContainer>
-      <FilterIcon Icon={MenuBookIcon} text={"Set: All"} />
+      <FilterIcon Icon={MenuBookIcon} text={"Set: All"} options={sets} />
       <FilterIcon Icon={SupervisorAccountIcon} text={"Type: All"} />
       <FilterIcon Icon={BlurOnIcon} text={"Destiny: All"} />
       <FilterIcon Icon={GavelIcon} text={"Power: All"} />
