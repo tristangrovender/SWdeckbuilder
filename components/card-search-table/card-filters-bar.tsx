@@ -155,6 +155,7 @@ function FilterIcon({
   active,
   onOptionChosen,
   onOpen,
+  onClose,
 }: {
   open: boolean;
   name: string;
@@ -162,11 +163,12 @@ function FilterIcon({
   Icon: any;
   options?: string[];
   onOpen: () => void;
+  onClose: () => void;
   onOptionChosen: (option: string) => void;
 }) {
   return (
     <FilterIconContainer>
-      <ClickableFilterIcon onClick={() => onOpen()}>
+      <ClickableFilterIcon onClick={() => (!open ? onOpen() : onClose())}>
         <Icon
           style={{
             fontSize: "30px",
@@ -292,6 +294,7 @@ export function CardFiltersBar({
         active={(filters && filters.set) || DEFAULT_OPTION}
         open={openDropDown === DropDownFilters.set}
         onOpen={() => setOpenDropDown(DropDownFilters.set)}
+        onClose={() => setOpenDropDown(undefined)}
         onOptionChosen={(option) =>
           onUpdateFilters({ ...filters, set: option })
         }
@@ -303,6 +306,7 @@ export function CardFiltersBar({
         active={(filters && filters.type) || DEFAULT_OPTION}
         open={openDropDown === DropDownFilters.type}
         onOpen={() => setOpenDropDown(DropDownFilters.type)}
+        onClose={() => setOpenDropDown(undefined)}
         onOptionChosen={(option) => {
           onUpdateFilters({ ...filters, type: option });
         }}
@@ -314,6 +318,7 @@ export function CardFiltersBar({
         options={destiny}
         open={openDropDown === DropDownFilters.destiny}
         onOpen={() => setOpenDropDown(DropDownFilters.destiny)}
+        onClose={() => setOpenDropDown(undefined)}
         onOptionChosen={(option) => {
           onUpdateFilters({ ...filters, destiny: option });
         }}
@@ -325,6 +330,7 @@ export function CardFiltersBar({
         options={powerOptions}
         open={openDropDown === DropDownFilters.power}
         onOpen={() => setOpenDropDown(DropDownFilters.power)}
+        onClose={() => setOpenDropDown(undefined)}
         onOptionChosen={(option) => {
           onUpdateFilters({ ...filters, power: option });
         }}
@@ -336,6 +342,7 @@ export function CardFiltersBar({
         options={deployOptions}
         open={openDropDown === DropDownFilters.deploy}
         onOpen={() => setOpenDropDown(DropDownFilters.deploy)}
+        onClose={() => setOpenDropDown(undefined)}
         onOptionChosen={(option) => {
           onUpdateFilters({ ...filters, deploy: option });
         }}
@@ -347,6 +354,7 @@ export function CardFiltersBar({
         options={forfeitOptions}
         open={openDropDown === DropDownFilters.forfeit}
         onOpen={() => setOpenDropDown(DropDownFilters.forfeit)}
+        onClose={() => setOpenDropDown(undefined)}
         onOptionChosen={(option) => {
           onUpdateFilters({ ...filters, forfeit: option });
         }}
