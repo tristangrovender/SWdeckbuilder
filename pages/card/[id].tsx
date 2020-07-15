@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Page, Toolbar, Content } from "../../components/Toolbar";
 import { useRouter } from "next/router";
 import { Card } from "../../components/card-search-table/card.interface";
-import { getCards } from "../../components/card-search-table/card-search-table";
+import { getCards } from "../../components/card-search-table/getCards";
 
 export default function CardPage(params) {
   const router = useRouter();

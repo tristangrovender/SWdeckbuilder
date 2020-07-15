@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { getCards } from "../components/card-search-table/card-search-table";
+import { getCards } from "../components/card-search-table/getCards";
 import { CardSnippet } from "./card-snippet";
 import Router from "next/router";
 
@@ -30,11 +30,11 @@ export function SearchBar() {
   const [cards, setCards] = useState([]);
   const [focus, setFocus] = useState(false);
 
-  const handleSearchInputChanges = e => {
+  const handleSearchInputChanges = (e) => {
     if (e.keyCode === 13) {
       Router.push({
         pathname: "/cards",
-        query: { title: searchValue }
+        query: { title: searchValue },
       });
     } else {
       setSearchValue(e.target.value);
@@ -53,7 +53,7 @@ export function SearchBar() {
       <SearchBarContainer
         style={{
           transitionDuration: "200ms",
-          width: focus ? "300px" : "175px"
+          width: focus ? "300px" : "175px",
         }}
         type="text"
         placeholder="card search"
@@ -63,13 +63,13 @@ export function SearchBar() {
       />
       {searchValue.length === 0 ? null : (
         <ResultsDropdown style={focus ? {} : { display: "none" }}>
-          {matchingResults.slice(0, 5).map(card => (
+          {matchingResults.slice(0, 5).map((card) => (
             <CardSnippet
               card={card}
               onMouseDown={() => Router.push(`/card/${card.id}`)}
               style={{
                 padding: "1px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             />
           ))}

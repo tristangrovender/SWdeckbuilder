@@ -4,6 +4,7 @@ import { Card, Side } from "./card.interface";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import AddIcon from "@material-ui/icons/Add";
 import { CardFilters } from "./card-filters-bar";
+import { getCards } from "./getCards";
 
 function CardRow({
   card,
@@ -96,10 +97,6 @@ function CardHover({
       <img src={card.front.imageUrl} style={{ height: "400px" }}></img>
     </div>
   );
-}
-
-export async function getCards() {
-  return (await import("../../cards/cards.json")).default;
 }
 
 export function CardSearchTable({
