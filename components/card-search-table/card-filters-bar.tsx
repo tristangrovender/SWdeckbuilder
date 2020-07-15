@@ -136,25 +136,37 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
     });
 }
 
+enum DropDownFilters {
+  set = "set",
+  type = "type",
+  destiny = "destiny",
+  power = "power",
+  deploy = "deploy",
+  forfeit = "forfeit",
+}
+
 const DEFAULT_OPTION = "All";
 
 function FilterIcon({
+  open,
   Icon,
   name,
   options,
   active,
   onOptionChosen,
+  onOpen,
 }: {
+  open: boolean;
   name: string;
   active?: string;
   Icon: any;
   options?: string[];
+  onOpen: () => void;
   onOptionChosen: (option: string) => void;
 }) {
-  const [open, setOpen] = useState(false);
   return (
     <FilterIconContainer>
-      <ClickableFilterIcon onClick={() => setOpen(!open)}>
+      <ClickableFilterIcon onClick={() => onOpen()}>
         <Icon
           style={{
             fontSize: "30px",
@@ -224,6 +236,7 @@ export function CardFiltersBar({
   filters?: CardFilters;
   onUpdateFilters: (cardFilters: CardFilters) => void;
 }) {
+  const [openDropDown, setOpenDropDown] = useState(undefined);
   const sets = sortAlphabetically(unique(allCards.map(({ set }) => set)));
   const types = sortAlphabetically(
     unique(allCards.map(({ front: { type } }) => type))
@@ -277,6 +290,8 @@ export function CardFiltersBar({
         name={"Set:"}
         options={sets}
         active={(filters && filters.set) || DEFAULT_OPTION}
+        open={openDropDown === DropDownFilters.set}
+        onOpen={() => setOpenDropDown(DropDownFilters.set)}
         onOptionChosen={(option) =>
           onUpdateFilters({ ...filters, set: option })
         }
@@ -286,6 +301,8 @@ export function CardFiltersBar({
         name={"Type:"}
         options={types}
         active={(filters && filters.type) || DEFAULT_OPTION}
+        open={openDropDown === DropDownFilters.type}
+        onOpen={() => setOpenDropDown(DropDownFilters.type)}
         onOptionChosen={(option) => {
           onUpdateFilters({ ...filters, type: option });
         }}
@@ -295,6 +312,8 @@ export function CardFiltersBar({
         name={"Destiny:"}
         active={(filters && filters.destiny) || DEFAULT_OPTION}
         options={destiny}
+        open={openDropDown === DropDownFilters.destiny}
+        onOpen={() => setOpenDropDown(DropDownFilters.destiny)}
         onOptionChosen={(option) => {
           onUpdateFilters({ ...filters, destiny: option });
         }}
@@ -304,6 +323,8 @@ export function CardFiltersBar({
         name={"Power:"}
         active={(filters && filters.power) || DEFAULT_OPTION}
         options={powerOptions}
+        open={openDropDown === DropDownFilters.power}
+        onOpen={() => setOpenDropDown(DropDownFilters.power)}
         onOptionChosen={(option) => {
           onUpdateFilters({ ...filters, power: option });
         }}
@@ -313,6 +334,8 @@ export function CardFiltersBar({
         name={"Deploy:"}
         active={(filters && filters.deploy) || DEFAULT_OPTION}
         options={deployOptions}
+        open={openDropDown === DropDownFilters.deploy}
+        onOpen={() => setOpenDropDown(DropDownFilters.deploy)}
         onOptionChosen={(option) => {
           onUpdateFilters({ ...filters, deploy: option });
         }}
@@ -322,6 +345,8 @@ export function CardFiltersBar({
         name={"Forfeit:"}
         active={(filters && filters.forfeit) || DEFAULT_OPTION}
         options={forfeitOptions}
+        open={openDropDown === DropDownFilters.forfeit}
+        onOpen={() => setOpenDropDown(DropDownFilters.forfeit)}
         onOptionChosen={(option) => {
           onUpdateFilters({ ...filters, forfeit: option });
         }}
