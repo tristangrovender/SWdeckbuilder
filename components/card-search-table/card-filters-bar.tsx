@@ -13,6 +13,12 @@ import { useState } from "react";
 import { Radio } from "@material-ui/core";
 import { darkBlue } from "../../utils/colors";
 
+const ClickableFilterIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const FilterIconContainer = styled.div`
   position: relative;
   border-radius: 50px;
@@ -78,14 +84,7 @@ function FilterIcon({
   const [open, setOpen] = useState(false);
   return (
     <FilterIconContainer>
-      <div
-        onClick={() => setOpen(!open)}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+      <ClickableFilterIcon onClick={() => setOpen(!open)}>
         <Icon
           style={{
             fontSize: "30px",
@@ -103,7 +102,7 @@ function FilterIcon({
             fontSize: "16px",
           }}
         />
-      </div>
+      </ClickableFilterIcon>
       {open ? (
         <div
           style={{
