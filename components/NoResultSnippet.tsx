@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { darkBlue } from "../utils/colors";
 
 const SnippetContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 300px;
-  background-color: #292e3c;
+  background-color: ${darkBlue};
   color: lightgray;
   font-size: 12px;
   padding: 4px;

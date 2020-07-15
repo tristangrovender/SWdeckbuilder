@@ -10,6 +10,8 @@ import GavelIcon from "@material-ui/icons/Gavel";
 import { Card } from "./card.interface";
 import { unique, sortAlphabetically } from "../../utils/utils";
 import { useState } from "react";
+import { Radio } from "@material-ui/core";
+import { darkBlue } from "../../utils/colors";
 
 const FilterIconContainer = styled.div`
   position: relative;
@@ -75,39 +77,53 @@ function FilterIcon({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <FilterIconContainer onClick={() => setOpen(!open)}>
-      <Icon
-        style={{
-          fontSize: "30px",
-          marginRight: "5px",
-          borderRadius: "100px",
-          border: "1px solid white",
-          padding: "5px",
-        }}
-      ></Icon>
-      <div style={{ marginLeft: "3px" }}>{text}</div>
+    <FilterIconContainer>
+      <div onClick={() => setOpen(!open)}>
+        <Icon
+          style={{
+            fontSize: "30px",
+            marginRight: "5px",
+            borderRadius: "100px",
+            border: "1px solid white",
+            padding: "5px",
+          }}
+        ></Icon>
+        <div style={{ marginLeft: "3px" }}>{text}</div>
 
-      <ExpandMoreIcon
-        style={{
-          marginLeft: "5px",
-          fontSize: "16px",
-        }}
-      />
+        <ExpandMoreIcon
+          style={{
+            marginLeft: "5px",
+            fontSize: "16px",
+          }}
+        />
+      </div>
       {open ? (
         <div
           style={{
             position: "absolute",
-            backgroundColor: "white",
-            color: "black",
+            backgroundColor: darkBlue,
+            color: "white",
             maxHeight: "400px",
             overflowY: "scroll",
             top: "37px",
             left: "0px",
             padding: "10px",
+            fontSize: "14px",
+            width: "200px",
+            border: "1px solid black",
           }}
         >
           {["All", ...options].map((option, i) => (
-            <div key={i}>{option}</div>
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Radio style={{ color: "white" }} />
+              <div>{option}</div>
+            </div>
           ))}
         </div>
       ) : null}

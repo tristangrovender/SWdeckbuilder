@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Card, Side } from "./card-search-table/card.interface";
 import styled from "styled-components";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
+import { darkBlue } from "../utils/colors";
 
 const CardControlButton = styled.div`
   display: flex;
@@ -44,7 +45,7 @@ export function CardSnippet({
         ...style,
         display: "flex",
         justifyContent: "space-between",
-        backgroundColor: "#292e3c",
+        backgroundColor: darkBlue,
         flexGrow: 1,
       }}
     >
@@ -52,7 +53,7 @@ export function CardSnippet({
         style={{
           width: "50%",
           whiteSpace: "nowrap",
-          backgroundColor: "#292e3c",
+          backgroundColor: darkBlue,
           color: "white",
           overflow: "hidden",
           textOverflow: "ellipsis",
