@@ -1,4 +1,5 @@
 import SearchIcon from "@material-ui/icons/Search";
+import ClickAwayListener from "react-click-away-listener";
 import styled from "styled-components";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -200,22 +201,24 @@ function FilterIcon({
         />
       </ClickableFilterIcon>
       {open ? (
-        <FilterOptionsContainer>
-          {[DEFAULT_OPTION, ...(options || [])].map((option, i) => (
-            <div
-              key={i}
-              style={{
-                display: "flex",
-                cursor: "pointer",
-                alignItems: "center",
-              }}
-              onClick={() => onOptionChosen(option)}
-            >
-              <Radio style={{ color: "white" }} checked={active === option} />
-              <div>{option}</div>
-            </div>
-          ))}
-        </FilterOptionsContainer>
+        <ClickAwayListener onClickAway={() => onClose()}>
+          <FilterOptionsContainer>
+            {[DEFAULT_OPTION, ...(options || [])].map((option, i) => (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  cursor: "pointer",
+                  alignItems: "center",
+                }}
+                onClick={() => onOptionChosen(option)}
+              >
+                <Radio style={{ color: "white" }} checked={active === option} />
+                <div>{option}</div>
+              </div>
+            ))}
+          </FilterOptionsContainer>
+        </ClickAwayListener>
       ) : null}
     </FilterIconContainer>
   );
