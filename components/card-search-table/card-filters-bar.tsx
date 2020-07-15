@@ -64,7 +64,6 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
 function FilterIcon({ Icon, text }: { Icon: any; text: string }) {
   return (
     <FilterIconContainer>
-      <StyledIcon />
       <Icon
         style={{
           fontSize: "30px",

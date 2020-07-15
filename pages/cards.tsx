@@ -14,7 +14,7 @@ export default function Cards() {
     titleFilter: router.query.title as string,
   });
 
-  const [cards, setCards] = useState(null);
+  const [cards, setCards] = useState([]);
   if (cards === null) {
     getCards().then(setCards);
   }

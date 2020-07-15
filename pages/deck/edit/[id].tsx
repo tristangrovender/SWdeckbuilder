@@ -169,7 +169,7 @@ export default function EditDeck(params) {
   const router = useRouter();
   const [deckCards, setDeckCards] = useState([]);
   const [filters, updateFilters] = useState(undefined);
-  const [cards, setCards] = useState(null);
+  const [cards, setCards] = useState([]);
   if (cards === null) {
     getCards().then(setCards);
   }
