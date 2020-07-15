@@ -49,12 +49,13 @@ export default function Home() {
               author="darthvoodoo"
               days={2}
               description="Fast paced, high stakes, fun deck"
+              rating={3}
               cardBreakdown={{
                 characters: 25,
                 effects: 10,
                 weapons: 13,
                 interrupts: 7,
-                objectives: 5,
+                objectives: 5
               }}
             />
             <DeckTile
@@ -63,12 +64,13 @@ export default function Home() {
               author="freeForce4you"
               days={10}
               description="Slow methodical deck good against many types"
+              rating={5}
               cardBreakdown={{
                 characters: 40,
                 effects: 5,
                 weapons: 10,
                 interrupts: 2,
-                objectives: 3,
+                objectives: 3
               }}
             />
             <DeckTile
@@ -77,12 +79,13 @@ export default function Home() {
               author="darthWillMaulYou"
               days={7}
               description="Weapons galore"
+              rating={3}
               cardBreakdown={{
-                characters: 10,
-                effects: 10,
+                characters: 16,
+                effects: 8,
                 weapons: 20,
                 interrupts: 15,
-                objectives: 5,
+                objectives: 1
               }}
             />
             <DeckTile
@@ -91,12 +94,13 @@ export default function Home() {
               author="Falconator"
               days={15}
               description="Fast paced, high stakes, fun deck"
+              rating={4}
               cardBreakdown={{
                 characters: 33,
                 effects: 11,
                 weapons: 14,
                 interrupts: 1,
-                objectives: 1,
+                objectives: 1
               }}
             />
             <DeckTile
@@ -105,12 +109,13 @@ export default function Home() {
               author="solo547"
               days={12}
               description="Slow methodical deck good against many types"
+              rating={4}
               cardBreakdown={{
                 characters: 39,
                 effects: 1,
                 weapons: 11,
                 interrupts: 5,
-                objectives: 4,
+                objectives: 4
               }}
             />
             <DeckTile
@@ -119,12 +124,13 @@ export default function Home() {
               author="IamYourFather?"
               days={1}
               description="Solid all around deck"
+              rating={3}
               cardBreakdown={{
                 characters: 33,
                 effects: 10,
                 weapons: 12,
                 interrupts: 2,
-                objectives: 3,
+                objectives: 3
               }}
             />
           </TileContainer>

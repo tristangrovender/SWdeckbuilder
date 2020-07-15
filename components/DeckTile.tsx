@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+import StarsRating from "stars-rating";
+
+const ratingChanged = newRating => {
+  console.log(newRating);
+};
+
 const Tile = styled.div`
   background-color: white;
   color: white;
@@ -34,15 +40,27 @@ const TileAuthor = styled.div`
 const TileDescription = styled.div`
   color: black;
   font-size: 14px;
-  padding-top: 10px;
+  padding-top: 5px;
   padding-left: 10px;
   padding-right: 10px;
 `;
 
-const TileDeckContents = styled.div`
+const TileRatingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+`;
+
+const RatingText = styled.div`
+  font-size: 10px;
+  margin-left: 10px;
   color: black;
-  font-size: 14px;
-  padding-bottom: 10px;
+`;
+
+const TileDeckCardTypes = styled.div`
+  color: black;
+  font-size: 12px;
+  padding-top: 5px;
   padding-left: 10px;
   padding-right: 10px;
 `;
@@ -53,13 +71,15 @@ export function DeckTile({
   author,
   days,
   description,
-  cardBreakdown
+  cardBreakdown,
+  rating
 }: {
   img: string;
   title: string;
   author: string;
   days: number;
   description: string;
+  rating: number;
   cardBreakdown: {
     characters: number;
     effects: number;
@@ -80,11 +100,23 @@ export function DeckTile({
         </TileBanner>
       </TileBannerContainer>
       <TileDescription>Description: {description}</TileDescription>
-      <TileDeckContents>
+      <TileDeckCardTypes>
         {cardBreakdown.characters} Characters • {cardBreakdown.effects} Effects
         • {cardBreakdown.weapons} Weapons • {cardBreakdown.interrupts}{" "}
         Interrupts • {cardBreakdown.objectives} Objectives
-      </TileDeckContents>
+      </TileDeckCardTypes>
+      <TileRatingContainer>
+        <StarsRating
+          count={5} // number of stars
+          // onChange={ratingChanged}
+          size={15}
+          color2={"#ffd700"}
+          edit={false}
+          value={rating}
+          half={false} // allow half numbers
+        />
+        <RatingText>133 ratings</RatingText>
+      </TileRatingContainer>
     </Tile>
   );
 }
