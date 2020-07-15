@@ -8,6 +8,7 @@ import BlurOnIcon from "@material-ui/icons/BlurOn";
 import FlagIcon from "@material-ui/icons/Flag";
 import GavelIcon from "@material-ui/icons/Gavel";
 import { Card } from "./card.interface";
+import { unique, sortAlphabetically } from "../../utils/utils";
 
 const FilterIconContainer = styled.div`
   border-radius: 50px;
@@ -92,6 +93,8 @@ export function CardFiltersBar({
   filters?: CardFilters;
   onUpdateFilters: (cardFilters: CardFilters) => void;
 }) {
+  const sets = sortAlphabetically(unique(allCards.map(({ set }) => set)));
+  console.log(sets);
   return (
     <CardFilterBarContainer>
       <SearchContainer>
