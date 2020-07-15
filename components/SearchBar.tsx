@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { getCards } from "../components/card-search-table/card-search-table";
+import { getCards } from "../components/card-search-table/getCards";
 import { CardSnippet } from "./card-snippet";
 import Router from "next/router";
 import NoResultSnippet from "../components/NoResultSnippet";
