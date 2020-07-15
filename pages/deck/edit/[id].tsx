@@ -46,6 +46,7 @@ function CardPanelRow({
         removeCard={removeCard}
         addCard={addCard}
         isHovering={isHovering}
+        style={{ maxWidth: "94%" }}
       />
       <div
         style={{
