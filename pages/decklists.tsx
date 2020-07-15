@@ -43,7 +43,6 @@ const Image = styled.img`
 const TitleAuthorContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* width: 50%; */
   margin-left: 10px;
 `;
 
@@ -54,7 +53,6 @@ const Title = styled.div`
 `;
 
 const Author = styled.div`
-  /* margin-top: 4px; */
   font-size: 10px;
 `;
 
@@ -76,8 +74,6 @@ const RatingText = styled.div`
 
 const TileRatingContainer = styled.div`
   display: flex;
-  /* flex-direction: row-reverse; */
-  /* flex-direction: column-reverse; */
   font-size: 10px;
   margin-top: 6px;
   justify-content: flex-end;
@@ -86,7 +82,6 @@ const TileRatingContainer = styled.div`
 
 const Days = styled.div`
   font-size: 12px;
-  /* margin-top: 10px; */
 `;
 
 export default function DeckLists() {
