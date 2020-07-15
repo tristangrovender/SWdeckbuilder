@@ -7,6 +7,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import BlurOnIcon from "@material-ui/icons/BlurOn";
 import FlagIcon from "@material-ui/icons/Flag";
 import GavelIcon from "@material-ui/icons/Gavel";
+import { Card } from "./card.interface";
 
 const Input = styled.input`
   background-color: transparent;
@@ -51,9 +52,11 @@ export interface CardFilters {
 }
 
 export function CardFiltersBar({
+  allCards,
   filters,
   onUpdateFilters,
 }: {
+  allCards: Card[];
   filters?: CardFilters;
   onUpdateFilters: (cardFilters: CardFilters) => void;
 }) {

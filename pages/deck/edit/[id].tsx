@@ -10,6 +10,7 @@ import {
 import styled from "styled-components";
 import { CardFiltersBar } from "../../../components/card-search-table/card-filters-bar";
 import { CardSnippet } from "../../../components/card-snippet";
+import { getCards } from "../../../components/card-search-table/getCards";
 
 const CardPanelRowContainer = styled.div`
   display: flex;
@@ -165,6 +166,10 @@ export default function EditDeck(params) {
   const router = useRouter();
   const [deckCards, setDeckCards] = useState([]);
   const [filters, updateFilters] = useState(undefined);
+  const [cards, setCards] = useState(null);
+  if (cards === null) {
+    getCards().then(setCards);
+  }
   const addCard = (card: Card) => {
     setDeckCards([...deckCards, card]);
   };
@@ -182,12 +187,12 @@ export default function EditDeck(params) {
     );
   }
 
-  console.log("deckId", deckId);
   return (
     <Page>
       <Toolbar />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <CardFiltersBar
+          allCards={cards}
           filters={filters}
           onUpdateFilters={(filters) => updateFilters(filters)}
         />
