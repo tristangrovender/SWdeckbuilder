@@ -54,7 +54,7 @@ export default function Home() {
                 effects: 10,
                 weapons: 13,
                 interrupts: 7,
-                objectives: 5
+                objectives: 5,
               }}
             />
             <DeckTile
@@ -68,7 +68,7 @@ export default function Home() {
                 effects: 5,
                 weapons: 10,
                 interrupts: 2,
-                objectives: 3
+                objectives: 3,
               }}
             />
             <DeckTile
@@ -82,7 +82,7 @@ export default function Home() {
                 effects: 10,
                 weapons: 20,
                 interrupts: 15,
-                objectives: 5
+                objectives: 5,
               }}
             />
             <DeckTile
@@ -96,7 +96,7 @@ export default function Home() {
                 effects: 11,
                 weapons: 14,
                 interrupts: 1,
-                objectives: 1
+                objectives: 1,
               }}
             />
             <DeckTile
@@ -110,7 +110,7 @@ export default function Home() {
                 effects: 1,
                 weapons: 11,
                 interrupts: 5,
-                objectives: 4
+                objectives: 4,
               }}
             />
             <DeckTile
@@ -124,7 +124,7 @@ export default function Home() {
                 effects: 10,
                 weapons: 12,
                 interrupts: 2,
-                objectives: 3
+                objectives: 3,
               }}
             />
           </TileContainer>

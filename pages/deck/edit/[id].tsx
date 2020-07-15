@@ -117,7 +117,12 @@ function CardPanel({
                   flexGrow: 1,
                 }}
               >
-                <span contentEditable={true}>Un-named Deck</span>
+                <span
+                  contentEditable={true}
+                  suppressContentEditableWarning={true}
+                >
+                  Un-named Deck
+                </span>
                 <span style={{ color: "rgba(255,255,255,0.5)" }}>
                   &nbsp;({cards.length}/60)
                 </span>
