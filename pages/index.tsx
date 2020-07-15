@@ -25,12 +25,7 @@ const TileContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  /* max-width: 800px; */
 `;
-
-// const Tile = styled.div`
-//   display: flex;
-// `;
 
 export default function Home() {
   return (

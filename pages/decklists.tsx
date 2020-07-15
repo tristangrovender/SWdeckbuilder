@@ -1,8 +1,12 @@
 import { Toolbar, Content, Page } from "../components/Toolbar";
 import { dummyDeck } from "../cards/dummyDecks";
 import styled from "styled-components";
-import Favorite from "@material-ui/icons/Favorite";
 import { DeckFilter } from "../components/DeckFilter";
+import StarsRating from "stars-rating";
+
+const ratingChanged = newRating => {
+  console.log(newRating);
+};
 
 const BodyContainer = styled.div`
   display: flex;
@@ -39,7 +43,7 @@ const Image = styled.img`
 const TitleAuthorContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 75%;
+  /* width: 50%; */
   margin-left: 10px;
 `;
 
@@ -50,30 +54,39 @@ const Title = styled.div`
 `;
 
 const Author = styled.div`
+  /* margin-top: 4px; */
   font-size: 10px;
 `;
 
 const IconDaysDiv = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: flex-end;
   justify-content: flex-end;
-  padding-bottom: 12px;
+  padding-top: 14px;
   flex-grow: 1;
   margin-right: 20px;
 `;
 
-const HeartDiv = styled.div`
-  display: flex;
-  direction: row;
+const RatingText = styled.div`
   font-size: 10px;
-  color: red;
+  margin-left: 10px;
+  color: black;
+`;
+
+const TileRatingContainer = styled.div`
+  display: flex;
+  /* flex-direction: row-reverse; */
+  /* flex-direction: column-reverse; */
+  font-size: 10px;
+  margin-top: 6px;
   justify-content: flex-end;
+  align-items: center;
 `;
 
 const Days = styled.div`
   font-size: 12px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 `;
 
 export default function DeckLists() {
@@ -94,17 +107,19 @@ export default function DeckLists() {
                   <Author>By {deck.author}</Author>
                 </TitleAuthorContainer>
                 <IconDaysDiv>
-                  <HeartDiv>
-                    <Favorite
-                      style={{
-                        color: "red",
-                        fontSize: "14px",
-                        marginRight: "4px"
-                      }}
-                    ></Favorite>
-                    0
-                  </HeartDiv>
-                  <Days>{deck.days} days ago</Days>
+                  <TileRatingContainer>
+                    <StarsRating
+                      count={5} // number of stars
+                      onChange={ratingChanged}
+                      size={15}
+                      color2={"#ffd700"}
+                      edit={false}
+                      value={deck.rating}
+                      half={true}
+                    />
+                    <RatingText>133 ratings</RatingText>
+                  </TileRatingContainer>
+                  <Days>Created {deck.days} days ago</Days>
                 </IconDaysDiv>
               </DeckDiv>
             ))}
