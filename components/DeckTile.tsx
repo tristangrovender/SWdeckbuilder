@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import StarsRating from "stars-rating";
 
-const ratingChanged = newRating => {
+const ratingChanged = (newRating) => {
   console.log(newRating);
 };
 
@@ -72,7 +72,7 @@ export function DeckTile({
   days,
   description,
   cardBreakdown,
-  rating
+  rating,
 }: {
   img: string;
   title: string;
@@ -107,8 +107,7 @@ export function DeckTile({
       </TileDeckCardTypes>
       <TileRatingContainer>
         <StarsRating
-          count={5} // number of stars
-          // onChange={ratingChanged}
+          count={5}
           size={15}
           color2={"#ffd700"}
           edit={false}
