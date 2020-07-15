@@ -18,6 +18,18 @@ const Input = styled.input`
   }
 `;
 
+export function applyFilters(allCards: Card[], filters: CardFilters) {
+  // TODO add side filter
+  return allCards.filter((card) => {
+    if (!filters || !filters.titleFilter) {
+      return true;
+    }
+    return card.front.title
+      .toLowerCase()
+      .includes(filters.titleFilter.toLowerCase());
+  });
+}
+
 function FilterIcon({ Icon, text }: { Icon: any; text: string }) {
   return (
     <div

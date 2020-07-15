@@ -4,7 +4,6 @@ import { Card, Side } from "./card.interface";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import AddIcon from "@material-ui/icons/Add";
 import { CardFilters } from "./card-filters-bar";
-import { getCards } from "./getCards";
 
 function CardRow({
   card,
@@ -100,39 +99,21 @@ function CardHover({
 }
 
 export function CardSearchResults({
+  cards,
   showSide,
   onCardSelected,
   filters,
   style = {},
 }: {
+  cards: Card[];
   filters?: CardFilters;
   showSide?: Side;
   style?: CSSProperties;
   onCardSelected?: (card: Card) => void;
 }) {
   const [cardHover, setCardHover] = useState({ card: null, location: null });
-  const [cards, setCards] = useState(null);
-  if (cards === null) {
-    getCards().then(setCards);
-    return <div>Loading Cards</div>;
-  }
   const showSideColumn = !Boolean(showSide);
-  const filteredCards = cards
-    .filter((card) => {
-      if (showSide) {
-        return card.side === showSide;
-      }
-      return true;
-    })
-    .filter((card) => {
-      if (!filters || !filters.titleFilter) {
-        return true;
-      }
-      return card.front.title
-        .toLowerCase()
-        .includes(filters.titleFilter.toLowerCase());
-    })
-    .slice(0, 100);
+  const filteredCards = cards.slice(0, 100);
   return (
     <div style={{ ...style }}>
       <CardHover {...cardHover} />

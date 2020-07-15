@@ -8,7 +8,10 @@ import {
   Card,
 } from "../../../components/card-search-table/card.interface";
 import styled from "styled-components";
-import { CardFiltersBar } from "../../../components/card-search-table/card-filters-bar";
+import {
+  CardFiltersBar,
+  applyFilters,
+} from "../../../components/card-search-table/card-filters-bar";
 import { CardSnippet } from "../../../components/card-snippet";
 import { getCards } from "../../../components/card-search-table/getCards";
 
@@ -199,6 +202,7 @@ export default function EditDeck(params) {
         {/* TODO showSide will need to come from /deck/new choice */}
         <div style={{ display: "flex" }}>
           <CardSearchResults
+            cards={applyFilters(cards, filters)}
             showSide={Side.dark}
             onCardSelected={addCard}
             filters={filters}
