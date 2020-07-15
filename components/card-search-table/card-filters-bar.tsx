@@ -87,14 +87,20 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
   });
 }
 
+const DEFAULT_OPTION = "All";
+
 function FilterIcon({
   Icon,
   text,
   options,
+  active,
+  onOptionChosen,
 }: {
+  active?: string;
   Icon: any;
   text: string;
   options?: string[];
+  onOptionChosen: (option: string) => void;
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -120,15 +126,16 @@ function FilterIcon({
       </ClickableFilterIcon>
       {open ? (
         <FilterOptionsContainer>
-          {["All", ...(options || [])].map((option, i) => (
+          {[DEFAULT_OPTION, ...(options || [])].map((option, i) => (
             <div
               key={i}
               style={{
                 display: "flex",
                 alignItems: "center",
               }}
+              onClick={() => onOptionChosen(option)}
             >
-              <Radio style={{ color: "white" }} />
+              <Radio style={{ color: "white" }} checked={active === option} />
               <div>{option}</div>
             </div>
           ))}
@@ -139,6 +146,7 @@ function FilterIcon({
 }
 export interface CardFilters {
   titleFilter: string;
+  set?: string;
 }
 
 export function CardFiltersBar({
@@ -164,12 +172,45 @@ export function CardFiltersBar({
           }
         ></Input>
       </SearchContainer>
-      <FilterIcon Icon={MenuBookIcon} text={"Set: All"} options={sets} />
-      <FilterIcon Icon={SupervisorAccountIcon} text={"Type: All"} />
-      <FilterIcon Icon={BlurOnIcon} text={"Destiny: All"} />
-      <FilterIcon Icon={GavelIcon} text={"Power: All"} />
-      <FilterIcon Icon={ArrowUpwardIcon} text={"Deploy: All"} />
-      <FilterIcon Icon={FlagIcon} text={"Forfeit: All"} />
+      <FilterIcon
+        Icon={MenuBookIcon}
+        text={"Set: All"}
+        options={sets}
+        active={(filters && filters.set) || DEFAULT_OPTION}
+        onOptionChosen={(option) =>
+          onUpdateFilters({ ...filters, set: option })
+        }
+      />
+      <FilterIcon
+        Icon={SupervisorAccountIcon}
+        text={"Type: All"}
+        active={DEFAULT_OPTION}
+        onOptionChosen={() => {}}
+      />
+      <FilterIcon
+        Icon={BlurOnIcon}
+        text={"Destiny: All"}
+        active={DEFAULT_OPTION}
+        onOptionChosen={() => {}}
+      />
+      <FilterIcon
+        Icon={GavelIcon}
+        text={"Power: All"}
+        active={DEFAULT_OPTION}
+        onOptionChosen={() => {}}
+      />
+      <FilterIcon
+        Icon={ArrowUpwardIcon}
+        text={"Deploy: All"}
+        active={DEFAULT_OPTION}
+        onOptionChosen={() => {}}
+      />
+      <FilterIcon
+        Icon={FlagIcon}
+        text={"Forfeit: All"}
+        active={DEFAULT_OPTION}
+        onOptionChosen={() => {}}
+      />
     </CardFilterBarContainer>
   );
 }
