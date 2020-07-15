@@ -3,13 +3,9 @@ export function unique(items: string[]) {
 }
 
 export function sortAlphabetically(items: string[]) {
-  return items.sort(function (a, b) {
-    if (a < b) {
-      return -1;
-    }
-    if (a > b) {
-      return 1;
-    }
-    return 0;
+  var collator = new Intl.Collator(undefined, {
+    numeric: true,
+    sensitivity: "base",
   });
+  return items.sort(collator.compare);
 }

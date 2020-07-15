@@ -35,6 +35,7 @@ const ClickableFilterIcon = styled.div`
 `;
 
 const FilterIconContainer = styled.div`
+  z-index: 10;
   position: relative;
   border-radius: 50px;
   border: 1px solid #6f6f6f;
