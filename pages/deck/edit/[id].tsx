@@ -205,7 +205,6 @@ export default function EditDeck(params) {
             cards={applyFilters(cards, filters)}
             showSide={Side.dark}
             onCardSelected={addCard}
-            filters={filters}
             style={{
               width: "70vw",
               marginLeft: "3vw",

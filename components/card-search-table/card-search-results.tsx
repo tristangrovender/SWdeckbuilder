@@ -102,11 +102,9 @@ export function CardSearchResults({
   cards,
   showSide,
   onCardSelected,
-  filters,
   style = {},
 }: {
   cards: Card[];
-  filters?: CardFilters;
   showSide?: Side;
   style?: CSSProperties;
   onCardSelected?: (card: Card) => void;

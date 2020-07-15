@@ -26,10 +26,7 @@ export default function Cards() {
         filters={filters}
         onUpdateFilters={(filters) => updateFilters(filters)}
       />
-      <CardSearchResults
-        filters={filters}
-        cards={applyFilters(cards, filters)}
-      />
+      <CardSearchResults cards={applyFilters(cards, filters)} />
     </Page>
   );
 }
