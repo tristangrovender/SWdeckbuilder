@@ -99,7 +99,7 @@ function CardHover({
   );
 }
 
-export function CardSearchTable({
+export function CardSearchResults({
   showSide,
   onCardSelected,
   filters,

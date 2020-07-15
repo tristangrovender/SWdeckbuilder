@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Page, Toolbar, Content } from "../../../components/Toolbar";
 import { StickyContainer, Sticky } from "react-sticky";
 import { useRouter } from "next/router";
-import { CardSearchTable } from "../../../components/card-search-table/card-search-table";
+import { CardSearchResults } from "../../../components/card-search-table/card-search-results";
 import {
   Side,
   Card,
@@ -193,7 +193,7 @@ export default function EditDeck(params) {
         />
         {/* TODO showSide will need to come from /deck/new choice */}
         <div style={{ display: "flex" }}>
-          <CardSearchTable
+          <CardSearchResults
             showSide={Side.dark}
             onCardSelected={addCard}
             filters={filters}
