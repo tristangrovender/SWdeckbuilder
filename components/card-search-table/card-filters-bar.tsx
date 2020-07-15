@@ -30,6 +30,7 @@ const FilterOptionsContainer = styled.div`
 const ClickableFilterIcon = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: space-between;
 `;
 
@@ -119,7 +120,7 @@ function FilterIcon({
       </ClickableFilterIcon>
       {open ? (
         <FilterOptionsContainer>
-          {["All", ...options].map((option, i) => (
+          {["All", ...(options || [])].map((option, i) => (
             <div
               key={i}
               style={{
