@@ -93,6 +93,15 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
       return card.set === filters.set;
     })
     .filter((card) => {
+      if (!filters || !filters.destiny || filters.destiny === DEFAULT_OPTION) {
+        return true;
+      }
+
+      return (
+        card.front.destiny && card.front.destiny.toString() === filters.destiny
+      );
+    })
+    .filter((card) => {
       if (!filters || !filters.titleFilter) {
         return true;
       }
@@ -175,6 +184,7 @@ export interface CardFilters {
   titleFilter: string;
   set?: string;
   type?: string;
+  destiny?: string;
 }
 
 export function CardFiltersBar({
@@ -189,6 +199,14 @@ export function CardFiltersBar({
   const sets = sortAlphabetically(unique(allCards.map(({ set }) => set)));
   const types = sortAlphabetically(
     unique(allCards.map(({ front: { type } }) => type))
+  );
+  const destiny = sortAlphabetically(
+    unique(
+      allCards
+        .map(({ front: { destiny } }) => destiny)
+        .filter(Boolean)
+        .map((destiny) => destiny.toString())
+    )
   );
   return (
     <CardFilterBarContainer>
@@ -223,8 +241,11 @@ export function CardFiltersBar({
       <FilterIcon
         Icon={BlurOnIcon}
         name={"Destiny:"}
-        active={DEFAULT_OPTION}
-        onOptionChosen={() => {}}
+        active={(filters && filters.destiny) || DEFAULT_OPTION}
+        options={destiny}
+        onOptionChosen={(option) => {
+          onUpdateFilters({ ...filters, destiny: option });
+        }}
       />
       <FilterIcon
         Icon={GavelIcon}
