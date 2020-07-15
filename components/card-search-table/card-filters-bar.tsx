@@ -9,6 +9,37 @@ import FlagIcon from "@material-ui/icons/Flag";
 import GavelIcon from "@material-ui/icons/Gavel";
 import { Card } from "./card.interface";
 
+const FilterIconContainer = styled.div`
+  border-radius: 50px;
+  border: 1px solid #6f6f6f;
+  display: flex;
+  align-items: center;
+  padding: 2px 0px;
+  padding-right: 10px;
+  justify-content: center;
+  margin-right: 10px;
+`;
+
+const SearchContainer = styled.div`
+  border-radius: 50px;
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  margin-right: 10px;
+`;
+
+const CardFilterBarContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+  background-color: #2d2d2f;
+  justify-content: center;
+  padding: 10px;
+  color: white;
+  align-items: center;
+`;
+
 const Input = styled.input`
   background-color: transparent;
   border: 0px;
@@ -32,18 +63,8 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
 
 function FilterIcon({ Icon, text }: { Icon: any; text: string }) {
   return (
-    <div
-      style={{
-        borderRadius: "50px",
-        border: "1px solid #6f6f6f",
-        display: "flex",
-        alignItems: "center",
-        padding: "2px 0px",
-        paddingRight: "10px",
-        justifyContent: "center",
-        marginRight: "10px",
-      }}
-    >
+    <FilterIconContainer>
+      <StyledIcon />
       <Icon
         style={{
           fontSize: "30px",
@@ -52,11 +73,11 @@ function FilterIcon({ Icon, text }: { Icon: any; text: string }) {
           border: "1px solid white",
           padding: "5px",
         }}
-      />
+      ></Icon>
       <div style={{ marginLeft: "3px" }}>{text}</div>
 
       <ExpandMoreIcon style={{ marginLeft: "5px", fontSize: "16px" }} />
-    </div>
+    </FilterIconContainer>
   );
 }
 export interface CardFilters {
@@ -73,28 +94,8 @@ export function CardFiltersBar({
   onUpdateFilters: (cardFilters: CardFilters) => void;
 }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexGrow: 1,
-        backgroundColor: "#2d2d2f",
-        justifyContent: "center",
-        padding: "10px",
-        color: "white",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          borderRadius: "50px",
-          border: "1px solid white",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "2px 7px",
-          marginRight: "10px",
-        }}
-      >
+    <CardFilterBarContainer>
+      <SearchContainer>
         <SearchIcon style={{ transform: "rotate(90deg)" }} />
         <Input
           placeholder="Search"
@@ -103,13 +104,13 @@ export function CardFiltersBar({
             onUpdateFilters({ ...filters, titleFilter: e.target.value })
           }
         ></Input>
-      </div>
+      </SearchContainer>
       <FilterIcon Icon={MenuBookIcon} text={"Set: All"} />
       <FilterIcon Icon={SupervisorAccountIcon} text={"Type: All"} />
       <FilterIcon Icon={BlurOnIcon} text={"Destiny: All"} />
       <FilterIcon Icon={GavelIcon} text={"Power: All"} />
       <FilterIcon Icon={ArrowUpwardIcon} text={"Deploy: All"} />
       <FilterIcon Icon={FlagIcon} text={"Forfeit: All"} />
-    </div>
+    </CardFilterBarContainer>
   );
 }
