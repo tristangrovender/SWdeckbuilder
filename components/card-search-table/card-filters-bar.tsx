@@ -79,6 +79,13 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
   // TODO add side filter
   return allCards
     .filter((card) => {
+      if (!filters || !filters.type || filters.type === DEFAULT_OPTION) {
+        return true;
+      }
+
+      return card.front.type === filters.type;
+    })
+    .filter((card) => {
       if (!filters || !filters.set || filters.set === DEFAULT_OPTION) {
         return true;
       }
@@ -99,14 +106,14 @@ const DEFAULT_OPTION = "All";
 
 function FilterIcon({
   Icon,
-  text,
+  name,
   options,
   active,
   onOptionChosen,
 }: {
+  name: string;
   active?: string;
   Icon: any;
-  text: string;
   options?: string[];
   onOptionChosen: (option: string) => void;
 }) {
@@ -123,7 +130,18 @@ function FilterIcon({
             padding: "5px",
           }}
         ></Icon>
-        <div style={{ marginLeft: "3px" }}>{text}</div>
+        <div
+          style={{
+            marginLeft: "3px",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            maxWidth: "90px",
+          }}
+        >
+          {name}
+          {active || DEFAULT_OPTION}
+        </div>
 
         <ExpandMoreIcon
           style={{
@@ -139,6 +157,7 @@ function FilterIcon({
               key={i}
               style={{
                 display: "flex",
+                cursor: "pointer",
                 alignItems: "center",
               }}
               onClick={() => onOptionChosen(option)}
@@ -155,6 +174,7 @@ function FilterIcon({
 export interface CardFilters {
   titleFilter: string;
   set?: string;
+  type?: string;
 }
 
 export function CardFiltersBar({
@@ -167,7 +187,9 @@ export function CardFiltersBar({
   onUpdateFilters: (cardFilters: CardFilters) => void;
 }) {
   const sets = sortAlphabetically(unique(allCards.map(({ set }) => set)));
-  console.log(sets);
+  const types = sortAlphabetically(
+    unique(allCards.map(({ front: { type } }) => type))
+  );
   return (
     <CardFilterBarContainer>
       <SearchContainer>
@@ -182,7 +204,7 @@ export function CardFiltersBar({
       </SearchContainer>
       <FilterIcon
         Icon={MenuBookIcon}
-        text={"Set: All"}
+        name={"Set:"}
         options={sets}
         active={(filters && filters.set) || DEFAULT_OPTION}
         onOptionChosen={(option) =>
@@ -191,31 +213,34 @@ export function CardFiltersBar({
       />
       <FilterIcon
         Icon={SupervisorAccountIcon}
-        text={"Type: All"}
-        active={DEFAULT_OPTION}
-        onOptionChosen={() => {}}
+        name={"Type:"}
+        options={types}
+        active={(filters && filters.type) || DEFAULT_OPTION}
+        onOptionChosen={(option) => {
+          onUpdateFilters({ ...filters, type: option });
+        }}
       />
       <FilterIcon
         Icon={BlurOnIcon}
-        text={"Destiny: All"}
+        name={"Destiny:"}
         active={DEFAULT_OPTION}
         onOptionChosen={() => {}}
       />
       <FilterIcon
         Icon={GavelIcon}
-        text={"Power: All"}
+        name={"Power:"}
         active={DEFAULT_OPTION}
         onOptionChosen={() => {}}
       />
       <FilterIcon
         Icon={ArrowUpwardIcon}
-        text={"Deploy: All"}
+        name={"Deploy:"}
         active={DEFAULT_OPTION}
         onOptionChosen={() => {}}
       />
       <FilterIcon
         Icon={FlagIcon}
-        text={"Forfeit: All"}
+        name={"Forfeit:"}
         active={DEFAULT_OPTION}
         onOptionChosen={() => {}}
       />
