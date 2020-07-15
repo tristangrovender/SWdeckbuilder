@@ -14,11 +14,12 @@ import {
 } from "../../../components/card-search-table/card-filters-bar";
 import { CardSnippet } from "../../../components/card-snippet";
 import { getCards } from "../../../components/card-search-table/getCards";
+import { darkBlue } from "../../../utils/colors";
 
 const CardPanelRowContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: #292e3c;
+  background-color: ${darkBlue};
   color: white;
   padding-left: 3px;
   border: 1px solid transparent;
@@ -101,7 +102,7 @@ function CardPanel({
               width: "300px",
               height: "400px",
               border: "2px solid grey",
-              backgroundColor: "#292e3c",
+              backgroundColor: darkBlue,
               margin: "10px",
               color: "white",
             }}
