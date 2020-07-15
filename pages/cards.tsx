@@ -14,19 +14,19 @@ export default function Cards() {
     titleFilter: router.query.title as string,
   });
 
-  const [cards, setCards] = useState([]);
-  if (cards === null) {
+  const [allCards, setCards] = useState([]);
+  if (allCards.length === 0) {
     getCards().then(setCards);
   }
   return (
     <Page>
       <Toolbar />
       <CardFiltersBar
-        allCards={cards}
+        allCards={allCards}
         filters={filters}
         onUpdateFilters={(filters) => updateFilters(filters)}
       />
-      <CardSearchResults cards={applyFilters(cards, filters)} />
+      <CardSearchResults cards={applyFilters(allCards, filters)} />
     </Page>
   );
 }

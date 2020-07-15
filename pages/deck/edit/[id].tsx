@@ -169,8 +169,8 @@ export default function EditDeck(params) {
   const router = useRouter();
   const [deckCards, setDeckCards] = useState([]);
   const [filters, updateFilters] = useState(undefined);
-  const [cards, setCards] = useState([]);
-  if (cards === null) {
+  const [allCards, setCards] = useState([]);
+  if (allCards.length === 0) {
     getCards().then(setCards);
   }
   const addCard = (card: Card) => {
@@ -195,14 +195,14 @@ export default function EditDeck(params) {
       <Toolbar />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <CardFiltersBar
-          allCards={cards}
+          allCards={allCards}
           filters={filters}
           onUpdateFilters={(filters) => updateFilters(filters)}
         />
         {/* TODO showSide will need to come from /deck/new choice */}
         <div style={{ display: "flex" }}>
           <CardSearchResults
-            cards={applyFilters(cards, filters)}
+            cards={applyFilters(allCards, filters)}
             showSide={Side.dark}
             onCardSelected={addCard}
             style={{
