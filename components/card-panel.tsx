@@ -172,7 +172,15 @@ export function CardPanel({
               )}
             </div>
             {cardInfo ? (
-              <ClickAwayListener onClickAway={() => console.log("click awway")}>
+              <ClickAwayListener
+                onClickAway={() => {
+                  if (cardInfo.clickAwayActive) {
+                    setCardInfo(undefined);
+                  } else {
+                    setCardInfo({ ...cardInfo, clickAwayActive: true });
+                  }
+                }}
+              >
                 <div
                   style={{
                     position: "absolute",
