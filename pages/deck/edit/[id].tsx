@@ -24,12 +24,16 @@ function getCardSuggestions({
 }): Card[] {
   if (deck.length === 0) {
     if (side == Side.dark) {
-      return [allCards[0]];
+      return allCards.filter(({ front: { title } }) => {
+        return title === "•Knowledge And Defense (V)";
+      });
     } else {
-      return [allCards[0]];
+      return allCards.filter(({ front: { title } }) => {
+        return title === "•Anger, Fear, Aggression (V)";
+      });
     }
   }
-  return allCards.slice(0, 2);
+  return [];
 }
 
 export default function EditDeck(params) {

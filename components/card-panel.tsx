@@ -165,7 +165,7 @@ export function CardPanel({
                 </span>
               </DeckBuilderTitle>
             </DeckBuilderHeader>
-            <div style={{ overflowY: "scroll", height: "400px" }}>
+            <div style={{ overflowY: "scroll", height: "350px" }}>
               {cards.length === 0 ? (
                 <EmptyDeckState>
                   Click add in the table to add cards to your deck
