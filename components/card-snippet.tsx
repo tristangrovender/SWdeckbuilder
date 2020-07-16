@@ -25,9 +25,6 @@ export function CardSnippet({
   isHovering,
   backgroundColor = darkBlue,
   hoverButtons,
-  removeCard,
-  addCard,
-  onCardInfo,
   onMouseDown,
 }: {
   card: Card;
@@ -39,9 +36,6 @@ export function CardSnippet({
     fontSize?: string;
     onClick: () => void;
   }[];
-  removeCard?: () => void;
-  addCard?: () => void;
-  onCardInfo?: () => void;
   onMouseDown?: () => void;
 }) {
   const [url, setUrl] = useState(card.front.imageUrl);
