@@ -92,7 +92,7 @@ function CardHover({
     return null;
   }
   const { top } = document.body.getClientRects()[0];
-  const { height: screenHeight } = window.screen;
+  const screenHeight = window.innerHeight;
 
   const topOfScreenY = Math.abs(top);
   const bottomOfScreenY = screenHeight - top;
@@ -102,17 +102,17 @@ function CardHover({
     "and",
     bottomOfScreenY,
     ". The card topY is ",
-    location.y - 200,
+    location.y,
     "bottom y is",
-    location.y - 200 + 400 // 300 is my guess at the card height
+    location.y + 400 // 300 is my guess at the card height
   );
   return (
     <div
       style={{
         pointerEvents: "none",
         position: "absolute",
-        top: location.y - 200,
-        left: location.x + 200,
+        top: location.y,
+        left: location.x,
       }}
     >
       <img src={card.front.imageUrl} style={{ height: "400px" }}></img>
@@ -170,7 +170,7 @@ export function CardSearchResults({
                   location: { x: e.pageX, y: e.pageY },
                 })
               }
-              onMouseOut={() => setCardHover({ card: null, location: null })}
+              onMouseOut={() => console.log("clear")}
               onAdd={onCardSelected ? () => onCardSelected(card) : null}
             />
           );
