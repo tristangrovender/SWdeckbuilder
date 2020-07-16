@@ -6,6 +6,7 @@ import { FadedImage, CardSnippet } from "../../components/card-snippet";
 import styled from "styled-components";
 import { darkBlue } from "../../utils/colors";
 import { groupBy } from "../../utils/utils";
+import { ClickAwayListener } from "@material-ui/core";
 
 const GrowComponent = styled.div`
   display: flex;
@@ -68,6 +69,7 @@ function getRandomDeck(allCards: Card[]) {
 
 function CardRow({ card }: { card: Card }) {
   const [isHovering, setHovering] = useState(false);
+  const [viewCard, setViewCard] = useState(false);
   return (
     <div
       onMouseOver={() => setHovering(true)}
@@ -81,10 +83,17 @@ function CardRow({ card }: { card: Card }) {
         hoverButtons={[
           {
             text: "i",
-            onClick: () => console.log("clicked info"),
+            onClick: () => setViewCard(true),
           },
         ]}
       />
+      {viewCard ? (
+        <ClickAwayListener onClickAway={() => setViewCard(false)}>
+          <div style={{ position: "absolute", height: "400px", zIndex: 1 }}>
+            <img src={card.front.imageUrl}></img>
+          </div>
+        </ClickAwayListener>
+      ) : null}
     </div>
   );
 }
