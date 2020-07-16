@@ -66,8 +66,10 @@ const CardFilterBarContainer = styled.div`
   padding: 10px;
   color: white;
   align-items: center;
-  /* z-index: 0;
-  border: 3px solid purple; */
+  flex-wrap: wrap;
+  @media (max-width: 1140px) {
+    height: 110px;
+  }
 `;
 
 const Input = styled.input`
