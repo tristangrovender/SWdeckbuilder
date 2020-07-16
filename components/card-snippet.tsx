@@ -24,6 +24,7 @@ export function CardSnippet({
   style,
   isHovering,
   backgroundColor = darkBlue,
+  hoverButtons,
   removeCard,
   addCard,
   onCardInfo,
@@ -33,6 +34,11 @@ export function CardSnippet({
   backgroundColor?: string;
   style?: CSSProperties;
   isHovering?: boolean;
+  hoverButtons?: {
+    text: string;
+    fontSize?: string;
+    onClick: () => void;
+  }[];
   removeCard?: () => void;
   addCard?: () => void;
   onCardInfo?: () => void;
@@ -100,14 +106,16 @@ export function CardSnippet({
             userSelect: "none",
           }}
         >
-          <CardControlButton
-            onClick={() => onCardInfo()}
-            style={{ fontSize: "12px" }}
-          >
-            i
-          </CardControlButton>
-          <CardControlButton onClick={removeCard}>-</CardControlButton>
-          <CardControlButton onClick={addCard}>+</CardControlButton>
+          {hoverButtons
+            ? hoverButtons.map(({ text, fontSize, onClick }) => (
+                <CardControlButton
+                  onClick={onClick}
+                  style={{ fontSize: fontSize || "initial" }}
+                >
+                  {text}
+                </CardControlButton>
+              ))
+            : null}
         </div>
       </div>
     </div>

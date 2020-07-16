@@ -86,16 +86,16 @@ function CardPanelRow({
   card,
   count,
   backgroundColor,
-  removeCard,
-  addCard,
-  onCardInfo,
+  hoverButtons,
 }: {
   card: Card;
   count: number;
   backgroundColor?: string;
-  removeCard?: () => void;
-  addCard?: () => void;
-  onCardInfo?: () => void;
+  hoverButtons?: {
+    text: string;
+    fontSize?: string;
+    onClick: () => void;
+  }[];
 }) {
   const [isHovering, setHovering] = useState(false);
   return (
@@ -105,9 +105,7 @@ function CardPanelRow({
     >
       <CardSnippet
         card={card}
-        removeCard={removeCard}
-        addCard={addCard}
-        onCardInfo={onCardInfo}
+        hoverButtons={hoverButtons}
         backgroundColor={backgroundColor}
         isHovering={isHovering}
         style={{ maxWidth: "94%" }}
@@ -188,9 +186,15 @@ export function CardPanel({
                     key={i}
                     card={card}
                     count={count}
-                    removeCard={() => removeCard(card)}
-                    addCard={() => addCard(card)}
-                    onCardInfo={onCardInfoHandler(card)}
+                    hoverButtons={[
+                      {
+                        onClick: onCardInfoHandler(card),
+                        text: "i",
+                        fontSize: "12px",
+                      },
+                      { onClick: () => removeCard(card), text: "-" },
+                      { onClick: () => addCard(card), text: "+" },
+                    ]}
                   />
                 ))
               )}
@@ -203,9 +207,23 @@ export function CardPanel({
                   card={card}
                   count={0}
                   backgroundColor="black"
-                  removeCard={() => removeCard(card)}
-                  addCard={() => addCard(card)}
-                  onCardInfo={onCardInfoHandler(card)}
+                  hoverButtons={[
+                    {
+                      onClick: onCardInfoHandler(card),
+                      text: "i",
+                      fontSize: "12px",
+                    },
+                    {
+                      onClick: () => console.log("reject"),
+                      text: "reject",
+                      fontSize: "12px",
+                    },
+                    {
+                      onClick: () => addCard(card),
+                      text: "accept",
+                      fontSize: "12px",
+                    },
+                  ]}
                 />
               ))}
             </div>
