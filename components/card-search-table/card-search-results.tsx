@@ -11,7 +11,7 @@ function CardRow({
   showSideColumn,
   onMouseOver,
   onMouseOut,
-  onAdd,
+  onAdd
 }: {
   card: Card;
   rowColor: string;
@@ -24,7 +24,7 @@ function CardRow({
     <div
       style={{
         display: "flex",
-        backgroundColor: rowColor,
+        backgroundColor: rowColor
       }}
     >
       <div style={{ flex: 40, alignItems: "center", display: "flex" }}>
@@ -43,7 +43,7 @@ function CardRow({
           flex: 10,
           marginRight: "5px",
           display: "flex",
-          alignItems: "center",
+          alignItems: "center"
         }}
       >
         {card.front.type}
@@ -54,7 +54,7 @@ function CardRow({
           marginRight: "5px",
           whiteSpace: "nowrap",
           overflow: "hidden",
-          textOverflow: "ellipsis",
+          textOverflow: "ellipsis"
         }}
         title={card.set}
       >
@@ -66,7 +66,7 @@ function CardRow({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginRight: "2px",
+            marginRight: "2px"
           }}
         >
           <AddIcon onClick={onAdd} style={{ cursor: "pointer" }} />
@@ -83,7 +83,7 @@ function CardRow({
 
 function CardHover({
   card,
-  location,
+  location
 }: {
   card: Card;
   location: { x: number; y: number };
@@ -92,7 +92,7 @@ function CardHover({
     return null;
   }
   const { top } = document.body.getClientRects()[0];
-  const { height: screenHeight } = window.screen;
+  const screenHeight = window.innerHeight;
 
   const topOfScreenY = Math.abs(top);
   const bottomOfScreenY = screenHeight - top;
@@ -102,17 +102,17 @@ function CardHover({
     "and",
     bottomOfScreenY,
     ". The card topY is ",
-    location.y - 200,
+    location.y,
     "bottom y is",
-    location.y - 200 + 400 // 300 is my guess at the card height
+    location.y + 400 // 300 is my guess at the card height
   );
   return (
     <div
       style={{
         pointerEvents: "none",
         position: "absolute",
-        top: location.y - 200,
-        left: location.x + 200,
+        top: location.y < bottomOfScreenY ? location.y - 400 : location.y + 400,
+        left: location.x + 200
       }}
     >
       <img src={card.front.imageUrl} style={{ height: "400px" }}></img>
@@ -124,7 +124,7 @@ export function CardSearchResults({
   cards,
   showSide,
   onCardSelected,
-  style = {},
+  style = {}
 }: {
   cards: Card[];
   showSide?: Side;
@@ -144,7 +144,7 @@ export function CardSearchResults({
             fontWeight: "bold",
             flex: 40,
             display: "flex",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           Name
@@ -164,10 +164,10 @@ export function CardSearchResults({
               rowColor={i % 2 ? "#f5f5f5" : "white"}
               card={card}
               showSideColumn={showSideColumn}
-              onMouseOver={(e) =>
+              onMouseOver={e =>
                 setCardHover({
                   card: card,
-                  location: { x: e.pageX, y: e.pageY },
+                  location: { x: e.pageX, y: e.pageY }
                 })
               }
               onMouseOut={() => setCardHover({ card: null, location: null })}
@@ -185,7 +185,7 @@ export function CardSearchResults({
             alignItems: "center",
             color: "grey",
             fontSize: "12px",
-            margin: "10px 0px",
+            margin: "10px 0px"
           }}
         >
           Please apply filters to see more cards
