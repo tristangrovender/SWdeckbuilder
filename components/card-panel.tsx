@@ -217,11 +217,6 @@ export function CardPanel({
                         fontSize: "12px",
                       },
                       {
-                        onClick: () => console.log("reject"),
-                        text: "reject",
-                        fontSize: "12px",
-                      },
-                      {
                         onClick: () => addCard(card),
                         text: "accept",
                         fontSize: "12px",
