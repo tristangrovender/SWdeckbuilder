@@ -25,17 +25,22 @@ export default function NewDeck() {
     <Page>
       <Toolbar />
       <Content>
-        <div style={{ width: "500px" }}>
-          <h3
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <div
             style={{
               display: "flex",
-              alignItems: "center",
               justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            Choose a side
-          </h3>
-          <div style={{ display: "flex" }}>
             <DeckSideContainer onClick={() => setSide("dark")}>
               <img src="/images/dark.png"></img>
               <RadioContainer>
@@ -66,7 +71,6 @@ export default function NewDeck() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              flexGrow: 1,
             }}
           >
             <Link href="/deck/edit/111">
