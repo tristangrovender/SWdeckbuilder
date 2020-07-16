@@ -34,11 +34,13 @@ function CardPanelRow({
   count,
   removeCard,
   addCard,
+  onCardInfo,
 }: {
   card: Card;
   count: number;
   removeCard?: () => void;
   addCard?: () => void;
+  onCardInfo?: () => void;
 }) {
   const [isHovering, setHovering] = useState(false);
   return (
@@ -50,7 +52,7 @@ function CardPanelRow({
         card={card}
         removeCard={removeCard}
         addCard={addCard}
-        onCardInfo={() => console.log("show card info")}
+        onCardInfo={onCardInfo}
         isHovering={isHovering}
         style={{ maxWidth: "94%" }}
       />
@@ -156,6 +158,7 @@ function CardPanel({
                     count={count}
                     removeCard={() => removeCard(card)}
                     addCard={() => addCard(card)}
+                    onCardInfo={() => console.log("on card info")}
                   />
                 ))
               )}
