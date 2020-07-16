@@ -7,11 +7,22 @@ export default function MyDecks() {
     <Page>
       <Toolbar />
       <Content>
-        <Link href="/deck/new">
-          <Button variant="contained" color="primary">
-            Build New Deck
-          </Button>
-        </Link>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            marginTop: "-100px",
+          }}
+        >
+          <div>Build your first deck:&nbsp;</div>
+          <Link href="/deck/new">
+            <Button variant="contained" color="primary">
+              New Deck
+            </Button>
+          </Link>
+        </div>
       </Content>
     </Page>
   );

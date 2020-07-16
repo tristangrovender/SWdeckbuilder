@@ -33,6 +33,7 @@ const ToolbarLink = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   justify-content: center;
+  min-height: calc(100vh - 80px);
 `;
 
 export function Content({ children }) {
