@@ -16,6 +16,35 @@ import { CardSnippet } from "../../../components/card-snippet";
 import { getCards } from "../../../components/card-search-table/getCards";
 import { darkBlue } from "../../../utils/colors";
 
+const DeckBuilderContainer = styled.div`
+  width: 300px;
+  background-color: ${darkBlue};
+  height: 400px;
+  border: 2px solid grey;
+  margin: 10px;
+  color: white;
+`;
+
+const DeckBuilderTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+`;
+
+const DeckBuilderHeader = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const EmptyDeckState = styled.div`
+  margin-top: 20px;
+  display: flex;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  justify-content: center;
+`;
+
 const CardPanelRowContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -99,33 +128,11 @@ function CardPanel({
     <StickyContainer>
       <Sticky>
         {({ style }) => (
-          <div
-            style={{
-              ...style,
-              width: "300px",
-              height: "400px",
-              border: "2px solid grey",
-              backgroundColor: darkBlue,
-              margin: "10px",
-              color: "white",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
+          <DeckBuilderContainer style={style}>
+            <DeckBuilderHeader>
               <img src="/images/dark.png" style={{ height: "50px" }}></img>
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexGrow: 1,
-                }}
-              >
+              <DeckBuilderTitle>
                 <span
                   contentEditable={true}
                   suppressContentEditableWarning={true}
@@ -135,21 +142,13 @@ function CardPanel({
                 <span style={{ color: "rgba(255,255,255,0.5)" }}>
                   &nbsp;({cards.length}/60)
                 </span>
-              </div>
-            </div>
+              </DeckBuilderTitle>
+            </DeckBuilderHeader>
             <div style={{ overflowY: "scroll", height: "400px" }}>
               {cards.length === 0 ? (
-                <div
-                  style={{
-                    marginTop: "20px",
-                    display: "flex",
-                    color: "rgba(255,255,255,0.5)",
-                    fontSize: "12px",
-                    justifyContent: "center",
-                  }}
-                >
+                <EmptyDeckState>
                   Click add in the table to add cards to your deck
-                </div>
+                </EmptyDeckState>
               ) : (
                 groupCards(cards).map(({ card, count }, i) => (
                   <CardPanelRow
@@ -163,7 +162,7 @@ function CardPanel({
                 ))
               )}
             </div>
-          </div>
+          </DeckBuilderContainer>
         )}
       </Sticky>
     </StickyContainer>
