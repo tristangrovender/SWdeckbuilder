@@ -39,10 +39,6 @@ export function CardSnippet({
   }[];
   onMouseDown?: () => void;
 }) {
-  const [url, setUrl] = useState(card.front.imageUrl);
-  useEffect(() => {
-    setUrl(card.front.imageUrl);
-  }, [card.front.imageUrl]);
   return (
     <div
       onMouseDown={onMouseDown}
@@ -66,23 +62,13 @@ export function CardSnippet({
       </div>
       <div
         style={{
-          backgroundImage: `url(${url})`,
+          backgroundImage: `url(${card.front.imageUrl})`,
           backgroundPosition: "-24px -130px",
           backgroundSize: "240px",
           width: "50%",
           position: "relative",
         }}
-        onLoad={() => console.log("loaded")}
       >
-        <img
-          src={url}
-          style={{ display: "none" }}
-          onError={(e) =>
-            setUrl(
-              card.side === Side.dark ? "/images/dark.png" : "/images/light.png"
-            )
-          }
-        ></img>
         <div
           style={{
             background: `linear-gradient(to left, rgba(255,255,255,0) 0%, ${backgroundColor} 100%)`,
