@@ -51,16 +51,19 @@ export function SearchBar() {
     return cardName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
   });
 
-  const matchingResultsComponent = matchingResults.slice(0, 8).map((card) => (
-    <CardSnippet
-      card={card}
-      onMouseDown={() => Router.push(`/card/${card.id}`)}
-      style={{
-        padding: "1px",
-        cursor: "pointer",
-      }}
-    />
-  ));
+  const matchingResultsComponent = matchingResults
+    .slice(0, 8)
+    .map((card, i) => (
+      <CardSnippet
+        key={i}
+        card={card}
+        onMouseDown={() => Router.push(`/card/${card.id}`)}
+        style={{
+          padding: "1px",
+          cursor: "pointer",
+        }}
+      />
+    ));
 
   const cardResults = (
     <ResultsDropdown style={focus ? {} : { display: "none" }}>
