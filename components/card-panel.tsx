@@ -120,6 +120,20 @@ export function CardPanel({
     { card: Card; clickAwayActive: boolean } | undefined,
     (cardInfo: { card: Card; clickAwayActive: boolean }) => void
   ] = useState(undefined);
+  const onCardInfoHandler = (card: Card) => () => {
+    if (cardInfo && cardInfo.card.id === card.id) {
+      setCardInfo(undefined);
+    } else {
+      if (cardInfo) {
+        // this means we are switching between cards
+        // and we dont want the click away listener to remove
+        // the card
+        setCardInfo({ card, clickAwayActive: false });
+      } else {
+        setCardInfo({ card, clickAwayActive: true });
+      }
+    }
+  };
   return (
     <StickyContainer>
       <Sticky>
@@ -162,20 +176,7 @@ export function CardPanel({
                     count={count}
                     removeCard={() => removeCard(card)}
                     addCard={() => addCard(card)}
-                    onCardInfo={() => {
-                      if (cardInfo && cardInfo.card.id === card.id) {
-                        setCardInfo(undefined);
-                      } else {
-                        if (cardInfo) {
-                          // this means we are switching between cards
-                          // and we dont want the click away listener to remove
-                          // the card
-                          setCardInfo({ card, clickAwayActive: false });
-                        } else {
-                          setCardInfo({ card, clickAwayActive: true });
-                        }
-                      }
-                    }}
+                    onCardInfo={onCardInfoHandler(card)}
                   />
                 ))
               )}
@@ -199,20 +200,7 @@ export function CardPanel({
                   backgroundColor="black"
                   removeCard={() => removeCard(card)}
                   addCard={() => addCard(card)}
-                  onCardInfo={() => {
-                    if (cardInfo && cardInfo.card.id === card.id) {
-                      setCardInfo(undefined);
-                    } else {
-                      if (cardInfo) {
-                        // this means we are switching between cards
-                        // and we dont want the click away listener to remove
-                        // the card
-                        setCardInfo({ card, clickAwayActive: false });
-                      } else {
-                        setCardInfo({ card, clickAwayActive: true });
-                      }
-                    }
-                  }}
+                  onCardInfo={onCardInfoHandler(card)}
                 />
               ))}
             </div>
