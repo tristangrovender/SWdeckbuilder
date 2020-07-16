@@ -3,6 +3,21 @@ import { Toolbar, Content, Page } from "../../components/Toolbar";
 import Button from "@material-ui/core/Button";
 import Radio from "@material-ui/core/Radio";
 import Link from "next/link";
+import styled from "styled-components";
+
+const DeckSideContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+const RadioContainer = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+`;
 
 export default function NewDeck() {
   const [side, setSide] = useState("dark");
@@ -10,26 +25,11 @@ export default function NewDeck() {
     <Page>
       <Toolbar />
       <Content>
-        <h1>Choose a side</h1>
+        <h3>Choose a side</h3>
         <div style={{ display: "flex" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => setSide("dark")}
-          >
+          <DeckSideContainer onClick={() => setSide("dark")}>
             <img src="/images/dark.png"></img>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-                justifyContent: "center",
-              }}
-            >
+            <RadioContainer>
               <Radio
                 checked={side === "dark"}
                 onChange={() => setSide("dark")}
@@ -37,26 +37,11 @@ export default function NewDeck() {
                 name="radio-button-demo"
               />
               Dark
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => setSide("light")}
-          >
+            </RadioContainer>
+          </DeckSideContainer>
+          <DeckSideContainer onClick={() => setSide("light")}>
             <img src="/images/light.png"></img>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-                justifyContent: "center",
-              }}
-            >
+            <RadioContainer>
               <Radio
                 checked={side === "light"}
                 onChange={() => setSide("light")}
@@ -64,8 +49,8 @@ export default function NewDeck() {
                 name="radio-button-demo"
               />
               Light
-            </div>
-          </div>
+            </RadioContainer>
+          </DeckSideContainer>
         </div>
         <Link href="/deck/edit/111">
           <Button variant="contained" color="primary">
