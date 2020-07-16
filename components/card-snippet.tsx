@@ -19,22 +19,24 @@ const CardControlButton = styled.div`
   }
 `;
 
-function FadedImage({
+export function FadedImage({
   imageUrl,
   backgroundColor,
   children,
 }: {
   imageUrl: string;
   backgroundColor: string;
-  children: any;
+  children?: any;
 }) {
   return (
     <div
       style={{
         backgroundImage: `url(${imageUrl})`,
-        backgroundPosition: "-24px -130px",
+        backgroundPosition: "0px -130px",
         backgroundSize: "240px",
+        backgroundRepeat: "no-repeat",
         width: "50%",
+        maxWidth: "230px",
         position: "relative",
       }}
     >
