@@ -106,8 +106,8 @@ export function CardPanel({
   removeCard: (card: Card) => void;
 }) {
   const [cardInfo, setCardInfo]: [
-    Card | undefined,
-    (card: Card) => void
+    { card: Card; clickAwayActive: boolean } | undefined,
+    (cardInfo: { card: Card; clickAwayActive: boolean }) => void
   ] = useState(undefined);
   return (
     <StickyContainer>
@@ -153,20 +153,26 @@ export function CardPanel({
                     removeCard={() => removeCard(card)}
                     addCard={() => addCard(card)}
                     onCardInfo={() => {
-                      // The set timeout is a hack to workardound the fact
-                      // that the clickawaylistener is always the one that
-                      // closes the card info popup
-                      // yikes!
-                      setTimeout(() => {
-                        setCardInfo(card);
-                      }, 0);
+                      console.log("oncardinfo");
+                      if (cardInfo && cardInfo.card.id === card.id) {
+                        setCardInfo(undefined);
+                      } else {
+                        if (cardInfo) {
+                          // this means we are switching between cards
+                          // and we dont want the click away listener to remove
+                          // the card
+                          setCardInfo({ card, clickAwayActive: false });
+                        } else {
+                          setCardInfo({ card, clickAwayActive: true });
+                        }
+                      }
                     }}
                   />
                 ))
               )}
             </div>
             {cardInfo ? (
-              <ClickAwayListener onClickAway={() => setCardInfo(undefined)}>
+              <ClickAwayListener onClickAway={() => console.log("click awway")}>
                 <div
                   style={{
                     position: "absolute",
