@@ -15,6 +15,7 @@ import {
 import { CardSnippet } from "../../../components/card-snippet";
 import { getCards } from "../../../components/card-search-table/getCards";
 import { darkBlue } from "../../../utils/colors";
+import { ClickAwayListener } from "@material-ui/core";
 
 const CardSnippetCountContainer = styled.div`
   color: #fcd144;
@@ -124,6 +125,10 @@ function CardPanel({
   addCard: (card: Card) => void;
   removeCard: (card: Card) => void;
 }) {
+  const [cardInfo, setCardInfo]: [
+    Card | undefined,
+    (card: Card) => void
+  ] = useState(undefined);
   return (
     <StickyContainer>
       <Sticky>
@@ -157,11 +162,37 @@ function CardPanel({
                     count={count}
                     removeCard={() => removeCard(card)}
                     addCard={() => addCard(card)}
-                    onCardInfo={() => console.log("on card info")}
+                    onCardInfo={() => {
+                      // The set timeout is a hack to workardound the fact
+                      // that the clickawaylistener is always the one that
+                      // closes the card info popup
+                      // yikes!
+                      setTimeout(() => {
+                        setCardInfo(card);
+                      }, 0);
+                    }}
                   />
                 ))
               )}
             </div>
+            {cardInfo ? (
+              <ClickAwayListener onClickAway={() => setCardInfo(undefined)}>
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "350px",
+                    height: "400px",
+                    backgroundColor: "white",
+                    border: "1px solid black",
+                    top: "0px",
+                    left: "-350px",
+                  }}
+                >
+                  hi
+                  <img src={cardInfo.front.imageUrl} />
+                </div>
+              </ClickAwayListener>
+            ) : null}
           </DeckBuilderContainer>
         )}
       </Sticky>
