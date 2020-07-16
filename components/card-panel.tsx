@@ -101,7 +101,8 @@ function CardPanelRow({
       onMouseLeave={() => setHovering(false)}
     >
       <CardSnippet
-        card={card}
+        title={card.front.title}
+        imageUrl={card.front.imageUrl}
         hoverButtons={hoverButtons}
         backgroundColor={backgroundColor}
         isHovering={isHovering}

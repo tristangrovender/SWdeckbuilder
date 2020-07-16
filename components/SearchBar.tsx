@@ -56,7 +56,8 @@ export function SearchBar() {
     .map((card, i) => (
       <CardSnippet
         key={i}
-        card={card}
+        title={card.front.title}
+        imageUrl={card.front.imageUrl}
         onMouseDown={() => Router.push(`/card/${card.id}`)}
         style={{
           padding: "1px",

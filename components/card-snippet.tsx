@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from "react";
-import { Card, Side } from "./card-search-table/card.interface";
+import { Card } from "./card-search-table/card.interface";
 import styled from "styled-components";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import { darkBlue } from "../utils/colors";
@@ -21,14 +20,16 @@ const CardControlButton = styled.div`
 `;
 
 export function CardSnippet({
-  card,
+  title,
+  imageUrl,
   style,
   isHovering,
   backgroundColor = darkBlue,
   hoverButtons,
   onMouseDown,
 }: {
-  card: Card;
+  title: string;
+  imageUrl: string;
   backgroundColor?: string;
   style?: CSSProperties;
   isHovering?: boolean;
@@ -58,11 +59,11 @@ export function CardSnippet({
           textOverflow: "ellipsis",
         }}
       >
-        {card.front.title}
+        {title}
       </div>
       <div
         style={{
-          backgroundImage: `url(${card.front.imageUrl})`,
+          backgroundImage: `url(${imageUrl})`,
           backgroundPosition: "-24px -130px",
           backgroundSize: "240px",
           width: "50%",
