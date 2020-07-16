@@ -7,6 +7,38 @@ import styled from "styled-components";
 import { darkBlue } from "../../utils/colors";
 import { groupBy } from "../../utils/utils";
 
+const GrowComponent = styled.div`
+  display: flex;
+  flex-grow: 1;
+`;
+
+const PageTitle = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const TypeSectionsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const TypeContainer = styled.div`
+  width: 300px;
+  color: white;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const TypeTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  font-size: 16px;
+  padding: 5px;
+`;
+
 const TitleContainer = styled.div`
   width: 100%;
   display: flex;
@@ -39,27 +71,8 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
     return <div>Loading...</div>;
   }
   return (
-    <div
-      style={{
-        width: "300px",
-        color: "white",
-        marginRight: "20px",
-        marginTop: "10px",
-        marginBottom: "10px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "rgba(0,0,0,0.9)",
-          fontSize: "16px",
-          padding: "5px",
-        }}
-      >
-        {cards[0].front.type}
-      </div>
+    <TypeContainer>
+      <TypeTitle>{cards[0].front.type}</TypeTitle>
       <div
         style={{
           backgroundColor: darkBlue,
@@ -72,7 +85,7 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
           />
         ))}
       </div>
-    </div>
+    </TypeContainer>
   );
 }
 
@@ -90,24 +103,17 @@ export default function Deck() {
       <Toolbar />
       <Content>
         <TitleContainer>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            Planet Destroyer
-          </div>
-          <div style={{ display: "flex", flexGrow: 1 }}></div>
+          <PageTitle>Planet Destroyer</PageTitle>
+          <GrowComponent />
           <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
         </TitleContainer>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-          }}
-        >
+        <TypeSectionsContainer>
           {groupBy(deck, ["front", "type"])
             .sort((groupA, groupB) => groupA.length - groupB.length)
             .map((cardsInType, i) => (
               <CardTypeSection key={i} cards={cardsInType} />
             ))}
-        </div>
+        </TypeSectionsContainer>
       </Content>
     </Page>
   );
