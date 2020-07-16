@@ -19,6 +19,36 @@ const CardControlButton = styled.div`
   }
 `;
 
+function FadedImage({
+  imageUrl,
+  backgroundColor,
+  children,
+}: {
+  imageUrl: string;
+  backgroundColor: string;
+  children: any;
+}) {
+  return (
+    <div
+      style={{
+        backgroundImage: `url(${imageUrl})`,
+        backgroundPosition: "-24px -130px",
+        backgroundSize: "240px",
+        width: "50%",
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          background: `linear-gradient(to left, rgba(255,255,255,0) 0%, ${backgroundColor} 100%)`,
+          height: "100%",
+        }}
+      ></div>
+      {children}
+    </div>
+  );
+}
+
 export function CardSnippet({
   title,
   imageUrl,
@@ -61,21 +91,7 @@ export function CardSnippet({
       >
         {title}
       </div>
-      <div
-        style={{
-          backgroundImage: `url(${imageUrl})`,
-          backgroundPosition: "-24px -130px",
-          backgroundSize: "240px",
-          width: "50%",
-          position: "relative",
-        }}
-      >
-        <div
-          style={{
-            background: `linear-gradient(to left, rgba(255,255,255,0) 0%, ${backgroundColor} 100%)`,
-            height: "100%",
-          }}
-        ></div>
+      <FadedImage imageUrl={imageUrl} backgroundColor={backgroundColor}>
         <div
           style={{
             display: isHovering ? "flex" : "none",
@@ -99,7 +115,7 @@ export function CardSnippet({
               ))
             : null}
         </div>
-      </div>
+      </FadedImage>
     </div>
   );
 }
