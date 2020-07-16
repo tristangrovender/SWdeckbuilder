@@ -11,7 +11,7 @@ function CardRow({
   showSideColumn,
   onMouseOver,
   onMouseOut,
-  onAdd
+  onAdd,
 }: {
   card: Card;
   rowColor: string;
@@ -24,7 +24,7 @@ function CardRow({
     <div
       style={{
         display: "flex",
-        backgroundColor: rowColor
+        backgroundColor: rowColor,
       }}
     >
       <div style={{ flex: 40, alignItems: "center", display: "flex" }}>
@@ -43,7 +43,7 @@ function CardRow({
           flex: 10,
           marginRight: "5px",
           display: "flex",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         {card.front.type}
@@ -54,7 +54,7 @@ function CardRow({
           marginRight: "5px",
           whiteSpace: "nowrap",
           overflow: "hidden",
-          textOverflow: "ellipsis"
+          textOverflow: "ellipsis",
         }}
         title={card.set}
       >
@@ -66,7 +66,7 @@ function CardRow({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginRight: "2px"
+            marginRight: "2px",
           }}
         >
           <AddIcon onClick={onAdd} style={{ cursor: "pointer" }} />
@@ -81,9 +81,41 @@ function CardRow({
 // simply prevent the card hover from showing off-screen?
 // card hover projects right and up from the point of the mouse?
 
+function getCoordinatesInViewPort(
+  location: { x: number; y: number },
+  componentHeight: number
+): { top: number; left: number } {
+  const { top } = document.body.getClientRects()[0];
+  const screenHeight = window.innerHeight;
+  const topOfScreenY = Math.abs(top);
+  const bottomOfScreenY = screenHeight - top;
+  const desiredTop = location.y - 200;
+
+  const left = location.x + 200;
+  if (desiredTop + componentHeight > bottomOfScreenY) {
+    const top = desiredTop - (desiredTop + componentHeight - bottomOfScreenY);
+    return {
+      top,
+      left,
+    };
+  }
+  if (desiredTop < topOfScreenY) {
+    const top = topOfScreenY;
+    return {
+      top,
+      left,
+    };
+  }
+
+  return {
+    top: desiredTop,
+    left,
+  };
+}
+
 function CardHover({
   card,
-  location
+  location,
 }: {
   card: Card;
   location: { x: number; y: number };
@@ -96,8 +128,7 @@ function CardHover({
       style={{
         pointerEvents: "none",
         position: "absolute",
-        top: location.y - 200,
-        left: location.x + 200
+        ...getCoordinatesInViewPort(location, 400),
       }}
     >
       <img src={card.front.imageUrl} style={{ height: "400px" }}></img>
@@ -109,7 +140,7 @@ export function CardSearchResults({
   cards,
   showSide,
   onCardSelected,
-  style = {}
+  style = {},
 }: {
   cards: Card[];
   showSide?: Side;
@@ -129,7 +160,7 @@ export function CardSearchResults({
             fontWeight: "bold",
             flex: 40,
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           Name
@@ -149,10 +180,10 @@ export function CardSearchResults({
               rowColor={i % 2 ? "#f5f5f5" : "white"}
               card={card}
               showSideColumn={showSideColumn}
-              onMouseOver={e =>
+              onMouseOver={(e) =>
                 setCardHover({
                   card: card,
-                  location: { x: e.pageX, y: e.pageY }
+                  location: { x: e.pageX, y: e.pageY },
                 })
               }
               onMouseOut={() => setCardHover({ card: null, location: null })}
@@ -170,7 +201,7 @@ export function CardSearchResults({
             alignItems: "center",
             color: "grey",
             fontSize: "12px",
-            margin: "10px 0px"
+            margin: "10px 0px",
           }}
         >
           Please apply filters to see more cards
