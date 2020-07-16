@@ -48,7 +48,7 @@ export default function EditDeck(params) {
     setDeckCards([...deckCards, card]);
   };
   const removeCard = (cardToRemove: Card) => {
-    const index = deckCards.findIndex((card) => card.id == cardToRemove.id);
+    const index = deckCards.map(({ id }) => id).lastIndexOf(cardToRemove.id);
     setDeckCards([...deckCards.slice(0, index), ...deckCards.slice(index + 1)]);
   };
   const { id: deckId } = router.query;
