@@ -41,17 +41,37 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
   return (
     <div
       style={{
-        backgroundColor: darkBlue,
         width: "300px",
         color: "white",
         marginRight: "20px",
-        marginBottom: "20px",
+        marginTop: "10px",
+        marginBottom: "10px",
       }}
     >
-      <div>{cards[0].front.type}</div>
-      {cards.map((card) => (
-        <CardSnippet title={card.front.title} imageUrl={card.front.imageUrl} />
-      ))}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "rgba(0,0,0,0.9)",
+          fontSize: "16px",
+          padding: "5px",
+        }}
+      >
+        {cards[0].front.type}
+      </div>
+      <div
+        style={{
+          backgroundColor: darkBlue,
+        }}
+      >
+        {cards.map((card) => (
+          <CardSnippet
+            title={card.front.title}
+            imageUrl={card.front.imageUrl}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -76,10 +96,17 @@ export default function Deck() {
           <div style={{ display: "flex", flexGrow: 1 }}></div>
           <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
         </TitleContainer>
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {groupBy(deck, ["front", "type"]).map((cardsInType, i) => (
-            <CardTypeSection key={i} cards={cardsInType} />
-          ))}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          {groupBy(deck, ["front", "type"])
+            .sort((groupA, groupB) => groupA.length - groupB.length)
+            .map((cardsInType, i) => (
+              <CardTypeSection key={i} cards={cardsInType} />
+            ))}
         </div>
       </Content>
     </Page>
