@@ -33,6 +33,27 @@ function getCardSuggestions({
       });
     }
   }
+
+  const destroyTheJedi = allCards.find(({ front: { title } }) => {
+    return (
+      title ===
+      "Hunt Down And Destroy The Jedi / Their Fire Has Gone Out Of The Universe"
+    );
+  });
+  if (allCards.some(({ id }) => id === destroyTheJedi.id)) {
+    const cardsInDestroyTheJedi = [
+      "•Executor: Holotheatre",
+      "•Visage Of The Emperor",
+      "•Executor: Meditation Chamber",
+      "•Epic Duel",
+    ];
+    return allCards
+      .filter(({ front: { title } }) => cardsInDestroyTheJedi.includes(title))
+      .filter((cardSuggestion) => {
+        return deck.map(({ id }) => id).indexOf(cardSuggestion.id) === -1;
+      });
+  }
+
   return [];
 }
 
