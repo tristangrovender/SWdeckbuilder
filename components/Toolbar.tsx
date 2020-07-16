@@ -1,13 +1,35 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { SearchBar } from "../components/SearchBar";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core";
+import { grey, blueGrey } from "@material-ui/core/colors";
+import { goldenColor } from "../utils/colors";
 
 const contentWidth = 960;
 
-export const Page = styled.div`
+const PageContainer = styled.div`
   background-color: #ecf0f1;
   min-height: 100vh;
 `;
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: grey[500],
+    },
+    secondary: {
+      main: blueGrey[500],
+    },
+  },
+});
+
+export const Page = ({ children }) => {
+  return (
+    <ThemeProvider theme={theme}>
+      <PageContainer>{children}</PageContainer>
+    </ThemeProvider>
+  );
+};
 
 const ToolbarContainer = styled.div`
   background-color: #222;

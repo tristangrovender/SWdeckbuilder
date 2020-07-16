@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StickyContainer, Sticky } from "react-sticky";
 import styled from "styled-components";
 import { ClickAwayListener } from "@material-ui/core";
-import { darkBlue } from "../utils/colors";
+import { darkBlue, goldenColor } from "../utils/colors";
 import { Card } from "./card-search-table/card.interface";
 import { CardSnippet } from "./card-snippet";
 
@@ -10,9 +10,6 @@ const DeckBuilderCardsContainer = styled.div`
   overflow-y: scroll;
   height: 350px;
 `;
-
-const goldenColor = "#fcd144";
-
 const SuggestedCardsContainer = styled.div`
   color: ${goldenColor};
   display: flex;
