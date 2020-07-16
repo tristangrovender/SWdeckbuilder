@@ -66,6 +66,10 @@ const CardFilterBarContainer = styled.div`
   padding: 10px;
   color: white;
   align-items: center;
+  flex-wrap: wrap;
+  @media (max-width: 1140px) {
+    height: 110px;
+  }
 `;
 
 const Input = styled.input`
