@@ -25,38 +25,57 @@ export default function NewDeck() {
     <Page>
       <Toolbar />
       <Content>
-        <h3>Choose a side</h3>
-        <div style={{ display: "flex" }}>
-          <DeckSideContainer onClick={() => setSide("dark")}>
-            <img src="/images/dark.png"></img>
-            <RadioContainer>
-              <Radio
-                checked={side === "dark"}
-                onChange={() => setSide("dark")}
-                value="a"
-                name="radio-button-demo"
-              />
-              Dark
-            </RadioContainer>
-          </DeckSideContainer>
-          <DeckSideContainer onClick={() => setSide("light")}>
-            <img src="/images/light.png"></img>
-            <RadioContainer>
-              <Radio
-                checked={side === "light"}
-                onChange={() => setSide("light")}
-                value="a"
-                name="radio-button-demo"
-              />
-              Light
-            </RadioContainer>
-          </DeckSideContainer>
+        <div style={{ width: "500px" }}>
+          <h3
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            Choose a side
+          </h3>
+          <div style={{ display: "flex" }}>
+            <DeckSideContainer onClick={() => setSide("dark")}>
+              <img src="/images/dark.png"></img>
+              <RadioContainer>
+                <Radio
+                  checked={side === "dark"}
+                  onChange={() => setSide("dark")}
+                  value="a"
+                  name="radio-button-demo"
+                />
+                Dark
+              </RadioContainer>
+            </DeckSideContainer>
+            <DeckSideContainer onClick={() => setSide("light")}>
+              <img src="/images/light.png"></img>
+              <RadioContainer>
+                <Radio
+                  checked={side === "light"}
+                  onChange={() => setSide("light")}
+                  value="a"
+                  name="radio-button-demo"
+                />
+                Light
+              </RadioContainer>
+            </DeckSideContainer>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexGrow: 1,
+            }}
+          >
+            <Link href="/deck/edit/111">
+              <Button variant="contained" color="primary">
+                Create deck
+              </Button>
+            </Link>
+          </div>
         </div>
-        <Link href="/deck/edit/111">
-          <Button variant="contained" color="primary">
-            Create deck
-          </Button>
-        </Link>
       </Content>
     </Page>
   );
