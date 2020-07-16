@@ -23,12 +23,14 @@ export function CardSnippet({
   card,
   style,
   isHovering,
+  backgroundColor = darkBlue,
   removeCard,
   addCard,
   onCardInfo,
   onMouseDown,
 }: {
   card: Card;
+  backgroundColor?: string;
   style?: CSSProperties;
   isHovering?: boolean;
   removeCard?: () => void;
@@ -82,8 +84,7 @@ export function CardSnippet({
         ></img>
         <div
           style={{
-            background:
-              "linear-gradient(to left, rgba(255,255,255,0) 0%,rgb(41, 46, 60) 100%)",
+            background: `linear-gradient(to left, rgba(255,255,255,0) 0%, ${backgroundColor} 100%)`,
             height: "100%",
           }}
         ></div>

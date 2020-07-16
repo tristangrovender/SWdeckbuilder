@@ -4,6 +4,7 @@ import { getCards } from "../components/card-search-table/getCards";
 import { CardSnippet } from "./card-snippet";
 import Router from "next/router";
 import NoResultSnippet from "../components/NoResultSnippet";
+import { darkBlue } from "../utils/colors";
 
 // Autocomplete
 
@@ -21,7 +22,7 @@ const ResultsDropdown = styled.div`
   border: 1px solid white;
   position: absolute;
   width: 300px;
-  background-color: white;
+  background-color: ${darkBlue};
   color: black;
   z-index: 11;
 `;
@@ -31,11 +32,11 @@ export function SearchBar() {
   const [cards, setCards] = useState([]);
   const [focus, setFocus] = useState(false);
 
-  const handleSearchInputChanges = e => {
+  const handleSearchInputChanges = (e) => {
     if (e.keyCode === 13) {
       Router.push({
         pathname: "/cards",
-        query: { title: searchValue }
+        query: { title: searchValue },
       });
     } else {
       setSearchValue(e.target.value);
@@ -50,13 +51,13 @@ export function SearchBar() {
     return cardName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
   });
 
-  const matchingResultsComponent = matchingResults.slice(0, 8).map(card => (
+  const matchingResultsComponent = matchingResults.slice(0, 8).map((card) => (
     <CardSnippet
       card={card}
       onMouseDown={() => Router.push(`/card/${card.id}`)}
       style={{
         padding: "1px",
-        cursor: "pointer"
+        cursor: "pointer",
       }}
     />
   ));
@@ -76,7 +77,7 @@ export function SearchBar() {
       <SearchBarContainer
         style={{
           transitionDuration: "200ms",
-          width: focus ? "300px" : "175px"
+          width: focus ? "300px" : "175px",
         }}
         type="text"
         placeholder="card search"

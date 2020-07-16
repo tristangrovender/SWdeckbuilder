@@ -47,7 +47,6 @@ const EmptyDeckState = styled.div`
 const CardPanelRowContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: ${darkBlue};
   color: white;
   padding-left: 3px;
   border: 1px solid transparent;
@@ -74,12 +73,14 @@ function groupCards(cards: Card[]): { count: number; card: Card }[] {
 function CardPanelRow({
   card,
   count,
+  backgroundColor,
   removeCard,
   addCard,
   onCardInfo,
 }: {
   card: Card;
   count: number;
+  backgroundColor?: string;
   removeCard?: () => void;
   addCard?: () => void;
   onCardInfo?: () => void;
@@ -95,6 +96,7 @@ function CardPanelRow({
         removeCard={removeCard}
         addCard={addCard}
         onCardInfo={onCardInfo}
+        backgroundColor={backgroundColor}
         isHovering={isHovering}
         style={{ maxWidth: "94%" }}
       />
@@ -194,6 +196,7 @@ export function CardPanel({
                   key={i}
                   card={card}
                   count={count}
+                  backgroundColor="black"
                   removeCard={() => removeCard(card)}
                   addCard={() => addCard(card)}
                   onCardInfo={() => {
