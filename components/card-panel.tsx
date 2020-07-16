@@ -109,10 +109,12 @@ function CardPanelRow({
 
 export function CardPanel({
   cards,
+  suggestedCards,
   addCard,
   removeCard,
 }: {
   cards: Card[];
+  suggestedCards: Card[];
   addCard: (card: Card) => void;
   removeCard: (card: Card) => void;
 }) {
@@ -192,11 +194,11 @@ export function CardPanel({
               >
                 Suggested Cards
               </div>
-              {groupCards(cards).map(({ card, count }, i) => (
+              {suggestedCards.map((card, i) => (
                 <CardPanelRow
                   key={i}
                   card={card}
-                  count={count}
+                  count={0}
                   backgroundColor="black"
                   removeCard={() => removeCard(card)}
                   addCard={() => addCard(card)}

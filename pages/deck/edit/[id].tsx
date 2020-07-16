@@ -60,6 +60,7 @@ export default function EditDeck(params) {
           />
           <CardPanel
             cards={deckCards}
+            suggestedCards={allCards.length ? [allCards[0]] : []}
             addCard={addCard}
             removeCard={removeCard}
           ></CardPanel>
