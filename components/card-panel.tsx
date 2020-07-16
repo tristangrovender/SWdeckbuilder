@@ -6,14 +6,26 @@ import { darkBlue } from "../utils/colors";
 import { Card } from "./card-search-table/card.interface";
 import { CardSnippet } from "./card-snippet";
 
+const DeckBuilderCardsContainer = styled.div`
+  overflow-y: scroll;
+  height: 350px;
+`;
+
+const goldenColor = "#fcd144";
+
+const SuggestedCardsContainer = styled.div`
+  color: ${goldenColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const CardInfoContainer = styled.div`
   position: absolute;
   width: 350px;
   top: 0px;
   left: -350px;
 `;
-
-const goldenColor = "#fcd144";
 
 const CardSnippetCountContainer = styled.div`
   color: ${goldenColor};
@@ -165,7 +177,7 @@ export function CardPanel({
                 </span>
               </DeckBuilderTitle>
             </DeckBuilderHeader>
-            <div style={{ overflowY: "scroll", height: "350px" }}>
+            <DeckBuilderCardsContainer>
               {cards.length === 0 ? (
                 <EmptyDeckState>
                   Click add in the table to add cards to your deck
@@ -182,18 +194,9 @@ export function CardPanel({
                   />
                 ))
               )}
-            </div>
+            </DeckBuilderCardsContainer>
             <div style={{ backgroundColor: "black" }}>
-              <div
-                style={{
-                  color: goldenColor,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                Suggested Cards
-              </div>
+              <SuggestedCardsContainer>Suggested Cards</SuggestedCardsContainer>
               {suggestedCards.map((card, i) => (
                 <CardPanelRow
                   key={i}
