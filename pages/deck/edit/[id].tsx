@@ -16,6 +16,15 @@ import { CardSnippet } from "../../../components/card-snippet";
 import { getCards } from "../../../components/card-search-table/getCards";
 import { darkBlue } from "../../../utils/colors";
 
+const CardSnippetCountContainer = styled.div`
+  color: #fcd144;
+  font-size: 12px;
+  display: flex;
+  width: 15px;
+  justify-content: center;
+  align-items: center;
+`;
+
 const DeckBuilderContainer = styled.div`
   width: 300px;
   background-color: ${darkBlue};
@@ -85,18 +94,9 @@ function CardPanelRow({
         isHovering={isHovering}
         style={{ maxWidth: "94%" }}
       />
-      <div
-        style={{
-          color: "#fcd144",
-          fontSize: "12px",
-          display: "flex",
-          width: "15px",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <CardSnippetCountContainer>
         {count > 1 ? count : null}
-      </div>
+      </CardSnippetCountContainer>
     </CardPanelRowContainer>
   );
 }
