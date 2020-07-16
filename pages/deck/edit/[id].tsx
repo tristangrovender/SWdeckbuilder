@@ -40,7 +40,7 @@ function getCardSuggestions({
       "Hunt Down And Destroy The Jedi / Their Fire Has Gone Out Of The Universe"
     );
   });
-  if (allCards.some(({ id }) => id === destroyTheJedi.id)) {
+  if (deck.some(({ id }) => id === destroyTheJedi.id)) {
     const cardsInDestroyTheJedi = [
       "•Executor: Holotheatre",
       "•Visage Of The Emperor",
