@@ -66,6 +66,29 @@ function getRandomDeck(allCards: Card[]) {
   return randomDeck;
 }
 
+function CardRow({ card }: { card: Card }) {
+  const [isHovering, setHovering] = useState(false);
+  return (
+    <div
+      onMouseOver={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      style={{ cursor: "pointer" }}
+    >
+      <CardSnippet
+        title={card.front.title}
+        imageUrl={card.front.imageUrl}
+        isHovering={isHovering}
+        hoverButtons={[
+          {
+            text: "i",
+            onClick: () => console.log("clicked info"),
+          },
+        ]}
+      />
+    </div>
+  );
+}
+
 function CardTypeSection({ cards }: { cards: Card[] }) {
   if (cards.length === 0) {
     return <div>Loading...</div>;
@@ -79,10 +102,7 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
         }}
       >
         {cards.map((card) => (
-          <CardSnippet
-            title={card.front.title}
-            imageUrl={card.front.imageUrl}
-          />
+          <CardRow card={card} />
         ))}
       </div>
     </TypeContainer>
