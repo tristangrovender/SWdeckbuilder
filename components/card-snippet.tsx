@@ -25,6 +25,7 @@ export function CardSnippet({
   isHovering,
   removeCard,
   addCard,
+  onCardInfo,
   onMouseDown,
 }: {
   card: Card;
@@ -32,6 +33,7 @@ export function CardSnippet({
   isHovering?: boolean;
   removeCard?: () => void;
   addCard?: () => void;
+  onCardInfo?: () => void;
   onMouseDown?: () => void;
 }) {
   const [url, setUrl] = useState(card.front.imageUrl);
@@ -99,6 +101,12 @@ export function CardSnippet({
             userSelect: "none",
           }}
         >
+          <CardControlButton
+            onClick={() => onCardInfo()}
+            style={{ fontSize: "12px" }}
+          >
+            i
+          </CardControlButton>
           <CardControlButton onClick={removeCard}>-</CardControlButton>
           <CardControlButton onClick={addCard}>+</CardControlButton>
         </div>

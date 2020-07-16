@@ -1,170 +1,17 @@
 import { useState } from "react";
 import { Page, Toolbar, Content } from "../../../components/Toolbar";
-import { StickyContainer, Sticky } from "react-sticky";
 import { useRouter } from "next/router";
 import { CardSearchResults } from "../../../components/card-search-table/card-search-results";
 import {
   Side,
   Card,
 } from "../../../components/card-search-table/card.interface";
-import styled from "styled-components";
 import {
   CardFiltersBar,
   applyFilters,
 } from "../../../components/card-search-table/card-filters-bar";
-import { CardSnippet } from "../../../components/card-snippet";
 import { getCards } from "../../../components/card-search-table/getCards";
-import { darkBlue } from "../../../utils/colors";
-
-const CardPanelRowContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  background-color: ${darkBlue};
-  color: white;
-  padding-left: 3px;
-  border: 1px solid transparent;
-
-  &:hover {
-    border: 1px solid #fcd144;
-  }
-`;
-
-function CardPanelRow({
-  card,
-  count,
-  removeCard,
-  addCard,
-}: {
-  card: Card;
-  count: number;
-  removeCard?: () => void;
-  addCard?: () => void;
-}) {
-  const [isHovering, setHovering] = useState(false);
-  return (
-    <CardPanelRowContainer
-      onMouseOver={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-    >
-      <CardSnippet
-        card={card}
-        removeCard={removeCard}
-        addCard={addCard}
-        isHovering={isHovering}
-        style={{ maxWidth: "94%" }}
-      />
-      <div
-        style={{
-          color: "#fcd144",
-          fontSize: "12px",
-          display: "flex",
-          width: "15px",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {count > 1 ? count : null}
-      </div>
-    </CardPanelRowContainer>
-  );
-}
-
-function groupCards(cards: Card[]): { count: number; card: Card }[] {
-  const cardsByCount = cards.reduce((all, card, index) => {
-    if (!all[card.id]) {
-      all[card.id] = { card, count: 1, index };
-    } else {
-      all[card.id].count += 1;
-    }
-    return all;
-  }, {});
-  return Object.values(cardsByCount).sort(
-    ({ index: a }, { index: b }) => a - b
-  ) as { count: number; card: Card }[];
-}
-
-function CardPanel({
-  cards,
-  addCard,
-  removeCard,
-}: {
-  cards: Card[];
-  addCard: (card: Card) => void;
-  removeCard: (card: Card) => void;
-}) {
-  return (
-    <StickyContainer>
-      <Sticky>
-        {({ style }) => (
-          <div
-            style={{
-              ...style,
-              width: "300px",
-              height: "400px",
-              border: "2px solid grey",
-              backgroundColor: darkBlue,
-              margin: "10px",
-              color: "white",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <img src="/images/dark.png" style={{ height: "50px" }}></img>
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexGrow: 1,
-                }}
-              >
-                <span
-                  contentEditable={true}
-                  suppressContentEditableWarning={true}
-                >
-                  Un-named Deck
-                </span>
-                <span style={{ color: "rgba(255,255,255,0.5)" }}>
-                  &nbsp;({cards.length}/60)
-                </span>
-              </div>
-            </div>
-            <div style={{ overflowY: "scroll", height: "400px" }}>
-              {cards.length === 0 ? (
-                <div
-                  style={{
-                    marginTop: "20px",
-                    display: "flex",
-                    color: "rgba(255,255,255,0.5)",
-                    fontSize: "12px",
-                    justifyContent: "center",
-                  }}
-                >
-                  Click add in the table to add cards to your deck
-                </div>
-              ) : (
-                groupCards(cards).map(({ card, count }, i) => (
-                  <CardPanelRow
-                    key={i}
-                    card={card}
-                    count={count}
-                    removeCard={() => removeCard(card)}
-                    addCard={() => addCard(card)}
-                  />
-                ))
-              )}
-            </div>
-          </div>
-        )}
-      </Sticky>
-    </StickyContainer>
-  );
-}
+import { CardPanel } from "../../../components/card-panel";
 
 export default function EditDeck(params) {
   const router = useRouter();
