@@ -50,6 +50,7 @@ function CardPanelRow({
         card={card}
         removeCard={removeCard}
         addCard={addCard}
+        onCardInfo={() => console.log("show card info")}
         isHovering={isHovering}
         style={{ maxWidth: "94%" }}
       />
