@@ -190,7 +190,7 @@ export function CardPanel({
                   }}
                 >
                   hi
-                  <img src={cardInfo.front.imageUrl} />
+                  <img src={cardInfo.card.front.imageUrl} />
                 </div>
               </ClickAwayListener>
             ) : null}
