@@ -13,6 +13,18 @@ import {
 import { getCards } from "../../../components/card-search-table/getCards";
 import { CardPanel } from "../../../components/card-panel";
 
+function getCardSuggestions({
+  side,
+  allCards,
+  deck,
+}: {
+  side: Side;
+  allCards: Card[];
+  deck: Card[];
+}): Card[] {
+  return allCards.slice(0, 2);
+}
+
 export default function EditDeck(params) {
   const router = useRouter();
   const [deckCards, setDeckCards] = useState([]);
@@ -37,6 +49,7 @@ export default function EditDeck(params) {
       </Page>
     );
   }
+  const side = Side.dark;
 
   return (
     <Page>
@@ -51,7 +64,7 @@ export default function EditDeck(params) {
         <div style={{ display: "flex" }}>
           <CardSearchResults
             cards={applyFilters(allCards, filters)}
-            showSide={Side.dark}
+            showSide={side}
             onCardSelected={addCard}
             style={{
               width: "70vw",
@@ -60,7 +73,11 @@ export default function EditDeck(params) {
           />
           <CardPanel
             cards={deckCards}
-            suggestedCards={allCards.length ? [allCards[0]] : []}
+            suggestedCards={
+              allCards.length
+                ? getCardSuggestions({ deck: deckCards, allCards, side })
+                : []
+            }
             addCard={addCard}
             removeCard={removeCard}
           ></CardPanel>
