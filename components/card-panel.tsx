@@ -199,34 +199,38 @@ export function CardPanel({
                 ))
               )}
             </DeckBuilderCardsContainer>
-            <div style={{ backgroundColor: "black" }}>
-              <SuggestedCardsContainer>Suggested Cards</SuggestedCardsContainer>
-              {suggestedCards.map((card, i) => (
-                <CardPanelRow
-                  key={i}
-                  card={card}
-                  count={0}
-                  backgroundColor="black"
-                  hoverButtons={[
-                    {
-                      onClick: onCardInfoHandler(card),
-                      text: "i",
-                      fontSize: "12px",
-                    },
-                    {
-                      onClick: () => console.log("reject"),
-                      text: "reject",
-                      fontSize: "12px",
-                    },
-                    {
-                      onClick: () => addCard(card),
-                      text: "accept",
-                      fontSize: "12px",
-                    },
-                  ]}
-                />
-              ))}
-            </div>
+            {suggestedCards.length ? (
+              <div style={{ backgroundColor: "black" }}>
+                <SuggestedCardsContainer>
+                  Suggested Cards
+                </SuggestedCardsContainer>
+                {suggestedCards.map((card, i) => (
+                  <CardPanelRow
+                    key={i}
+                    card={card}
+                    count={0}
+                    backgroundColor="black"
+                    hoverButtons={[
+                      {
+                        onClick: onCardInfoHandler(card),
+                        text: "i",
+                        fontSize: "12px",
+                      },
+                      {
+                        onClick: () => console.log("reject"),
+                        text: "reject",
+                        fontSize: "12px",
+                      },
+                      {
+                        onClick: () => addCard(card),
+                        text: "accept",
+                        fontSize: "12px",
+                      },
+                    ]}
+                  />
+                ))}
+              </div>
+            ) : null}
             {cardInfo ? (
               <ClickAwayListener
                 onClickAway={() => {
