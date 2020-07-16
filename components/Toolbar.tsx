@@ -3,7 +3,6 @@ import Link from "next/link";
 import { SearchBar } from "../components/SearchBar";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { grey, blueGrey } from "@material-ui/core/colors";
-import { goldenColor } from "../utils/colors";
 
 const contentWidth = 960;
 
