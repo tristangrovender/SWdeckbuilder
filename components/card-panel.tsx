@@ -6,6 +6,13 @@ import { darkBlue } from "../utils/colors";
 import { Card } from "./card-search-table/card.interface";
 import { CardSnippet } from "./card-snippet";
 
+const CardInfoContainer = styled.div`
+  position: absolute;
+  width: 350px;
+  top: 0px;
+  left: -350px;
+`;
+
 const CardSnippetCountContainer = styled.div`
   color: #fcd144;
   font-size: 12px;
@@ -181,17 +188,9 @@ export function CardPanel({
                   }
                 }}
               >
-                <div
-                  style={{
-                    position: "absolute",
-                    width: "350px",
-                    top: "0px",
-                    left: "-350px",
-                  }}
-                >
-                  hi
+                <CardInfoContainer>
                   <img src={cardInfo.card.front.imageUrl} />
-                </div>
+                </CardInfoContainer>
               </ClickAwayListener>
             ) : null}
           </div>
