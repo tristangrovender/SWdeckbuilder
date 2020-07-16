@@ -13,8 +13,10 @@ const CardInfoContainer = styled.div`
   left: -350px;
 `;
 
+const goldenColor = "#fcd144";
+
 const CardSnippetCountContainer = styled.div`
-  color: #fcd144;
+  color: ${goldenColor};
   font-size: 12px;
   display: flex;
   width: 15px;
@@ -125,7 +127,6 @@ export function CardPanel({
               ...style,
               width: "300px",
               backgroundColor: darkBlue,
-              height: "400px",
               border: "2px solid grey",
               margin: "10px",
               color: "white",
@@ -160,7 +161,6 @@ export function CardPanel({
                     removeCard={() => removeCard(card)}
                     addCard={() => addCard(card)}
                     onCardInfo={() => {
-                      console.log("oncardinfo");
                       if (cardInfo && cardInfo.card.id === card.id) {
                         setCardInfo(undefined);
                       } else {
@@ -177,6 +177,41 @@ export function CardPanel({
                   />
                 ))
               )}
+            </div>
+            <div style={{ backgroundColor: "black" }}>
+              <div
+                style={{
+                  color: goldenColor,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Suggested Cards
+              </div>
+              {groupCards(cards).map(({ card, count }, i) => (
+                <CardPanelRow
+                  key={i}
+                  card={card}
+                  count={count}
+                  removeCard={() => removeCard(card)}
+                  addCard={() => addCard(card)}
+                  onCardInfo={() => {
+                    if (cardInfo && cardInfo.card.id === card.id) {
+                      setCardInfo(undefined);
+                    } else {
+                      if (cardInfo) {
+                        // this means we are switching between cards
+                        // and we dont want the click away listener to remove
+                        // the card
+                        setCardInfo({ card, clickAwayActive: false });
+                      } else {
+                        setCardInfo({ card, clickAwayActive: true });
+                      }
+                    }
+                  }}
+                />
+              ))}
             </div>
             {cardInfo ? (
               <ClickAwayListener

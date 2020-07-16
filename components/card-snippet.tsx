@@ -47,7 +47,6 @@ export function CardSnippet({
         ...style,
         display: "flex",
         justifyContent: "space-between",
-        backgroundColor: darkBlue,
         flexGrow: 1,
       }}
     >
@@ -55,7 +54,6 @@ export function CardSnippet({
         style={{
           width: "50%",
           whiteSpace: "nowrap",
-          backgroundColor: darkBlue,
           color: "white",
           overflow: "hidden",
           textOverflow: "ellipsis",
