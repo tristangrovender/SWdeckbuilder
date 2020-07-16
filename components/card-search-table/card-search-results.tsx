@@ -128,6 +128,7 @@ function CardHover({
       style={{
         pointerEvents: "none",
         position: "absolute",
+        zIndex: 11,
         ...getCoordinatesInViewPort(location, 400),
       }}
     >
