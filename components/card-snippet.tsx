@@ -11,7 +11,8 @@ const CardControlButton = styled.div`
   color: #fcd144;
   border-left: 1px solid #2f2f2f;
   height: 100%;
-  width: 30px;
+  min-width: 25px;
+  padding: 0px 5px;
   cursor: pointer;
 
   &:hover {
