@@ -22,6 +22,13 @@ function getCardSuggestions({
   allCards: Card[];
   deck: Card[];
 }): Card[] {
+  if (deck.length === 0) {
+    if (side == Side.dark) {
+      return [allCards[0]];
+    } else {
+      return [allCards[0]];
+    }
+  }
   return allCards.slice(0, 2);
 }
 
