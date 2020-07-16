@@ -5,6 +5,7 @@ import { getCards } from "../../components/card-search-table/getCards";
 import { FadedImage, CardSnippet } from "../../components/card-snippet";
 import styled from "styled-components";
 import { darkBlue } from "../../utils/colors";
+import { groupBy } from "../../utils/utils";
 
 const TitleContainer = styled.div`
   width: 100%;
@@ -38,7 +39,15 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
     return <div>Loading...</div>;
   }
   return (
-    <div style={{ backgroundColor: darkBlue, width: "300px", color: "white" }}>
+    <div
+      style={{
+        backgroundColor: darkBlue,
+        width: "300px",
+        color: "white",
+        marginRight: "20px",
+        marginBottom: "20px",
+      }}
+    >
       <div>{cards[0].front.type}</div>
       {cards.map((card) => (
         <CardSnippet title={card.front.title} imageUrl={card.front.imageUrl} />
@@ -67,7 +76,11 @@ export default function Deck() {
           <div style={{ display: "flex", flexGrow: 1 }}></div>
           <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
         </TitleContainer>
-        <CardTypeSection cards={deck} />
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {groupBy(deck, ["front", "type"]).map((cardsInType, i) => (
+            <CardTypeSection key={i} cards={cardsInType} />
+          ))}
+        </div>
       </Content>
     </Page>
   );
