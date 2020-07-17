@@ -10,6 +10,17 @@ import { StarsComponent } from "../../components/StarsComponent";
 import { DeckCardRow } from "./DeckCardRow";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 
+const DeckPageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+`;
+
+const DeckButtons = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const DeckInfoStatistics = styled.div`
   display: flex;
   align-items: center;
@@ -138,13 +149,7 @@ export default function Deck() {
     <Page>
       <Toolbar />
       <Content>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            marginBottom: "10px",
-          }}
-        >
+        <DeckPageContainer>
           <DeckTitleContainer>
             <PageTitle>Planet Destroyer</PageTitle>
             <PageTitlePrint>
@@ -159,12 +164,7 @@ export default function Deck() {
               days ago
             </DeckInfoStatistics>
 
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
+            <DeckButtons>
               <StarsComponent rating={3.5} />
               <ImportExportIcon
                 style={{
@@ -177,9 +177,9 @@ export default function Deck() {
                   return false;
                 }}
               />
-            </div>
+            </DeckButtons>
           </DeckInfoContainer>
-        </div>
+        </DeckPageContainer>
         <TypeSectionsContainer>
           {groupBy(deck, ["front", "type"])
             .sort((groupA, groupB) => groupA.length - groupB.length)
