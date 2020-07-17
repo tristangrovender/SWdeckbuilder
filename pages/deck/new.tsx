@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button";
 import Radio from "@material-ui/core/Radio";
 import Link from "next/link";
 import styled from "styled-components";
+import Router from "next/router";
+import { Side } from "../../components/card-search-table/card.interface";
 
 const DeckSideContainer = styled.div`
   display: flex;
@@ -20,7 +22,7 @@ const RadioContainer = styled.div`
 `;
 
 export default function NewDeck() {
-  const [side, setSide] = useState("dark");
+  const [side, setSide] = useState(Side.dark);
   return (
     <Page>
       <Toolbar />
@@ -41,24 +43,24 @@ export default function NewDeck() {
               alignItems: "center",
             }}
           >
-            <DeckSideContainer onClick={() => setSide("dark")}>
+            <DeckSideContainer onClick={() => setSide(Side.dark)}>
               <img src="/images/dark.png"></img>
               <RadioContainer>
                 <Radio
-                  checked={side === "dark"}
-                  onChange={() => setSide("dark")}
+                  checked={side === Side.dark}
+                  onChange={() => setSide(Side.dark)}
                   value="a"
                   name="radio-button-demo"
                 />
                 Dark
               </RadioContainer>
             </DeckSideContainer>
-            <DeckSideContainer onClick={() => setSide("light")}>
+            <DeckSideContainer onClick={() => setSide(Side.light)}>
               <img src="/images/light.png"></img>
               <RadioContainer>
                 <Radio
-                  checked={side === "light"}
-                  onChange={() => setSide("light")}
+                  checked={side === Side.light}
+                  onChange={() => setSide(Side.light)}
                   value="a"
                   name="radio-button-demo"
                 />
@@ -73,11 +75,20 @@ export default function NewDeck() {
               alignItems: "center",
             }}
           >
-            <Link href="/deck/edit/111">
-              <Button variant="contained" color="primary">
-                Create deck
-              </Button>
-            </Link>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() =>
+                Router.push({
+                  pathname: `/deck/edit/111`,
+                  query: {
+                    side,
+                  },
+                })
+              }
+            >
+              Create deck
+            </Button>
           </div>
         </div>
       </Content>

@@ -62,6 +62,7 @@ export default function EditDeck(params) {
   const [deckCards, setDeckCards] = useState([]);
   const [filters, updateFilters] = useState(undefined);
   const [allCards, setCards] = useState([]);
+  const side = router.query.side as Side;
   if (allCards.length === 0) {
     getCards().then(setCards);
   }
@@ -81,7 +82,6 @@ export default function EditDeck(params) {
       </Page>
     );
   }
-  const side = Side.dark;
 
   return (
     <Page>
@@ -95,7 +95,7 @@ export default function EditDeck(params) {
         {/* TODO showSide will need to come from /deck/new choice */}
         <div style={{ display: "flex" }}>
           <CardSearchResults
-            cards={applyFilters(allCards, filters)}
+            cards={applyFilters(allCards, { ...filters, side })}
             showSide={side}
             onCardSelected={addCard}
             style={{
