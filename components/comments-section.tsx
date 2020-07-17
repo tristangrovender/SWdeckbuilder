@@ -1,4 +1,6 @@
 import { Button } from "@material-ui/core";
+import Moment from "react-moment";
+import moment from "moment";
 
 function Comment({
   author,
@@ -13,11 +15,32 @@ function Comment({
 }) {
   return (
     <div style={{ display: "flex" }}>
-      <img src={profilePhoto} style={{ width: "30px" }}></img>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex" }}>
-          <div style={{ textDecoration: "bold" }}> {author}</div>
-          <div style={{ color: "grey" }}>{createdAt.toString()}</div>
+      <img src={profilePhoto} style={{ width: "40px" }}></img>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+
+          margin: "10px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div style={{ fontWeight: "bold" }}>{author}</div>
+          <div
+            style={{
+              marginLeft: "10px",
+              color: "rgba(0,0,0,0.5)",
+              fontSize: "12px",
+            }}
+          >
+            {moment(new Date()).from(moment(createdAt))}
+          </div>
         </div>
 
         <div>{text}</div>
