@@ -8,11 +8,12 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import BlurOnIcon from "@material-ui/icons/BlurOn";
 import FlagIcon from "@material-ui/icons/Flag";
 import GavelIcon from "@material-ui/icons/Gavel";
-import { Card } from "./card.interface";
+import { Card, Side } from "./card.interface";
 import { unique, sortAlphabetically } from "../../utils/utils";
 import { useState } from "react";
 import { Radio } from "@material-ui/core";
 import { darkBlue } from "../../utils/colors";
+import RecentActorsIcon from "@material-ui/icons/RecentActors";
 
 const FilterOptionsContainer = styled.div`
   position: absolute;
@@ -82,10 +83,9 @@ const Input = styled.input`
 `;
 
 export function applyFilters(allCards: Card[], filters: CardFilters) {
-  // TODO add side filter
   return allCards
     .filter((card) => {
-      if (!filters || !filters.side) {
+      if (!filters || !filters.side || filters.side === DEFAULT_OPTION) {
         return true;
       }
 
@@ -150,6 +150,7 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
 }
 
 enum DropDownFilters {
+  side = "side",
   set = "set",
   type = "type",
   destiny = "destiny",
@@ -236,7 +237,7 @@ function FilterIcon({
 }
 export interface CardFilters {
   titleFilter: string;
-  side?: Side;
+  side?: Side | string;
   set?: string;
   type?: string;
   destiny?: string;
@@ -303,6 +304,20 @@ export function CardFiltersBar({
           }
         ></Input>
       </SearchContainer>
+
+      <FilterIcon
+        Icon={MenuBookIcon}
+        name={"Side:"}
+        options={[Side.dark, Side.light]}
+        active={(filters && filters.side) || DEFAULT_OPTION}
+        open={openDropDown === DropDownFilters.side}
+        onOpen={() => setOpenDropDown(DropDownFilters.side)}
+        onClose={() => setOpenDropDown(undefined)}
+        onOptionChosen={(option) =>
+          onUpdateFilters({ ...filters, side: option })
+        }
+      />
+
       <FilterIcon
         Icon={MenuBookIcon}
         name={"Set:"}
