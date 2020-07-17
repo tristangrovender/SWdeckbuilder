@@ -3,6 +3,18 @@ import styled from "styled-components";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import { darkBlue } from "../utils/colors";
 
+const CardSnippetTitleContainer = styled.div`
+  width: 50%;
+  white-space: nowrap;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @media print {
+    text-overflow: initial;
+    width: 400px;
+  }
+`;
+
 const CardControlButton = styled.div`
   display: flex;
   justify-content: center;
@@ -82,17 +94,7 @@ export function CardSnippet({
         flexGrow: 1,
       }}
     >
-      <div
-        style={{
-          width: "50%",
-          whiteSpace: "nowrap",
-          color: "white",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-        }}
-      >
-        {title}
-      </div>
+      <CardSnippetTitleContainer>{title}</CardSnippetTitleContainer>
       <FadedImage imageUrl={imageUrl} backgroundColor={backgroundColor}>
         <div
           style={{

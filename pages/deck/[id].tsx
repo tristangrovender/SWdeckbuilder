@@ -10,6 +10,22 @@ import { StarsComponent } from "../../components/StarsComponent";
 import { DeckCardRow } from "./DeckCardRow";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 
+const DeckInfoStatistics = styled.div`
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  font-size: 14px;
+`;
+
+const DeckInfoContainer = styled.div`
+  background-color: white;
+  border: 1px solid grey;
+  padding: 5px;
+  padding-left: 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
 const GrowComponent = styled.div`
   display: flex;
   flex-grow: 1;
@@ -40,6 +56,12 @@ const TypeTitle = styled.div`
   background-color: rgba(0, 0, 0, 0.9);
   font-size: 16px;
   padding: 5px;
+
+  @media print {
+    background-color: black;
+    color: white;
+    -webkit-print-color-adjust: exact;
+  }
 `;
 
 const DeckTitleContainer = styled.div`
@@ -114,26 +136,10 @@ export default function Deck() {
             <GrowComponent />
             <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
           </DeckTitleContainer>
-          <div
-            style={{
-              backgroundColor: "white",
-              border: "1px solid grey",
-              padding: "5px",
-              paddingLeft: "20px",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexGrow: 1,
-                fontSize: "14px",
-              }}
-            >
+          <DeckInfoContainer>
+            <DeckInfoStatistics>
               PLAYER: JAMBRE - PUBLISHED: JULY 15, 2020 - UPDATED: 2 DAYS AGO
-            </div>
+            </DeckInfoStatistics>
 
             <div
               style={{
@@ -154,7 +160,7 @@ export default function Deck() {
                 }}
               />
             </div>
-          </div>
+          </DeckInfoContainer>
         </div>
         <TypeSectionsContainer>
           {groupBy(deck, ["front", "type"])

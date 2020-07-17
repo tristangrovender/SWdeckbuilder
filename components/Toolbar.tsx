@@ -38,6 +38,9 @@ const ToolbarContainer = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
+  @media print {
+    display: none;
+  }
 `;
 
 const ToolbarContent = styled.div`
