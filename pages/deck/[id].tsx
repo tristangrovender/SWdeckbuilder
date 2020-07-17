@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Page, Toolbar, Content } from "../../components/Toolbar";
+import StarsRating from "stars-rating";
 import { Card } from "../../components/card-search-table/card.interface";
 import { getCards } from "../../components/card-search-table/getCards";
 import { FadedImage, CardSnippet } from "../../components/card-snippet";
@@ -7,6 +8,7 @@ import styled from "styled-components";
 import { darkBlue } from "../../utils/colors";
 import { groupBy } from "../../utils/utils";
 import { ClickAwayListener } from "@material-ui/core";
+import { StarsComponent } from "../../components/StarsComponent";
 
 const GrowComponent = styled.div`
   display: flex;
@@ -40,7 +42,7 @@ const TypeTitle = styled.div`
   padding: 5px;
 `;
 
-const TitleContainer = styled.div`
+const DeckTitleContainer = styled.div`
   width: 100%;
   display: flex;
   background-color: black;
@@ -48,7 +50,7 @@ const TitleContainer = styled.div`
   padding: 0px 20px;
   height: 50px;
   font-size: 20px;
-  border-radius: 5px;
+  border-radius: 5px 5px 0px 0px;
   margin-top: 20px;
 `;
 
@@ -131,11 +133,49 @@ export default function Deck() {
     <Page>
       <Toolbar />
       <Content>
-        <TitleContainer>
-          <PageTitle>Planet Destroyer</PageTitle>
-          <GrowComponent />
-          <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
-        </TitleContainer>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginBottom: "10px",
+          }}
+        >
+          <DeckTitleContainer>
+            <PageTitle>Planet Destroyer</PageTitle>
+            <GrowComponent />
+            <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
+          </DeckTitleContainer>
+          <div
+            style={{
+              backgroundColor: "white",
+              border: "1px solid grey",
+              padding: "5px",
+              paddingLeft: "20px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexGrow: 1,
+              }}
+            >
+              PLAYER: JAMBRE - PUBLISHED: JULY 15, 2020 - UPDATED: 2 DAYS AGO
+            </div>
+
+            <div
+              style={{
+                marginRight: "15px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <StarsComponent rating={3.5} />
+            </div>
+          </div>
+        </div>
         <TypeSectionsContainer>
           {groupBy(deck, ["front", "type"])
             .sort((groupA, groupB) => groupA.length - groupB.length)

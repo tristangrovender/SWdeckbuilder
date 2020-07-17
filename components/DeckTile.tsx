@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import StarsRating from "stars-rating";
+import { StarsComponent } from "./StarsComponent";
 
 const Tile = styled.div`
   cursor: pointer;
@@ -48,7 +48,7 @@ const TileRatingContainer = styled.div`
   padding-left: 10px;
 `;
 
-const RatingText = styled.div`
+export const RatingText = styled.div`
   font-size: 10px;
   margin-left: 10px;
   color: black;
@@ -104,15 +104,7 @@ export function DeckTile({
         Interrupts • {cardBreakdown.objectives} Objectives
       </TileDeckCardTypes>
       <TileRatingContainer>
-        <StarsRating
-          count={5}
-          size={15}
-          color2={"#ffd700"}
-          edit={false}
-          value={rating}
-          half={true}
-        />
-        <RatingText>133 ratings</RatingText>
+        <StarsComponent rating={rating}></StarsComponent>
       </TileRatingContainer>
     </Tile>
   );
