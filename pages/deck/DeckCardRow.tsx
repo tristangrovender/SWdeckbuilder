@@ -33,3 +33,9 @@ export function DeckCardRow({ card }: { card: Card }) {
     </div>
   );
 }
+
+export default function deleteme(){
+  return (<div>test</div>)
+
+}
+
