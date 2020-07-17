@@ -1,12 +1,9 @@
 import styled from "styled-components";
-
+import { useRouter } from "next/router";
 import StarsRating from "stars-rating";
 
-const ratingChanged = (newRating) => {
-  console.log(newRating);
-};
-
 const Tile = styled.div`
+  cursor: pointer;
   background-color: white;
   color: white;
   width: 450px;
@@ -88,8 +85,9 @@ export function DeckTile({
     objectives: number;
   };
 }) {
+  const router = useRouter();
   return (
-    <Tile>
+    <Tile onClick={() => router.push("/deck/111")}>
       <TileBannerContainer>
         <TileBannerImage src={img} />
         <TileBanner>

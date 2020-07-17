@@ -3,8 +3,9 @@ import { dummyDeck } from "../cards/dummyDecks";
 import styled from "styled-components";
 import { DeckFilter } from "../components/DeckFilter";
 import StarsRating from "stars-rating";
+import { Router, useRouter } from "next/router";
 
-const ratingChanged = newRating => {
+const ratingChanged = (newRating) => {
   console.log(newRating);
 };
 
@@ -29,6 +30,7 @@ const Table = styled.div`
 `;
 
 const DeckDiv = styled.div`
+  cursor: pointer;
   display: flex;
   height: 75px;
   color: black;
@@ -85,6 +87,7 @@ const Days = styled.div`
 `;
 
 export default function DeckLists() {
+  const router = useRouter();
   return (
     <Page>
       <Toolbar />
@@ -94,8 +97,8 @@ export default function DeckLists() {
             <DeckFilter></DeckFilter>
           </DeckFilterContainer>
           <Table>
-            {dummyDeck.map(deck => (
-              <DeckDiv key={deck.id}>
+            {dummyDeck.map((deck) => (
+              <DeckDiv key={deck.id} onClick={() => router.push("/deck/111")}>
                 <Image src={deck.img}></Image>
                 <TitleAuthorContainer>
                   <Title>{deck.title}</Title>
