@@ -80,6 +80,7 @@ function CardRow({ card }: { card: Card }) {
     >
       <CardSnippet
         title={card.front.title}
+        style={{ marginLeft: "3px" }}
         imageUrl={card.front.imageUrl}
         isHovering={isHovering}
         hoverButtons={[
@@ -160,6 +161,7 @@ export default function Deck() {
                 display: "flex",
                 alignItems: "center",
                 flexGrow: 1,
+                fontSize: "14px",
               }}
             >
               PLAYER: JAMBRE - PUBLISHED: JULY 15, 2020 - UPDATED: 2 DAYS AGO
