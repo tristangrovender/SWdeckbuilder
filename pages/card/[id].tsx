@@ -3,6 +3,7 @@ import { Page, Toolbar, Content } from "../../components/Toolbar";
 import { useRouter } from "next/router";
 import { Card } from "../../components/card-search-table/card.interface";
 import { getCards } from "../../components/card-search-table/getCards";
+import { CommentsSection } from "../../components/comments-section";
 
 export default function CardPage(params) {
   const router = useRouter();
@@ -46,6 +47,7 @@ export default function CardPage(params) {
               {card.side}: {card.front.type} - {card.front.subType}
             </div>
             <div style={{ fontStyle: "italic" }}>{card.front.gametext}</div>
+            <CommentsSection></CommentsSection>
           </div>
           <img src={card.front.imageUrl} style={{ height: "500px" }}></img>
         </div>
