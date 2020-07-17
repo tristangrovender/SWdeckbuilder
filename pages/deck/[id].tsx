@@ -24,6 +24,9 @@ const DeckInfoContainer = styled.div`
   padding-left: 20px;
   display: flex;
   justify-content: space-between;
+  @media print {
+    display: none;
+  }
 `;
 
 const GrowComponent = styled.div`
@@ -34,6 +37,16 @@ const GrowComponent = styled.div`
 const PageTitle = styled.div`
   display: flex;
   align-items: center;
+  @media print {
+    display: none;
+  }
+`;
+
+const PageTitlePrint = styled.div`
+  @media print {
+    color: black;
+    -webkit-print-color-adjust: exact;
+  }
 `;
 
 const TypeSectionsContainer = styled.div`
@@ -120,6 +133,7 @@ export default function Deck() {
   if (allCards.length && deck.length === 0) {
     setDeck(getRandomDeck(allCards));
   }
+  const authorUsername = "Jambree";
   return (
     <Page>
       <Toolbar />
@@ -133,12 +147,16 @@ export default function Deck() {
         >
           <DeckTitleContainer>
             <PageTitle>Planet Destroyer</PageTitle>
+            <PageTitlePrint>
+              Planet Destroyer by {authorUsername}
+            </PageTitlePrint>
             <GrowComponent />
             <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
           </DeckTitleContainer>
           <DeckInfoContainer>
             <DeckInfoStatistics>
-              PLAYER: JAMBRE - PUBLISHED: JULY 15, 2020 - UPDATED: 2 DAYS AGO
+              PLAYER: {authorUsername} - PUBLISHED: July 15, 2020 - UPDATED: 2
+              days ago
             </DeckInfoStatistics>
 
             <div
