@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Page, Toolbar, Content } from "../../components/Toolbar";
-import StarsRating from "stars-rating";
 import { Card } from "../../components/card-search-table/card.interface";
 import { getCards } from "../../components/card-search-table/getCards";
-import { FadedImage, CardSnippet } from "../../components/card-snippet";
+import { FadedImage } from "../../components/card-snippet";
 import styled from "styled-components";
 import { darkBlue } from "../../utils/colors";
 import { groupBy } from "../../utils/utils";
-import { ClickAwayListener } from "@material-ui/core";
 import { StarsComponent } from "../../components/StarsComponent";
+import { DeckCardRow } from "./DeckCardRow";
 
 const GrowComponent = styled.div`
   display: flex;
@@ -69,38 +68,6 @@ function getRandomDeck(allCards: Card[]) {
   return randomDeck;
 }
 
-function CardRow({ card }: { card: Card }) {
-  const [isHovering, setHovering] = useState(false);
-  const [viewCard, setViewCard] = useState(false);
-  return (
-    <div
-      onMouseOver={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-      style={{ cursor: "pointer" }}
-    >
-      <CardSnippet
-        title={card.front.title}
-        style={{ marginLeft: "3px" }}
-        imageUrl={card.front.imageUrl}
-        isHovering={isHovering}
-        hoverButtons={[
-          {
-            text: "i",
-            onClick: () => setViewCard(true),
-          },
-        ]}
-      />
-      {viewCard ? (
-        <ClickAwayListener onClickAway={() => setViewCard(false)}>
-          <div style={{ position: "absolute", height: "400px", zIndex: 1 }}>
-            <img src={card.front.imageUrl}></img>
-          </div>
-        </ClickAwayListener>
-      ) : null}
-    </div>
-  );
-}
-
 function CardTypeSection({ cards }: { cards: Card[] }) {
   if (cards.length === 0) {
     return <div>Loading...</div>;
@@ -114,7 +81,7 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
         }}
       >
         {cards.map((card) => (
-          <CardRow card={card} />
+          <DeckCardRow card={card} />
         ))}
       </div>
     </TypeContainer>
