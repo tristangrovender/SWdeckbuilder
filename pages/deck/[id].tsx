@@ -54,7 +54,9 @@ const PageTitle = styled.div`
 `;
 
 const PageTitlePrint = styled.div`
+  display: none;
   @media print {
+    display: initial;
     color: black;
     -webkit-print-color-adjust: exact;
   }
