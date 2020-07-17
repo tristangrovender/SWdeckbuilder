@@ -89,6 +89,7 @@ export default function EditDeck(params) {
       <div style={{ display: "flex", flexDirection: "column" }}>
         <CardFiltersBar
           allCards={allCards}
+          showSideFilter={false}
           filters={filters}
           onUpdateFilters={(filters) => updateFilters(filters)}
         />
