@@ -306,7 +306,7 @@ export function CardFiltersBar({
       </SearchContainer>
 
       <FilterIcon
-        Icon={MenuBookIcon}
+        Icon={RecentActorsIcon}
         name={"Side:"}
         options={[Side.dark, Side.light]}
         active={(filters && filters.side) || DEFAULT_OPTION}
