@@ -28,3 +28,13 @@ export function groupBy<T extends Object>(items: T[], keys: string[]): T[][] {
   }, {});
   return Object.values(groupByKey);
 }
+
+export function memoize<T>(func: Function) {
+  let result;
+  return (...args: T[]) => {
+    if (!result) {
+      result = func();
+    }
+    return result;
+  };
+}

@@ -1,5 +1,5 @@
 import { Card } from "./card.interface";
-import { sortAlphabetically } from "../../utils/utils";
+import { sortAlphabetically, memoize } from "../../utils/utils";
 
 function sortCardsByName(a: Card, b: Card) {
   if (a.front.title < b.front.title) {
@@ -18,16 +18,6 @@ function removeLegacyCards({ legacy }: Card) {
 async function loadCards() {
   const cards = (await import("../../cards/cards.json")).default as Card[];
   return cards.sort(sortCardsByName).filter(removeLegacyCards);
-}
-
-function memoize<T>(func: Function) {
-  let result;
-  return (...args: T[]) => {
-    if (!result) {
-      result = func();
-    }
-    return result;
-  };
 }
 
 const loadCardsOnce = memoize(loadCards);
