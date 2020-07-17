@@ -1,21 +1,23 @@
 import { Card } from "./card.interface";
 import { sortAlphabetically } from "../../utils/utils";
 
+function sortCardsByName(a: Card, b: Card) {
+  if (a.front.title < b.front.title) {
+    return -1;
+  }
+  if (a.front.title > b.front.title) {
+    return 1;
+  }
+  return 0;
+}
+
+function removeLegacyCards({ legacy }: Card) {
+  return legacy === false;
+}
+
 async function loadCards() {
   const cards = (await import("../../cards/cards.json")).default as Card[];
-  return cards
-    .sort((a, b) => {
-      if (a.front.title < b.front.title) {
-        return -1;
-      }
-      if (a.front.title > b.front.title) {
-        return 1;
-      }
-      return 0;
-    })
-    .filter(({ legacy }) => {
-      return legacy === false;
-    });
+  return cards.sort(sortCardsByName).filter(removeLegacyCards);
 }
 
 function memoize<T>(func: Function) {
