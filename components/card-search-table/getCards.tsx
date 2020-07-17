@@ -1,5 +1,5 @@
 import { Card } from "./card.interface";
-import { sortAlphabetically, memoize } from "../../utils/utils";
+import { memoize } from "../../utils/utils";
 
 function sortCardsByName(a: Card, b: Card) {
   if (a.front.title < b.front.title) {
