@@ -157,6 +157,11 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
   );
 }
 
+function getDeckText(deck: Card[]): string {
+  console.log(deck);
+  return "text for file\n<-- for new lines";
+}
+
 export default function Deck() {
   const [allCards, setCards] = useState([]);
   const [exportDropDownOpen, toggleExportDropdown] = useState(false);
@@ -168,15 +173,16 @@ export default function Deck() {
     setDeck(getRandomDeck(allCards));
   }
   const authorUsername = "Jambree";
+  const deckTitle = "Planet Destroyer";
   return (
     <Page>
       <Toolbar />
       <Content>
         <DeckPageContainer>
           <DeckTitleContainer>
-            <PageTitle>Planet Destroyer</PageTitle>
+            <PageTitle>{deckTitle}</PageTitle>
             <PageTitlePrint>
-              Planet Destroyer by {authorUsername}
+              {deckTitle} by {authorUsername}
             </PageTitlePrint>
             <GrowComponent />
             <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
@@ -222,7 +228,13 @@ export default function Deck() {
                       <Button
                         style={{ width: "100%" }}
                         onClick={() => {
-                          saveToFile("deck-export.txt", "some text here");
+                          saveToFile(
+                            `${(deckTitle + " by " + authorUsername).replace(
+                              / /g,
+                              "_"
+                            )}.txt`,
+                            getDeckText(deck)
+                          );
                         }}
                       >
                         Text Export
