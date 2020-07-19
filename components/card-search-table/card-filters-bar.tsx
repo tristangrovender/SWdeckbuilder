@@ -315,9 +315,11 @@ export function CardFiltersBar({
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-end",
           cursor: "pointer",
           color: "white",
+          width: '50%'
+
         }}
         onClick={() => setFilterBarOpen(!filterBarOpen)}
       >
