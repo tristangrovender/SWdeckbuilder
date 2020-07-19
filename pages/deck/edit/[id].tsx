@@ -12,6 +12,7 @@ import {
 } from "../../../components/card-search-table/card-filters-bar";
 import { getCards } from "../../../components/card-search-table/getCards";
 import { CardPanel } from "../../../components/card-panel";
+import { CardActionArea } from "@material-ui/core";
 
 function getCardSuggestions({
   side,
@@ -67,7 +68,10 @@ export default function EditDeck(params) {
     getCards().then(setCards);
   }
   const addCard = (card: Card) => {
-    setDeckCards([...deckCards, card]);
+    setDeckCards([
+      ...deckCards,
+      { ...card, isSideDeck: card.front.type === "Objective" },
+    ]);
   };
   const removeCard = (cardToRemove: Card) => {
     const index = deckCards.map(({ id }) => id).lastIndexOf(cardToRemove.id);
