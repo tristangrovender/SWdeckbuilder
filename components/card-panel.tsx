@@ -119,13 +119,17 @@ function CardPanelRow({
   );
 }
 
+export interface CardWithSideDeck extends Card {
+  isSideDeck: boolean;
+}
+
 export function CardPanel({
   cards,
   suggestedCards,
   addCard,
   removeCard,
 }: {
-  cards: Card[];
+  cards: CardWithSideDeck[];
   suggestedCards: Card[];
   addCard: (card: Card) => void;
   removeCard: (card: Card) => void;
@@ -148,6 +152,8 @@ export function CardPanel({
       }
     }
   };
+  const cardsInMainDeck = cards.filter(({ isSideDeck }) => !isSideDeck);
+  const cardsInSideDeck = cards.filter(({ isSideDeck }) => isSideDeck);
   return (
     <StickyContainer>
       <Sticky>
@@ -183,7 +189,7 @@ export function CardPanel({
                   Click add in the table to add cards to your deck
                 </EmptyDeckState>
               ) : (
-                groupCards(cards).map(({ card, count }, i) => (
+                groupCards(cardsInMainDeck).map(({ card, count }, i) => (
                   <CardPanelRow
                     key={i}
                     card={card}
@@ -201,9 +207,27 @@ export function CardPanel({
                 ))
               )}
             </DeckBuilderCardsContainer>
-            <CardPanelSection>
-              <CardPanelSectionTitle>Side Deck</CardPanelSectionTitle>
-            </CardPanelSection>
+            {cardsInSideDeck.length ? (
+              <CardPanelSection>
+                <CardPanelSectionTitle>Side Deck</CardPanelSectionTitle>
+                {groupCards(cardsInSideDeck).map(({ card, count }, i) => (
+                  <CardPanelRow
+                    key={i}
+                    card={card}
+                    count={count}
+                    hoverButtons={[
+                      {
+                        onClick: onCardInfoHandler(card),
+                        text: "i",
+                        fontSize: "12px",
+                      },
+                      { onClick: () => removeCard(card), text: "-" },
+                      { onClick: () => addCard(card), text: "+" },
+                    ]}
+                  />
+                ))}
+              </CardPanelSection>
+            ) : null}
             {suggestedCards.length ? (
               <CardPanelSection>
                 <CardPanelSectionTitle>Suggested Cards</CardPanelSectionTitle>
