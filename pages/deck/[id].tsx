@@ -12,6 +12,12 @@ import ImportExportIcon from "@material-ui/icons/ImportExport";
 import { CommentsSection } from "../../components/comments-section";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { Button, ClickAwayListener } from "@material-ui/core";
+import FileSaver from "file-saver";
+
+function saveToFile(fileName: string, body: string) {
+  var blob = new Blob([body], { type: "text/plain;charset=utf-8" });
+  FileSaver.saveAs(blob, fileName);
+}
 
 const ExportContainer = styled.div`
   position: absolute;
@@ -216,7 +222,7 @@ export default function Deck() {
                       <Button
                         style={{ width: "100%" }}
                         onClick={() => {
-                          console.log("text export");
+                          saveToFile("deck-export.txt", "some text here");
                         }}
                       >
                         Text Export
