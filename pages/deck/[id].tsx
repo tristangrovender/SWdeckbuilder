@@ -132,7 +132,7 @@ function getRandomDeck(allCards: Card[]) {
   const shuffled = newArray.sort(() => 0.5 - Math.random());
 
   // Get sub-array of first 60 elements after shuffle
-  let randomDeck = shuffled.slice(0, 6000);
+  let randomDeck = shuffled.slice(0, 60);
 
   return randomDeck;
 }
