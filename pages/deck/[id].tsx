@@ -9,6 +9,7 @@ import { groupBy } from "../../utils/utils";
 import { StarsComponent } from "../../components/StarsComponent";
 import { DeckCardRow } from "./DeckCardRow";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
+import { CommentsSection } from "../../components/comments-section";
 
 const DeckPageContainer = styled.div`
   display: flex;
@@ -104,7 +105,7 @@ const DeckTitleContainer = styled.div`
 
 function getRandomDeck(allCards: Card[]) {
   // map over current array
-  const newArray = allCards.map((cards) => {
+  const newArray = allCards.map(cards => {
     return cards;
   });
 
@@ -126,10 +127,10 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
       <TypeTitle>{cards[0].front.type}</TypeTitle>
       <div
         style={{
-          backgroundColor: darkBlue,
+          backgroundColor: darkBlue
         }}
       >
-        {cards.map((card) => (
+        {cards.map(card => (
           <DeckCardRow card={card} />
         ))}
       </div>
@@ -172,7 +173,7 @@ export default function Deck() {
                 style={{
                   marginLeft: "10px",
                   color: "#7f7f7f",
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
                 onClick={() => {
                   window.print();
@@ -189,6 +190,7 @@ export default function Deck() {
               <CardTypeSection key={i} cards={cardsInType} />
             ))}
         </TypeSectionsContainer>
+        <CommentsSection />
       </Content>
     </Page>
   );

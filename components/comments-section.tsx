@@ -6,7 +6,7 @@ function Comment({
   author,
   text,
   profilePhoto,
-  createdAt,
+  createdAt
 }: {
   author: string;
   text: string;
@@ -14,29 +14,32 @@ function Comment({
   createdAt: Date;
 }) {
   return (
-    <div style={{ display: "flex" }}>
-      <img src={profilePhoto} style={{ width: "40px" }}></img>
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <img
+        src={profilePhoto}
+        style={{ width: "40px", height: "40px", borderRadius: "5px" }}
+      ></img>
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-
           margin: "10px",
+          fontSize: "16px"
         }}
       >
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "center"
           }}
         >
-          <div style={{ fontWeight: "bold" }}>{author}</div>
+          <div style={{ fontWeight: "bold", fontSize: "16px" }}>{author}</div>
           <div
             style={{
               marginLeft: "10px",
               color: "rgba(0,0,0,0.5)",
-              fontSize: "12px",
+              fontSize: "12px"
             }}
           >
             {moment(new Date()).from(moment(createdAt))}
@@ -55,18 +58,28 @@ export function CommentsSection() {
       author: "Dan Rasmuson",
       text: "Fantastic!",
       createdAt: new Date(),
-      profilePhoto: "/images/dark.png",
+      profilePhoto: "/images/Tristan.jpg"
     },
     {
       author: "Tristan Grovender",
       text: "Really effective!",
       createdAt: new Date(),
-      profilePhoto: "/images/dark.png",
-    },
+      profilePhoto: "/images/Hank.jpg"
+    }
   ];
   return (
     <div>
-      <div style={{ borderBottom: "1px solid lightgrey" }}>Comments</div>
+      <div
+        style={{
+          borderBottom: "1px solid lightgrey",
+          fontWeight: "bold",
+          paddingTop: "20px",
+          marginBottom: "10px",
+          width: "97%"
+        }}
+      >
+        Comments
+      </div>
       {comments.map(({ author, text, createdAt, profilePhoto }) => (
         <Comment
           author={author}
@@ -75,12 +88,22 @@ export function CommentsSection() {
           profilePhoto={profilePhoto}
         ></Comment>
       ))}
-      <textarea></textarea>
+      <textarea
+        style={{
+          borderRadius: "5px",
+          height: "100px",
+          width: "50%",
+          resize: "vertical",
+          marginBottom: "5px"
+        }}
+      ></textarea>
       <Button
+        variant="outlined"
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          color: "black"
         }}
       >
         <div>Add Reply</div>
