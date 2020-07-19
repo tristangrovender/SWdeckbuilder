@@ -22,12 +22,21 @@ async function loadCards() {
 
 let gempData;
 
-async function loadGempCardMapping() {
+function getDBSetNameFromGemp(allSets: string[], gempSet: string) {}
+
+async function loadGempCardMapping(sets: string[]) {
   const gempMapping = (await import("../../cards/GempCardMapping.json"))
     .default;
+  // console.log(sets);
+
   const fileNameToGempIdMapping = Object.entries(gempMapping).reduce(
     (all, [key, value]) => {
       const pathParts = value.split("/");
+      const setName = pathParts[pathParts.length - 2];
+      const set = getDBSetNameFromGemp(sets, setName);
+      // if (!set) {
+      //   console.log("Card from unknown set", setName, sets);
+      // }
       const fileName = pathParts[pathParts.length - 1];
       all[fileName] = {
         gempId: key,
@@ -137,7 +146,10 @@ export async function getCards() {
 }
 
 export function testGempCardMapping(allCards: Card[]) {
-  loadGempCardMapping().then((getGempIdFromImageUrl) => {
+  console.log(Array.from(new Set(allCards.map(({ front: { type } }) => type))));
+
+  const sets = Array.from(new Set(allCards.map(({ set }) => set)));
+  loadGempCardMapping(sets).then((getGempIdFromImageUrl) => {
     let count = 0;
     const results = allCards.map((card) => {
       const matchingResult = getGempIdFromImageUrl(
