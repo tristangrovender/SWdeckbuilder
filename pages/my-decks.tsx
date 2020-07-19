@@ -8,7 +8,6 @@ const NoDecksContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  margin-top: -100px;
 `;
 
 export default function MyDecks() {

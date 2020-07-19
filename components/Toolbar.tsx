@@ -49,8 +49,9 @@ const ToolbarContent = styled.div`
   align-items: center;
 `;
 
-const ToolbarLink = styled.div`
+const ToolbarLink = styled.a`
   margin-right: 25px;
+  color: #ccc;
   text-decoration: none;
   cursor: pointer;
 `;
@@ -73,16 +74,16 @@ export function Toolbar() {
   return (
     <ToolbarContainer>
       <ToolbarContent>
-        <Link href="/">
+        <Link href="/" passHref>
           <ToolbarLink>SW:CCG DB</ToolbarLink>
         </Link>
-        <Link href="/my-decks">
+        <Link href="/my-decks" passHref>
           <ToolbarLink style={{ fontSize: "14px" }}>My decks</ToolbarLink>
         </Link>
-        <Link href="/decklists">
+        <Link href="/decklists" passHref>
           <ToolbarLink style={{ fontSize: "14px" }}>Decklists</ToolbarLink>
         </Link>
-        <Link href="/cards">
+        <Link href="/cards" passHref>
           <ToolbarLink style={{ fontSize: "14px" }}>Cards</ToolbarLink>
         </Link>
         <div style={{ flexGrow: 1 }}></div>
