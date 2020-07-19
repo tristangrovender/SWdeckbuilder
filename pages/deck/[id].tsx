@@ -11,6 +11,18 @@ import { DeckCardRow } from "./DeckCardRow";
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 import { CommentsSection } from "../../components/comments-section";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import { Button, ClickAwayListener } from "@material-ui/core";
+
+const ExportContainer = styled.div`
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid black;
+  width: 200px;
+  height: 125px;
+  right: -6px;
+  bottom: -125px;
+`;
 
 const DeckPageContainer = styled.div`
   display: flex;
@@ -106,7 +118,7 @@ const DeckTitleContainer = styled.div`
 
 function getRandomDeck(allCards: Card[]) {
   // map over current array
-  const newArray = allCards.map(cards => {
+  const newArray = allCards.map((cards) => {
     return cards;
   });
 
@@ -128,10 +140,10 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
       <TypeTitle>{cards[0].front.type}</TypeTitle>
       <div
         style={{
-          backgroundColor: darkBlue
+          backgroundColor: darkBlue,
         }}
       >
-        {cards.map(card => (
+        {cards.map((card) => (
           <DeckCardRow card={card} />
         ))}
       </div>
@@ -141,6 +153,7 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
 
 export default function Deck() {
   const [allCards, setCards] = useState([]);
+  const [exportDropDownOpen, toggleExportDropdown] = useState(false);
   const [deck, setDeck] = useState([]);
   if (allCards.length === 0) {
     getCards().then(setCards);
@@ -170,17 +183,56 @@ export default function Deck() {
 
             <DeckButtons>
               <StarsComponent rating={3.5} />
-              <GetAppIcon
+              <div
                 style={{
-                  marginLeft: "10px",
-                  color: "#7f7f7f",
-                  cursor: "pointer"
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-                onClick={() => {
-                  window.print();
-                  return false;
-                }}
-              />
+              >
+                <GetAppIcon
+                  style={{
+                    marginLeft: "10px",
+                    color: "#7f7f7f",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => toggleExportDropdown(!exportDropDownOpen)}
+                />
+                {exportDropDownOpen ? (
+                  <ClickAwayListener
+                    onClickAway={() => toggleExportDropdown(false)}
+                  >
+                    <ExportContainer>
+                      <Button
+                        style={{ width: "100%" }}
+                        onClick={() => {
+                          window.print();
+                          return false;
+                        }}
+                      >
+                        PDF Export
+                      </Button>
+                      <Button
+                        style={{ width: "100%" }}
+                        onClick={() => {
+                          console.log("text export");
+                        }}
+                      >
+                        Text Export
+                      </Button>
+                      <Button
+                        style={{ width: "100%" }}
+                        onClick={() => {
+                          console.log("gemp export");
+                        }}
+                      >
+                        Gemp XML Export
+                      </Button>
+                    </ExportContainer>
+                  </ClickAwayListener>
+                ) : null}
+              </div>
             </DeckButtons>
           </DeckInfoContainer>
         </DeckPageContainer>
