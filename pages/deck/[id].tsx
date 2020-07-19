@@ -8,7 +8,7 @@ import { darkBlue } from "../../utils/colors";
 import { groupBy } from "../../utils/utils";
 import { StarsComponent } from "../../components/StarsComponent";
 import { DeckCardRow } from "./DeckCardRow";
-import ImportExportIcon from "@material-ui/icons/ImportExport";
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 const DeckPageContainer = styled.div`
   display: flex;
@@ -168,7 +168,7 @@ export default function Deck() {
 
             <DeckButtons>
               <StarsComponent rating={3.5} />
-              <ImportExportIcon
+              <GetAppIcon
                 style={{
                   marginLeft: "10px",
                   color: "#7f7f7f",
