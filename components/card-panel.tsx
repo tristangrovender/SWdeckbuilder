@@ -6,11 +6,15 @@ import { darkBlue, goldenColor } from "../utils/colors";
 import { Card } from "./card-search-table/card.interface";
 import { CardSnippet } from "./card-snippet";
 
+const CardPanelSection = styled.div`
+  background-color: black;
+`;
+
 const DeckBuilderCardsContainer = styled.div`
   overflow-y: scroll;
   height: 350px;
 `;
-const SuggestedCardsContainer = styled.div`
+const CardPanelSectionTitle = styled.div`
   color: ${goldenColor};
   display: flex;
   justify-content: center;
@@ -197,11 +201,12 @@ export function CardPanel({
                 ))
               )}
             </DeckBuilderCardsContainer>
+            <CardPanelSection>
+              <CardPanelSectionTitle>Side Deck</CardPanelSectionTitle>
+            </CardPanelSection>
             {suggestedCards.length ? (
-              <div style={{ backgroundColor: "black" }}>
-                <SuggestedCardsContainer>
-                  Suggested Cards
-                </SuggestedCardsContainer>
+              <CardPanelSection>
+                <CardPanelSectionTitle>Suggested Cards</CardPanelSectionTitle>
                 {suggestedCards.map((card, i) => (
                   <CardPanelRow
                     key={i}
@@ -222,7 +227,7 @@ export function CardPanel({
                     ]}
                   />
                 ))}
-              </div>
+              </CardPanelSection>
             ) : null}
             {cardInfo ? (
               <ClickAwayListener
