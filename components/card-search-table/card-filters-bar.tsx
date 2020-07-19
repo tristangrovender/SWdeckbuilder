@@ -199,7 +199,6 @@ function FilterIcon({
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            maxWidth: "90px",
           }}
         >
           {name}
@@ -318,8 +317,7 @@ export function CardFiltersBar({
           justifyContent: "flex-end",
           cursor: "pointer",
           color: "white",
-          width: '50%'
-
+          width: "50%",
         }}
         onClick={() => setFilterBarOpen(!filterBarOpen)}
       >
