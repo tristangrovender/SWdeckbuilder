@@ -179,7 +179,7 @@ export function CardPanel({
                   Un-named Deck
                 </span>
                 <span style={{ color: "rgba(255,255,255,0.5)" }}>
-                  &nbsp;({cards.length}/60)
+                  &nbsp;({cardsInMainDeck.length}/60)
                 </span>
               </DeckBuilderTitle>
             </DeckBuilderHeader>
