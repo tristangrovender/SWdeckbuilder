@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Page, Toolbar, Content } from "../../components/Toolbar";
 import { Card } from "../../components/card-search-table/card.interface";
-import { getCards } from "../../components/card-search-table/getCards";
+import {
+  getCards,
+  testGempCardMapping,
+} from "../../components/card-search-table/getCards";
 import { FadedImage } from "../../components/card-snippet";
 import styled from "styled-components";
 import { darkBlue } from "../../utils/colors";
@@ -164,6 +167,9 @@ function getDeckText(deck: Card[]): string {
 
 export default function Deck() {
   const [allCards, setCards] = useState([]);
+
+  testGempCardMapping(allCards);
+
   const [exportDropDownOpen, toggleExportDropdown] = useState(false);
   const [deck, setDeck] = useState([]);
   if (allCards.length === 0) {

@@ -22,7 +22,6 @@ export function groupBy<T extends Object>(items: T[], keys: string[]): T[][] {
     if (!all[value]) {
       all[value] = [];
     }
-    console.log(value);
     all[value].push(item);
     return all;
   }, {});
