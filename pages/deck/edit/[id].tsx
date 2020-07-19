@@ -58,7 +58,13 @@ function getCardSuggestions({
   return [];
 }
 
-export default function EditDeck(params) {
+function isCardInSideDeck(card: Card) {
+  return (
+    card.front.type === "Objective" || card.front.type === "Defensive Shield"
+  );
+}
+
+export default function EditDeck() {
   const router = useRouter();
   const [deckCards, setDeckCards] = useState([]);
   const [filters, updateFilters] = useState(undefined);
@@ -70,7 +76,7 @@ export default function EditDeck(params) {
   const addCard = (card: Card) => {
     setDeckCards([
       ...deckCards,
-      { ...card, isSideDeck: card.front.type === "Objective" },
+      { ...card, isSideDeck: isCardInSideDeck(card) },
     ]);
   };
   const removeCard = (cardToRemove: Card) => {
