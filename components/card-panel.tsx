@@ -5,6 +5,7 @@ import { ClickAwayListener } from "@material-ui/core";
 import { darkBlue, goldenColor } from "../utils/colors";
 import { Card } from "./card-search-table/card.interface";
 import { CardSnippet } from "./card-snippet";
+import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
 const CardPanelSection = styled.div`
   background-color: black;
@@ -90,10 +91,12 @@ function CardPanelRow({
   count,
   backgroundColor,
   hoverButtons,
+  textColor,
 }: {
   card: Card;
   count: number;
   backgroundColor?: string;
+  textColor?: string;
   hoverButtons?: {
     text: string;
     fontSize?: string;
@@ -113,6 +116,7 @@ function CardPanelRow({
         hoverButtons={hoverButtons}
         backgroundColor={backgroundColor}
         isHovering={isHovering}
+        textColor={textColor}
         style={{ maxWidth: "94%" }}
       />
       <CardSnippetCountContainer>
@@ -218,7 +222,7 @@ export function CardPanel({
                   <CardPanelRow
                     key={i}
                     card={card}
-                    backgroundColor={card.isStartingCard ? "red" : undefined}
+                    textColor={card.isStartingCard ? goldenColor : undefined}
                     count={count}
                     hoverButtons={[
                       {

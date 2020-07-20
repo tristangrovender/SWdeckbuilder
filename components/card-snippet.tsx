@@ -6,7 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 const CardSnippetTitleContainer = styled.div`
   width: 50%;
   white-space: nowrap;
-  color: white;
+  color: ${(props) => (props.textColor ? props.textColor : "white")};
   overflow: hidden;
   text-overflow: ellipsis;
   @media print {
@@ -19,7 +19,7 @@ const CardControlButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fcd144;
+  color: "#fcd144";
   border-left: 1px solid #2f2f2f;
   height: 100%;
   min-width: 25px;
@@ -70,12 +70,14 @@ export function CardSnippet({
   isHovering,
   backgroundColor = darkBlue,
   hoverButtons,
+  textColor,
   onMouseDown,
 }: {
   title: string;
   imageUrl: string;
   backgroundColor?: string;
   style?: CSSProperties;
+  textColor?: string;
   isHovering?: boolean;
   hoverButtons?: {
     text: string;
@@ -95,7 +97,9 @@ export function CardSnippet({
         flexGrow: 1,
       }}
     >
-      <CardSnippetTitleContainer>{title}</CardSnippetTitleContainer>
+      <CardSnippetTitleContainer textColor={textColor}>
+        {title}
+      </CardSnippetTitleContainer>
       <FadedImage imageUrl={imageUrl} backgroundColor={backgroundColor}>
         <div
           style={{
