@@ -56,9 +56,6 @@ const DeckInfoContainer = styled.div`
   padding-left: 20px;
   display: flex;
   justify-content: space-between;
-  @media print {
-    display: none;
-  }
 `;
 
 const GrowComponent = styled.div`
@@ -69,18 +66,6 @@ const GrowComponent = styled.div`
 const PageTitle = styled.div`
   display: flex;
   align-items: center;
-  @media print {
-    display: none;
-  }
-`;
-
-const PageTitlePrint = styled.div`
-  display: none;
-  @media print {
-    display: initial;
-    color: black;
-    -webkit-print-color-adjust: exact;
-  }
 `;
 
 const TypeSectionsContainer = styled.div`
@@ -103,12 +88,6 @@ const TypeTitle = styled.div`
   background-color: rgba(0, 0, 0, 0.9);
   font-size: 16px;
   padding: 5px;
-
-  @media print {
-    background-color: black;
-    color: white;
-    -webkit-print-color-adjust: exact;
-  }
 `;
 
 const DeckTitleContainer = styled.div`
@@ -179,9 +158,6 @@ export default function Deck() {
         <DeckPageContainer>
           <DeckTitleContainer>
             <PageTitle>{deckTitle}</PageTitle>
-            <PageTitlePrint>
-              {deckTitle} by {authorUsername}
-            </PageTitlePrint>
             <GrowComponent />
             <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
           </DeckTitleContainer>
