@@ -212,6 +212,18 @@ export function CardPanel({
                 </span>
               </DeckBuilderTitle>
             </DeckBuilderHeader>
+            <textarea
+              placeholder="No deck description"
+              style={{
+                width: "100%",
+                backgroundColor: "initial",
+                border: "0px",
+                resize: "vertical",
+                textAlign: "center",
+                color: "white",
+                borderBottom: "1px solid black",
+              }}
+            ></textarea>
             <DeckBuilderCardsContainer>
               {cards.length === 0 ? (
                 <EmptyDeckState>
