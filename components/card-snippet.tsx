@@ -1,7 +1,7 @@
-import { Card } from "./card-search-table/card.interface";
 import styled from "styled-components";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import { darkBlue } from "../utils/colors";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const CardSnippetTitleContainer = styled.div`
   width: 50%;
@@ -80,6 +80,7 @@ export function CardSnippet({
   hoverButtons?: {
     text: string;
     fontSize?: string;
+    tooltip?: string;
     onClick: () => void;
   }[];
   onMouseDown?: () => void;
@@ -109,15 +110,25 @@ export function CardSnippet({
           }}
         >
           {hoverButtons
-            ? hoverButtons.map(({ text, fontSize, onClick }, i) => (
-                <CardControlButton
-                  key={i}
-                  onClick={onClick}
-                  style={{ fontSize: fontSize || "initial" }}
-                >
-                  {text}
-                </CardControlButton>
-              ))
+            ? hoverButtons.map(({ text, fontSize, onClick, tooltip }, i) => {
+                const icon = (
+                  <CardControlButton
+                    key={i}
+                    onClick={onClick}
+                    style={{ fontSize: fontSize || "initial" }}
+                  >
+                    {text}
+                  </CardControlButton>
+                );
+
+                return tooltip ? (
+                  <Tooltip title={tooltip} key={i}>
+                    {icon}
+                  </Tooltip>
+                ) : (
+                  icon
+                );
+              })
             : null}
         </div>
       </FadedImage>

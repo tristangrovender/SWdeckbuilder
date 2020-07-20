@@ -97,6 +97,7 @@ function CardPanelRow({
   hoverButtons?: {
     text: string;
     fontSize?: string;
+    tooltip?: string;
     onClick: () => void;
   }[];
 }) {
@@ -224,6 +225,7 @@ export function CardPanel({
                         onClick: () => setStartingCard(card),
                         text: "s",
                         fontSize: "12px",
+                        tooltip: "Mark as starting card",
                       },
                       {
                         onClick: onCardInfoHandler(card),
