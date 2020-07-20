@@ -5,7 +5,6 @@ import { ClickAwayListener } from "@material-ui/core";
 import { darkBlue, goldenColor } from "../utils/colors";
 import { Card } from "./card-search-table/card.interface";
 import { CardSnippet } from "./card-snippet";
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
 const CardPanelSection = styled.div`
   background-color: black;
