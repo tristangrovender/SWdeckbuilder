@@ -1,4 +1,4 @@
-import { Card } from "./card-search-table/card.interface";
+import { Card, Type } from "./card-search-table/card.interface";
 export function getDeckText(deck: Card[]): string {
   const getTitle = (card: Card) => card.front.title;
   const [
@@ -16,19 +16,19 @@ export function getDeckText(deck: Card[]): string {
     podracerTitles,
     admiralsOrdersTitles,
   ] = [
-    "Character",
-    "Objective",
-    "Location",
-    "Creature",
-    "Weapon",
-    "Device",
-    "Starship",
-    "Vehicle",
-    "Effect",
-    "Interrupt",
-    "Epic Event",
-    "Podracer",
-    "Admiral's Order",
+    Type.Character,
+    Type.Objective,
+    Type.Location,
+    Type.Creature,
+    Type.Weapon,
+    Type.Device,
+    Type.Starship,
+    Type.Vehicle,
+    Type.Effect,
+    Type.Interrupt,
+    Type.EpicEvent,
+    Type.Podracer,
+    Type.AdmiralsOrder,
   ].map((type) => {
     return deck.filter((card) => card.front.type === type).map(getTitle);
   });

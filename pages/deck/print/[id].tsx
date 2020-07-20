@@ -38,6 +38,7 @@ export default function PrintDeck() {
     return <div>Loading...</div>;
   }
 
+  console.log(Array.from(new Set(allCards.map(({ front: { type } }) => type))));
   return (
     <TableContainer>
       <table style={{ border: "0px" }} width="100%" cellPadding="3">
