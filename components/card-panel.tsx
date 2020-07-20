@@ -145,7 +145,11 @@ export function CardPanel({
   const [scrollDiv, setScrollDiv] = useState(undefined);
   const prev = usePrevious({ cardRowLength: groupCards(cards).length });
   useEffect(() => {
-    if (prev && groupCards(cards).length > prev.cardRowLength && scrollDiv) {
+    if (
+      prev &&
+      groupCards(cards).length > (prev as any).cardRowLength &&
+      scrollDiv
+    ) {
       scrollDiv.scrollIntoViewIfNeeded({ behavior: "smooth" });
     }
   }, [cards]);
