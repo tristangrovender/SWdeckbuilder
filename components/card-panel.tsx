@@ -69,7 +69,9 @@ const CardPanelRowContainer = styled.div`
   }
 `;
 
-function groupCards(cards: Card[]): { count: number; card: Card }[] {
+function groupCards(
+  cards: CardWithDeckInfo[]
+): { count: number; card: CardWithDeckInfo }[] {
   const cardsByCount = cards.reduce((all, card, index) => {
     if (!all[card.id]) {
       all[card.id] = { card, count: 1, index };
@@ -80,7 +82,7 @@ function groupCards(cards: Card[]): { count: number; card: Card }[] {
   }, {});
   return Object.values(cardsByCount).sort(
     ({ index: a }, { index: b }) => a - b
-  ) as { count: number; card: Card }[];
+  ) as { count: number; card: CardWithDeckInfo }[];
 }
 
 function CardPanelRow({
@@ -119,8 +121,9 @@ function CardPanelRow({
   );
 }
 
-export interface CardWithSideDeck extends Card {
+export interface CardWithDeckInfo extends Card {
   isSideDeck: boolean;
+  isStartingCard: boolean;
 }
 
 function usePrevious(value) {
@@ -136,11 +139,13 @@ export function CardPanel({
   suggestedCards,
   addCard,
   removeCard,
+  setStartingCard,
 }: {
-  cards: CardWithSideDeck[];
+  cards: CardWithDeckInfo[];
   suggestedCards: Card[];
   addCard: (card: Card) => void;
   removeCard: (card: Card) => void;
+  setStartingCard: (card: Card) => void;
 }) {
   const [scrollDiv, setScrollDiv] = useState(undefined);
   const prev = usePrevious({ cardRowLength: groupCards(cards).length });
@@ -212,8 +217,14 @@ export function CardPanel({
                   <CardPanelRow
                     key={i}
                     card={card}
+                    backgroundColor={card.isStartingCard ? "red" : undefined}
                     count={count}
                     hoverButtons={[
+                      {
+                        onClick: () => setStartingCard(card),
+                        text: "s",
+                        fontSize: "12px",
+                      },
                       {
                         onClick: onCardInfoHandler(card),
                         text: "i",

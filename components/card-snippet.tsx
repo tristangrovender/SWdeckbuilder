@@ -109,8 +109,9 @@ export function CardSnippet({
           }}
         >
           {hoverButtons
-            ? hoverButtons.map(({ text, fontSize, onClick }) => (
+            ? hoverButtons.map(({ text, fontSize, onClick }, i) => (
                 <CardControlButton
+                  key={i}
                   onClick={onClick}
                   style={{ fontSize: fontSize || "initial" }}
                 >

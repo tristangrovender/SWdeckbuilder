@@ -11,7 +11,7 @@ import {
   applyFilters,
 } from "../../../components/card-search-table/card-filters-bar";
 import { getCards } from "../../../components/card-search-table/getCards";
-import { CardPanel } from "../../../components/card-panel";
+import { CardPanel, CardWithDeckInfo } from "../../../components/card-panel";
 import { CardActionArea } from "@material-ui/core";
 
 function getCardSuggestions({
@@ -73,6 +73,14 @@ export default function EditDeck() {
   if (allCards.length === 0) {
     getCards().then(setCards);
   }
+  const setStartingCard = (card: CardWithDeckInfo) => {
+    const index = deckCards.map(({ id }) => id).lastIndexOf(card.id);
+    setDeckCards([
+      ...deckCards.slice(0, index),
+      { ...card, isStartingCard: card.isStartingCard ? false : true },
+      ...deckCards.slice(index + 1),
+    ]);
+  };
   const addCard = (card: Card) => {
     setDeckCards([
       ...deckCards,
@@ -122,6 +130,7 @@ export default function EditDeck() {
                 : []
             }
             addCard={addCard}
+            setStartingCard={setStartingCard}
             removeCard={removeCard}
           ></CardPanel>
         </div>
