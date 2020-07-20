@@ -17,27 +17,6 @@ const Card = styled.td`
   line-height: 14pt;
 `;
 
-{
-  /* <style type="text/css">
-<!--
-.tabl {
-}
-.card{
-.title{
-font: 10pt tahoma, arial, helvetica, sans-serif;
-text-decoration: none;
-font-style: normal;
-
-font-weight: bold;
-color: #FFFFFF;
-background-color: black;
-border-width: 1px;
-border-color: black;
-border-style: solid;}
--->
-</style> */
-}
-
 export default function PrintDeck() {
   return (
     <TableContainer>
