@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { getRandomDeck } from "../[id]";
 import { getCards } from "../../../components/card-search-table/getCards";
+import { Card } from "../../../components/card-search-table/card.interface";
 
 const TableContainer = styled.table`
   margin-top: 5px;
@@ -11,7 +12,7 @@ const TableContainer = styled.table`
   border-style: solid;
 `;
 
-const Card = styled.td`
+const CardCell = styled.td`
   font: 9pt tahoma, arial, helvetica, sans-serif;
   text-decoration: none;
   font-style: normal;
@@ -20,6 +21,10 @@ const Card = styled.td`
   line-height: 14pt;
 `;
 
+function orderCardsByType(cards: Card[]) {
+  return cards;
+}
+
 export default function PrintDeck() {
   const [allCards, setCards] = useState([]);
   const [deck, setDeck] = useState([]);
@@ -27,7 +32,7 @@ export default function PrintDeck() {
     getCards().then(setCards);
   }
   if (allCards.length && deck.length === 0) {
-    setDeck(getRandomDeck(allCards));
+    setDeck(orderCardsByType(getRandomDeck(allCards)));
   }
   if (deck.length === 0) {
     return <div>Loading...</div>;
@@ -37,29 +42,29 @@ export default function PrintDeck() {
     <TableContainer>
       <table style={{ border: "0px" }} width="100%" cellPadding="3">
         <tr>
-          <Card width="160">
+          <CardCell width="160">
             Star Wars&trade;
             <br />
             Customizable Card Game&trade;
-          </Card>
-          <Card width="130">
+          </CardCell>
+          <CardCell width="130">
             [&nbsp;]&nbsp;LIGHT&nbsp;SIDE&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;]&nbsp;DARK&nbsp;SIDE
-          </Card>
-          <Card>EVENT&nbsp;_______________</Card>
-          <Card>DATE&nbsp;_____</Card>
+          </CardCell>
+          <CardCell>EVENT&nbsp;_______________</CardCell>
+          <CardCell>DATE&nbsp;_____</CardCell>
         </tr>
         <tr>
-          <Card rowSpan={2}>
+          <CardCell rowSpan={2}>
             <b style={{ fontSize: "24px" }}>DECK LIST</b>
-          </Card>
-          <Card width="250" colSpan={4}>
+          </CardCell>
+          <CardCell width="250" colSpan={4}>
             PLAYER&nbsp;NAME&nbsp;________________________________
-          </Card>
+          </CardCell>
         </tr>
         <tr>
-          <Card width="250" colSpan={4}>
+          <CardCell width="250" colSpan={4}>
             DECK&nbsp;TITLE&nbsp;__________________________________
-          </Card>
+          </CardCell>
         </tr>
       </table>
       <table cellPadding="3">
@@ -67,41 +72,41 @@ export default function PrintDeck() {
         <td>
           <table>
             <tr>
-              <Card valign="top" width="300">
+              <CardCell valign="top" width="300">
                 <br />
                 <b>CARD TITLE</b>
                 <br />
                 {deck.slice(0, 37).map((card, i) => (
                   <>
-                    {i + 1}. {card.front.title}
+                    {i + 1}. {card.front.title} -- {card.front.type}
                     <br />
                   </>
                 ))}
-              </Card>
+              </CardCell>
             </tr>
           </table>
         </td>
         <td valign="top">
           <table>
             <tr>
-              <Card width="300">
+              <CardCell width="300">
                 <br />
                 <b>CARD TITLE</b>
                 <br />
                 {deck.slice(37).map((card, i) => (
                   <>
-                    {i + 38}. {card.front.title}
+                    {i + 38}. {card.front.title} -- {card.front.type}
                     <br />
                   </>
                 ))}
-              </Card>
+              </CardCell>
             </tr>
             <tr>
-              <Card>
+              <CardCell>
                 <br />
                 <b>DEFENSIVE SHIELDS</b>
                 <br />
-              </Card>
+              </CardCell>
             </tr>
           </table>
         </td>
