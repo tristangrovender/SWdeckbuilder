@@ -15,6 +15,13 @@ import FileSaver from "file-saver";
 import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
 
+const DeckDescription = styled.div`
+  padding: 5px;
+  color: grey;
+  font-style: italic;
+  font-size: 14px;
+`;
+
 function saveToFile(fileName: string, body: string) {
   var blob = new Blob([body], { type: "text/plain;charset=utf-8" });
   FileSaver.saveAs(blob, fileName);
@@ -151,6 +158,8 @@ export default function Deck() {
   }
   const authorUsername = "Jambree";
   const deckTitle = "Planet Destroyer";
+  const deckDescription =
+    "Deck is designed to take out opponents characters, then bring in big intrigue characters with pillage to limit cards in hand to limit opponents ability to defend against strong intrigue challenges.";
   return (
     <Page>
       <Toolbar />
@@ -226,6 +235,7 @@ export default function Deck() {
               </div>
             </DeckButtons>
           </DeckInfoContainer>
+          <DeckDescription>{deckDescription}</DeckDescription>
         </DeckPageContainer>
         <TypeSectionsContainer>
           {groupBy(deck, ["front", "type"])
