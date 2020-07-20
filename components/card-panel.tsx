@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { StickyContainer, Sticky } from "react-sticky";
 import styled from "styled-components";
 import { ClickAwayListener } from "@material-ui/core";
@@ -123,6 +123,14 @@ export interface CardWithSideDeck extends Card {
   isSideDeck: boolean;
 }
 
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
 export function CardPanel({
   cards,
   suggestedCards,
@@ -134,6 +142,13 @@ export function CardPanel({
   addCard: (card: Card) => void;
   removeCard: (card: Card) => void;
 }) {
+  const [scrollDiv, setScrollDiv] = useState(undefined);
+  const prev = usePrevious({ cardRowLength: groupCards(cards).length });
+  useEffect(() => {
+    if (prev && groupCards(cards).length > prev.cardRowLength && scrollDiv) {
+      scrollDiv.scrollIntoViewIfNeeded({ behavior: "smooth" });
+    }
+  }, [cards]);
   const [cardInfo, setCardInfo]: [
     { card: Card; clickAwayActive: boolean } | undefined,
     (cardInfo: { card: Card; clickAwayActive: boolean }) => void
@@ -206,6 +221,13 @@ export function CardPanel({
                   />
                 ))
               )}
+              <div
+                style={{ height: "0px" }}
+                ref={(ref) => {
+                  (window as any).ref = ref;
+                  setScrollDiv(ref);
+                }}
+              ></div>
             </DeckBuilderCardsContainer>
             {cardsInSideDeck.length ? (
               <CardPanelSection>
