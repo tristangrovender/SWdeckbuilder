@@ -15,6 +15,13 @@ import FileSaver from "file-saver";
 import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
 
+const DeckButtonsDropDown = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const DeckDescription = styled.div`
   padding: 5px;
   color: grey;
@@ -178,14 +185,7 @@ export default function Deck() {
 
             <DeckButtons>
               <StarsComponent rating={3.5} />
-              <div
-                style={{
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
+              <DeckButtonsDropDown>
                 <GetAppIcon
                   style={{
                     marginLeft: "10px",
@@ -232,7 +232,7 @@ export default function Deck() {
                     </ExportContainer>
                   </ClickAwayListener>
                 ) : null}
-              </div>
+              </DeckButtonsDropDown>
             </DeckButtons>
           </DeckInfoContainer>
           <DeckDescription>{deckDescription}</DeckDescription>
