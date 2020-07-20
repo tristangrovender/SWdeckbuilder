@@ -2,7 +2,10 @@ import { useState } from "react";
 import styled from "styled-components";
 import { getRandomDeck } from "../[id]";
 import { getCards } from "../../../components/card-search-table/getCards";
-import { Card } from "../../../components/card-search-table/card.interface";
+import {
+  Card,
+  Type,
+} from "../../../components/card-search-table/card.interface";
 
 const TableContainer = styled.table`
   margin-top: 5px;
@@ -22,7 +25,32 @@ const CardCell = styled.td`
 `;
 
 function orderCardsByType(cards: Card[]) {
-  return cards;
+  const typeOrder = [
+    Type.Objective,
+    Type.Location,
+    Type.Character,
+    Type.Creature,
+    Type.Weapon,
+    Type.Device,
+    Type.Starship,
+    Type.Vehicle,
+    Type.Effect,
+    Type.Interrupt,
+    Type.EpicEvent,
+    Type.JediTest1,
+    Type.JediTest2,
+    Type.JediTest3,
+    Type.JediTest5,
+    Type.JediTest4,
+    Type.JediTest6,
+    Type.AdmiralsOrder,
+    Type.Podracer,
+    Type.GameAid,
+    Type.DefensiveShield,
+  ];
+  return cards.sort((a, b) => {
+    return typeOrder.indexOf(a.front.type) - typeOrder.indexOf(b.front.type);
+  });
 }
 
 export default function PrintDeck() {
@@ -79,7 +107,7 @@ export default function PrintDeck() {
                 <br />
                 {deck.slice(0, 37).map((card, i) => (
                   <>
-                    {i + 1}. {card.front.title} -- {card.front.type}
+                    {i + 1}. {card.front.title}
                     <br />
                   </>
                 ))}
@@ -96,7 +124,7 @@ export default function PrintDeck() {
                 <br />
                 {deck.slice(37).map((card, i) => (
                   <>
-                    {i + 38}. {card.front.title} -- {card.front.type}
+                    {i + 38}. {card.front.title}
                     <br />
                   </>
                 ))}
