@@ -128,7 +128,6 @@ function CardPanelRow({
 
 export interface CardWithDeckInfo extends Card {
   isSideDeck: boolean;
-  isStartingCard: boolean;
 }
 
 function usePrevious(value) {
@@ -144,14 +143,16 @@ export function CardPanel({
   suggestedCards,
   addCard,
   removeCard,
-  setStartingCard,
 }: {
   cards: CardWithDeckInfo[];
   suggestedCards: Card[];
   addCard: (card: Card) => void;
   removeCard: (card: Card) => void;
-  setStartingCard: (card: Card) => void;
 }) {
+  const [startingCardIds, setStartingCardIds]: [
+    string[],
+    (cards: string[]) => void
+  ] = useState([]);
   const [scrollDiv, setScrollDiv] = useState(undefined);
   const prev = usePrevious({ cardRowLength: groupCards(cards).length });
   useEffect(() => {
@@ -234,11 +235,30 @@ export function CardPanel({
                   <CardPanelRow
                     key={i}
                     card={card}
-                    textColor={card.isStartingCard ? goldenColor : undefined}
+                    textColor={
+                      startingCardIds.includes(card.id.toString())
+                        ? goldenColor
+                        : undefined
+                    }
                     count={count}
                     hoverButtons={[
                       {
-                        onClick: () => setStartingCard(card),
+                        onClick: () => {
+                          if (startingCardIds.includes(card.id.toString())) {
+                            const index = startingCardIds.indexOf(
+                              card.id.toString()
+                            );
+                            setStartingCardIds([
+                              ...startingCardIds.slice(0, index),
+                              ...startingCardIds.slice(index + 1),
+                            ]);
+                          } else {
+                            setStartingCardIds([
+                              ...startingCardIds,
+                              card.id.toString(),
+                            ]);
+                          }
+                        },
                         text: "s",
                         fontSize: "12px",
                         tooltip: "Mark as starting card",
