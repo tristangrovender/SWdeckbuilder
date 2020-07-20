@@ -13,6 +13,7 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import { Button, ClickAwayListener } from "@material-ui/core";
 import FileSaver from "file-saver";
 import { getDeckText } from "../../components/getDeckText";
+import { useRouter } from "next/router";
 
 function saveToFile(fileName: string, body: string) {
   var blob = new Blob([body], { type: "text/plain;charset=utf-8" });
@@ -122,7 +123,7 @@ const DeckTitleContainer = styled.div`
   margin-top: 20px;
 `;
 
-function getRandomDeck(allCards: Card[]) {
+export function getRandomDeck(allCards: Card[]) {
   // map over current array
   const newArray = allCards.map((cards) => {
     return cards;
@@ -158,9 +159,11 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
 }
 
 export default function Deck() {
+  const router = useRouter();
   const [allCards, setCards] = useState([]);
   const [exportDropDownOpen, toggleExportDropdown] = useState(false);
   const [deck, setDeck] = useState([]);
+  const { id: deckId } = router.query;
   if (allCards.length === 0) {
     getCards().then(setCards);
   }
@@ -214,8 +217,7 @@ export default function Deck() {
                       <Button
                         style={{ width: "100%" }}
                         onClick={() => {
-                          window.print();
-                          return false;
+                          router.push(`/deck/print/${deckId}`);
                         }}
                       >
                         PDF Export
