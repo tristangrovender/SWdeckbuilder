@@ -124,7 +124,7 @@ const DeckTitleContainer = styled.div`
 
 function getRandomDeck(allCards: Card[]) {
   // map over current array
-  const newArray = allCards.map(cards => {
+  const newArray = allCards.map((cards) => {
     return cards;
   });
 
@@ -146,10 +146,10 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
       <TypeTitle>{cards[0].front.type}</TypeTitle>
       <div
         style={{
-          backgroundColor: darkBlue
+          backgroundColor: darkBlue,
         }}
       >
-        {cards.map(card => (
+        {cards.map((card) => (
           <DeckCardRow card={card} />
         ))}
       </div>
@@ -158,90 +158,47 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
 }
 
 function getDeckText(deck: Card[]): string {
-  console.log(deck);
-  const deckCopy = deck.map(card => {
-    return card;
+  const getTitle = (card: Card) => card.front.title;
+  const [
+    characterTitles,
+    objectiveTitles,
+    locationTitles,
+    creatureTitles,
+    weaponTitles,
+    deviceTitles,
+    starshipTitles,
+    vehicleTitles,
+    effectTitles,
+    interruptTitles,
+    epicEventTitles,
+    podracerTitles,
+    admiralsOrdersTitles,
+  ] = [
+    "Character",
+    "Objective",
+    "Location",
+    "Creature",
+    "Weapon",
+    "Device",
+    "Starship",
+    "Vehicle",
+    "Effect",
+    "Interrupt",
+    "Epic Event",
+    "Podracer",
+    "Admiral's Order",
+  ].map((type) => {
+    return deck.filter((card) => card.front.type === type).map(getTitle);
   });
-  const characters = deckCopy.filter(card => card.front.type === "Character");
-  const characterTitles = characters.map(character => {
-    return character.front.title;
-  });
-  const objectives = deckCopy.filter(card => card.front.type === "Objective");
-  const objectiveTitles = objectives.map(objective => {
-    return objective.front.title;
-  });
-
-  const locations = deckCopy.filter(card => card.front.type === "Location");
-  const locationTitles = locations.map(location => {
-    return location.front.title;
-  });
-
-  const creatures = deckCopy.filter(card => card.front.type === "Creature");
-  const creatureTitles = creatures.map(creature => {
-    return creature.front.title;
-  });
-
-  const weapons = deckCopy.filter(card => card.front.type === "Weapon");
-  const weaponTitles = weapons.map(weapon => {
-    return weapon.front.title;
-  });
-
-  const devices = deckCopy.filter(card => card.front.type === "Device");
-  const deviceTitles = devices.map(device => {
-    return device.front.title;
-  });
-
-  const starships = deckCopy.filter(card => card.front.type === "Starship");
-  const starshipTitles = starships.map(starship => {
-    return starship.front.title;
-  });
-
-  const vehicles = deckCopy.filter(card => card.front.type === "Vehicle");
-  const vehicleTitles = vehicles.map(vehicle => {
-    return vehicle.front.title;
-  });
-
-  const effects = deckCopy.filter(card => card.front.type === "Effect");
-  const effectTitles = effects.map(effect => {
-    return effect.front.title;
-  });
-
-  const interrupts = deckCopy.filter(card => card.front.type === "Interrupt");
-  const interruptTitles = interrupts.map(interrupt => {
-    return interrupt.front.title;
-  });
-
-  const epicEvent = deckCopy.filter(card => card.front.type === "Epic Event");
-  const epicEventTitles = epicEvent.map(epicEvent => {
-    return epicEvent.front.title;
-  });
-
-  const jediTests = deckCopy.filter(card =>
-    card.front.type.includes("Jedi Test")
-  );
-  const jediTestTitles = jediTests.map(jediTest => {
-    return jediTest.front.title;
-  });
-
-  const admiralsOrders = deckCopy.filter(
-    card => card.front.type === "Admiral's Order"
-  );
-  const admiralsOrdersTitles = admiralsOrders.map(admiralsOrders => {
-    return admiralsOrders.front.title;
-  });
-
-  const podracer = deckCopy.filter(card => card.front.type === "Podracer");
-  const podracerTitles = podracer.map(podracer => {
-    return podracer.front.title;
-  });
-
-  const sideDeck = deckCopy.filter(
-    card =>
-      card.front.type === "Defensive Shield" || card.front.type === "Game Aid"
-  );
-  const sideDeckTitles = sideDeck.map(sideDeck => {
-    return sideDeck.front.title;
-  });
+  const jediTestTitles = deck
+    .filter((card) => card.front.type.includes("Jedi Test"))
+    .map(getTitle);
+  const sideDeckTitles = deck
+    .filter(
+      (card) =>
+        card.front.type === "Defensive Shield" || card.front.type === "Game Aid"
+    )
+    .map(getTitle);
 
   return `Objectives: (${objectiveTitles.length})\n${objectiveTitles.join(
     "\n"
@@ -302,14 +259,14 @@ export default function Deck() {
                   position: "relative",
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center"
+                  justifyContent: "center",
                 }}
               >
                 <GetAppIcon
                   style={{
                     marginLeft: "10px",
                     color: "#7f7f7f",
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                   onClick={() => toggleExportDropdown(!exportDropDownOpen)}
                 />
