@@ -85,28 +85,28 @@ const Input = styled.input`
 
 export function applyFilters(allCards: Card[], filters: CardFilters) {
   return allCards
-    .filter(card => {
+    .filter((card) => {
       if (!filters || !filters.side || filters.side === DEFAULT_OPTION) {
         return true;
       }
 
       return card.side === filters.side;
     })
-    .filter(card => {
+    .filter((card) => {
       if (!filters || !filters.type || filters.type === DEFAULT_OPTION) {
         return true;
       }
 
       return card.front.type === filters.type;
     })
-    .filter(card => {
-      if (!filters || !filters.set || filters.set === DEFAULT_OPTION) {
+    .filter((card) => {
+      if (!filters || !filters.sets) {
         return true;
       }
 
-      return card.set === filters.set;
+      return filters.sets.includes(card.set);
     })
-    .filter(card => {
+    .filter((card) => {
       if (!filters || !filters.destiny || filters.destiny === DEFAULT_OPTION) {
         return true;
       }
@@ -115,7 +115,7 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
         card.front.destiny && card.front.destiny.toString() === filters.destiny
       );
     })
-    .filter(card => {
+    .filter((card) => {
       if (!filters || !filters.forfeit || filters.forfeit === DEFAULT_OPTION) {
         return true;
       }
@@ -124,7 +124,7 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
         card.front.forfeit && card.front.forfeit.toString() === filters.forfeit
       );
     })
-    .filter(card => {
+    .filter((card) => {
       if (!filters || !filters.deploy || filters.deploy === DEFAULT_OPTION) {
         return true;
       }
@@ -133,14 +133,14 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
         card.front.deploy && card.front.deploy.toString() === filters.deploy
       );
     })
-    .filter(card => {
+    .filter((card) => {
       if (!filters || !filters.power || filters.power === DEFAULT_OPTION) {
         return true;
       }
 
       return card.front.power && card.front.power.toString() === filters.power;
     })
-    .filter(card => {
+    .filter((card) => {
       if (!filters || !filters.titleFilter) {
         return true;
       }
@@ -157,7 +157,7 @@ enum DropDownFilters {
   destiny = "destiny",
   power = "power",
   deploy = "deploy",
-  forfeit = "forfeit"
+  forfeit = "forfeit",
 }
 
 const DEFAULT_OPTION = "All";
@@ -170,11 +170,11 @@ function FilterIcon({
   active,
   onOptionChosen,
   onOpen,
-  onClose
+  onClose,
 }: {
   open: boolean;
   name: string;
-  active?: string;
+  active?: string | string[];
   Icon: any;
   options?: string[];
   onOpen: () => void;
@@ -190,7 +190,7 @@ function FilterIcon({
             marginRight: "5px",
             borderRadius: "100px",
             border: "1px solid white",
-            padding: "5px"
+            padding: "5px",
           }}
         ></Icon>
         <div
@@ -198,7 +198,7 @@ function FilterIcon({
             marginLeft: "3px",
             whiteSpace: "nowrap",
             overflow: "hidden",
-            textOverflow: "ellipsis"
+            textOverflow: "ellipsis",
           }}
         >
           {name}
@@ -208,7 +208,7 @@ function FilterIcon({
         <ExpandMoreIcon
           style={{
             marginLeft: "5px",
-            fontSize: "16px"
+            fontSize: "16px",
           }}
         />
       </ClickableFilterIcon>
@@ -221,13 +221,17 @@ function FilterIcon({
                 style={{
                   display: "flex",
                   cursor: "pointer",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
                 onClick={() => onOptionChosen(option)}
               >
                 <Checkbox
                   style={{ color: "white" }}
-                  checked={active === option}
+                  checked={
+                    Array.isArray(active)
+                      ? active.includes(option)
+                      : active === option
+                  }
                 />
                 <div>{option}</div>
               </div>
@@ -241,7 +245,7 @@ function FilterIcon({
 export interface CardFilters {
   titleFilter: string;
   side?: Side | string;
-  set?: string;
+  sets?: string[];
   type?: string;
   destiny?: string;
   power?: string;
@@ -253,7 +257,7 @@ export function CardFiltersBar({
   allCards,
   filters,
   showSideFilter = true,
-  onUpdateFilters
+  onUpdateFilters,
 }: {
   allCards: Card[];
   showSideFilter?: boolean;
@@ -271,7 +275,7 @@ export function CardFiltersBar({
       allCards
         .map(({ front: { destiny } }) => destiny)
         .filter(Boolean)
-        .map(destiny => destiny.toString())
+        .map((destiny) => destiny.toString())
     )
   );
   const powerOptions = sortAlphabetically(
@@ -279,7 +283,7 @@ export function CardFiltersBar({
       allCards
         .map(({ front: { power } }) => power)
         .filter(Boolean)
-        .map(power => power.toString())
+        .map((power) => power.toString())
     )
   );
   const deployOptions = sortAlphabetically(
@@ -287,7 +291,7 @@ export function CardFiltersBar({
       allCards
         .map(({ front: { deploy } }) => deploy)
         .filter(Boolean)
-        .map(deploy => deploy.toString())
+        .map((deploy) => deploy.toString())
     )
   );
   const forfeitOptions = sortAlphabetically(
@@ -295,7 +299,7 @@ export function CardFiltersBar({
       allCards
         .map(({ front: { forfeit } }) => forfeit)
         .filter(Boolean)
-        .map(forfeit => forfeit.toString())
+        .map((forfeit) => forfeit.toString())
     )
   );
   return (
@@ -305,7 +309,7 @@ export function CardFiltersBar({
         <Input
           placeholder="Search"
           defaultValue={filters && filters.titleFilter}
-          onKeyUp={e =>
+          onKeyUp={(e) =>
             onUpdateFilters({ ...filters, titleFilter: e.target.value })
           }
         ></Input>
@@ -320,7 +324,7 @@ export function CardFiltersBar({
           justifyContent: "flex-end",
           cursor: "pointer",
           color: "white",
-          width: "50%"
+          width: "50%",
         }}
         onClick={() => setFilterBarOpen(!filterBarOpen)}
       >
@@ -333,7 +337,7 @@ export function CardFiltersBar({
           style={{
             display: "flex",
             marginTop: "10px",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
           }}
         >
           {showSideFilter ? (
@@ -345,7 +349,7 @@ export function CardFiltersBar({
               open={openDropDown === DropDownFilters.side}
               onOpen={() => setOpenDropDown(DropDownFilters.side)}
               onClose={() => setOpenDropDown(undefined)}
-              onOptionChosen={option =>
+              onOptionChosen={(option) =>
                 onUpdateFilters({ ...filters, side: option })
               }
             />
@@ -355,12 +359,12 @@ export function CardFiltersBar({
             Icon={MenuBookIcon}
             name={"Set:"}
             options={sets}
-            active={(filters && filters.set) || DEFAULT_OPTION}
+            active={filters && filters.sets}
             open={openDropDown === DropDownFilters.set}
             onOpen={() => setOpenDropDown(DropDownFilters.set)}
             onClose={() => setOpenDropDown(undefined)}
-            onOptionChosen={option =>
-              onUpdateFilters({ ...filters, set: option })
+            onOptionChosen={(option) =>
+              onUpdateFilters({ ...filters, sets: [option] })
             }
           />
           <FilterIcon
@@ -371,7 +375,7 @@ export function CardFiltersBar({
             open={openDropDown === DropDownFilters.type}
             onOpen={() => setOpenDropDown(DropDownFilters.type)}
             onClose={() => setOpenDropDown(undefined)}
-            onOptionChosen={option => {
+            onOptionChosen={(option) => {
               onUpdateFilters({ ...filters, type: option });
             }}
           />
@@ -383,7 +387,7 @@ export function CardFiltersBar({
             open={openDropDown === DropDownFilters.destiny}
             onOpen={() => setOpenDropDown(DropDownFilters.destiny)}
             onClose={() => setOpenDropDown(undefined)}
-            onOptionChosen={option => {
+            onOptionChosen={(option) => {
               onUpdateFilters({ ...filters, destiny: option });
             }}
           />
@@ -395,7 +399,7 @@ export function CardFiltersBar({
             open={openDropDown === DropDownFilters.power}
             onOpen={() => setOpenDropDown(DropDownFilters.power)}
             onClose={() => setOpenDropDown(undefined)}
-            onOptionChosen={option => {
+            onOptionChosen={(option) => {
               onUpdateFilters({ ...filters, power: option });
             }}
           />
@@ -407,7 +411,7 @@ export function CardFiltersBar({
             open={openDropDown === DropDownFilters.deploy}
             onOpen={() => setOpenDropDown(DropDownFilters.deploy)}
             onClose={() => setOpenDropDown(undefined)}
-            onOptionChosen={option => {
+            onOptionChosen={(option) => {
               onUpdateFilters({ ...filters, deploy: option });
             }}
           />
@@ -419,7 +423,7 @@ export function CardFiltersBar({
             open={openDropDown === DropDownFilters.forfeit}
             onOpen={() => setOpenDropDown(DropDownFilters.forfeit)}
             onClose={() => setOpenDropDown(undefined)}
-            onOptionChosen={option => {
+            onOptionChosen={(option) => {
               onUpdateFilters({ ...filters, forfeit: option });
             }}
           />
