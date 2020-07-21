@@ -181,6 +181,12 @@ function FilterIcon({
   onClose: () => void;
   onOptionChosen: (option: string) => void;
 }) {
+  const isChecked = (option) => {
+    if (option === DEFAULT_OPTION && active === undefined) {
+      return true;
+    }
+    return Array.isArray(active) ? active.includes(option) : active === option;
+  };
   return (
     <FilterIconContainer>
       <ClickableFilterIcon onClick={() => (!open ? onOpen() : onClose())}>
@@ -227,11 +233,7 @@ function FilterIcon({
               >
                 <Checkbox
                   style={{ color: "white" }}
-                  checked={
-                    Array.isArray(active)
-                      ? active.includes(option)
-                      : active === option
-                  }
+                  checked={isChecked(option)}
                 />
                 <div>{option}</div>
               </div>
@@ -303,6 +305,14 @@ export function CardFiltersBar({
     )
   );
   const optionChosen = (newOption: string) => {
+    console.log("Clicked Option", newOption);
+    if (newOption === DEFAULT_OPTION) {
+      onUpdateFilters({
+        ...filters,
+        sets: undefined,
+      });
+      return;
+    }
     const sets = filters.sets || [];
     let newSets;
     if (sets.includes(newOption)) {
@@ -310,6 +320,7 @@ export function CardFiltersBar({
       const indexOfOption = sets.indexOf(newOption);
       newSets = [
         ...sets.slice(0, indexOfOption),
+        undefined,
         ...sets.slice(indexOfOption + 1),
       ];
     } else {
