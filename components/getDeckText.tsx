@@ -14,7 +14,7 @@ export function getDeckText(deck: Card[]): string {
     interruptTitles,
     epicEventTitles,
     podracerTitles,
-    admiralsOrdersTitles,
+    admiralsOrdersTitles
   ] = [
     Type.Character,
     Type.Objective,
@@ -28,16 +28,16 @@ export function getDeckText(deck: Card[]): string {
     Type.Interrupt,
     Type.EpicEvent,
     Type.Podracer,
-    Type.AdmiralsOrder,
-  ].map((type) => {
-    return deck.filter((card) => card.front.type === type).map(getTitle);
+    Type.AdmiralsOrder
+  ].map(type => {
+    return deck.filter(card => card.front.type === type).map(getTitle);
   });
   const jediTestTitles = deck
-    .filter((card) => card.front.type.includes("Jedi Test"))
+    .filter(card => card.front.type.includes("Jedi Test"))
     .map(getTitle);
   const sideDeckTitles = deck
     .filter(
-      (card) =>
+      card =>
         card.front.type === "Defensive Shield" || card.front.type === "Game Aid"
     )
     .map(getTitle);
@@ -56,7 +56,7 @@ Effects: (${effectTitles.length})\n${effectTitles.join("\n")}\n
 Interrupts: (${interruptTitles.length})\n${interruptTitles.join("\n")}\n
 Epic Events: (${epicEventTitles.length})\n${epicEventTitles.join("\n")}\n
 Jedi Tests: (${jediTestTitles.length})\n${jediTestTitles.join("\n")}\n
-Admiral's orders: (${admiralsOrdersTitles.length})\n${admiralsOrdersTitles.join(
+Admiral's Orders: (${admiralsOrdersTitles.length})\n${admiralsOrdersTitles.join(
     "\n"
   )}\n
 Podracers: (${podracerTitles.length})\n${podracerTitles.join("\n")}\n

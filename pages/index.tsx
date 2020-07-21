@@ -46,11 +46,21 @@ export default function Home() {
               description="Fast paced, high stakes, fun deck"
               rating={3}
               cardBreakdown={{
-                characters: 25,
-                effects: 10,
-                weapons: 13,
-                interrupts: 7,
                 objectives: 5,
+                locations: 5,
+                characters: 25,
+                creatures: 25,
+                weapons: 13,
+                devices: 13,
+                starships: 13,
+                vehicles: 13,
+                effects: 10,
+                interrupts: 7,
+                epicEvents: 13,
+                jediTests: 13,
+                admiralsOrders: 2,
+                podracers: 1,
+                sideDeck: 20
               }}
             />
             <DeckTile
@@ -61,11 +71,21 @@ export default function Home() {
               description="Slow methodical deck good against many types"
               rating={5}
               cardBreakdown={{
-                characters: 40,
-                effects: 5,
-                weapons: 10,
-                interrupts: 2,
                 objectives: 3,
+                locations: 5,
+                characters: 40,
+                creatures: 25,
+                weapons: 10,
+                devices: 13,
+                starships: 13,
+                vehicles: 13,
+                effects: 5,
+                interrupts: 2,
+                epicEvents: 13,
+                jediTests: 13,
+                admiralsOrders: 2,
+                podracers: 1,
+                sideDeck: 20
               }}
             />
             <DeckTile
@@ -76,11 +96,21 @@ export default function Home() {
               description="Weapons galore"
               rating={2.5}
               cardBreakdown={{
-                characters: 16,
-                effects: 8,
-                weapons: 20,
-                interrupts: 15,
                 objectives: 1,
+                locations: 5,
+                characters: 16,
+                creatures: 25,
+                weapons: 20,
+                devices: 13,
+                starships: 13,
+                vehicles: 13,
+                effects: 8,
+                interrupts: 15,
+                epicEvents: 13,
+                jediTests: 13,
+                admiralsOrders: 2,
+                podracers: 1,
+                sideDeck: 20
               }}
             />
             <DeckTile
@@ -91,11 +121,21 @@ export default function Home() {
               description="Fast paced, high stakes, fun deck"
               rating={4.5}
               cardBreakdown={{
-                characters: 33,
-                effects: 11,
-                weapons: 14,
-                interrupts: 1,
                 objectives: 1,
+                locations: 5,
+                characters: 33,
+                creatures: 25,
+                weapons: 14,
+                devices: 13,
+                starships: 13,
+                vehicles: 13,
+                effects: 11,
+                interrupts: 1,
+                epicEvents: 13,
+                jediTests: 13,
+                admiralsOrders: 2,
+                podracers: 1,
+                sideDeck: 20
               }}
             />
             <DeckTile
@@ -106,11 +146,21 @@ export default function Home() {
               description="Slow methodical deck good against many types"
               rating={3.5}
               cardBreakdown={{
-                characters: 39,
-                effects: 1,
-                weapons: 11,
-                interrupts: 5,
                 objectives: 4,
+                locations: 5,
+                characters: 39,
+                creatures: 25,
+                weapons: 11,
+                devices: 13,
+                starships: 13,
+                vehicles: 13,
+                effects: 1,
+                interrupts: 5,
+                epicEvents: 13,
+                jediTests: 13,
+                admiralsOrders: 2,
+                podracers: 1,
+                sideDeck: 20
               }}
             />
             <DeckTile
@@ -121,11 +171,21 @@ export default function Home() {
               description="Solid all around deck"
               rating={3}
               cardBreakdown={{
-                characters: 33,
-                effects: 10,
-                weapons: 12,
-                interrupts: 2,
                 objectives: 3,
+                locations: 5,
+                characters: 33,
+                creatures: 25,
+                weapons: 12,
+                devices: 13,
+                starships: 13,
+                vehicles: 13,
+                effects: 10,
+                interrupts: 2,
+                epicEvents: 13,
+                jediTests: 13,
+                admiralsOrders: 2,
+                podracers: 1,
+                sideDeck: 20
               }}
             />
           </TileContainer>

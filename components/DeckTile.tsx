@@ -7,7 +7,7 @@ const Tile = styled.div`
   background-color: white;
   color: white;
   width: 450px;
-  height: 125px;
+  height: 175px;
   margin-bottom: 40px;
 `;
 
@@ -69,7 +69,7 @@ export function DeckTile({
   days,
   description,
   cardBreakdown,
-  rating,
+  rating
 }: {
   img: string;
   title: string;
@@ -78,11 +78,21 @@ export function DeckTile({
   description: string;
   rating: number;
   cardBreakdown: {
-    characters: number;
-    effects: number;
-    weapons: number;
-    interrupts: number;
     objectives: number;
+    locations: number;
+    characters: number;
+    creatures: number;
+    weapons: number;
+    devices: number;
+    starships: number;
+    vehicles: number;
+    effects: number;
+    interrupts: number;
+    epicEvents: number;
+    jediTests: number;
+    admiralsOrders: number;
+    podracers: number;
+    sideDeck: number;
   };
 }) {
   const router = useRouter();
@@ -99,9 +109,15 @@ export function DeckTile({
       </TileBannerContainer>
       <TileDescription>Description: {description}</TileDescription>
       <TileDeckCardTypes>
-        {cardBreakdown.characters} Characters • {cardBreakdown.effects} Effects
-        • {cardBreakdown.weapons} Weapons • {cardBreakdown.interrupts}{" "}
-        Interrupts • {cardBreakdown.objectives} Objectives
+        {cardBreakdown.objectives} Objectives • {cardBreakdown.locations}{" "}
+        Locations • {cardBreakdown.characters} Characters •{" "}
+        {cardBreakdown.creatures} Creatures • {cardBreakdown.weapons} Weapons •{" "}
+        {cardBreakdown.devices} Devices • {cardBreakdown.starships} Starhips •{" "}
+        {cardBreakdown.vehicles} Vehicles • {cardBreakdown.effects} Effects •{" "}
+        {cardBreakdown.interrupts} Interrupts • {cardBreakdown.epicEvents}{" "}
+        EpicEvents • {cardBreakdown.jediTests} Jedi Tests •{" "}
+        {cardBreakdown.admiralsOrders} Admiral's Orders •{" "}
+        {cardBreakdown.podracers} Podracers • {cardBreakdown.sideDeck} Side Deck
       </TileDeckCardTypes>
       <TileRatingContainer>
         <StarsComponent rating={rating}></StarsComponent>
