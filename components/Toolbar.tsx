@@ -15,12 +15,12 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: grey[500],
-      contrastText: "white",
+      contrastText: "white"
     },
     secondary: {
-      main: blueGrey[500],
-    },
-  },
+      main: blueGrey[500]
+    }
+  }
 });
 
 export const Page = ({ children }) => {
@@ -88,6 +88,20 @@ export function Toolbar() {
         </Link>
         <div style={{ flexGrow: 1 }}></div>
         <SearchBar></SearchBar>
+        <a
+          style={{ display: "flex", marginRight: "-25px" }}
+          href="https://www.starwarsccg.org/"
+        >
+          <ToolbarLink>
+            <img
+              style={{
+                height: "100%",
+                width: "100px"
+              }}
+              src="/images/starwars.jpg"
+            />
+          </ToolbarLink>
+        </a>
       </ToolbarContent>
     </ToolbarContainer>
   );
