@@ -123,6 +123,9 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
       }
 
       const destiny = card.front.destiny && card.front.destiny.toString();
+      if (destiny === undefined) {
+        return false;
+      }
       return filters.destiny.includes(destiny);
     })
     .filter((card) => {
@@ -131,6 +134,9 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
       }
 
       const forfeit = card.front.forfeit && card.front.forfeit.toString();
+      if (forfeit === undefined) {
+        return false;
+      }
       return filters.forfeit.includes(forfeit);
     })
     .filter((card) => {
@@ -139,6 +145,9 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
       }
 
       const deploy = card.front.deploy && card.front.deploy.toString();
+      if (deploy === undefined) {
+        return false;
+      }
       return filters.deploy.includes(deploy);
     })
     .filter((card) => {
@@ -147,6 +156,9 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
       }
 
       const power = card.front.power && card.front.power.toString();
+      if (power === undefined) {
+        return false;
+      }
       return filters.power.includes(power);
     })
     .filter((card) => {
