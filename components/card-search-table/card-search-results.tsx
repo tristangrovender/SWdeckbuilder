@@ -87,11 +87,19 @@ export function getCoordinatesInViewPort(
 ): { top: number; left: number } {
   const { top } = document.body.getClientRects()[0];
   const screenHeight = window.innerHeight;
+  const screenWidth = window.innerWidth;
   const topOfScreenY = Math.abs(top);
   const bottomOfScreenY = screenHeight - top;
   const desiredTop = location.y - componentHeight / 2;
 
-  const left = location.x + componentHeight / 2;
+  let left: number;
+  const componentWidth = 300;
+  const desiredLeft = location.x + componentWidth / 2;
+  if (desiredLeft + componentWidth > screenWidth) {
+    left = location.x - componentWidth * 2;
+  } else {
+    left = location.x + componentWidth / 2;
+  }
   if (desiredTop + componentHeight > bottomOfScreenY) {
     const top = desiredTop - (desiredTop + componentHeight - bottomOfScreenY);
     return {
