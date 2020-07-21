@@ -302,6 +302,25 @@ export function CardFiltersBar({
         .map((forfeit) => forfeit.toString())
     )
   );
+  const optionChosen = (newOption: string) => {
+    const sets = filters.sets || [];
+    let newSets;
+    if (sets.includes(newOption)) {
+      // remove the option
+      const indexOfOption = sets.indexOf(newOption);
+      newSets = [
+        ...sets.slice(0, indexOfOption),
+        ...sets.slice(indexOfOption + 1),
+      ];
+    } else {
+      newSets = [...sets, newOption];
+    }
+
+    onUpdateFilters({
+      ...filters,
+      sets: newSets.length === 0 ? undefined : newSets,
+    });
+  };
   return (
     <CardFilterBarContainer>
       <SearchContainer>
@@ -363,9 +382,7 @@ export function CardFiltersBar({
             open={openDropDown === DropDownFilters.set}
             onOpen={() => setOpenDropDown(DropDownFilters.set)}
             onClose={() => setOpenDropDown(undefined)}
-            onOptionChosen={(option) =>
-              onUpdateFilters({ ...filters, sets: [option] })
-            }
+            onOptionChosen={optionChosen}
           />
           <FilterIcon
             Icon={SupervisorAccountIcon}
