@@ -249,7 +249,7 @@ export function CardFiltersBar({
               Icon={RecentActorsIcon}
               name={"Side:"}
               options={[Side.dark, Side.light]}
-              active={(filters && filters.side) || DEFAULT_OPTION}
+              active={filters && filters.side}
               open={openDropDown === DropDownFilters.side}
               onOpen={() => setOpenDropDown(DropDownFilters.side)}
               onClose={() => setOpenDropDown(undefined)}
@@ -271,7 +271,7 @@ export function CardFiltersBar({
             Icon={SupervisorAccountIcon}
             name={"Type:"}
             options={types}
-            active={(filters && filters.type) || DEFAULT_OPTION}
+            active={filters && filters.type}
             open={openDropDown === DropDownFilters.type}
             onOpen={() => setOpenDropDown(DropDownFilters.type)}
             onClose={() => setOpenDropDown(undefined)}
@@ -280,7 +280,7 @@ export function CardFiltersBar({
           <FilterIcon
             Icon={BlurOnIcon}
             name={"Destiny:"}
-            active={(filters && filters.destiny) || DEFAULT_OPTION}
+            active={filters && filters.destiny}
             options={destiny}
             open={openDropDown === DropDownFilters.destiny}
             onOpen={() => setOpenDropDown(DropDownFilters.destiny)}
@@ -290,7 +290,7 @@ export function CardFiltersBar({
           <FilterIcon
             Icon={GavelIcon}
             name={"Power:"}
-            active={(filters && filters.power) || DEFAULT_OPTION}
+            active={filters && filters.power}
             options={powerOptions}
             open={openDropDown === DropDownFilters.power}
             onOpen={() => setOpenDropDown(DropDownFilters.power)}
@@ -300,7 +300,7 @@ export function CardFiltersBar({
           <FilterIcon
             Icon={ArrowUpwardIcon}
             name={"Deploy:"}
-            active={(filters && filters.deploy) || DEFAULT_OPTION}
+            active={filters && filters.deploy}
             options={deployOptions}
             open={openDropDown === DropDownFilters.deploy}
             onOpen={() => setOpenDropDown(DropDownFilters.deploy)}
@@ -310,7 +310,7 @@ export function CardFiltersBar({
           <FilterIcon
             Icon={FlagIcon}
             name={"Forfeit:"}
-            active={(filters && filters.forfeit) || DEFAULT_OPTION}
+            active={filters && filters.forfeit}
             options={forfeitOptions}
             open={openDropDown === DropDownFilters.forfeit}
             onOpen={() => setOpenDropDown(DropDownFilters.forfeit)}
