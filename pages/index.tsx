@@ -23,7 +23,7 @@ const HomePageH2 = styled.div`
 const RecentTitleContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  border-bottom: 2px solid darkslategray;
+  border-bottom: 2px solid #404040;
   width: 100%;
   margin-bottom: 20px;
 `;
@@ -35,7 +35,7 @@ const RecentTitle = styled.div`
   height: 40px;
   font-size: 20px;
   text-align: center;
-  color: darkslategray;
+  color: #404040;
   border-radius: 4px;
 `;
 
