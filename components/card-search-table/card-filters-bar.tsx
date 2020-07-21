@@ -151,7 +151,7 @@ export interface CardFilters {
 
 export function CardFiltersBar({
   allCards,
-  filters,
+  filters = {},
   showSideFilter = true,
   onUpdateFilters,
 }: {
