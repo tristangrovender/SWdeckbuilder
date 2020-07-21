@@ -104,11 +104,11 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
       return filters.side.includes(card.side);
     })
     .filter((card) => {
-      if (!filters || !filters.type || filters.type === DEFAULT_OPTION) {
+      if (!filters || !filters.type) {
         return true;
       }
 
-      return card.front.type === filters.type;
+      return filters.type.includes(card.front.type);
     })
     .filter((card) => {
       if (!filters || !filters.sets) {
@@ -408,9 +408,7 @@ export function CardFiltersBar({
             open={openDropDown === DropDownFilters.type}
             onOpen={() => setOpenDropDown(DropDownFilters.type)}
             onClose={() => setOpenDropDown(undefined)}
-            onOptionChosen={(option) => {
-              onUpdateFilters({ ...filters, type: option });
-            }}
+            onOptionChosen={optionChosen("type")}
           />
           <FilterIcon
             Icon={BlurOnIcon}
