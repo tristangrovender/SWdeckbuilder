@@ -12,7 +12,7 @@ import { Card, Side } from "./card.interface";
 import { unique, sortAlphabetically } from "../../utils/utils";
 import { useState } from "react";
 import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
-import { darkBlue } from "../../utils/colors";
+import { darkBlue, goldenColor } from "../../utils/colors";
 import RecentActorsIcon from "@material-ui/icons/RecentActors";
 import FilterListIcon from "@material-ui/icons/FilterList";
 
@@ -41,7 +41,7 @@ const FilterIconContainer = styled.div`
   z-index: 10;
   position: relative;
   border-radius: 50px;
-  border: 1px solid #6f6f6f;
+  border: 1px solid ${(props) => (props.isFiltered ? goldenColor : "#6f6f6f")};
   display: flex;
   align-items: center;
   padding: 2px 0px;
@@ -187,8 +187,11 @@ function FilterIcon({
     }
     return Array.isArray(active) ? active.includes(option) : active === option;
   };
+  const isFiltered = !Boolean(
+    active === DEFAULT_OPTION || active === undefined
+  );
   return (
-    <FilterIconContainer>
+    <FilterIconContainer isFiltered={isFiltered}>
       <ClickableFilterIcon onClick={() => (!open ? onOpen() : onClose())}>
         <Icon
           style={{
@@ -208,7 +211,7 @@ function FilterIcon({
           }}
         >
           {name}
-          {active || DEFAULT_OPTION}
+          {isFiltered ? "Filtered" : DEFAULT_OPTION}
         </div>
 
         <ExpandMoreIcon
