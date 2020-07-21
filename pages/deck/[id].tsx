@@ -15,6 +15,13 @@ import FileSaver from "file-saver";
 import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
 
+const AverageDestiny = styled.div`
+  opacity: 0.5;
+  font-size: 12px;
+  margin-right: 8px;
+  margin-top: 3px;
+`;
+
 const DeckButtonsDropDown = styled.div`
   position: relative;
   display: flex;
@@ -185,6 +192,7 @@ export default function Deck() {
             </DeckInfoStatistics>
 
             <DeckButtons>
+              <AverageDestiny>7.2 Avg Destiny</AverageDestiny>
               <StarsComponent rating={3.5} />
               <DeckButtonsDropDown>
                 <GetAppIcon
