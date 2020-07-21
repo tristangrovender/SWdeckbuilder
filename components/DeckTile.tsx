@@ -60,6 +60,7 @@ const TileDeckCardTypes = styled.div`
   padding-top: 5px;
   padding-left: 10px;
   padding-right: 10px;
+  width: 90%;
 `;
 
 export function DeckTile({
@@ -92,7 +93,6 @@ export function DeckTile({
     jediTests: number;
     admiralsOrders: number;
     podracers: number;
-    sideDeck: number;
   };
 }) {
   const router = useRouter();
@@ -117,7 +117,7 @@ export function DeckTile({
         {cardBreakdown.interrupts} Interrupts • {cardBreakdown.epicEvents}{" "}
         EpicEvents • {cardBreakdown.jediTests} Jedi Tests •{" "}
         {cardBreakdown.admiralsOrders} Admiral's Orders •{" "}
-        {cardBreakdown.podracers} Podracers • {cardBreakdown.sideDeck} Side Deck
+        {cardBreakdown.podracers} Podracers
       </TileDeckCardTypes>
       <TileRatingContainer>
         <StarsComponent rating={rating}></StarsComponent>

@@ -59,8 +59,7 @@ export default function Home() {
                 epicEvents: 13,
                 jediTests: 13,
                 admiralsOrders: 2,
-                podracers: 1,
-                sideDeck: 20
+                podracers: 1
               }}
             />
             <DeckTile
@@ -84,8 +83,7 @@ export default function Home() {
                 epicEvents: 13,
                 jediTests: 13,
                 admiralsOrders: 2,
-                podracers: 1,
-                sideDeck: 20
+                podracers: 1
               }}
             />
             <DeckTile
@@ -109,8 +107,7 @@ export default function Home() {
                 epicEvents: 13,
                 jediTests: 13,
                 admiralsOrders: 2,
-                podracers: 1,
-                sideDeck: 20
+                podracers: 1
               }}
             />
             <DeckTile
@@ -134,8 +131,7 @@ export default function Home() {
                 epicEvents: 13,
                 jediTests: 13,
                 admiralsOrders: 2,
-                podracers: 1,
-                sideDeck: 20
+                podracers: 1
               }}
             />
             <DeckTile
@@ -159,8 +155,7 @@ export default function Home() {
                 epicEvents: 13,
                 jediTests: 13,
                 admiralsOrders: 2,
-                podracers: 1,
-                sideDeck: 20
+                podracers: 1
               }}
             />
             <DeckTile
@@ -184,8 +179,7 @@ export default function Home() {
                 epicEvents: 13,
                 jediTests: 13,
                 admiralsOrders: 2,
-                podracers: 1,
-                sideDeck: 20
+                podracers: 1
               }}
             />
           </TileContainer>
