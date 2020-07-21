@@ -25,7 +25,7 @@ export function DeckCardRow({ card }: { card: Card }) {
       />
       {viewCard ? (
         <ClickAwayListener onClickAway={() => setViewCard(false)}>
-          <div style={{ position: "absolute", height: "400px", zIndex: 1 }}>
+          <div style={{ position: "absolute", height: "400px", zIndex: 2 }}>
             <img src={card.front.imageUrl}></img>
           </div>
         </ClickAwayListener>
@@ -34,8 +34,6 @@ export function DeckCardRow({ card }: { card: Card }) {
   );
 }
 
-export default function deleteme(){
-  return (<div>test</div>)
-
+export default function deleteme() {
+  return <div>test</div>;
 }
-

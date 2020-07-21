@@ -4,15 +4,13 @@ import { darkBlue } from "../utils/colors";
 import Tooltip from "@material-ui/core/Tooltip";
 
 const CardSnippetTitleContainer = styled.div`
-  width: 50%;
+  width: 100%;
   white-space: nowrap;
   color: ${(props) => (props.textColor ? props.textColor : "white")};
   overflow: hidden;
   text-overflow: ellipsis;
-  @media print {
-    text-overflow: initial;
-    width: 400px;
-  }
+  z-index: 1;
+  pointer-events: none;
 `;
 
 const CardControlButton = styled.div`
@@ -49,7 +47,11 @@ export function FadedImage({
         backgroundRepeat: "no-repeat",
         width: "50%",
         maxWidth: "230px",
-        position: "relative",
+        position: "absolute",
+        bottom: "0px",
+        right: "0px",
+        height: "100%",
+        zIndex: 0,
       }}
     >
       <div
@@ -95,6 +97,7 @@ export function CardSnippet({
         display: "flex",
         justifyContent: "space-between",
         flexGrow: 1,
+        position: "relative",
       }}
     >
       <CardSnippetTitleContainer textColor={textColor}>
