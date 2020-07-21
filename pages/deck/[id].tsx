@@ -114,6 +114,7 @@ const DeckTitleContainer = styled.div`
   font-size: 20px;
   border-radius: 5px 5px 0px 0px;
   margin-top: 20px;
+  position: relative;
 `;
 
 export function getRandomDeck(allCards: Card[]) {
