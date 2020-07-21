@@ -12,9 +12,20 @@ import { Card, Side } from "./card.interface";
 import { unique, sortAlphabetically } from "../../utils/utils";
 import { useState } from "react";
 import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
-import { darkBlue, goldenColor } from "../../utils/colors";
+import { darkBlue } from "../../utils/colors";
 import RecentActorsIcon from "@material-ui/icons/RecentActors";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import { orange } from "@material-ui/core/colors";
+
+const lightOrange = orange[200];
+
+const FilterName = styled.div`
+  margin-left: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: ${(props) => (props.isFiltered ? lightOrange : "white")};
+`;
 
 const FilterOptionsContainer = styled.div`
   position: absolute;
@@ -41,7 +52,7 @@ const FilterIconContainer = styled.div`
   z-index: 10;
   position: relative;
   border-radius: 50px;
-  border: 1px solid ${(props) => (props.isFiltered ? goldenColor : "#6f6f6f")};
+  border: 1px solid ${(props) => (props.isFiltered ? lightOrange : "#6f6f6f")};
   display: flex;
   align-items: center;
   padding: 2px 0px;
@@ -198,24 +209,19 @@ function FilterIcon({
             fontSize: "30px",
             marginRight: "5px",
             borderRadius: "100px",
-            border: "1px solid white",
+            border: `1px solid ${isFiltered ? lightOrange : "white"}`,
             padding: "5px",
+            color: isFiltered ? lightOrange : "white",
           }}
         ></Icon>
-        <div
-          style={{
-            marginLeft: "3px",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {name}
+        <FilterName isFiltered={isFiltered}>
+          {name}&nbsp;
           {isFiltered ? "Filtered" : DEFAULT_OPTION}
-        </div>
+        </FilterName>
 
         <ExpandMoreIcon
           style={{
+            color: isFiltered ? lightOrange : "white",
             marginLeft: "5px",
             fontSize: "16px",
           }}
