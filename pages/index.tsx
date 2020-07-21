@@ -12,13 +12,31 @@ const HomePageTitle = styled.div`
   font-size: 64px;
   font-weight: bold;
   color: #333333;
-  margin-top: 30px;
-  margin-bottom: 15px;
+  margin-top: 20px;
 `;
 
 const HomePageH2 = styled.div`
   font-size: 32px;
-  margin-bottom: 100px;
+  margin-bottom: 25px;
+`;
+
+const RecentTitleContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 2px solid darkslategray;
+  width: 100%;
+  margin-bottom: 20px;
+`;
+
+const RecentTitle = styled.div`
+  display: flex;
+  display: block;
+  width: 122px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  color: darkslategray;
+  border-radius: 4px;
 `;
 
 const TileContainer = styled.div`
@@ -34,9 +52,10 @@ export default function Home() {
       <Content>
         <HomePageContent>
           <HomePageTitle>SW:CCG DB</HomePageTitle>
-          <HomePageH2>
-            Deckbuilder for the Star Wars Customizable Card Game
-          </HomePageH2>
+          <HomePageH2>Deckbuilder for the Star Wars Card Game</HomePageH2>
+          <RecentTitleContainer>
+            <RecentTitle>Recent decks</RecentTitle>
+          </RecentTitleContainer>
           <TileContainer>
             <DeckTile
               img="/images/dark.png"
