@@ -5,15 +5,19 @@ import { useRouter } from "next/router";
 import {
   CardFiltersBar,
   applyFilters,
+  CardFilters,
 } from "../components/card-search-table/card-filters-bar";
 import { getCards } from "../components/card-search-table/getCards";
 import Footer from "../components/Footer";
 
 export default function Cards() {
   const router = useRouter();
-  const [filters, updateFilters] = useState({
-    titleFilter: router.query.title as string | undefined,
-  });
+  const [filters, updateFilters]: [
+    CardFilters,
+    (filters: CardFilters) => void
+  ] = useState({
+    titleFilter: router.query.title,
+  } as CardFilters);
 
   const [allCards, setCards] = useState([]);
   if (allCards.length === 0) {
