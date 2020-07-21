@@ -1,6 +1,7 @@
 import { Toolbar, Content, Page } from "../components/Toolbar";
 import styled from "styled-components";
 import { DeckTile } from "../components/DeckTile";
+import Footer from "../components/Footer";
 
 const HomePageContent = styled.div`
   display: flex;
@@ -204,6 +205,7 @@ export default function Home() {
           </TileContainer>
         </HomePageContent>
       </Content>
+      <Footer></Footer>
     </Page>
   );
 }

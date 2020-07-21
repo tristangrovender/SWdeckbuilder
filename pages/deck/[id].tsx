@@ -14,6 +14,7 @@ import { Button, ClickAwayListener } from "@material-ui/core";
 import FileSaver from "file-saver";
 import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
+import Footer from "../../components/Footer";
 
 const AverageDestiny = styled.div`
   opacity: 0.5;
@@ -272,6 +273,7 @@ export default function Deck() {
         </TypeSectionsContainer>
         <CommentsSection />
       </Content>
+      <Footer></Footer>
     </Page>
   );
 }

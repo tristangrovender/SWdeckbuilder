@@ -6,7 +6,7 @@ function Comment({
   author,
   text,
   profilePhoto,
-  createdAt,
+  createdAt
 }: {
   author: string;
   text: string;
@@ -24,14 +24,14 @@ function Comment({
           display: "flex",
           flexDirection: "column",
           margin: "10px",
-          fontSize: "16px",
+          fontSize: "16px"
         }}
       >
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "center"
           }}
         >
           <div style={{ fontWeight: "bold", fontSize: "16px" }}>{author}</div>
@@ -39,7 +39,7 @@ function Comment({
             style={{
               marginLeft: "10px",
               color: "rgba(0,0,0,0.5)",
-              fontSize: "12px",
+              fontSize: "12px"
             }}
           >
             {moment(new Date()).from(moment(createdAt))}
@@ -58,14 +58,14 @@ export function CommentsSection() {
       author: "Dan Rasmuson",
       text: "Fantastic!",
       createdAt: new Date(),
-      profilePhoto: "/images/Tristan.jpg",
+      profilePhoto: "/images/Tristan.jpg"
     },
     {
       author: "Tristan Grovender",
       text: "Really effective!",
       createdAt: new Date(),
-      profilePhoto: "/images/Hank.jpg",
-    },
+      profilePhoto: "/images/Hank.jpg"
+    }
   ];
   return (
     <div>
@@ -75,7 +75,7 @@ export function CommentsSection() {
           fontWeight: "bold",
           paddingTop: "20px",
           marginBottom: "10px",
-          width: "97%",
+          width: "97%"
         }}
       >
         Comments
@@ -95,7 +95,7 @@ export function CommentsSection() {
           height: "100px",
           width: "50%",
           resize: "vertical",
-          marginBottom: "5px",
+          marginBottom: "5px"
         }}
       ></textarea>
       <Button
@@ -105,6 +105,7 @@ export function CommentsSection() {
           alignItems: "center",
           justifyContent: "center",
           color: "black",
+          marginBottom: "10px"
         }}
       >
         <div>Add Reply</div>

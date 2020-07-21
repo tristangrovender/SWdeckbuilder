@@ -2,6 +2,7 @@ import { Toolbar, Content, Page } from "../components/Toolbar";
 import Button from "@material-ui/core/Button";
 import Link from "next/link";
 import styled from "styled-components";
+import Footer from "../components/Footer";
 
 const NoDecksContainer = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ export default function MyDecks() {
           </Link>
         </NoDecksContainer>
       </Content>
+      <Footer></Footer>
     </Page>
   );
 }

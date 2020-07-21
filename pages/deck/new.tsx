@@ -6,6 +6,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import Router from "next/router";
 import { Side } from "../../components/card-search-table/card.interface";
+import Footer from "../../components/Footer";
 
 const DeckSideContainer = styled.div`
   display: flex;
@@ -33,14 +34,14 @@ export default function NewDeck() {
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
-            height: "100%",
+            height: "100%"
           }}
         >
           <div
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <DeckSideContainer onClick={() => setSide(Side.dark)}>
@@ -72,7 +73,7 @@ export default function NewDeck() {
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <Button
@@ -82,8 +83,8 @@ export default function NewDeck() {
                 Router.push({
                   pathname: `/deck/edit/111`,
                   query: {
-                    side,
-                  },
+                    side
+                  }
                 })
               }
             >
@@ -92,6 +93,7 @@ export default function NewDeck() {
           </div>
         </div>
       </Content>
+      <Footer></Footer>
     </Page>
   );
 }

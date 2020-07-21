@@ -4,20 +4,21 @@ import { useRouter } from "next/router";
 import { CardSearchResults } from "../../../components/card-search-table/card-search-results";
 import {
   Side,
-  Card,
+  Card
 } from "../../../components/card-search-table/card.interface";
 import {
   CardFiltersBar,
-  applyFilters,
+  applyFilters
 } from "../../../components/card-search-table/card-filters-bar";
 import { getCards } from "../../../components/card-search-table/getCards";
 import { CardPanel, CardWithDeckInfo } from "../../../components/card-panel";
 import { CardActionArea } from "@material-ui/core";
+import Footer from "../../../components/Footer";
 
 function getCardSuggestions({
   side,
   allCards,
-  deck,
+  deck
 }: {
   side: Side;
   allCards: Card[];
@@ -46,11 +47,11 @@ function getCardSuggestions({
       "•Executor: Holotheatre",
       "•Visage Of The Emperor",
       "•Executor: Meditation Chamber",
-      "•Epic Duel",
+      "•Epic Duel"
     ];
     return allCards
       .filter(({ front: { title } }) => cardsInDestroyTheJedi.includes(title))
-      .filter((cardSuggestion) => {
+      .filter(cardSuggestion => {
         return deck.map(({ id }) => id).indexOf(cardSuggestion.id) === -1;
       });
   }
@@ -76,7 +77,7 @@ export default function EditDeck() {
   const addCard = (card: Card) => {
     setDeckCards([
       ...deckCards,
-      { ...card, isSideDeck: isCardInSideDeck(card) },
+      { ...card, isSideDeck: isCardInSideDeck(card) }
     ]);
   };
   const removeCard = (cardToRemove: Card) => {
@@ -101,7 +102,7 @@ export default function EditDeck() {
           allCards={allCards}
           showSideFilter={false}
           filters={filters}
-          onUpdateFilters={(filters) => updateFilters(filters)}
+          onUpdateFilters={filters => updateFilters(filters)}
         />
         {/* TODO showSide will need to come from /deck/new choice */}
         <div style={{ display: "flex" }}>
@@ -111,7 +112,7 @@ export default function EditDeck() {
             onCardSelected={addCard}
             style={{
               width: "70vw",
-              marginLeft: "3vw",
+              marginLeft: "3vw"
             }}
           />
           <CardPanel
@@ -126,6 +127,7 @@ export default function EditDeck() {
           ></CardPanel>
         </div>
       </div>
+      <Footer></Footer>
     </Page>
   );
 }

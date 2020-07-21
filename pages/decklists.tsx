@@ -4,8 +4,9 @@ import styled from "styled-components";
 import { DeckFilter } from "../components/DeckFilter";
 import StarsRating from "stars-rating";
 import { Router, useRouter } from "next/router";
+import Footer from "../components/Footer";
 
-const ratingChanged = (newRating) => {
+const ratingChanged = newRating => {
   console.log(newRating);
 };
 
@@ -97,7 +98,7 @@ export default function DeckLists() {
             <DeckFilter></DeckFilter>
           </DeckFilterContainer>
           <Table>
-            {dummyDeck.map((deck) => (
+            {dummyDeck.map(deck => (
               <DeckDiv key={deck.id} onClick={() => router.push("/deck/111")}>
                 <Image src={deck.img}></Image>
                 <TitleAuthorContainer>
@@ -124,6 +125,7 @@ export default function DeckLists() {
           </Table>
         </BodyContainer>
       </Content>
+      <Footer></Footer>
     </Page>
   );
 }

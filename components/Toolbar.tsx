@@ -75,7 +75,16 @@ export function Toolbar() {
     <ToolbarContainer>
       <ToolbarContent>
         <Link href="/" passHref>
-          <ToolbarLink>SW:CCG DB</ToolbarLink>
+          <ToolbarLink>
+            {" "}
+            <img
+              style={{
+                height: "100%",
+                width: "75px"
+              }}
+              src="/images/starwars.jpg"
+            />
+          </ToolbarLink>
         </Link>
         <Link href="/my-decks" passHref>
           <ToolbarLink style={{ fontSize: "14px" }}>My decks</ToolbarLink>
@@ -88,20 +97,6 @@ export function Toolbar() {
         </Link>
         <div style={{ flexGrow: 1 }}></div>
         <SearchBar></SearchBar>
-        <a
-          style={{ display: "flex", marginRight: "-25px" }}
-          href="https://www.starwarsccg.org/"
-        >
-          <ToolbarLink>
-            <img
-              style={{
-                height: "100%",
-                width: "100px"
-              }}
-              src="/images/starwars.jpg"
-            />
-          </ToolbarLink>
-        </a>
       </ToolbarContent>
     </ToolbarContainer>
   );
