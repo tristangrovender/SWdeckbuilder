@@ -139,7 +139,7 @@ enum DropDownFilters {
 export const DEFAULT_OPTION = "All";
 
 export interface CardFilters {
-  titleFilter: string;
+  titleFilter?: string;
   side?: Side | string[];
   sets?: string[];
   type?: string[];
