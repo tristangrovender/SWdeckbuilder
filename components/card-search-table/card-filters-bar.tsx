@@ -313,32 +313,30 @@ export function CardFiltersBar({
         .map((forfeit) => forfeit.toString())
     )
   );
-  const optionChosen = (newOption: string) => {
-    console.log("Clicked Option", newOption);
+  const optionChosen = (filterKey: string) => (newOption: string) => {
     if (newOption === DEFAULT_OPTION) {
       onUpdateFilters({
         ...filters,
-        sets: undefined,
+        [filterKey]: undefined,
       });
       return;
     }
-    const sets = filters.sets || [];
-    let newSets;
-    if (sets.includes(newOption)) {
-      // remove the option
-      const indexOfOption = sets.indexOf(newOption);
-      newSets = [
-        ...sets.slice(0, indexOfOption),
+    const options = filters[filterKey] || [];
+    let newOptions;
+    if (options.includes(newOption)) {
+      const indexOfOption = options.indexOf(newOption);
+      newOptions = [
+        ...options.slice(0, indexOfOption),
         undefined,
-        ...sets.slice(indexOfOption + 1),
+        ...options.slice(indexOfOption + 1),
       ];
     } else {
-      newSets = [...sets, newOption];
+      newOptions = [...options, newOption];
     }
 
     onUpdateFilters({
       ...filters,
-      sets: newSets.length === 0 ? undefined : newSets,
+      [filterKey]: newOptions.length === 0 ? undefined : newOptions,
     });
   };
   return (
@@ -402,7 +400,7 @@ export function CardFiltersBar({
             open={openDropDown === DropDownFilters.set}
             onOpen={() => setOpenDropDown(DropDownFilters.set)}
             onClose={() => setOpenDropDown(undefined)}
-            onOptionChosen={optionChosen}
+            onOptionChosen={optionChosen("sets")}
           />
           <FilterIcon
             Icon={SupervisorAccountIcon}
