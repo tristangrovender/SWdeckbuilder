@@ -126,7 +126,7 @@ const DeckTitleContainer = styled.div`
 
 export function getRandomDeck(allCards: Card[]) {
   // map over current array
-  const newArray = allCards.map((cards) => {
+  const newArray = allCards.map(cards => {
     return cards;
   });
 
@@ -148,10 +148,10 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
       <TypeTitle>{cards[0].front.type}</TypeTitle>
       <div
         style={{
-          backgroundColor: darkBlue,
+          backgroundColor: darkBlue
         }}
       >
-        {cards.map((card) => (
+        {cards.map(card => (
           <DeckCardRow card={card} />
         ))}
       </div>
@@ -171,6 +171,21 @@ export default function Deck() {
   if (allCards.length && deck.length === 0) {
     setDeck(getRandomDeck(allCards));
   }
+
+  const average = function(numArray) {
+    const sum = numArray.reduce((total, nextNum) => {
+      return total + nextNum;
+    }, 0);
+    return sum / numArray.length;
+  };
+  const destiny = deck
+    .map(card => {
+      return card.front.destiny;
+    })
+    .filter(destiny => {
+      return destiny !== undefined;
+    });
+
   const authorUsername = "Jambree";
   const deckTitle = "Planet Destroyer";
   const deckDescription =
@@ -192,14 +207,16 @@ export default function Deck() {
             </DeckInfoStatistics>
 
             <DeckButtons>
-              <AverageDestiny>7.2 Avg Destiny</AverageDestiny>
+              <AverageDestiny>
+                {Math.round(average(destiny))} Avg Destiny
+              </AverageDestiny>
               <StarsComponent rating={3.5} />
               <DeckButtonsDropDown>
                 <GetAppIcon
                   style={{
                     marginLeft: "10px",
                     color: "#7f7f7f",
-                    cursor: "pointer",
+                    cursor: "pointer"
                   }}
                   onClick={() => toggleExportDropdown(!exportDropDownOpen)}
                 />
