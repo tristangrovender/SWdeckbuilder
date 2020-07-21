@@ -97,11 +97,11 @@ const Input = styled.input`
 export function applyFilters(allCards: Card[], filters: CardFilters) {
   return allCards
     .filter((card) => {
-      if (!filters || !filters.side || filters.side === DEFAULT_OPTION) {
+      if (!filters || !filters.side) {
         return true;
       }
 
-      return card.side === filters.side;
+      return filters.side.includes(card.side);
     })
     .filter((card) => {
       if (!filters || !filters.type || filters.type === DEFAULT_OPTION) {
@@ -386,9 +386,7 @@ export function CardFiltersBar({
               open={openDropDown === DropDownFilters.side}
               onOpen={() => setOpenDropDown(DropDownFilters.side)}
               onClose={() => setOpenDropDown(undefined)}
-              onOptionChosen={(option) =>
-                onUpdateFilters({ ...filters, side: option })
-              }
+              onOptionChosen={optionChosen("side")}
             />
           ) : null}
 
