@@ -81,7 +81,7 @@ function CardRow({
 // simply prevent the card hover from showing off-screen?
 // card hover projects right and up from the point of the mouse?
 
-function getCoordinatesInViewPort(
+export function getCoordinatesInViewPort(
   location: { x: number; y: number },
   componentHeight: number
 ): { top: number; left: number } {
@@ -89,9 +89,9 @@ function getCoordinatesInViewPort(
   const screenHeight = window.innerHeight;
   const topOfScreenY = Math.abs(top);
   const bottomOfScreenY = screenHeight - top;
-  const desiredTop = location.y - 200;
+  const desiredTop = location.y - componentHeight / 2;
 
-  const left = location.x + 200;
+  const left = location.x + componentHeight / 2;
   if (desiredTop + componentHeight > bottomOfScreenY) {
     const top = desiredTop - (desiredTop + componentHeight - bottomOfScreenY);
     return {
