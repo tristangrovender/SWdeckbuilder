@@ -75,6 +75,7 @@ export default function Home() {
                     author: { username },
                     description,
                     averageRating,
+                    createdAt,
                   },
                   i
                 ) => (
@@ -86,7 +87,7 @@ export default function Home() {
                         : "/images/light.png"
                     }
                     title={title}
-                    days={2}
+                    createdAt={createdAt}
                     rating={averageRating}
                     description={description}
                     author={username}

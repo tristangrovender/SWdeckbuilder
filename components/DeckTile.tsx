@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { StarsComponent } from "./StarsComponent";
+import moment from "moment";
 
 const Tile = styled.div`
   cursor: pointer;
@@ -67,15 +68,15 @@ export function DeckTile({
   img,
   title,
   author,
-  days,
+  createdAt,
   description,
   cardBreakdown,
-  rating
+  rating,
 }: {
   img: string;
   title: string;
   author: string;
-  days: number;
+  createdAt: string;
   description: string;
   rating: number;
   cardBreakdown: {
@@ -103,7 +104,7 @@ export function DeckTile({
         <TileBanner>
           {title}
           <TileAuthor>
-            by {author} · {days} days ago
+            by {author} · updated {moment(createdAt).from(moment(new Date()))}
           </TileAuthor>
         </TileBanner>
       </TileBannerContainer>
