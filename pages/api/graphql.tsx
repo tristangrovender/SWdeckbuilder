@@ -1,30 +1,10 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import { Side } from "../../components/card-search-table/card.interface";
+import * as schema from "../../graphql/schema.gql";
 
-const typeDefs = gql`
-  type Query {
-    hello: String!
-    recentDecks: [Deck]!
-  }
-  enum Side {
-    Dark
-    Light
-  }
-  scalar Date
-  type Deck {
-    id: ID!
-    createdAt: Date!
-    side: Side!
-    title: String!
-    description: String!
-    author: User!
-    averageRating: Float
-  }
-  type User {
-    id: ID!
-    username: String!
-  }
-`;
+console.log(schema);
+
+const typeDefs = gql(schema);
 
 const resolvers = {
   Query: {
