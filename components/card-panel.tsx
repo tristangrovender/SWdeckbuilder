@@ -90,7 +90,7 @@ function CardPanelRow({
   count,
   backgroundColor,
   hoverButtons,
-  textColor,
+  textColor
 }: {
   card: Card;
   count: number;
@@ -141,7 +141,7 @@ export function CardPanel({
   cards,
   suggestedCards,
   addCard,
-  removeCard,
+  removeCard
 }: {
   cards: CardWithDeckInfo[];
   suggestedCards: Card[];
@@ -194,7 +194,7 @@ export function CardPanel({
               backgroundColor: darkBlue,
               border: "2px solid grey",
               margin: "10px",
-              color: "white",
+              color: "white"
             }}
           >
             <DeckBuilderHeader>
@@ -221,7 +221,7 @@ export function CardPanel({
                 resize: "vertical",
                 textAlign: "center",
                 color: "white",
-                borderBottom: "1px solid black",
+                borderBottom: "1px solid black"
               }}
             ></textarea>
             <DeckBuilderCardsContainer>
@@ -249,33 +249,33 @@ export function CardPanel({
                             );
                             setStartingCardIds([
                               ...startingCardIds.slice(0, index),
-                              ...startingCardIds.slice(index + 1),
+                              ...startingCardIds.slice(index + 1)
                             ]);
                           } else {
                             setStartingCardIds([
                               ...startingCardIds,
-                              card.id.toString(),
+                              card.id.toString()
                             ]);
                           }
                         },
                         text: "s",
                         fontSize: "12px",
-                        tooltip: "Mark as starting card",
+                        tooltip: "Mark as starting card"
                       },
                       {
                         onClick: onCardInfoHandler(card),
                         text: "i",
-                        fontSize: "12px",
+                        fontSize: "12px"
                       },
                       { onClick: () => removeCard(card), text: "-" },
-                      { onClick: () => addCard(card), text: "+" },
+                      { onClick: () => addCard(card), text: "+" }
                     ]}
                   />
                 ))
               )}
               <div
                 style={{ height: "0px" }}
-                ref={(ref) => {
+                ref={ref => {
                   (window as any).ref = ref;
                   setScrollDiv(ref);
                 }}
@@ -293,10 +293,10 @@ export function CardPanel({
                       {
                         onClick: onCardInfoHandler(card),
                         text: "i",
-                        fontSize: "12px",
+                        fontSize: "12px"
                       },
                       { onClick: () => removeCard(card), text: "-" },
-                      { onClick: () => addCard(card), text: "+" },
+                      { onClick: () => addCard(card), text: "+" }
                     ]}
                   />
                 ))}
@@ -315,13 +315,13 @@ export function CardPanel({
                       {
                         onClick: onCardInfoHandler(card),
                         text: "i",
-                        fontSize: "12px",
+                        fontSize: "12px"
                       },
                       {
                         onClick: () => addCard(card),
                         text: "accept",
-                        fontSize: "12px",
-                      },
+                        fontSize: "12px"
+                      }
                     ]}
                   />
                 ))}
