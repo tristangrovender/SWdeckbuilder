@@ -53,9 +53,7 @@ const TileContainer = styled.div`
 `;
 
 export default function Home() {
-  const { data }: { data: GetRecentDecksQueryI } = useQuery(
-    gql(GetRecentDecksQuery)
-  );
+  const { data } = useQuery<GetRecentDecksQueryI>(gql(GetRecentDecksQuery));
 
   return (
     <Page>
