@@ -9,7 +9,7 @@ function generateDeck(allCards: Card[]): Card[] {
   return allCards.slice(0, 60);
 }
 
-const typeDefs = gql(schema);
+const typeDefs = gql(schema + "");
 
 const resolvers = {
   Query: {
