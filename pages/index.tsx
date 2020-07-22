@@ -3,34 +3,7 @@ import styled from "styled-components";
 import { DeckTile } from "../components/DeckTile";
 import Footer from "../components/Footer";
 import { Side } from "../components/card-search-table/card.interface";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { gql } from "@apollo/client";
-
-const client = new ApolloClient({
-  // uri: window.location.origin + "/api/graphql",
-  uri: "http://localhost:3000/api/graphql",
-  cache: new InMemoryCache(),
-});
-
-client
-  .query({
-    query: gql`
-      query GetRecentDecks {
-        recentDecks {
-          id
-          side
-          title
-          description
-          author {
-            username
-          }
-          createdAt
-          averageRating
-        }
-      }
-    `,
-  })
-  .then((result) => console.log(result));
+import { useQuery, gql } from "@apollo/client";
 
 const HomePageContent = styled.div`
   display: flex;
@@ -126,7 +99,27 @@ const dummyDecks = [
   },
 ];
 
+const GetRecentDecksQuery = gql`
+  query GetRecentDecks {
+    recentDecks {
+      id
+      side
+      title
+      description
+      author {
+        username
+      }
+      createdAt
+      averageRating
+    }
+  }
+`;
+
 export default function Home() {
+  const { loading, error, data } = useQuery(GetRecentDecksQuery);
+
+  console.log("data!", data);
+
   return (
     <Page>
       <Toolbar />
