@@ -123,8 +123,6 @@ export default function Home() {
     GetRecentDecksQuery
   );
 
-  console.log("data!", data);
-
   return (
     <Page>
       <Toolbar />
