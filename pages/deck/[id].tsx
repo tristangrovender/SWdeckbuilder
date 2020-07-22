@@ -125,9 +125,22 @@ const DeckTitleContainer = styled.div`
   position: relative;
 `;
 
+function getGempXML(deck: Card[]): string {
+  // TODO add the below for side deck
+  // <cardOutsideDeck blueprintId="200_93" title="A Useless Gesture"/>
+  return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<deck>
+${deck
+  .map(({ gemp_card_id, front: { title } }) => {
+    return `<card blueprintId="${gemp_card_id}" title="${title}"/>`;
+  })
+  .join("\n")}
+</deck>`;
+}
+
 export function getRandomDeck(allCards: Card[]) {
   // map over current array
-  const newArray = allCards.map(cards => {
+  const newArray = allCards.map((cards) => {
     return cards;
   });
 
@@ -149,10 +162,10 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
       <TypeTitle>{cards[0].front.type}</TypeTitle>
       <div
         style={{
-          backgroundColor: darkBlue
+          backgroundColor: darkBlue,
         }}
       >
-        {cards.map(card => (
+        {cards.map((card) => (
           <DeckCardRow card={card} />
         ))}
       </div>
@@ -173,17 +186,17 @@ export default function Deck() {
     setDeck(getRandomDeck(allCards));
   }
 
-  const average = function(numArray) {
+  const average = function (numArray) {
     const sum = numArray.reduce((total, nextNum) => {
       return total + nextNum;
     }, 0);
     return sum / numArray.length;
   };
   const destiny = deck
-    .map(card => {
+    .map((card) => {
       return card.front.destiny;
     })
-    .filter(destiny => {
+    .filter((destiny) => {
       return destiny !== undefined;
     });
 
@@ -217,7 +230,7 @@ export default function Deck() {
                   style={{
                     marginLeft: "10px",
                     color: "#7f7f7f",
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                   onClick={() => toggleExportDropdown(!exportDropDownOpen)}
                 />
@@ -251,7 +264,14 @@ export default function Deck() {
                       <Button
                         style={{ width: "100%" }}
                         onClick={() => {
-                          console.log("gemp export");
+                          saveToFile(
+                            `gemp_import--${(
+                              deckTitle +
+                              " by " +
+                              authorUsername
+                            ).replace(/ /g, "_")}.xml`,
+                            getGempXML(deck)
+                          );
                         }}
                       >
                         Gemp XML Export

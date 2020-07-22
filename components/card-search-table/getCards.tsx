@@ -22,7 +22,18 @@ function removeLegacyCards({ legacy }: Card) {
 
 async function loadCards() {
   const cards = (await import("../../cards/cards.json")).default as Card[];
-  return cards.sort(sortCardsByName).filter(removeLegacyCards);
+  const gempMapping = (await import("../../cards/gemp_id_mapping.json"))
+    .default;
+  return cards
+    .sort(sortCardsByName)
+    .filter(removeLegacyCards)
+    .map((card) => {
+      const gempId = gempMapping[card.id] && gempMapping[card.id].gemp_card_id;
+      return {
+        ...card,
+        gemp_card_id: gempId,
+      };
+    });
 }
 
 const loadCardsOnce = memoize(loadCards);

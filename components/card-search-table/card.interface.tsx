@@ -46,6 +46,7 @@ export interface Card {
     lore: string;
     extraText: string[];
   };
+  gemp_card_id?: string;
   pulledBy: string[];
   legacy: boolean;
 }
