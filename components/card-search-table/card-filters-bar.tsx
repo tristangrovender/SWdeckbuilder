@@ -28,7 +28,6 @@ const SearchContainer = styled.div`
 
 const CardFilterBarContainer = styled.div`
   display: flex;
-  flex-grow: 1;
   background-color: #2d2d2f;
   justify-content: center;
   color: white;

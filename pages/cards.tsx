@@ -32,6 +32,7 @@ export default function Cards() {
         onUpdateFilters={(filters) => updateFilters(filters)}
       />
       <CardSearchResults cards={applyFilters(allCards, filters)} />
+      <div style={{ display: "flex", flexGrow: 1 }}></div>
       <Footer></Footer>
     </Page>
   );
