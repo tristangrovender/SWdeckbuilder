@@ -91,7 +91,7 @@ const dummyDecks = [
   {
     side: Side.dark,
     title: "Empire",
-    author: "IamYour,Father?",
+    author: "Iam Your Father?",
     days: 1,
     description: "Solid all around deck",
     rating: 3,
