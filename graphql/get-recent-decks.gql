@@ -1,0 +1,13 @@
+query GetRecentDecks {
+  recentDecks {
+    id
+    side
+    title
+    description
+    author {
+      username
+    }
+    createdAt
+    averageRating
+  }
+}
