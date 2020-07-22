@@ -51,57 +51,6 @@ const TileContainer = styled.div`
   justify-content: space-between;
 `;
 
-const dummyDecks = [
-  {
-    side: Side.Dark,
-    title: "May the 4th be with you",
-    author: "darthvoodoo",
-    days: 2,
-    description: "Fast paced, high stakes, fun deck",
-    rating: 3.5,
-  },
-  {
-    side: Side.Light,
-    title: "Princess leia's legion",
-    author: "freeForce4you",
-    days: 10,
-    description: "Slow methodical deck good against many types",
-    rating: 5,
-  },
-  {
-    side: Side.Dark,
-    title: "PLANET DESTROYER",
-    author: "darthWillMaulYou",
-    days: 7,
-    description: "Weapons galore",
-    rating: 2.5,
-  },
-  {
-    side: Side.Light,
-    title: "Solo's surprise",
-    author: "Falconator",
-    days: 15,
-    description: "Fast paced, high stakes, fun deck",
-    rating: 4.5,
-  },
-  {
-    side: Side.Dark,
-    title: "Jar Jar's Jam",
-    author: "solo547",
-    days: 12,
-    description: "Slow methodical deck good against many types",
-    rating: 3.5,
-  },
-  {
-    side: Side.Dark,
-    title: "Empire",
-    author: "Iam Your Father?",
-    days: 1,
-    description: "Solid all around deck",
-    rating: 3,
-  },
-];
-
 const GetRecentDecksQuery = gql`
   query GetRecentDecks {
     recentDecks {
