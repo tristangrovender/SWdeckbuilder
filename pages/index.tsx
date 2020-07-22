@@ -7,6 +7,7 @@ import {
   GetRecentDecksQuery as GetRecentDecksQueryI,
   Side,
 } from "../graphql/types";
+import GetRecentDecksQuery from "../graphql/get-recent-decks.gql";
 
 const HomePageContent = styled.div`
   display: flex;
@@ -51,25 +52,9 @@ const TileContainer = styled.div`
   justify-content: space-between;
 `;
 
-const GetRecentDecksQuery = gql`
-  query GetRecentDecks {
-    recentDecks {
-      id
-      side
-      title
-      description
-      author {
-        username
-      }
-      createdAt
-      averageRating
-    }
-  }
-`;
-
 export default function Home() {
   const { data }: { data: GetRecentDecksQueryI } = useQuery(
-    GetRecentDecksQuery
+    gql(GetRecentDecksQuery)
   );
 
   return (

@@ -1,4 +1,12 @@
 {
   "presets": ["next/babel"],
-  "plugins": [["styled-components", { "ssr": true }], "import-graphql"]
+  "plugins": [
+    ["styled-components", { "ssr": true }],
+    [
+      "babel-plugin-inline-import",
+      {
+        "extensions": [".gql"]
+      }
+    ]
+  ]
 }

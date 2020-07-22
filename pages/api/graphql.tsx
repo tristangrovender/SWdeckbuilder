@@ -1,6 +1,6 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import { Side } from "../../components/card-search-table/card.interface";
-import * as schema from "../../graphql/schema.gql";
+import schema from "../../graphql/schema.gql";
 
 const typeDefs = gql(schema);
 
