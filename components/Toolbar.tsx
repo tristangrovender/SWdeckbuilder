@@ -7,6 +7,8 @@ import { grey, blueGrey } from "@material-ui/core/colors";
 const contentWidth = 960;
 
 const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   background-color: #ecf0f1;
   min-height: 100vh;
 `;
@@ -15,12 +17,12 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: grey[500],
-      contrastText: "white"
+      contrastText: "white",
     },
     secondary: {
-      main: blueGrey[500]
-    }
-  }
+      main: blueGrey[500],
+    },
+  },
 });
 
 export const Page = ({ children }) => {
@@ -38,9 +40,6 @@ const ToolbarContainer = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
-  @media print {
-    display: none;
-  }
 `;
 
 const ToolbarContent = styled.div`
@@ -80,7 +79,7 @@ export function Toolbar() {
             <img
               style={{
                 height: "100%",
-                width: "75px"
+                width: "75px",
               }}
               src="/images/starwars.jpg"
             />
