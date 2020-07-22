@@ -15,6 +15,15 @@ type Deck {
   description: String!
   author: User!
   averageRating: Float
+  test: String!
+  cards: [Card]!
+}
+type Card {
+  id: ID!
+  front: CardFront!
+}
+type CardFront {
+  type: String!
 }
 type User {
   id: ID!

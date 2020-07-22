@@ -9,5 +9,11 @@ query GetRecentDecks {
     }
     createdAt
     averageRating
+    cards {
+      id
+      front {
+        type
+      }
+    }
   }
 }

@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "rm -rf ./node_modules/.cache/babel-loader && next dev",
-    "build": "rm -rf ./node_modules/.cache/babel-loader && next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "generate": "graphql-codegen --config codegen.yml"
   },
