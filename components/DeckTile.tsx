@@ -70,8 +70,8 @@ export function DeckTile({
   author,
   createdAt,
   description,
-  cardBreakdown,
   rating,
+  types,
 }: {
   img: string;
   title: string;
@@ -79,22 +79,7 @@ export function DeckTile({
   createdAt: string;
   description: string;
   rating: number;
-  cardBreakdown: {
-    objectives: number;
-    locations: number;
-    characters: number;
-    creatures: number;
-    weapons: number;
-    devices: number;
-    starships: number;
-    vehicles: number;
-    effects: number;
-    interrupts: number;
-    epicEvents: number;
-    jediTests: number;
-    admiralsOrders: number;
-    podracers: number;
-  };
+  types: string[];
 }) {
   const router = useRouter();
   return (
@@ -110,15 +95,19 @@ export function DeckTile({
       </TileBannerContainer>
       <TileDescription>Description: {description}</TileDescription>
       <TileDeckCardTypes>
-        {cardBreakdown.objectives} Objectives • {cardBreakdown.locations}{" "}
-        Locations • {cardBreakdown.characters} Characters •{" "}
-        {cardBreakdown.creatures} Creatures • {cardBreakdown.weapons} Weapons •{" "}
-        {cardBreakdown.devices} Devices • {cardBreakdown.starships} Starhips •{" "}
-        {cardBreakdown.vehicles} Vehicles • {cardBreakdown.effects} Effects •{" "}
-        {cardBreakdown.interrupts} Interrupts • {cardBreakdown.epicEvents}{" "}
-        EpicEvents • {cardBreakdown.jediTests} Jedi Tests •{" "}
-        {cardBreakdown.admiralsOrders} Admiral's Orders •{" "}
-        {cardBreakdown.podracers} Podracers
+        {Object.entries(
+          types.reduce((all, type) => {
+            if (!all[type]) {
+              all[type] = 0;
+            }
+            all[type] += 1;
+            return all;
+          }, {})
+        )
+          .map(([type, count]) => {
+            return `${count} ${count > 1 ? type + "s" : type}`;
+          })
+          .join(" • ")}
       </TileDeckCardTypes>
       <TileRatingContainer>
         <StarsComponent rating={rating}></StarsComponent>

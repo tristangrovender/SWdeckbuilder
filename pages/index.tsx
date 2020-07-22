@@ -76,39 +76,27 @@ export default function Home() {
                     description,
                     averageRating,
                     createdAt,
+                    cards,
                   },
                   i
-                ) => (
-                  <DeckTile
-                    key={i}
-                    img={
-                      side === Side.Dark
-                        ? "/images/dark.png"
-                        : "/images/light.png"
-                    }
-                    title={title}
-                    createdAt={createdAt}
-                    rating={averageRating}
-                    description={description}
-                    author={username}
-                    cardBreakdown={{
-                      objectives: 5,
-                      locations: 5,
-                      characters: 25,
-                      creatures: 25,
-                      weapons: 13,
-                      devices: 13,
-                      starships: 13,
-                      vehicles: 13,
-                      effects: 10,
-                      interrupts: 7,
-                      epicEvents: 13,
-                      jediTests: 13,
-                      admiralsOrders: 2,
-                      podracers: 1,
-                    }}
-                  />
-                )
+                ) => {
+                  return (
+                    <DeckTile
+                      key={i}
+                      img={
+                        side === Side.Dark
+                          ? "/images/dark.png"
+                          : "/images/light.png"
+                      }
+                      title={title}
+                      createdAt={createdAt}
+                      rating={averageRating}
+                      description={description}
+                      author={username}
+                      types={cards.map(({ front: { type } }) => type)}
+                    />
+                  );
+                }
               )}
           </TileContainer>
         </HomePageContent>
