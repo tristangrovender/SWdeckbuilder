@@ -16,7 +16,7 @@ const resolvers = {
         author: { username: "darthvoodoo" },
         days: 2,
         description: "Fast paced, high stakes, fun deck",
-        rating: 3.5,
+        averageRating: 3.5,
       },
       {
         id: "2",
@@ -26,7 +26,7 @@ const resolvers = {
         author: { username: "freeForce4you" },
         days: 10,
         description: "Slow methodical deck good against many types",
-        rating: 5,
+        averageRating: 5,
       },
       {
         id: "3",
@@ -36,7 +36,7 @@ const resolvers = {
         author: { username: "darthWillMaulYou" },
         days: 7,
         description: "Weapons galore",
-        rating: 2.5,
+        averageRating: 2.5,
       },
       {
         id: "4",
@@ -46,7 +46,7 @@ const resolvers = {
         author: { username: "Falconator" },
         days: 15,
         description: "Fast paced, high stakes, fun deck",
-        rating: 4.5,
+        averageRating: 4.5,
       },
       {
         id: "5",
@@ -56,7 +56,7 @@ const resolvers = {
         author: { username: "solo547" },
         days: 12,
         description: "Slow methodical deck good against many types",
-        rating: 3.5,
+        averageRating: 3.5,
       },
       {
         id: "6",
@@ -66,7 +66,7 @@ const resolvers = {
         author: { username: "Iam Your Father?" },
         days: 1,
         description: "Solid all around deck",
-        rating: 3,
+        averageRating: 3,
       },
     ],
   },

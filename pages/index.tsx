@@ -138,7 +138,16 @@ export default function Home() {
           <TileContainer>
             {data &&
               data.recentDecks.map(
-                ({ side, title, author: { username }, description }, i) => (
+                (
+                  {
+                    side,
+                    title,
+                    author: { username },
+                    description,
+                    averageRating,
+                  },
+                  i
+                ) => (
                   <DeckTile
                     key={i}
                     img={
@@ -148,7 +157,7 @@ export default function Home() {
                     }
                     title={title}
                     days={2}
-                    rating={3.5}
+                    rating={averageRating}
                     description={description}
                     author={username}
                     cardBreakdown={{
