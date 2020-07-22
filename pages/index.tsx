@@ -2,8 +2,11 @@ import { Toolbar, Content, Page } from "../components/Toolbar";
 import styled from "styled-components";
 import { DeckTile } from "../components/DeckTile";
 import Footer from "../components/Footer";
-import { Side } from "../components/card-search-table/card.interface";
 import { useQuery, gql } from "@apollo/client";
+import {
+  GetRecentDecksQuery as GetRecentDecksQueryI,
+  Side,
+} from "../graphql/types";
 
 const HomePageContent = styled.div`
   display: flex;
@@ -50,7 +53,7 @@ const TileContainer = styled.div`
 
 const dummyDecks = [
   {
-    side: Side.dark,
+    side: Side.Dark,
     title: "May the 4th be with you",
     author: "darthvoodoo",
     days: 2,
@@ -58,7 +61,7 @@ const dummyDecks = [
     rating: 3.5,
   },
   {
-    side: Side.light,
+    side: Side.Light,
     title: "Princess leia's legion",
     author: "freeForce4you",
     days: 10,
@@ -66,7 +69,7 @@ const dummyDecks = [
     rating: 5,
   },
   {
-    side: Side.dark,
+    side: Side.Dark,
     title: "PLANET DESTROYER",
     author: "darthWillMaulYou",
     days: 7,
@@ -74,7 +77,7 @@ const dummyDecks = [
     rating: 2.5,
   },
   {
-    side: Side.light,
+    side: Side.Light,
     title: "Solo's surprise",
     author: "Falconator",
     days: 15,
@@ -82,7 +85,7 @@ const dummyDecks = [
     rating: 4.5,
   },
   {
-    side: Side.dark,
+    side: Side.Dark,
     title: "Jar Jar's Jam",
     author: "solo547",
     days: 12,
@@ -90,7 +93,7 @@ const dummyDecks = [
     rating: 3.5,
   },
   {
-    side: Side.dark,
+    side: Side.Dark,
     title: "Empire",
     author: "Iam Your Father?",
     days: 1,
@@ -116,7 +119,9 @@ const GetRecentDecksQuery = gql`
 `;
 
 export default function Home() {
-  const { loading, error, data } = useQuery(GetRecentDecksQuery);
+  const { data }: { data: GetRecentDecksQueryI } = useQuery(
+    GetRecentDecksQuery
+  );
 
   console.log("data!", data);
 
@@ -131,39 +136,40 @@ export default function Home() {
             <RecentTitle>Recent decks</RecentTitle>
           </RecentTitleContainer>
           <TileContainer>
-            {dummyDecks.map(
-              ({ side, title, author, days, description, rating }, i) => (
-                <DeckTile
-                  key={i}
-                  img={
-                    side === Side.dark
-                      ? "/images/dark.png"
-                      : "/images/light.png"
-                  }
-                  title={title}
-                  days={days}
-                  rating={rating}
-                  description={description}
-                  author={author}
-                  cardBreakdown={{
-                    objectives: 5,
-                    locations: 5,
-                    characters: 25,
-                    creatures: 25,
-                    weapons: 13,
-                    devices: 13,
-                    starships: 13,
-                    vehicles: 13,
-                    effects: 10,
-                    interrupts: 7,
-                    epicEvents: 13,
-                    jediTests: 13,
-                    admiralsOrders: 2,
-                    podracers: 1,
-                  }}
-                />
-              )
-            )}
+            {data &&
+              data.recentDecks.map(
+                ({ side, title, author: { username }, description }, i) => (
+                  <DeckTile
+                    key={i}
+                    img={
+                      side === Side.Dark
+                        ? "/images/dark.png"
+                        : "/images/light.png"
+                    }
+                    title={title}
+                    days={2}
+                    rating={3.5}
+                    description={description}
+                    author={username}
+                    cardBreakdown={{
+                      objectives: 5,
+                      locations: 5,
+                      characters: 25,
+                      creatures: 25,
+                      weapons: 13,
+                      devices: 13,
+                      starships: 13,
+                      vehicles: 13,
+                      effects: 10,
+                      interrupts: 7,
+                      epicEvents: 13,
+                      jediTests: 13,
+                      admiralsOrders: 2,
+                      podracers: 1,
+                    }}
+                  />
+                )
+              )}
           </TileContainer>
         </HomePageContent>
       </Content>
