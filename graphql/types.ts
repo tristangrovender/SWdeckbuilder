@@ -33,6 +33,19 @@ export type Deck = {
   description: Scalars['String'];
   author: User;
   averageRating?: Maybe<Scalars['Float']>;
+  test: Scalars['String'];
+  cards: Array<Maybe<Card>>;
+};
+
+export type Card = {
+  __typename?: 'Card';
+  id: Scalars['ID'];
+  front: CardFront;
+};
+
+export type CardFront = {
+  __typename?: 'CardFront';
+  type: Scalars['String'];
 };
 
 export type User = {
@@ -58,6 +71,13 @@ export type GetRecentDecksQuery = (
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'username'>
-    ) }
+    ), cards: Array<Maybe<(
+      { __typename?: 'Card' }
+      & Pick<Card, 'id'>
+      & { front: (
+        { __typename?: 'CardFront' }
+        & Pick<CardFront, 'type'>
+      ) }
+    )>> }
   )>> }
 );
