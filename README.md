@@ -22,8 +22,6 @@ psql
 > CREATE DATABASE swccgdb;
 > create user root with encrypted password 'password';
 > grant all privileges on database swccgdb to root;
-> \connect swccgdb
-> CREATE SCHEMA main;
 ```
 
 next from the root of the project build the schema
@@ -37,7 +35,7 @@ next make a new file "prisma/.env"
 with the contents (assuming you used the above commands to setup your database)
 
 ```
-DATABASE_URL="postgresql://root:password@localhost:5432/swccgdb?schema=main"
+DATABASE_URL="postgresql://root:password@localhost:5432/swccgdb?schema=public"
 ```
 
 ### Setup commands
