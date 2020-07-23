@@ -14,7 +14,7 @@ A running postgresql database
 ### Setup commands
 
 ```
-npm i -g yarn
+npm i -g yarn // install yarn globally
 yarn // to install dependencies
 yarn run dev
 ```
