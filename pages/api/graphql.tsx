@@ -3,16 +3,27 @@ import schema from "../../graphql/schema.gql";
 import { dummyDeckData } from "../../utils/dummy-deck-data";
 import { getRandomDeck } from "../deck/[id]";
 import { PrismaClient } from "@prisma/client";
-
 const prisma = new PrismaClient();
-async function main() {}
-main()
-  .catch((e) => {
-    throw e;
-  })
-  .finally(async () => {
-    await prisma.disconnect();
+const sharedUserId$ = (async function () {
+  const sharedUser = await prisma.user.findOne({
+    where: {
+      email: "allusers@example.com",
+    },
   });
+  if (sharedUser) {
+    return sharedUser.id;
+  }
+
+  return prisma.user.create({
+    data: {
+      email: "allusers@example.com",
+      name: "Shared User Account",
+    },
+  });
+})();
+sharedUserId$.then((id) => {
+  console.log("id", id);
+});
 
 const cards = require("../../cards/cards.json");
 
