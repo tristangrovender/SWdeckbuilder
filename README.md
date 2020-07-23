@@ -32,9 +32,9 @@ next from the root of the project build the schema
 psql -h localhost -d swccgdb -U root -f sql/schema.sql
 ```
 
-next make a new file ".env" in the root of this directory
+next make a new file "prisma/.env"
 
-with the contents (replace variables with your instance)
+with the contents (assuming you used the above commands to setup your database)
 
 ```
 DATABASE_URL="postgresql://root:password@localhost:5432/swccgdb?schema=main"
