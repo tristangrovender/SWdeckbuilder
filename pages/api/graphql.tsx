@@ -5,16 +5,7 @@ import { getRandomDeck } from "../deck/[id]";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-async function main() {
-  await prisma.user.create({
-    data: {
-      name: "test",
-      email: "teset@test.io",
-    },
-  });
-  const allUsers = await prisma.user.findMany({});
-  console.dir(allUsers, { depth: null });
-}
+async function main() {}
 main()
   .catch((e) => {
     throw e;
