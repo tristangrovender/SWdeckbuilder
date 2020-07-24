@@ -17,4 +17,5 @@ CREATE TABLE "public"."Deck"
   title VARCHAR(255),
   side VARCHAR(255),
   description VARCHAR(8000),
+  "authorId" INTEGER NOT NULL, FOREIGN KEY ("authorId") REFERENCES "public"."User"(id)
 );

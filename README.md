@@ -45,3 +45,12 @@ npm i -g yarn // install yarn globally
 yarn // to install dependencies
 yarn run dev
 ```
+
+## After Updating the Database Schema Locally
+
+```
+npx prisma introspect
+npx prisma generate
+```
+
+read more about this here: https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch-sql-typescript-postgres
