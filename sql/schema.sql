@@ -39,7 +39,7 @@ create table "public"."Card" (
 	front_type VARCHAR(255),
 	front_subType VARCHAR(255),
 	front_destiny int,
-	front_power int,
+	front_power VARCHAR(255),
 	front_deploy VARCHAR(255),
 	front_forfeit int,
 	front_gametext VARCHAR(255),

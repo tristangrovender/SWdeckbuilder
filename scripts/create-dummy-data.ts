@@ -5,6 +5,12 @@ import { Card } from "../components/card-search-table/card.interface";
 const cards = require("../cards/cards.json");
 const prisma = new PrismaClient();
 
+function mapToString(val: any): string{
+  return val === undefined || val === null
+    ? undefined
+    : val.toString(),
+}
+
 getSharedUser(prisma).then((user) => {
   const createcards = cards
     .filter(({ legacy }) => {
@@ -22,8 +28,8 @@ getSharedUser(prisma).then((user) => {
           front_type: card.front.type,
           front_subtype: card.front.subType,
           front_destiny: card.front.destiny,
-          front_power: card.front.power,
-          front_deploy: card.front.deploy.toString(),
+          front_power: mapToString(card.front.power),
+          front_deploy: mapToString(card.front.deploy),
           front_forfeit: card.front.forfeit,
           front_gametext: card.front.gametext,
           front_lore: card.front.lore,

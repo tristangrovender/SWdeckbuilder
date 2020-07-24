@@ -18,7 +18,7 @@ model Card {
   front_type      String?
   front_subtype   String?
   front_destiny   Int?
-  front_power     Int?
+  front_power     String?
   front_deploy    String?
   front_forfeit   Int?
   front_gametext  String?
