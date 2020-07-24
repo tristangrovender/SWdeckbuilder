@@ -7,8 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Deck {
+  id          Int      @default(autoincrement()) @id
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  title       String?
+  side        String?
+  description String?
+  authorId    Int
+  author      User     @relation(fields: [authorId], references: [id])
+}
+
 model User {
-  id    Int     @default(autoincrement()) @id
-  name  String?
-  email String  @unique
+  id         Int      @default(autoincrement()) @id
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  first_name String?
+  last_name  String?
+  email      String   @unique
+  username   String?
+  decks      Deck[]
 }
