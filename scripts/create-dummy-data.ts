@@ -37,7 +37,7 @@ getSharedUser(prisma).then((user) => {
   const createDecks = dummyDeckData.map((deck) => {
     return prisma.deck.create({
       data: {
-        author: {
+        User: {
           connect: {
             id: user.id,
           },
@@ -47,7 +47,8 @@ getSharedUser(prisma).then((user) => {
       },
     });
   });
-  Promise.all(createDecks).then(() => {
+  Promise.all([...createDecks, ...createcards]).then(() => {
     prisma.disconnect();
   });
+  console.log("Created decks & cards");
 });
