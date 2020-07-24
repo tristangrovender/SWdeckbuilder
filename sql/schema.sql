@@ -34,7 +34,7 @@ create table "public"."Card" (
 	side VARCHAR(255),
 	rarity VARCHAR(255),
 	set VARCHAR(255),
-	front_title VARCHAR(255),
+	front_title VARCHAR(1000),
 	front_imageUrl VARCHAR(255),
 	front_type VARCHAR(255),
 	front_subType VARCHAR(255),
@@ -42,9 +42,9 @@ create table "public"."Card" (
 	front_power VARCHAR(255),
   front_deploy VARCHAR(255),
 	front_forfeit VARCHAR(255),
-	front_gametext VARCHAR(255),
-	front_lore VARCHAR(255),
+	front_gametext VARCHAR(5000),
+	front_lore VARCHAR(5000),
 	counterpart VARCHAR(255),
 	legacy VARCHAR(255),
-  front_extraText VARCHAR(255)[]
+  front_extraText VARCHAR(5000)[]
 );
