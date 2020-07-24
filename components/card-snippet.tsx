@@ -115,7 +115,7 @@ export function CardSnippet({
           top: "0px",
           right: "0px",
           height: "100%",
-          backgroundColor: "rgba(0,0,0,0.8)",
+          backgroundColor: "rgba(0,0,0,0.9)",
           userSelect: "none"
         }}
       >

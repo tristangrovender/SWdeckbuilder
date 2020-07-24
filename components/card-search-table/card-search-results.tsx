@@ -11,7 +11,7 @@ function CardRow({
   showSideColumn,
   onMouseOver,
   onMouseOut,
-  onAdd,
+  onAdd
 }: {
   card: Card;
   rowColor: string;
@@ -24,12 +24,13 @@ function CardRow({
     <div
       style={{
         display: "flex",
-        backgroundColor: rowColor,
+        backgroundColor: rowColor
       }}
     >
       <div style={{ flex: 40, alignItems: "center", display: "flex" }}>
         <a
           href={`/card/${card.id}`}
+          target="_blank"
           onMouseEnter={onMouseOver}
           onMouseOut={onMouseOut}
           style={{ marginLeft: "10px" }}
@@ -43,7 +44,7 @@ function CardRow({
           flex: 10,
           marginRight: "5px",
           display: "flex",
-          alignItems: "center",
+          alignItems: "center"
         }}
       >
         {card.front.type}
@@ -54,7 +55,7 @@ function CardRow({
           marginRight: "5px",
           whiteSpace: "nowrap",
           overflow: "hidden",
-          textOverflow: "ellipsis",
+          textOverflow: "ellipsis"
         }}
         title={card.set}
       >
@@ -66,7 +67,7 @@ function CardRow({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginRight: "2px",
+            marginRight: "2px"
           }}
         >
           <AddIcon onClick={onAdd} style={{ cursor: "pointer" }} />
@@ -104,26 +105,26 @@ export function getCoordinatesInViewPort(
     const top = desiredTop - (desiredTop + componentHeight - bottomOfScreenY);
     return {
       top,
-      left,
+      left
     };
   }
   if (desiredTop < topOfScreenY) {
     const top = topOfScreenY;
     return {
       top,
-      left,
+      left
     };
   }
 
   return {
     top: desiredTop,
-    left,
+    left
   };
 }
 
 function CardHover({
   card,
-  location,
+  location
 }: {
   card: Card;
   location: { x: number; y: number };
@@ -137,7 +138,7 @@ function CardHover({
         pointerEvents: "none",
         position: "absolute",
         zIndex: 11,
-        ...getCoordinatesInViewPort(location, 400),
+        ...getCoordinatesInViewPort(location, 400)
       }}
     >
       <img src={card.front.imageUrl} style={{ height: "400px" }}></img>
@@ -149,7 +150,7 @@ export function CardSearchResults({
   cards,
   showSide,
   onCardSelected,
-  style = {},
+  style = {}
 }: {
   cards: Card[];
   showSide?: Side;
@@ -169,7 +170,7 @@ export function CardSearchResults({
             fontWeight: "bold",
             flex: 40,
             display: "flex",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           Name
@@ -189,10 +190,10 @@ export function CardSearchResults({
               rowColor={i % 2 ? "#f5f5f5" : "white"}
               card={card}
               showSideColumn={showSideColumn}
-              onMouseOver={(e) =>
+              onMouseOver={e =>
                 setCardHover({
                   card: card,
-                  location: { x: e.pageX, y: e.pageY },
+                  location: { x: e.pageX, y: e.pageY }
                 })
               }
               onMouseOut={() => setCardHover({ card: null, location: null })}
@@ -210,7 +211,7 @@ export function CardSearchResults({
             alignItems: "center",
             color: "grey",
             fontSize: "12px",
-            margin: "10px 0px",
+            margin: "10px 0px"
           }}
         >
           Please apply filters to see more cards
