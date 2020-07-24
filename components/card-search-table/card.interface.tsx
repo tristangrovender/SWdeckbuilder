@@ -29,6 +29,7 @@ export enum Type {
 
 export interface Card {
   id: number;
+  counterpart: string;
   side: Side;
   rarity: string;
   set: string;

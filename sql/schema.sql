@@ -20,6 +20,14 @@ CREATE TABLE "public"."Deck"
   "authorId" INTEGER NOT NULL, FOREIGN KEY ("authorId") REFERENCES "public"."User"(id)
 );
 
+CREATE TABLE "public"."DeckCard"(
+  id SERIAL PRIMARY KEY NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "cardId" INTEGER NOT NULL, FOREIGN KEY ("cardId") REFERENCES "public"."Card"(id),
+  "deckId" INTEGER NOT NULL, FOREIGN KEY ("deckId") REFERENCES "public"."Deck"(id)
+);
+
 create table "public"."Card" (
 	id SERIAL PRIMARY KEY NOT NULL,
 	card_id int,
@@ -38,6 +46,5 @@ create table "public"."Card" (
 	front_lore VARCHAR(255),
 	counterpart VARCHAR(255),
 	legacy VARCHAR(255),
-  "deckId" INTEGER NOT NULL, FOREIGN KEY ("deckId") REFERENCES "public"."Deck"(id),
   front_extraText VARCHAR(255)[]
 );
