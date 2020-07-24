@@ -19,3 +19,25 @@ CREATE TABLE "public"."Deck"
   description VARCHAR(8000),
   "authorId" INTEGER NOT NULL, FOREIGN KEY ("authorId") REFERENCES "public"."User"(id)
 );
+
+create table "public"."Card" (
+	id SERIAL PRIMARY KEY NOT NULL,
+	card_id int,
+	side VARCHAR(255),
+	rarity VARCHAR(255),
+	set VARCHAR(255),
+	front_title VARCHAR(255),
+	front_imageUrl VARCHAR(255),
+	front_type VARCHAR(255),
+	front_subType VARCHAR(255),
+	front_destiny int,
+	front_power int,
+	front_deploy int,
+	front_forfeit int,
+	front_gametext VARCHAR(255),
+	front_lore VARCHAR(255),
+	counterpart VARCHAR(255),
+	legacy VARCHAR(255),
+  "deckId" INTEGER NOT NULL, FOREIGN KEY ("deckId") REFERENCES "public"."Deck"(id),
+  front_extraText VARCHAR(255)[]
+);
