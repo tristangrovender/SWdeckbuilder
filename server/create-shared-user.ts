@@ -15,6 +15,7 @@ export async function getSharedUser(prisma: PrismaClient) {
       email: "allusers@example.com",
       first_name: "Shared User",
       last_name: "For All Accounts",
+      username: "allusers",
     },
   });
 }
