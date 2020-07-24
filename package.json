@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml",
+    "dummy-data": "tsc ./scripts/create-dummy-data.ts; node ./scripts/create-dummy-data.js"
   },
   "dependencies": {
     "@apollo/client": "^3.0.2",

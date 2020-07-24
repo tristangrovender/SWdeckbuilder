@@ -4,8 +4,8 @@ import { getSharedUser } from "../server/create-shared-user";
 const prisma = new PrismaClient();
 
 getSharedUser(prisma).then((user) => {
-  dummyDeckData.map((deck) => {
-    prisma.deck.create({
+  const promises = dummyDeckData.map((deck) => {
+    return prisma.deck.create({
       data: {
         author: {
           connect: {
@@ -16,5 +16,8 @@ getSharedUser(prisma).then((user) => {
         side: deck.side,
       },
     });
+  });
+  Promise.all(promises).then(() => {
+    prisma.disconnect();
   });
 });
