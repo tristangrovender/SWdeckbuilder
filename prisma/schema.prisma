@@ -7,6 +7,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Card {
+  id              Int      @default(autoincrement()) @id
+  card_id         Int?
+  side            String?
+  rarity          String?
+  set             String?
+  front_title     String?
+  front_imageurl  String?
+  front_type      String?
+  front_subtype   String?
+  front_destiny   Int?
+  front_power     Int?
+  front_deploy    Int?
+  front_forfeit   Int?
+  front_gametext  String?
+  front_lore      String?
+  counterpart     String?
+  legacy          String?
+  deckId          Int
+  front_extratext String[]
+  Deck            Deck     @relation(fields: [deckId], references: [id])
+}
+
 model Deck {
   id          Int      @default(autoincrement()) @id
   created_at  DateTime @default(now())
@@ -16,6 +39,7 @@ model Deck {
   description String?
   authorId    Int
   author      User     @relation(fields: [authorId], references: [id])
+  cards       Card[]
 }
 
 model User {
