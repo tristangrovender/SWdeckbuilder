@@ -13,7 +13,10 @@ const FilterLink = styled.div`
 
 enum DeckFilters {
   popular = "Popular",
-  recent = "Recent"
+  recent = "Recent",
+  topOfYear = "Top of Year",
+  topOfMonth = "Top of Month",
+  topOfWeek = "Top of Week"
 }
 
 export function DeckFilter() {
@@ -31,6 +34,24 @@ export function DeckFilter() {
         active={activeFilter === DeckFilters.recent}
       >
         Recent
+      </FilterLink>
+      <FilterLink
+        onClick={() => setActiveFilter(DeckFilters.topOfYear)}
+        active={activeFilter === DeckFilters.topOfYear}
+      >
+        Top of Year
+      </FilterLink>
+      <FilterLink
+        onClick={() => setActiveFilter(DeckFilters.topOfMonth)}
+        active={activeFilter === DeckFilters.topOfMonth}
+      >
+        Top of Month
+      </FilterLink>
+      <FilterLink
+        onClick={() => setActiveFilter(DeckFilters.topOfWeek)}
+        active={activeFilter === DeckFilters.topOfWeek}
+      >
+        Top of Week
       </FilterLink>
     </div>
   );
