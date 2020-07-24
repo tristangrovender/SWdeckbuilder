@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Card {
-  id              Int        @default(autoincrement()) @id
+  id              Int      @default(autoincrement()) @id
   card_id         Int?
   side            String?
   rarity          String?
@@ -19,36 +19,24 @@ model Card {
   front_subtype   String?
   front_destiny   Int?
   front_power     Int?
-  front_deploy    Int?
+  front_deploy    String?
   front_forfeit   Int?
   front_gametext  String?
   front_lore      String?
   counterpart     String?
   legacy          String?
   front_extratext String[]
-  DeckCard        DeckCard[]
 }
 
 model Deck {
-  id          Int        @default(autoincrement()) @id
-  created_at  DateTime   @default(now())
-  updated_at  DateTime   @default(now())
+  id          Int      @default(autoincrement()) @id
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
   title       String?
   side        String?
   description String?
   authorId    Int
-  User        User       @relation(fields: [authorId], references: [id])
-  DeckCard    DeckCard[]
-}
-
-model DeckCard {
-  id         Int      @default(autoincrement()) @id
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
-  cardId     Int
-  deckId     Int
-  Card       Card     @relation(fields: [cardId], references: [id])
-  Deck       Deck     @relation(fields: [deckId], references: [id])
+  User        User     @relation(fields: [authorId], references: [id])
 }
 
 model User {

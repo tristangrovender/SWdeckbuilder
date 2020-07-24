@@ -23,7 +23,7 @@ getSharedUser(prisma).then((user) => {
           front_subtype: card.front.subType,
           front_destiny: card.front.destiny,
           front_power: card.front.power,
-          front_deploy: card.front.deploy,
+          front_deploy: card.front.deploy.toString(),
           front_forfeit: card.front.forfeit,
           front_gametext: card.front.gametext,
           front_lore: card.front.lore,
