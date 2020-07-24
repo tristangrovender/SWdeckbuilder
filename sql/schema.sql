@@ -44,7 +44,5 @@ create table "public"."Card" (
 	front_forfeit VARCHAR(255),
 	front_gametext VARCHAR(5000),
 	front_lore VARCHAR(5000),
-	counterpart VARCHAR(255),
-	legacy VARCHAR(255),
-  front_extraText VARCHAR(5000)[]
+	counterpart VARCHAR(255)
 );

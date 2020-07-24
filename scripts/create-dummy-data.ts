@@ -32,9 +32,6 @@ getSharedUser(prisma).then((user) => {
           front_gametext: card.front.gametext,
           front_lore: card.front.lore,
           counterpart: card.counterpart,
-          front_extratext: {
-            set: card.front.extraText,
-          },
         },
       });
     });

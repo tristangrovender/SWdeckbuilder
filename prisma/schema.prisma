@@ -8,24 +8,22 @@ datasource db {
 }
 
 model Card {
-  id              Int      @default(autoincrement()) @id
-  card_id         Int?
-  side            String?
-  rarity          String?
-  set             String?
-  front_title     String?
-  front_imageurl  String?
-  front_type      String?
-  front_subtype   String?
-  front_destiny   String?
-  front_power     String?
-  front_deploy    String?
-  front_forfeit   String?
-  front_gametext  String?
-  front_lore      String?
-  counterpart     String?
-  legacy          String?
-  front_extratext String[]
+  id             Int     @default(autoincrement()) @id
+  card_id        Int?
+  side           String?
+  rarity         String?
+  set            String?
+  front_title    String?
+  front_imageurl String?
+  front_type     String?
+  front_subtype  String?
+  front_destiny  String?
+  front_power    String?
+  front_deploy   String?
+  front_forfeit  String?
+  front_gametext String?
+  front_lore     String?
+  counterpart    String?
 }
 
 model Deck {
