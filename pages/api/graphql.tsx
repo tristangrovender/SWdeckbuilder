@@ -16,6 +16,7 @@ const resolvers = {
           ...deck,
           averageRating: 4.5,
           description: "",
+          createdAt: deck.created_at,
           author: () => {
             return prisma.user.findOne({
               where: {
