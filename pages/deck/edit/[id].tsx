@@ -110,6 +110,7 @@ export default function EditDeck() {
             cards={applyFilters(allCards, { ...filters, side })}
             showSide={side}
             onCardSelected={addCard}
+            newTab={"_blank"}
             style={{
               width: "70vw",
               marginLeft: "3vw"

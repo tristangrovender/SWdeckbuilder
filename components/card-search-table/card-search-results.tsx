@@ -4,11 +4,13 @@ import { Card, Side } from "./card.interface";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import AddIcon from "@material-ui/icons/Add";
 import { CardFilters } from "./card-filters-bar";
+import { string } from "prop-types";
 
 function CardRow({
   card,
   rowColor,
   showSideColumn,
+  newTab,
   onMouseOver,
   onMouseOut,
   onAdd
@@ -16,6 +18,7 @@ function CardRow({
   card: Card;
   rowColor: string;
   showSideColumn: boolean;
+  newTab?: string;
   onMouseOver: (event: any) => void;
   onMouseOut: () => void;
   onAdd?: () => void;
@@ -30,7 +33,7 @@ function CardRow({
       <div style={{ flex: 40, alignItems: "center", display: "flex" }}>
         <a
           href={`/card/${card.id}`}
-          target="_blank"
+          target={newTab}
           onMouseEnter={onMouseOver}
           onMouseOut={onMouseOut}
           style={{ marginLeft: "10px" }}
@@ -149,12 +152,14 @@ function CardHover({
 export function CardSearchResults({
   cards,
   showSide,
+  newTab,
   onCardSelected,
   style = {}
 }: {
   cards: Card[];
   showSide?: Side;
   style?: CSSProperties;
+  newTab?: string;
   onCardSelected?: (card: Card) => void;
 }) {
   const [cardHover, setCardHover] = useState({ card: null, location: null });
@@ -189,6 +194,7 @@ export function CardSearchResults({
               key={card.id}
               rowColor={i % 2 ? "#f5f5f5" : "white"}
               card={card}
+              newTab={newTab}
               showSideColumn={showSideColumn}
               onMouseOver={e =>
                 setCardHover({
