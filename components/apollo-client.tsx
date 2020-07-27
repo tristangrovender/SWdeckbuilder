@@ -25,18 +25,3 @@ export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
-
-client
-  .query({
-    query: gql(
-      `query GetCards {
-      cards{
-        id
-        type
-      }
-    }`
-    ),
-  })
-  .then(({ data }) => {
-    console.log(data.cards);
-  });

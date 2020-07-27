@@ -1,5 +1,7 @@
 import { Card } from "./card.interface";
 import { memoize } from "../../utils/utils";
+import { client } from "../apollo-client";
+import { gql } from "@apollo/client";
 
 function sortCardsByName(a: Card, b: Card) {
   // update function so that the dots before the name are ignored
@@ -14,6 +16,23 @@ function sortCardsByName(a: Card, b: Card) {
     return 1;
   }
   return 0;
+}
+
+function loadCardsFromServer() {
+  return client
+    .query({
+      query: gql(
+        `query GetCards {
+          cards{
+            id
+            type
+          }
+        }`
+      ),
+    })
+    .then(({ data }) => {
+      return data.cards;
+    });
 }
 
 function removeLegacyCards({ legacy }: Card) {
