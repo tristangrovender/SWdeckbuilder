@@ -39,12 +39,37 @@ const resolvers = {
         },
       });
     },
-    addCardToDeck: () => {
+    addCardToDeck: async (_parent, _args, _context) => {
+      if (!_context.userId) {
+        throw new Error("Please login");
+      }
+      await prisma.deckCard.create({
+        data: {
+          Card: {
+            connect: {
+              id: _args.cardId,
+            },
+          },
+          Deck: {
+            connect: {
+              id: _args.deckId,
+            },
+          },
+        },
+      });
       return {
         success: true,
       };
     },
-    removeCardFromDeck: () => {
+    removeCardFromDeck: async (_parent, _args, _context) => {
+      if (!_context.userId) {
+        throw new Error("Please login");
+      }
+      await prisma.deckCard.delete({
+        where: {
+          id: _args.deckCardId,
+        },
+      });
       return {
         success: true,
       };
