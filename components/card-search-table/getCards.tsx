@@ -26,6 +26,19 @@ function loadCardsFromServer() {
           cards{
             id
             type
+            card_id
+            deploy
+            destiny
+            forfeit
+            gametext
+            imageUrl
+            lore
+            power
+            rarity
+            set
+            side
+            subType
+            title
           }
         }`
       ),

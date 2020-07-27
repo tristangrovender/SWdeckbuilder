@@ -25,7 +25,7 @@ function dbFieldsToApi(card) {
     subType: card.front_subtype,
     destiny: card.front_destiny,
     power: card.front_power,
-    deploy: card.front_deploy,
+    deploy: card.front_deploy || undefined,
     forfeit: card.front_forfeit,
     gametext: card.front_gametext,
     lore: card.front_lore,

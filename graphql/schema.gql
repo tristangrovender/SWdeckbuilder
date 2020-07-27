@@ -40,13 +40,13 @@ type Card {
   title: String!
   type: String!
   imageUrl: String!
-  subType: String!
-  destiny: String!
-  power: String!
-  deploy: String!
-  forfeit: String!
-  gametext: String!
-  lore: String!
+  subType: String
+  destiny: String
+  power: String
+  deploy: String
+  forfeit: String
+  gametext: String
+  lore: String
 }
 type User {
   id: ID!
