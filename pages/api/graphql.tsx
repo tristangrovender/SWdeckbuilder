@@ -9,6 +9,9 @@ const prisma = new PrismaClient();
 
 const typeDefs = gql(schema + "");
 
+// TODO put this secret into .env and load via .env npm module
+const jwtSecret = "shhhhh";
+
 const resolvers = {
   Query: {
     hello: (_parent, _args, _context) => "Hello!",
@@ -17,8 +20,6 @@ const resolvers = {
   Mutation: {
     login: async () => {
       const user = await getSharedUser(prisma);
-      // TODO put this secret into .env and load via .env npm module
-      const jwtSecret = "shhhhh";
       return {
         jwt: jwt.sign({ userId: user.id }, jwtSecret),
       };
@@ -42,8 +43,14 @@ const resolvers = {
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
-  context: () => {
-    return {};
+  context: ({ req }) => {
+    const token = req.headers.authorization;
+    try {
+      const decoded = jwt.verify(token, jwtSecret);
+      return { userId: decoded.userId };
+    } catch (e) {
+      return {};
+    }
   },
 });
 
