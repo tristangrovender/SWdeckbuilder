@@ -12,7 +12,10 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = getToken();
+  let token;
+  try {
+    token = getToken();
+  } catch {}
   return {
     headers: {
       ...headers,

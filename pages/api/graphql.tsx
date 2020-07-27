@@ -13,10 +13,9 @@ const typeDefs = gql(schema + "");
 // TODO put this secret into .env and load via .env npm module
 const jwtSecret = "shhhhh";
 
-// TODO any
-function sortCardsByName(a: any, b: any) {
-  const aTitle = a.title.replace(/[^0-9a-zA-z_.]/gi, "");
-  const bTitle = b.title.replace(/[^0-9a-zA-z_.]/gi, "");
+function sortCardsByName(a, b) {
+  const aTitle = a.front_title.replace(/[^0-9a-zA-z_.]/gi, "");
+  const bTitle = b.front_title.replace(/[^0-9a-zA-z_.]/gi, "");
 
   if (aTitle < bTitle) {
     return -1;
@@ -31,8 +30,8 @@ const resolvers = {
   Query: {
     hello: (_parent, _args, _context) => "Hello!",
     recentDecks: () => recentDecks(prisma),
-    cards: () => {
-      return prisma.card.findMany();
+    cards: async () => {
+      return (await prisma.card.findMany()).sort(sortCardsByName);
     },
     deck: async (_parent, _args) => {
       return prisma.deck.findOne({
