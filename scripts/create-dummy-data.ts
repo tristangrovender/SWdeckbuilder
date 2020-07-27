@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Deck } from "@prisma/client";
 import { dummyDeckData } from "../utils/dummy-deck-data";
 import { getSharedUser } from "../server/create-shared-user";
 import { Card } from "../components/card-search-table/card.interface";
@@ -45,20 +45,25 @@ function createCards(prisma, allCards) {
   return Promise.all(cardPromises);
 }
 
-function createDecks(userId, dummyDeckData) {
-  return dummyDeckData.map((deck) => {
-    return prisma.deck.create({
-      data: {
-        User: {
-          connect: {
-            id: userId,
+function createDecks(userId, dummyDeckData): Promise<Deck[]> {
+  const decks = dummyDeckData.map((deck) => {
+    try {
+      return prisma.deck.create({
+        data: {
+          User: {
+            connect: {
+              id: userId,
+            },
           },
+          title: deck.title,
+          side: deck.side,
         },
-        title: deck.title,
-        side: deck.side,
-      },
-    });
+      });
+    } catch (e) {
+      console.log(e);
+    }
   });
+  return Promise.all(decks);
 }
 
 async function getCards(prisma: PrismaClient, cards) {
@@ -68,15 +73,15 @@ async function getCards(prisma: PrismaClient, cards) {
   return prisma.card.findMany();
 }
 
-async function getDecks(prisma: PrismaClient, user) {
+async function getDecks(prisma: PrismaClient, user): Promise<Deck[]> {
   if ((await prisma.deck.count()) === 0) {
-    return createDecks(user.id, dummyDeckData);
+    return await createDecks(user.id, dummyDeckData);
   }
 
   return prisma.deck.findMany();
 }
 
-export function getRandomDeck(allCards, side: Side) {
+export function getRandomDeck(allCards, side: string) {
   // map over current array
   const newArray = allCards.map((cards) => {
     return cards;
