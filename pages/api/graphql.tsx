@@ -16,6 +16,15 @@ const resolvers = {
   Query: {
     hello: (_parent, _args, _context) => "Hello!",
     recentDecks: () => recentDecks(prisma),
+    cards: async () => {
+      const cards = await prisma.card.findMany();
+      return cards.map((card) => {
+        return {
+          ...card,
+          type: card.front_type,
+        };
+      });
+    },
   },
   Mutation: {
     login: async () => {

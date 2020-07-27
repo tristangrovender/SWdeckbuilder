@@ -1,6 +1,7 @@
 type Query {
   hello: String!
   recentDecks: [Deck]!
+  cards: [Card]!
 }
 type LoginResponse {
   jwt: String!
