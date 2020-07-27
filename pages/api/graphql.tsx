@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { recentDecks } from "../../server/resolvers/recent-decks";
 import { getSharedUser } from "../../server/create-shared-user";
 import jwt from "jsonwebtoken";
+import { Card } from "../../graphql/types";
 
 const prisma = new PrismaClient();
 
@@ -11,6 +12,20 @@ const typeDefs = gql(schema + "");
 
 // TODO put this secret into .env and load via .env npm module
 const jwtSecret = "shhhhh";
+
+// TODO any
+function sortCardsByName(a: any, b: any) {
+  const aTitle = a.title.replace(/[^0-9a-zA-z_.]/gi, "");
+  const bTitle = b.title.replace(/[^0-9a-zA-z_.]/gi, "");
+
+  if (aTitle < bTitle) {
+    return -1;
+  }
+  if (aTitle > bTitle) {
+    return 1;
+  }
+  return 0;
+}
 
 const resolvers = {
   Query: {
@@ -103,7 +118,8 @@ const resolvers = {
           },
         },
       });
-      return cards;
+
+      return cards.sort(sortCardsByName);
     },
   },
   Card: {
