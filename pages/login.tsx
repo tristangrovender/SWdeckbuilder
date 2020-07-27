@@ -1,7 +1,12 @@
 import { Page, Toolbar, Content } from "../components/Toolbar";
 import Footer from "../components/Footer";
 import { Input, Button } from "@material-ui/core";
+import { useMutation, gql } from "@apollo/client";
+import LoginMutation from "../graphql/login.gql";
+import { MutationLoginArgs, Mutation } from "../graphql/types";
+
 export default function Login() {
+  const [login] = useMutation<Mutation, MutationLoginArgs>(gql(LoginMutation));
   return (
     <Page>
       <Toolbar />
@@ -39,6 +44,18 @@ export default function Login() {
               color="primary"
               variant="contained"
               style={{ width: "100%", marginTop: "20px" }}
+              onClick={() => {
+                login({
+                  variables: {
+                    username: "username",
+                    password: "password",
+                  },
+                }).then((data) => {
+                  const jwt = data.data.login.jwt;
+                  localStorage.setItem("JWT", jwt);
+                  console.log("saved", jwt);
+                });
+              }}
             >
               Login
             </Button>
