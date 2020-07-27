@@ -2,6 +2,9 @@ type Query {
   hello: String!
   recentDecks: [Deck]!
 }
+type Mutation {
+  createDeck(side: Side): Deck
+}
 enum Side {
   Dark
   Light
