@@ -12,18 +12,32 @@ const typeDefs = gql(schema + "");
 // TODO put this secret into .env and load via .env npm module
 const jwtSecret = "shhhhh";
 
+function dbFieldsToApi(card) {
+  return {
+    id: card.id,
+    type: card.front_type,
+    card_id: card.card_id,
+    side: card.side,
+    rarity: card.rarity,
+    set: card.set,
+    title: card.front_title,
+    imageUrl: card.front_imageurl,
+    subType: card.front_subtype,
+    destiny: card.front_destiny,
+    power: card.front_power,
+    deploy: card.front_deploy,
+    forfeit: card.front_forfeit,
+    gametext: card.front_gametext,
+    lore: card.front_lore,
+  };
+}
+
 const resolvers = {
   Query: {
     hello: (_parent, _args, _context) => "Hello!",
     recentDecks: () => recentDecks(prisma),
     cards: async () => {
-      const cards = await prisma.card.findMany();
-      return cards.map((card) => {
-        return {
-          ...card,
-          type: card.front_type,
-        };
-      });
+      return (await prisma.card.findMany()).map(dbFieldsToApi);
     },
   },
   Mutation: {

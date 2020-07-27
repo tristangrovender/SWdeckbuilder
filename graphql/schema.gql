@@ -33,7 +33,20 @@ type Deck {
 }
 type Card {
   id: ID!
+  card_id: String!
+  side: Side!
+  rarity: String!
+  set: String!
+  title: String!
   type: String!
+  imageUrl: String!
+  subType: String!
+  destiny: String!
+  power: String!
+  deploy: String!
+  forfeit: String!
+  gametext: String!
+  lore: String!
 }
 type User {
   id: ID!
