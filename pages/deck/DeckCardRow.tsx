@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Card } from "../../components/card-search-table/card.interface";
 import { CardSnippet } from "../../components/card-snippet";
 import { getCoordinatesInViewPort } from "../../components/card-search-table/card-search-results";
+import { Card } from "../../graphql/types";
 export function DeckCardRow({ card }: { card: Card }) {
   const [hoveringLocation, setHovering] = useState(undefined);
   return (
@@ -16,9 +16,9 @@ export function DeckCardRow({ card }: { card: Card }) {
       style={{ cursor: "pointer" }}
     >
       <CardSnippet
-        title={card.front.title}
+        title={card.title}
         style={{ marginLeft: "3px" }}
-        imageUrl={card.front.imageUrl}
+        imageUrl={card.imageUrl}
       />
       {hoveringLocation ? (
         <div
@@ -29,7 +29,7 @@ export function DeckCardRow({ card }: { card: Card }) {
             ...getCoordinatesInViewPort(hoveringLocation, 500),
           }}
         >
-          <img src={card.front.imageUrl} style={{ height: "500px" }}></img>
+          <img src={card.imageUrl} style={{ height: "500px" }}></img>
         </div>
       ) : null}
     </div>

@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Page, Toolbar, Content } from "../../components/Toolbar";
-import { Card } from "../../components/card-search-table/card.interface";
-import { getCards } from "../../components/card-search-table/getCards";
 import { FadedImage } from "../../components/card-snippet";
 import styled from "styled-components";
 import { darkBlue } from "../../utils/colors";
@@ -15,6 +13,8 @@ import FileSaver from "file-saver";
 import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
+import { getCardsFromServer } from "../../components/card-search-table/getCards";
+import { Card } from "../../graphql/types";
 
 const AverageDestiny = styled.div`
   opacity: 0.5;
@@ -131,7 +131,7 @@ function getGempXML(deck: Card[]): string {
   return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <deck>
 ${deck
-  .map(({ gemp_card_id, front: { title } }) => {
+  .map(({ gemp_card_id, title }) => {
     return `<card blueprintId="${gemp_card_id}" title="${title}"/>`;
   })
   .join("\n")}
@@ -159,7 +159,7 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
   }
   return (
     <TypeContainer>
-      <TypeTitle>{cards[0].front.type}</TypeTitle>
+      <TypeTitle>{cards[0].type}</TypeTitle>
       <div
         style={{
           backgroundColor: darkBlue,
@@ -180,7 +180,7 @@ export default function Deck() {
   const [deck, setDeck] = useState([]);
   const { id: deckId } = router.query;
   if (allCards.length === 0) {
-    getCards().then(setCards);
+    getCardsFromServer().then(setCards);
   }
   if (allCards.length && deck.length === 0) {
     setDeck(getRandomDeck(allCards));
