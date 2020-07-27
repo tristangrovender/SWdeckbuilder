@@ -5,9 +5,14 @@ type Query {
 type LoginResponse {
   jwt: String!
 }
+type SuccessResponse {
+  success: Boolean!
+}
 type Mutation {
   createDeck(side: Side!): Deck!
   login(username: String!, password: String!): LoginResponse!
+  addCardToDeck(deckId: ID!, cardId: ID!): SuccessResponse!
+  removeCardFromDeck(deckId: ID!, cardId: ID!): SuccessResponse!
 }
 enum Side {
   Dark

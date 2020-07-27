@@ -39,6 +39,16 @@ const resolvers = {
         },
       });
     },
+    addCardToDeck: () => {
+      return {
+        success: true,
+      };
+    },
+    removeCardFromDeck: () => {
+      return {
+        success: true,
+      };
+    },
   },
 };
 
