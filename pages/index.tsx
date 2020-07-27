@@ -93,7 +93,7 @@ export default function Home() {
                       rating={averageRating}
                       description={description}
                       author={username}
-                      types={cards.map(({ front: { type } }) => type)}
+                      types={cards.map(({ type }) => type)}
                     />
                   );
                 }

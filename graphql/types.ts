@@ -40,11 +40,6 @@ export type Deck = {
 export type Card = {
   __typename?: 'Card';
   id: Scalars['ID'];
-  front: CardFront;
-};
-
-export type CardFront = {
-  __typename?: 'CardFront';
   type: Scalars['String'];
 };
 
@@ -73,11 +68,7 @@ export type GetRecentDecksQuery = (
       & Pick<User, 'username'>
     ), cards: Array<Maybe<(
       { __typename?: 'Card' }
-      & Pick<Card, 'id'>
-      & { front: (
-        { __typename?: 'CardFront' }
-        & Pick<CardFront, 'type'>
-      ) }
+      & Pick<Card, 'id' | 'type'>
     )>> }
   )>> }
 );
