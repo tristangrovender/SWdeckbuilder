@@ -9,8 +9,8 @@ function mapToString(val: any): string {
   return val === undefined || val === null ? undefined : val.toString();
 }
 
-getSharedUser(prisma).then((user) => {
-  const createcards = cards
+function createCards(prisma, allCards) {
+  return allCards
     .filter(({ legacy }) => {
       return legacy == false;
     })
@@ -35,12 +35,15 @@ getSharedUser(prisma).then((user) => {
         },
       });
     });
-  const createDecks = dummyDeckData.map((deck) => {
+}
+
+function createDecks(userId, dummyDeckData) {
+  return dummyDeckData.map((deck) => {
     return prisma.deck.create({
       data: {
         User: {
           connect: {
-            id: user.id,
+            id: userId,
           },
         },
         title: deck.title,
@@ -48,8 +51,13 @@ getSharedUser(prisma).then((user) => {
       },
     });
   });
-  Promise.all([...createDecks, ...createcards]).then(() => {
+}
+
+getSharedUser(prisma).then((user) => {
+  const createcards = createCards(prisma, cards);
+  const createdDecks = createDecks(user.id, dummyDeckData);
+  Promise.all([...createdDecks, ...createcards]).then(() => {
     prisma.disconnect();
+    console.log("Created decks & cards");
   });
-  console.log("Created decks & cards");
 });
