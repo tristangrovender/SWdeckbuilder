@@ -39,6 +39,11 @@ const resolvers = {
     cards: async () => {
       return (await prisma.card.findMany()).map(dbFieldsToApi);
     },
+    deck: async (_parent, _args) => {
+      return prisma.deck.findOne({
+        where: { id: parseInt(_args.id) },
+      });
+    },
   },
   Mutation: {
     login: async () => {
@@ -96,6 +101,29 @@ const resolvers = {
       return {
         success: true,
       };
+    },
+  },
+  Deck: {
+    author: (_parent) => {
+      return prisma.user.findOne({
+        where: {
+          id: _parent.authorId,
+        },
+      });
+    },
+    cards: async (_parent) => {
+      const cards = await prisma.card.findMany({
+        where: {
+          DeckCard: {
+            some: {
+              Deck: {
+                id: _parent.id,
+              },
+            },
+          },
+        },
+      });
+      return cards.map(dbFieldsToApi);
     },
   },
 };
