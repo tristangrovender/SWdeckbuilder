@@ -1,10 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { getCards } from "../components/card-search-table/getCards";
 import { CardSnippet } from "./card-snippet";
 import Router from "next/router";
 import NoResultSnippet from "../components/NoResultSnippet";
 import { darkBlue } from "../utils/colors";
+import { getCardsFromServer } from "./card-search-table/getCards";
+import { Card } from "../graphql/types";
 
 // Autocomplete
 
@@ -29,7 +30,7 @@ const ResultsDropdown = styled.div`
 
 export function SearchBar() {
   const [searchValue, setSearchValue] = useState("");
-  const [cards, setCards] = useState([]);
+  const [cards, setCards]: [Card[], (cards: Card[]) => void] = useState([]);
   const [focus, setFocus] = useState(false);
 
   const handleSearchInputChanges = (e) => {
@@ -44,10 +45,10 @@ export function SearchBar() {
   };
 
   if (cards.length === 0) {
-    getCards().then(setCards);
+    getCardsFromServer().then(setCards);
   }
 
-  const matchingResults = cards.filter(({ front: { title: cardName } }) => {
+  const matchingResults = cards.filter(({ title: cardName }) => {
     return cardName.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
   });
 
@@ -56,8 +57,8 @@ export function SearchBar() {
     .map((card, i) => (
       <CardSnippet
         key={i}
-        title={card.front.title}
-        imageUrl={card.front.imageUrl}
+        title={card.title}
+        imageUrl={card.imageUrl}
         onMouseDown={() => Router.push(`/card/${card.id}`)}
         style={{
           padding: "1px",

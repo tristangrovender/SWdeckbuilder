@@ -1,11 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { getRandomDeck } from "../[id]";
-import { getCards } from "../../../components/card-search-table/getCards";
-import {
-  Card,
-  Type,
-} from "../../../components/card-search-table/card.interface";
+import { getCardsFromServer } from "../../../components/card-search-table/getCards";
+import { Type } from "../../../components/card-search-table/card.interface";
+import { Card } from "../../../graphql/types";
 
 const TableContainer = styled.table`
   margin-top: 5px;
@@ -49,7 +47,8 @@ function orderCardsByType(cards: Card[]) {
     Type.DefensiveShield,
   ];
   return cards.sort((a, b) => {
-    return typeOrder.indexOf(a.front.type) - typeOrder.indexOf(b.front.type);
+    // TODO any hack
+    return typeOrder.indexOf(a.type as any) - typeOrder.indexOf(b.type as any);
   });
 }
 
@@ -57,7 +56,7 @@ export default function PrintDeck() {
   const [allCards, setCards] = useState([]);
   const [deck, setDeck] = useState([]);
   if (allCards.length === 0) {
-    getCards().then(setCards);
+    getCardsFromServer().then(setCards);
   }
   if (allCards.length && deck.length === 0) {
     setDeck(orderCardsByType(getRandomDeck(allCards)));
