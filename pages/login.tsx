@@ -4,6 +4,8 @@ import { Input, Button } from "@material-ui/core";
 import { useMutation, gql } from "@apollo/client";
 import LoginMutation from "../graphql/login.gql";
 import { MutationLoginArgs, Mutation } from "../graphql/types";
+import Router from "next/router";
+import { setToken } from "../utils/frontend-auth";
 
 export default function Login() {
   const [login] = useMutation<Mutation, MutationLoginArgs>(gql(LoginMutation));
@@ -52,8 +54,10 @@ export default function Login() {
                   },
                 }).then((data) => {
                   const jwt = data.data.login.jwt;
-                  localStorage.setItem("JWT", jwt);
-                  console.log("saved", jwt);
+                  setToken(jwt);
+                  Router.push({
+                    pathname: "/my-decks",
+                  });
                 });
               }}
             >

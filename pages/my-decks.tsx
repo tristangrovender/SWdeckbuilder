@@ -3,6 +3,8 @@ import Button from "@material-ui/core/Button";
 import Link from "next/link";
 import styled from "styled-components";
 import Footer from "../components/Footer";
+import { getToken } from "../utils/frontend-auth";
+import Router from "next/router";
 
 const NoDecksContainer = styled.div`
   display: flex;
@@ -12,6 +14,9 @@ const NoDecksContainer = styled.div`
 `;
 
 export default function MyDecks() {
+  if (!getToken()) {
+    Router.push({ pathname: "/login" });
+  }
   return (
     <Page>
       <Toolbar />
