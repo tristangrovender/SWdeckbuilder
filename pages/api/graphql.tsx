@@ -14,6 +14,11 @@ const resolvers = {
     recentDecks: () => recentDecks(prisma),
   },
   Mutation: {
+    login: () => {
+      return {
+        jwt: "hi",
+      };
+    },
     createDeck: async (_parent, _args) => {
       const user = await getSharedUser(prisma);
       return prisma.deck.create({

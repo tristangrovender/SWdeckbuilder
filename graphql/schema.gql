@@ -2,8 +2,12 @@ type Query {
   hello: String!
   recentDecks: [Deck]!
 }
+type LoginResponse {
+  jwt: String!
+}
 type Mutation {
   createDeck(side: Side!): Deck!
+  login(username: String!, password: String!): LoginResponse!
 }
 enum Side {
   Dark
