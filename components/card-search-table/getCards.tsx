@@ -20,7 +20,7 @@ function sortCardsByName(a: Card, b: Card) {
   return 0;
 }
 
-function loadCardsFromServer() {
+function fetchCardsFromServer() {
   return client
     .query<GetCardsQueryI>({
       query: gql(GetCardsQuery),
@@ -30,7 +30,7 @@ function loadCardsFromServer() {
     });
 }
 
-loadCardsFromServer().then(console.log);
+export const getCardsFromServer = memoize(() => fetchCardsFromServer());
 
 function removeLegacyCards({ legacy }: Card) {
   return legacy === false;
