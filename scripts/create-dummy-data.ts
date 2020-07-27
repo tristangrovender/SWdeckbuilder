@@ -92,6 +92,31 @@ getSharedUser(prisma).then(async (user) => {
   const dbDecks = await getDecks(prisma, user);
   console.log(dbCards.length, dbDecks.length);
   dbDecks.map(async (deck) => {
-    console.log(getRandomDeck(dbCards, deck.side).length);
+    const numberOfCardsInDeck = await prisma.deckCard.count({
+      where: { deckId: deck.id },
+    });
+    if (numberOfCardsInDeck > 0) {
+      return Promise.resolve();
+    }
+
+    const createdCardConnections = getRandomDeck(dbCards, deck.side).map(
+      (card) => {
+        return prisma.deckCard.create({
+          data: {
+            Card: {
+              connect: {
+                id: card.id,
+              },
+            },
+            Deck: {
+              connect: {
+                id: deck.id,
+              },
+            },
+          },
+        });
+      }
+    );
+    return Promise.all(createdCardConnections);
   });
 });
