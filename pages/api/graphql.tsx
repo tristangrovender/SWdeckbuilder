@@ -46,8 +46,8 @@ const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => {
-    const token = req.headers.authorization;
     try {
+      const token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, jwtSecret);
       return { userId: decoded.userId };
     } catch (e) {
