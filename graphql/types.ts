@@ -18,6 +18,16 @@ export type Query = {
   recentDecks: Array<Maybe<Deck>>;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  createDeck?: Maybe<Deck>;
+};
+
+
+export type MutationCreateDeckArgs = {
+  side?: Maybe<Side>;
+};
+
 export enum Side {
   Dark = 'Dark',
   Light = 'Light'
@@ -54,6 +64,19 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
+
+export type CreateDeckMutationVariables = Exact<{
+  side?: Maybe<Side>;
+}>;
+
+
+export type CreateDeckMutation = (
+  { __typename?: 'Mutation' }
+  & { createDeck?: Maybe<(
+    { __typename?: 'Deck' }
+    & Pick<Deck, 'id' | 'side'>
+  )> }
+);
 
 export type GetRecentDecksQueryVariables = Exact<{ [key: string]: never; }>;
 

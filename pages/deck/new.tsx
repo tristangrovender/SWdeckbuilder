@@ -4,10 +4,10 @@ import Button from "@material-ui/core/Button";
 import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
 import Router from "next/router";
-import { Side } from "../../components/card-search-table/card.interface";
 import Footer from "../../components/Footer";
-import CreateDeckQuery from "../graphql/create-deck.gql";
+import CreateDeckQuery from "../../graphql/create-deck.gql";
 import { useMutation, gql } from "@apollo/client";
+import { MutationCreateDeckArgs, Side, Mutation } from "../../graphql/types";
 
 const DeckSideContainer = styled.div`
   display: flex;
@@ -24,9 +24,10 @@ const RadioContainer = styled.div`
 `;
 
 export default function NewDeck() {
-  const createDeck = useMutation(gql(CreateDeckQuery));
-  console.log(createDeck);
-  const [side, setSide] = useState(Side.dark);
+  const [createDeck] = useMutation<Mutation, MutationCreateDeckArgs>(
+    gql(CreateDeckQuery)
+  );
+  const [side, setSide] = useState(Side.Dark);
   return (
     <Page>
       <Toolbar />
@@ -47,24 +48,24 @@ export default function NewDeck() {
               alignItems: "center",
             }}
           >
-            <DeckSideContainer onClick={() => setSide(Side.dark)}>
+            <DeckSideContainer onClick={() => setSide(Side.Dark)}>
               <img src="/images/dark.png"></img>
               <RadioContainer>
                 <Radio
-                  checked={side === Side.dark}
-                  onChange={() => setSide(Side.dark)}
+                  checked={side === Side.Dark}
+                  onChange={() => setSide(Side.Dark)}
                   value="a"
                   name="radio-button-demo"
                 />
                 Dark
               </RadioContainer>
             </DeckSideContainer>
-            <DeckSideContainer onClick={() => setSide(Side.light)}>
+            <DeckSideContainer onClick={() => setSide(Side.Light)}>
               <img src="/images/light.png"></img>
               <RadioContainer>
                 <Radio
-                  checked={side === Side.light}
-                  onChange={() => setSide(Side.light)}
+                  checked={side === Side.Light}
+                  onChange={() => setSide(Side.Light)}
                   value="a"
                   name="radio-button-demo"
                 />
@@ -83,11 +84,14 @@ export default function NewDeck() {
               variant="contained"
               color="primary"
               onClick={() =>
-                Router.push({
-                  pathname: `/deck/edit/111`,
-                  query: {
-                    side,
+                createDeck({
+                  variables: {
+                    side: side,
                   },
+                }).then((res) => {
+                  Router.push({
+                    pathname: `/deck/edit/${res.data.createDeck.id}`,
+                  });
                 })
               }
             >

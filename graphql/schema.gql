@@ -3,7 +3,7 @@ type Query {
   recentDecks: [Deck]!
 }
 type Mutation {
-  createDeck(side: Side): Deck
+  createDeck(side: Side!): Deck!
 }
 enum Side {
   Dark
