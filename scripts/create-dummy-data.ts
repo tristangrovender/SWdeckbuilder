@@ -90,8 +90,7 @@ export function getRandomDeck(allCards, side: Side) {
 getSharedUser(prisma).then(async (user) => {
   const dbCards = await getCards(prisma, cards);
   const dbDecks = await getDecks(prisma, user);
-  console.log(dbCards.length, dbDecks.length);
-  dbDecks.map(async (deck) => {
+  const assembledDecks = dbDecks.map(async (deck) => {
     const numberOfCardsInDeck = await prisma.deckCard.count({
       where: { deckId: deck.id },
     });
@@ -118,5 +117,9 @@ getSharedUser(prisma).then(async (user) => {
       }
     );
     return Promise.all(createdCardConnections);
+  });
+  Promise.all(assembledDecks).then(() => {
+    prisma.disconnect();
+    console.log("success");
   });
 });
