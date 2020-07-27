@@ -13,7 +13,7 @@ import FileSaver from "file-saver";
 import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
-import { getCardsFromServer } from "../../components/card-search-table/getCards";
+import { getCards } from "../../components/card-search-table/getCards";
 import { Card } from "../../graphql/types";
 
 const AverageDestiny = styled.div`
@@ -180,7 +180,7 @@ export default function Deck() {
   const [deck, setDeck] = useState([]);
   const { id: deckId } = router.query;
   if (allCards.length === 0) {
-    getCardsFromServer().then(setCards);
+    getCards().then(setCards);
   }
   if (allCards.length && deck.length === 0) {
     setDeck(getRandomDeck(allCards));

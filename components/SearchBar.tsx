@@ -4,7 +4,7 @@ import { CardSnippet } from "./card-snippet";
 import Router from "next/router";
 import NoResultSnippet from "../components/NoResultSnippet";
 import { darkBlue } from "../utils/colors";
-import { getCardsFromServer } from "./card-search-table/getCards";
+import { getCards } from "./card-search-table/getCards";
 import { Card } from "../graphql/types";
 
 // Autocomplete
@@ -45,7 +45,7 @@ export function SearchBar() {
   };
 
   if (cards.length === 0) {
-    getCardsFromServer().then(setCards);
+    getCards().then(setCards);
   }
 
   const matchingResults = cards.filter(({ title: cardName }) => {

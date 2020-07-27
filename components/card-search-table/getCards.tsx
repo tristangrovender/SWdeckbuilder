@@ -18,4 +18,4 @@ function fetchCardsFromServer(): Promise<CardFromServer[]> {
     });
 }
 
-export const getCardsFromServer = memoize(() => fetchCardsFromServer());
+export const getCards = memoize(() => fetchCardsFromServer());

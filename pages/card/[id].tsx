@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Page, Toolbar, Content } from "../../components/Toolbar";
 import { useRouter } from "next/router";
-import { getCardsFromServer } from "../../components/card-search-table/getCards";
+import { getCards } from "../../components/card-search-table/getCards";
 import { CommentsSection } from "../../components/comments-section";
 import Footer from "../../components/Footer";
 import { Card } from "../../graphql/types";
@@ -10,7 +10,7 @@ export default function CardPage(params) {
   const router = useRouter();
   const [cards, setCards] = useState(null);
   if (cards === null) {
-    getCardsFromServer().then(setCards);
+    getCards().then(setCards);
     return (
       <Page>
         <Toolbar />

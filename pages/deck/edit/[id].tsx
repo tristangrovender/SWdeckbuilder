@@ -7,7 +7,7 @@ import {
   CardFiltersBar,
   applyFilters,
 } from "../../../components/card-search-table/card-filters-bar";
-import { getCardsFromServer } from "../../../components/card-search-table/getCards";
+import { getCards } from "../../../components/card-search-table/getCards";
 import { CardPanel } from "../../../components/card-panel";
 import Footer from "../../../components/Footer";
 import { useMutation, gql } from "@apollo/client";
@@ -83,7 +83,7 @@ export default function EditDeck() {
     return <div>DeckID not found.</div>;
   }
   if (allCards.length === 0) {
-    getCardsFromServer().then(setCards);
+    getCards().then(setCards);
   }
   const addCard = (card: CardFromServer) => {
     addCardToDeck({

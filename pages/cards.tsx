@@ -7,7 +7,7 @@ import {
   applyFilters,
   CardFilters,
 } from "../components/card-search-table/card-filters-bar";
-import { getCardsFromServer } from "../components/card-search-table/getCards";
+import { getCards } from "../components/card-search-table/getCards";
 import Footer from "../components/Footer";
 import { Card } from "../graphql/types";
 
@@ -22,7 +22,7 @@ export default function Cards() {
 
   const [allCards, setCards]: [Card[], (cards: Card[]) => void] = useState([]);
   if (allCards.length === 0) {
-    getCardsFromServer().then(setCards);
+    getCards().then(setCards);
   }
   return (
     <Page>
