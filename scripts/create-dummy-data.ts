@@ -4,6 +4,7 @@ import { getSharedUser } from "../server/create-shared-user";
 import { Card } from "../components/card-search-table/card.interface";
 import { Side } from "../graphql/types";
 const cards = require("../cards/cards.json");
+const gempMapping = require("../cards/gemp_id_mapping.json");
 const prisma = new PrismaClient();
 
 function mapToString(val: any): string {
@@ -16,6 +17,9 @@ function createCards(prisma, allCards) {
       return legacy == false;
     })
     .map((card: Card) => {
+      if (!gempMapping[card.id]) {
+        console.log("No gemp matching", card.id, card.front.title);
+      }
       return prisma.card.create({
         data: {
           card_id: card.id,
@@ -33,6 +37,8 @@ function createCards(prisma, allCards) {
           front_gametext: card.front.gametext,
           front_lore: card.front.lore,
           counterpart: card.counterpart,
+          gemp_card_id:
+            gempMapping[card.id] && gempMapping[card.id].gemp_card_id,
         },
       });
     });

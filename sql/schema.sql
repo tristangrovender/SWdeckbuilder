@@ -44,5 +44,6 @@ create table "public"."Card" (
 	front_forfeit VARCHAR(255),
 	front_gametext VARCHAR(5000),
 	front_lore VARCHAR(5000),
-	counterpart VARCHAR(255)
+	counterpart VARCHAR(255),
+	gemp_card_id VARCHAR(255)
 );

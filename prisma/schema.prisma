@@ -24,6 +24,7 @@ model Card {
   front_gametext String?
   front_lore     String?
   counterpart    String?
+  gemp_card_id   String?
   DeckCard       DeckCard[]
 }
 
