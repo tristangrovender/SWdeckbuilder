@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Toolbar, Content, Page } from "../../components/Toolbar";
 import Button from "@material-ui/core/Button";
 import Radio from "@material-ui/core/Radio";
-import Link from "next/link";
 import styled from "styled-components";
 import Router from "next/router";
 import { Side } from "../../components/card-search-table/card.interface";
 import Footer from "../../components/Footer";
+import CreateDeckQuery from "../graphql/create-deck.gql";
+import { useMutation, gql } from "@apollo/client";
 
 const DeckSideContainer = styled.div`
   display: flex;
@@ -23,6 +24,8 @@ const RadioContainer = styled.div`
 `;
 
 export default function NewDeck() {
+  const createDeck = useMutation(gql(CreateDeckQuery));
+  console.log(createDeck);
   const [side, setSide] = useState(Side.dark);
   return (
     <Page>
@@ -34,14 +37,14 @@ export default function NewDeck() {
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
-            height: "100%"
+            height: "100%",
           }}
         >
           <div
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             <DeckSideContainer onClick={() => setSide(Side.dark)}>
@@ -73,7 +76,7 @@ export default function NewDeck() {
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             <Button
@@ -83,8 +86,8 @@ export default function NewDeck() {
                 Router.push({
                   pathname: `/deck/edit/111`,
                   query: {
-                    side
-                  }
+                    side,
+                  },
                 })
               }
             >

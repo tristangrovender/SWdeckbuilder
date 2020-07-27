@@ -1,0 +1,6 @@
+mutation CreateDeck($side: Side) {
+  createDeck(side: $side) {
+    id
+    side
+  }
+}
