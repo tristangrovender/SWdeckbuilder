@@ -13,6 +13,9 @@ import {
 import { getCards } from "../../../components/card-search-table/getCards";
 import { CardPanel } from "../../../components/card-panel";
 import Footer from "../../../components/Footer";
+import { useMutation, gql } from "@apollo/client";
+import AddCardToDeckMutation from "../../../graphql/add-card-to-deck.gql";
+import { MutationAddCardToDeckArgs, Mutation } from "../../../graphql/types";
 
 function getCardSuggestions({
   side,
@@ -66,14 +69,27 @@ function isCardInSideDeck(card: Card) {
 
 export default function EditDeck() {
   const router = useRouter();
+  const [addCardToDeck] = useMutation<Mutation, MutationAddCardToDeckArgs>(
+    gql(AddCardToDeckMutation)
+  );
   const [deckCards, setDeckCards] = useState([]);
   const [filters, updateFilters] = useState(undefined);
   const [allCards, setCards] = useState([]);
   const side = router.query.side as Side;
+  const { id: deckId } = router.query;
+  if (!deckId) {
+    return <div>DeckID not found.</div>;
+  }
   if (allCards.length === 0) {
     getCards().then(setCards);
   }
   const addCard = (card: Card) => {
+    // addCardToDeck({
+    //   variables: {
+    //     // TODO card ID
+    //     cardId:
+    //   }
+    // })
     setDeckCards([
       ...deckCards,
       { ...card, isSideDeck: isCardInSideDeck(card) },
@@ -83,7 +99,6 @@ export default function EditDeck() {
     const index = deckCards.map(({ id }) => id).lastIndexOf(cardToRemove.id);
     setDeckCards([...deckCards.slice(0, index), ...deckCards.slice(index + 1)]);
   };
-  const { id: deckId } = router.query;
   if (!deckId) {
     return (
       <Page>
