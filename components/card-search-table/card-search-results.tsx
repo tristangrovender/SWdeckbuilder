@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Link from "next/link";
-import { Card, Side } from "./card.interface";
+import { Side } from "./card.interface";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import AddIcon from "@material-ui/icons/Add";
 import { CardFilters } from "./card-filters-bar";
 import { string } from "prop-types";
+import { Card as CardFromServer } from "../../graphql/types";
 
 function CardRow({
   card,
@@ -13,9 +14,9 @@ function CardRow({
   newTab,
   onMouseOver,
   onMouseOut,
-  onAdd
+  onAdd,
 }: {
-  card: Card;
+  card: CardFromServer;
   rowColor: string;
   showSideColumn: boolean;
   newTab?: string;
@@ -27,7 +28,7 @@ function CardRow({
     <div
       style={{
         display: "flex",
-        backgroundColor: rowColor
+        backgroundColor: rowColor,
       }}
     >
       <div style={{ flex: 40, alignItems: "center", display: "flex" }}>
@@ -38,7 +39,7 @@ function CardRow({
           onMouseOut={onMouseOut}
           style={{ marginLeft: "10px" }}
         >
-          {card.front && card.front.title}
+          {card.title}
         </a>
       </div>
       {showSideColumn ? <div style={{ flex: 10 }}>{card.side}</div> : null}
@@ -47,10 +48,10 @@ function CardRow({
           flex: 10,
           marginRight: "5px",
           display: "flex",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
-        {card.front.type}
+        {card.type}
       </div>
       <div
         style={{
@@ -58,7 +59,7 @@ function CardRow({
           marginRight: "5px",
           whiteSpace: "nowrap",
           overflow: "hidden",
-          textOverflow: "ellipsis"
+          textOverflow: "ellipsis",
         }}
         title={card.set}
       >
@@ -70,7 +71,7 @@ function CardRow({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginRight: "2px"
+            marginRight: "2px",
           }}
         >
           <AddIcon onClick={onAdd} style={{ cursor: "pointer" }} />
@@ -108,28 +109,28 @@ export function getCoordinatesInViewPort(
     const top = desiredTop - (desiredTop + componentHeight - bottomOfScreenY);
     return {
       top,
-      left
+      left,
     };
   }
   if (desiredTop < topOfScreenY) {
     const top = topOfScreenY;
     return {
       top,
-      left
+      left,
     };
   }
 
   return {
     top: desiredTop,
-    left
+    left,
   };
 }
 
 function CardHover({
   card,
-  location
+  location,
 }: {
-  card: Card;
+  card: CardFromServer;
   location: { x: number; y: number };
 }) {
   if (!location) {
@@ -141,10 +142,10 @@ function CardHover({
         pointerEvents: "none",
         position: "absolute",
         zIndex: 11,
-        ...getCoordinatesInViewPort(location, 400)
+        ...getCoordinatesInViewPort(location, 400),
       }}
     >
-      <img src={card.front.imageUrl} style={{ height: "400px" }}></img>
+      <img src={card.imageUrl} style={{ height: "400px" }}></img>
     </div>
   );
 }
@@ -154,13 +155,13 @@ export function CardSearchResults({
   showSide,
   newTab,
   onCardSelected,
-  style = {}
+  style = {},
 }: {
-  cards: Card[];
+  cards: CardFromServer[];
   showSide?: Side;
   style?: CSSProperties;
   newTab?: string;
-  onCardSelected?: (card: Card) => void;
+  onCardSelected?: (card: CardFromServer) => void;
 }) {
   const [cardHover, setCardHover] = useState({ card: null, location: null });
   const showSideColumn = !Boolean(showSide);
@@ -175,7 +176,7 @@ export function CardSearchResults({
             fontWeight: "bold",
             flex: 40,
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           Name
@@ -196,10 +197,10 @@ export function CardSearchResults({
               card={card}
               newTab={newTab}
               showSideColumn={showSideColumn}
-              onMouseOver={e =>
+              onMouseOver={(e) =>
                 setCardHover({
                   card: card,
-                  location: { x: e.pageX, y: e.pageY }
+                  location: { x: e.pageX, y: e.pageY },
                 })
               }
               onMouseOut={() => setCardHover({ card: null, location: null })}
@@ -217,7 +218,7 @@ export function CardSearchResults({
             alignItems: "center",
             color: "grey",
             fontSize: "12px",
-            margin: "10px 0px"
+            margin: "10px 0px",
           }}
         >
           Please apply filters to see more cards

@@ -2,23 +2,21 @@ import { useState } from "react";
 import { Page, Toolbar, Content } from "../../../components/Toolbar";
 import { useRouter } from "next/router";
 import { CardSearchResults } from "../../../components/card-search-table/card-search-results";
-import {
-  Side,
-  Card,
-} from "../../../components/card-search-table/card.interface";
+import { Side } from "../../../components/card-search-table/card.interface";
 import {
   CardFiltersBar,
   applyFilters,
 } from "../../../components/card-search-table/card-filters-bar";
-import {
-  getCards,
-  getCardsFromServer,
-} from "../../../components/card-search-table/getCards";
+import { getCardsFromServer } from "../../../components/card-search-table/getCards";
 import { CardPanel } from "../../../components/card-panel";
 import Footer from "../../../components/Footer";
 import { useMutation, gql } from "@apollo/client";
 import AddCardToDeckMutation from "../../../graphql/add-card-to-deck.gql";
-import { MutationAddCardToDeckArgs, Mutation } from "../../../graphql/types";
+import {
+  MutationAddCardToDeckArgs,
+  Mutation,
+  Card as CardFromServer,
+} from "../../../graphql/types";
 
 function getCardSuggestions({
   side,
@@ -26,22 +24,22 @@ function getCardSuggestions({
   deck,
 }: {
   side: Side;
-  allCards: Card[];
-  deck: Card[];
-}): Card[] {
+  allCards: CardFromServer[];
+  deck: CardFromServer[];
+}): CardFromServer[] {
   if (deck.length === 0) {
     if (side == Side.dark) {
-      return allCards.filter(({ front: { title } }) => {
+      return allCards.filter(({ title }) => {
         return title === "•Knowledge And Defense (V)";
       });
     } else {
-      return allCards.filter(({ front: { title } }) => {
+      return allCards.filter(({ title }) => {
         return title === "•Anger, Fear, Aggression (V)";
       });
     }
   }
 
-  const destroyTheJedi = allCards.find(({ front: { title } }) => {
+  const destroyTheJedi = allCards.find(({ title }) => {
     return (
       title ===
       "Hunt Down And Destroy The Jedi / Their Fire Has Gone Out Of The Universe"
@@ -55,7 +53,7 @@ function getCardSuggestions({
       "•Epic Duel",
     ];
     return allCards
-      .filter(({ front: { title } }) => cardsInDestroyTheJedi.includes(title))
+      .filter(({ title }) => cardsInDestroyTheJedi.includes(title))
       .filter((cardSuggestion) => {
         return deck.map(({ id }) => id).indexOf(cardSuggestion.id) === -1;
       });
@@ -64,10 +62,8 @@ function getCardSuggestions({
   return [];
 }
 
-function isCardInSideDeck(card: Card) {
-  return (
-    card.front.type === "Objective" || card.front.type === "Defensive Shield"
-  );
+function isCardInSideDeck(card: CardFromServer) {
+  return card.type === "Objective" || card.type === "Defensive Shield";
 }
 
 export default function EditDeck() {
@@ -77,16 +73,19 @@ export default function EditDeck() {
   );
   const [deckCards, setDeckCards] = useState([]);
   const [filters, updateFilters] = useState(undefined);
-  const [allCards, setCards] = useState([]);
+  const [allCards, setCards]: [
+    CardFromServer[],
+    (cards: CardFromServer[]) => void
+  ] = useState([]);
   const side = router.query.side as Side;
   const { id: deckId } = router.query;
   if (!deckId) {
     return <div>DeckID not found.</div>;
   }
   if (allCards.length === 0) {
-    getCards().then(setCards);
+    getCardsFromServer().then(setCards);
   }
-  const addCard = (card: Card) => {
+  const addCard = (card: CardFromServer) => {
     getCardsFromServer().then((cards) => {
       const matchedCard = cards.find((c) => c.card_id === card.id.toString());
       if (!matchedCard) {
@@ -105,7 +104,7 @@ export default function EditDeck() {
       { ...card, isSideDeck: isCardInSideDeck(card) },
     ]);
   };
-  const removeCard = (cardToRemove: Card) => {
+  const removeCard = (cardToRemove: CardFromServer) => {
     const index = deckCards.map(({ id }) => id).lastIndexOf(cardToRemove.id);
     setDeckCards([...deckCards.slice(0, index), ...deckCards.slice(index + 1)]);
   };

@@ -6,13 +6,14 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import BlurOnIcon from "@material-ui/icons/BlurOn";
 import FlagIcon from "@material-ui/icons/Flag";
 import GavelIcon from "@material-ui/icons/Gavel";
-import { Card, Side } from "./card.interface";
+import { Side } from "./card.interface";
 import { unique, sortAlphabetically } from "../../utils/utils";
 import { useState } from "react";
 import RecentActorsIcon from "@material-ui/icons/RecentActors";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { orange } from "@material-ui/core/colors";
 import { FilterIcon } from "./FilterIcon";
+import { Card as CardFromServer } from "../../graphql/types";
 
 export const lightOrange = orange[200];
 
@@ -48,7 +49,7 @@ const Input = styled.input`
   }
 `;
 
-export function applyFilters(allCards: Card[], filters: CardFilters) {
+export function applyFilters(allCards: CardFromServer[], filters: CardFilters) {
   return allCards
     .filter((card) => {
       if (!filters || !filters.side) {
@@ -62,7 +63,7 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
         return true;
       }
 
-      return filters.type.includes(card.front.type);
+      return filters.type.includes(card.type);
     })
     .filter((card) => {
       if (!filters || !filters.sets) {
@@ -76,7 +77,7 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
         return true;
       }
 
-      const destiny = card.front.destiny && card.front.destiny.toString();
+      const destiny = card.destiny;
       if (destiny === undefined) {
         return false;
       }
@@ -87,7 +88,7 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
         return true;
       }
 
-      const forfeit = card.front.forfeit && card.front.forfeit.toString();
+      const forfeit = card.forfeit;
       if (forfeit === undefined) {
         return false;
       }
@@ -98,7 +99,7 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
         return true;
       }
 
-      const deploy = card.front.deploy && card.front.deploy.toString();
+      const deploy = card.deploy;
       if (deploy === undefined) {
         return false;
       }
@@ -109,7 +110,7 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
         return true;
       }
 
-      const power = card.front.power && card.front.power.toString();
+      const power = card.power;
       if (power === undefined) {
         return false;
       }
@@ -119,7 +120,7 @@ export function applyFilters(allCards: Card[], filters: CardFilters) {
       if (!filters || !filters.titleFilter) {
         return true;
       }
-      return card.front.title
+      return card.title
         .toLowerCase()
         .includes(filters.titleFilter.toLowerCase());
     });
@@ -154,7 +155,7 @@ export function CardFiltersBar({
   showSideFilter = true,
   onUpdateFilters,
 }: {
-  allCards: Card[];
+  allCards: CardFromServer[];
   showSideFilter?: boolean;
   filters?: CardFilters;
   onUpdateFilters: (cardFilters: CardFilters) => void;
@@ -162,14 +163,12 @@ export function CardFiltersBar({
   const [openDropDown, setOpenDropDown] = useState(undefined);
   const [filterBarOpen, setFilterBarOpen] = useState(false);
   const sets = sortAlphabetically(unique(allCards.map(({ set }) => set)));
-  const types = sortAlphabetically(
-    unique(allCards.map(({ front: { type } }) => type))
-  );
+  const types = sortAlphabetically(unique(allCards.map(({ type }) => type)));
   const getAllOptions = (key: string) => {
     return sortAlphabetically(
       unique(
         allCards
-          .map(({ front }) => front[key])
+          .map((c) => c[key])
           .filter(Boolean)
           .map((item) => item.toString())
       )

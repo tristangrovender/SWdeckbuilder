@@ -7,8 +7,9 @@ import {
   applyFilters,
   CardFilters,
 } from "../components/card-search-table/card-filters-bar";
-import { getCards } from "../components/card-search-table/getCards";
+import { getCardsFromServer } from "../components/card-search-table/getCards";
 import Footer from "../components/Footer";
+import { Card } from "../graphql/types";
 
 export default function Cards() {
   const router = useRouter();
@@ -19,9 +20,9 @@ export default function Cards() {
     titleFilter: router.query.title,
   } as CardFilters);
 
-  const [allCards, setCards] = useState([]);
+  const [allCards, setCards]: [Card[], (cards: Card[]) => void] = useState([]);
   if (allCards.length === 0) {
-    getCards().then(setCards);
+    getCardsFromServer().then(setCards);
   }
   return (
     <Page>
