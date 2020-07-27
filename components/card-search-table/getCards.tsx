@@ -54,6 +54,9 @@ async function loadCards() {
 
 const loadCardsOnce = memoize(loadCards);
 
+/**
+ * @deprecated Pleaase use getCardsFromServer
+ */
 export async function getCards() {
   return loadCardsOnce();
 }
