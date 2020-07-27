@@ -15,5 +15,6 @@ query GetCards {
     side
     subType
     title
+    gemp_card_id
   }
 }

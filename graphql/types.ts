@@ -150,7 +150,7 @@ export type GetCardsQuery = (
   { __typename?: 'Query' }
   & { cards: Array<Maybe<(
     { __typename?: 'Card' }
-    & Pick<Card, 'id' | 'type' | 'card_id' | 'deploy' | 'destiny' | 'forfeit' | 'gametext' | 'imageUrl' | 'lore' | 'power' | 'rarity' | 'set' | 'side' | 'subType' | 'title'>
+    & Pick<Card, 'id' | 'type' | 'card_id' | 'deploy' | 'destiny' | 'forfeit' | 'gametext' | 'imageUrl' | 'lore' | 'power' | 'rarity' | 'set' | 'side' | 'subType' | 'title' | 'gemp_card_id'>
   )>> }
 );
 

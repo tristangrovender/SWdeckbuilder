@@ -194,7 +194,7 @@ export default function Deck() {
   };
   const destiny = deck
     .map((card) => {
-      return card.front.destiny;
+      return card.destiny;
     })
     .filter((destiny) => {
       return destiny !== undefined;
@@ -285,7 +285,7 @@ export default function Deck() {
           <DeckDescription>{deckDescription}</DeckDescription>
         </DeckPageContainer>
         <TypeSectionsContainer>
-          {groupBy(deck, ["front", "type"])
+          {groupBy(deck, ["type"])
             .sort((groupA, groupB) => groupA.length - groupB.length)
             .map((cardsInType, i) => (
               <CardTypeSection key={i} cards={cardsInType} />
