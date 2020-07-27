@@ -14,6 +14,7 @@ import { Button, ClickAwayListener } from "@material-ui/core";
 import FileSaver from "file-saver";
 import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
+import DeckIdContent from "../../components/DeckIdContent";
 import Footer from "../../components/Footer";
 
 const AverageDestiny = styled.div`
@@ -88,11 +89,6 @@ const GrowComponent = styled.div`
 const PageTitle = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const TypeSectionsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
 `;
 
 const TypeContainer = styled.div`
@@ -189,8 +185,6 @@ export default function Deck() {
 
   const authorUsername = "Jambree";
   const deckTitle = "Planet Destroyer";
-  const deckDescription =
-    "Deck is designed to take out opponents characters, then bring in big intrigue characters with pillage to limit cards in hand to limit opponents ability to defend against strong intrigue challenges.";
   return (
     <Page>
       <Toolbar />
@@ -262,15 +256,16 @@ export default function Deck() {
               </DeckButtonsDropDown>
             </DeckButtons>
           </DeckInfoContainer>
-          <DeckDescription>{deckDescription}</DeckDescription>
+          {/* <DeckDescription>{deckDescription}</DeckDescription> */}
         </DeckPageContainer>
-        <TypeSectionsContainer>
-          {groupBy(deck, ["front", "type"])
+        <DeckIdContent></DeckIdContent>
+
+        {/* {groupBy(deck, ["front", "type"])
             .sort((groupA, groupB) => groupA.length - groupB.length)
             .map((cardsInType, i) => (
               <CardTypeSection key={i} cards={cardsInType} />
-            ))}
-        </TypeSectionsContainer>
+            ))} */}
+        {/*^^^^^^^^^^^^^^^^^^^^^^^^ Old stuff ^^^^^^^^^^^^^^^^^^^^^^ */}
         <CommentsSection />
       </Content>
       <Footer></Footer>
