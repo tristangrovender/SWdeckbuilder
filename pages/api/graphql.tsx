@@ -3,6 +3,7 @@ import schema from "../../graphql/schema.gql";
 import { PrismaClient } from "@prisma/client";
 import { recentDecks } from "../../server/resolvers/recent-decks";
 import { getSharedUser } from "../../server/create-shared-user";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
@@ -14,9 +15,12 @@ const resolvers = {
     recentDecks: () => recentDecks(prisma),
   },
   Mutation: {
-    login: () => {
+    login: async () => {
+      const user = await getSharedUser(prisma);
+      // TODO put this secret into .env and load via .env npm module
+      const jwtSecret = "shhhhh";
       return {
-        jwt: "hi",
+        jwt: jwt.sign({ userId: user.id }, jwtSecret),
       };
     },
     createDeck: async (_parent, _args) => {
