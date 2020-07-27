@@ -20,8 +20,8 @@ function sortCardsByName(a: Card, b: Card) {
   return 0;
 }
 
-async function loadCardsFromServer() {
-  return await client
+function loadCardsFromServer() {
+  return client
     .query<GetCardsQueryI>({
       query: gql(GetCardsQuery),
     })
