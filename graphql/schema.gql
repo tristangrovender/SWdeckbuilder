@@ -20,9 +20,6 @@ type Deck {
 }
 type Card {
   id: ID!
-  front: CardFront!
-}
-type CardFront {
   type: String!
 }
 type User {

@@ -24,6 +24,25 @@ const resolvers = {
               },
             });
           },
+          cards: async () => {
+            const cards = await prisma.card.findMany({
+              where: {
+                DeckCard: {
+                  some: {
+                    Deck: {
+                      id: deck.id,
+                    },
+                  },
+                },
+              },
+            });
+            return cards.map((card) => {
+              return {
+                ...card,
+                type: card.front_type,
+              };
+            });
+          },
         };
       });
     },

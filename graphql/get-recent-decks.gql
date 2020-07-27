@@ -11,9 +11,7 @@ query GetRecentDecks {
     averageRating
     cards {
       id
-      front {
-        type
-      }
+      type
     }
   }
 }
