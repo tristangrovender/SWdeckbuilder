@@ -32,11 +32,11 @@ export function SearchBar() {
   const [cards, setCards] = useState([]);
   const [focus, setFocus] = useState(false);
 
-  const handleSearchInputChanges = e => {
+  const handleSearchInputChanges = (e) => {
     if (e.keyCode === 13) {
       Router.push({
         pathname: "/cards",
-        query: { title: searchValue }
+        query: { title: searchValue },
       });
     } else {
       setSearchValue(e.target.value);
@@ -61,7 +61,7 @@ export function SearchBar() {
         onMouseDown={() => Router.push(`/card/${card.id}`)}
         style={{
           padding: "1px",
-          cursor: "pointer"
+          cursor: "pointer",
         }}
       />
     ));
@@ -82,7 +82,6 @@ export function SearchBar() {
         style={{
           transitionDuration: "200ms",
           width: focus ? "300px" : "175px",
-          marginRight: "25px"
         }}
         type="text"
         placeholder="card search"
