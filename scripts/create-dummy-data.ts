@@ -10,7 +10,7 @@ function mapToString(val: any): string {
 }
 
 function createCards(prisma, allCards) {
-  return allCards
+  const cardPromises = allCards
     .filter(({ legacy }) => {
       return legacy == false;
     })
@@ -35,6 +35,7 @@ function createCards(prisma, allCards) {
         },
       });
     });
+  return Promise.all(cardPromises);
 }
 
 function createDecks(userId, dummyDeckData) {
@@ -53,11 +54,31 @@ function createDecks(userId, dummyDeckData) {
   });
 }
 
-getSharedUser(prisma).then((user) => {
-  const createcards = createCards(prisma, cards);
-  const createdDecks = createDecks(user.id, dummyDeckData);
-  Promise.all([...createdDecks, ...createcards]).then(() => {
-    prisma.disconnect();
-    console.log("Created decks & cards");
-  });
+async function getCards(prisma: PrismaClient, cards) {
+  if ((await prisma.card.count()) === 0) {
+    return createCards(prisma, cards);
+  }
+  return prisma.card.findMany();
+}
+
+async function getDecks(prisma: PrismaClient, user) {
+  if ((await prisma.deck.count()) === 0) {
+    return createDecks(user.id, dummyDeckData);
+  }
+
+  return prisma.deck.findMany();
+}
+
+getSharedUser(prisma).then(async (user) => {
+  const dbCards = await getCards(prisma, cards);
+  const dbDecks = await getDecks(prisma, user);
+  console.log(dbCards.length, dbDecks.length);
+  // const deckCount = await prisma.deck.count();
+  // console.log(deckCount);
+  // const createcards = createCards(prisma, cards);
+  // const createdDecks = createDecks(user.id, dummyDeckData);
+  // Promise.all([...createdDecks, ...createcards]).then(() => {
+  //   prisma.disconnect();
+  //   console.log("Created decks & cards");
+  // });
 });
