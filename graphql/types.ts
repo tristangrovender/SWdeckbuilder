@@ -18,14 +18,26 @@ export type Query = {
   recentDecks: Array<Maybe<Deck>>;
 };
 
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  jwt: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  createDeck?: Maybe<Deck>;
+  createDeck: Deck;
+  login: LoginResponse;
 };
 
 
 export type MutationCreateDeckArgs = {
-  side?: Maybe<Side>;
+  side: Side;
+};
+
+
+export type MutationLoginArgs = {
+  username: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export enum Side {
@@ -66,16 +78,16 @@ export enum CacheControlScope {
 
 
 export type CreateDeckMutationVariables = Exact<{
-  side?: Maybe<Side>;
+  side: Side;
 }>;
 
 
 export type CreateDeckMutation = (
   { __typename?: 'Mutation' }
-  & { createDeck?: Maybe<(
+  & { createDeck: (
     { __typename?: 'Deck' }
     & Pick<Deck, 'id' | 'side'>
-  )> }
+  ) }
 );
 
 export type GetRecentDecksQueryVariables = Exact<{ [key: string]: never; }>;
@@ -94,4 +106,18 @@ export type GetRecentDecksQuery = (
       & Pick<Card, 'id' | 'type'>
     )>> }
   )>> }
+);
+
+export type LoginMutationVariables = Exact<{
+  username: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginMutation = (
+  { __typename?: 'Mutation' }
+  & { login: (
+    { __typename?: 'LoginResponse' }
+    & Pick<LoginResponse, 'jwt'>
+  ) }
 );

@@ -1,4 +1,4 @@
-mutation CreateDeck($side: Side) {
+mutation CreateDeck($side: Side!) {
   createDeck(side: $side) {
     id
     side
