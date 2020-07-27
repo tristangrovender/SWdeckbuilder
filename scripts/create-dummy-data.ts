@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { dummyDeckData } from "../utils/dummy-deck-data";
 import { getSharedUser } from "../server/create-shared-user";
 import { Card } from "../components/card-search-table/card.interface";
+import { Side } from "../graphql/types";
 const cards = require("../cards/cards.json");
 const prisma = new PrismaClient();
 
@@ -69,16 +70,28 @@ async function getDecks(prisma: PrismaClient, user) {
   return prisma.deck.findMany();
 }
 
+export function getRandomDeck(allCards, side: Side) {
+  // map over current array
+  const newArray = allCards.map((cards) => {
+    return cards;
+  });
+
+  // Shuffle array
+  const shuffled = newArray.sort(() => 0.5 - Math.random());
+
+  // Get sub-array of first 60 elements after shuffle
+  let randomDeck = shuffled
+    .filter(({ side: cardSide }) => cardSide === side)
+    .slice(0, 60);
+
+  return randomDeck;
+}
+
 getSharedUser(prisma).then(async (user) => {
   const dbCards = await getCards(prisma, cards);
   const dbDecks = await getDecks(prisma, user);
   console.log(dbCards.length, dbDecks.length);
-  // const deckCount = await prisma.deck.count();
-  // console.log(deckCount);
-  // const createcards = createCards(prisma, cards);
-  // const createdDecks = createDecks(user.id, dummyDeckData);
-  // Promise.all([...createdDecks, ...createcards]).then(() => {
-  //   prisma.disconnect();
-  //   console.log("Created decks & cards");
-  // });
+  dbDecks.map((deck) => {
+    console.log(getRandomDeck(dbCards, deck.side).length);
+  });
 });
