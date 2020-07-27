@@ -10,7 +10,10 @@ import {
   CardFiltersBar,
   applyFilters,
 } from "../../../components/card-search-table/card-filters-bar";
-import { getCards } from "../../../components/card-search-table/getCards";
+import {
+  getCards,
+  getCardsFromServer,
+} from "../../../components/card-search-table/getCards";
 import { CardPanel } from "../../../components/card-panel";
 import Footer from "../../../components/Footer";
 import { useMutation, gql } from "@apollo/client";
@@ -84,12 +87,19 @@ export default function EditDeck() {
     getCards().then(setCards);
   }
   const addCard = (card: Card) => {
-    // addCardToDeck({
-    //   variables: {
-    //     // TODO card ID
-    //     cardId:
-    //   }
-    // })
+    getCardsFromServer().then((cards) => {
+      const matchedCard = cards.find((c) => c.card_id === card.id.toString());
+      if (!matchedCard) {
+        console.log("Unable to find card in server", card);
+        return;
+      }
+      addCardToDeck({
+        variables: {
+          cardId: matchedCard.id,
+          deckId: deckId as string,
+        },
+      });
+    });
     setDeckCards([
       ...deckCards,
       { ...card, isSideDeck: isCardInSideDeck(card) },

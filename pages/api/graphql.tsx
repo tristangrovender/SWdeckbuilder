@@ -70,12 +70,12 @@ const resolvers = {
         data: {
           Card: {
             connect: {
-              id: _args.cardId,
+              id: parseInt(_args.cardId),
             },
           },
           Deck: {
             connect: {
-              id: _args.deckId,
+              id: parseInt(_args.deckId),
             },
           },
         },
