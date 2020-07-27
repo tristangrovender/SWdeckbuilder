@@ -86,18 +86,11 @@ export default function EditDeck() {
     getCardsFromServer().then(setCards);
   }
   const addCard = (card: CardFromServer) => {
-    getCardsFromServer().then((cards) => {
-      const matchedCard = cards.find((c) => c.card_id === card.id.toString());
-      if (!matchedCard) {
-        console.log("Unable to find card in server", card);
-        return;
-      }
-      addCardToDeck({
-        variables: {
-          cardId: matchedCard.id,
-          deckId: deckId as string,
-        },
-      });
+    addCardToDeck({
+      variables: {
+        cardId: card.id,
+        deckId: deckId as string,
+      },
     });
     setDeckCards([
       ...deckCards,
