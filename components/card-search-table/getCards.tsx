@@ -2,6 +2,8 @@ import { Card } from "./card.interface";
 import { memoize } from "../../utils/utils";
 import { client } from "../apollo-client";
 import { gql } from "@apollo/client";
+import GetCardsQuery from "../../graphql/get-cards.gql";
+import { GetCardsQuery as GetCardsQueryI } from "../../graphql/types";
 
 function sortCardsByName(a: Card, b: Card) {
   // update function so that the dots before the name are ignored
@@ -18,35 +20,17 @@ function sortCardsByName(a: Card, b: Card) {
   return 0;
 }
 
-function loadCardsFromServer() {
-  return client
-    .query({
-      query: gql(
-        `query GetCards {
-          cards{
-            id
-            type
-            card_id
-            deploy
-            destiny
-            forfeit
-            gametext
-            imageUrl
-            lore
-            power
-            rarity
-            set
-            side
-            subType
-            title
-          }
-        }`
-      ),
+async function loadCardsFromServer() {
+  return await client
+    .query<GetCardsQueryI>({
+      query: gql(GetCardsQuery),
     })
     .then(({ data }) => {
       return data.cards;
     });
 }
+
+loadCardsFromServer().then(console.log);
 
 function removeLegacyCards({ legacy }: Card) {
   return legacy === false;

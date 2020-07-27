@@ -16,6 +16,7 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String'];
   recentDecks: Array<Maybe<Deck>>;
+  cards: Array<Maybe<Card>>;
 };
 
 export type LoginResponse = {
@@ -55,8 +56,7 @@ export type MutationAddCardToDeckArgs = {
 
 
 export type MutationRemoveCardFromDeckArgs = {
-  deckId: Scalars['ID'];
-  cardId: Scalars['ID'];
+  deckCardId: Scalars['ID'];
 };
 
 export enum Side {
@@ -81,7 +81,20 @@ export type Deck = {
 export type Card = {
   __typename?: 'Card';
   id: Scalars['ID'];
+  card_id: Scalars['String'];
+  side: Side;
+  rarity: Scalars['String'];
+  set: Scalars['String'];
+  title: Scalars['String'];
   type: Scalars['String'];
+  imageUrl: Scalars['String'];
+  subType?: Maybe<Scalars['String']>;
+  destiny?: Maybe<Scalars['String']>;
+  power?: Maybe<Scalars['String']>;
+  deploy?: Maybe<Scalars['String']>;
+  forfeit?: Maybe<Scalars['String']>;
+  gametext?: Maybe<Scalars['String']>;
+  lore?: Maybe<Scalars['String']>;
 };
 
 export type User = {
@@ -96,6 +109,20 @@ export enum CacheControlScope {
 }
 
 
+export type AddCardToDeckMutationVariables = Exact<{
+  deckId: Scalars['ID'];
+  cardId: Scalars['ID'];
+}>;
+
+
+export type AddCardToDeckMutation = (
+  { __typename?: 'Mutation' }
+  & { addCardToDeck: (
+    { __typename?: 'SuccessResponse' }
+    & Pick<SuccessResponse, 'success'>
+  ) }
+);
+
 export type CreateDeckMutationVariables = Exact<{
   side: Side;
 }>;
@@ -107,6 +134,17 @@ export type CreateDeckMutation = (
     { __typename?: 'Deck' }
     & Pick<Deck, 'id' | 'side'>
   ) }
+);
+
+export type GetCardsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCardsQuery = (
+  { __typename?: 'Query' }
+  & { cards: Array<Maybe<(
+    { __typename?: 'Card' }
+    & Pick<Card, 'id' | 'type' | 'card_id' | 'deploy' | 'destiny' | 'forfeit' | 'gametext' | 'imageUrl' | 'lore' | 'power' | 'rarity' | 'set' | 'side' | 'subType' | 'title'>
+  )>> }
 );
 
 export type GetRecentDecksQueryVariables = Exact<{ [key: string]: never; }>;
