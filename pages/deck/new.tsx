@@ -25,7 +25,7 @@ const RadioContainer = styled.div`
 
 export default function NewDeck() {
   const [createDeck] = useMutation<Mutation, MutationCreateDeckArgs>(
-    gql(CreateDeckQuery)
+    gql(CreateDeckQuery + "")
   );
   const [side, setSide] = useState(Side.Dark);
   return (
