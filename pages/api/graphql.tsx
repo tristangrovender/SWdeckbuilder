@@ -122,6 +122,7 @@ const resolvers = {
     forfeit: (_parent) => _parent.front_forfeit,
     gametext: (_parent) => _parent.front_gametext,
     lore: (_parent) => _parent.front_lore,
+    gemp_card_id: (_parent) => _parent.gemp_card_id,
   },
 };
 

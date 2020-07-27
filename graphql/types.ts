@@ -17,6 +17,12 @@ export type Query = {
   hello: Scalars['String'];
   recentDecks: Array<Maybe<Deck>>;
   cards: Array<Maybe<Card>>;
+  deck: Deck;
+};
+
+
+export type QueryDeckArgs = {
+  id: Scalars['ID'];
 };
 
 export type LoginResponse = {
@@ -95,6 +101,7 @@ export type Card = {
   forfeit?: Maybe<Scalars['String']>;
   gametext?: Maybe<Scalars['String']>;
   lore?: Maybe<Scalars['String']>;
+  gemp_card_id?: Maybe<Scalars['String']>;
 };
 
 export type User = {

@@ -48,6 +48,7 @@ type Card {
   forfeit: String
   gametext: String
   lore: String
+  gemp_card_id: String
 }
 type User {
   id: ID!
