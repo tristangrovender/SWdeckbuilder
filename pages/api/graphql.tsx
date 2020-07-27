@@ -12,32 +12,12 @@ const typeDefs = gql(schema + "");
 // TODO put this secret into .env and load via .env npm module
 const jwtSecret = "shhhhh";
 
-function dbFieldsToApi(card) {
-  return {
-    id: card.id,
-    type: card.front_type,
-    card_id: card.card_id,
-    side: card.side,
-    rarity: card.rarity,
-    set: card.set,
-    title: card.front_title,
-    imageUrl: card.front_imageurl,
-    subType: card.front_subtype,
-    destiny: card.front_destiny,
-    power: card.front_power,
-    deploy: card.front_deploy || undefined,
-    forfeit: card.front_forfeit,
-    gametext: card.front_gametext,
-    lore: card.front_lore,
-  };
-}
-
 const resolvers = {
   Query: {
     hello: (_parent, _args, _context) => "Hello!",
     recentDecks: () => recentDecks(prisma),
-    cards: async () => {
-      return (await prisma.card.findMany()).map(dbFieldsToApi);
+    cards: () => {
+      return prisma.card.findMany();
     },
     deck: async (_parent, _args) => {
       return prisma.deck.findOne({
@@ -123,8 +103,25 @@ const resolvers = {
           },
         },
       });
-      return cards.map(dbFieldsToApi);
+      return cards;
     },
+  },
+  Card: {
+    id: (_parent) => _parent.id,
+    type: (_parent) => _parent.front_type,
+    card_id: (_parent) => _parent.card_id,
+    side: (_parent) => _parent.side,
+    rarity: (_parent) => _parent.rarity,
+    set: (_parent) => _parent.set,
+    title: (_parent) => _parent.front_title,
+    imageUrl: (_parent) => _parent.front_imageurl,
+    subType: (_parent) => _parent.front_subtype,
+    destiny: (_parent) => _parent.front_destiny,
+    power: (_parent) => _parent.front_power,
+    deploy: (_parent) => _parent.front_deploy || undefined,
+    forfeit: (_parent) => _parent.front_forfeit,
+    gametext: (_parent) => _parent.front_gametext,
+    lore: (_parent) => _parent.front_lore,
   },
 };
 
