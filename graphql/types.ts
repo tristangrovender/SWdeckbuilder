@@ -23,10 +23,17 @@ export type LoginResponse = {
   jwt: Scalars['String'];
 };
 
+export type SuccessResponse = {
+  __typename?: 'SuccessResponse';
+  success: Scalars['Boolean'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createDeck: Deck;
   login: LoginResponse;
+  addCardToDeck: SuccessResponse;
+  removeCardFromDeck: SuccessResponse;
 };
 
 
@@ -38,6 +45,18 @@ export type MutationCreateDeckArgs = {
 export type MutationLoginArgs = {
   username: Scalars['String'];
   password: Scalars['String'];
+};
+
+
+export type MutationAddCardToDeckArgs = {
+  deckId: Scalars['ID'];
+  cardId: Scalars['ID'];
+};
+
+
+export type MutationRemoveCardFromDeckArgs = {
+  deckId: Scalars['ID'];
+  cardId: Scalars['ID'];
 };
 
 export enum Side {
