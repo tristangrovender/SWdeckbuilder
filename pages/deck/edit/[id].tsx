@@ -14,6 +14,7 @@ import { useMutation, gql } from "@apollo/client";
 import AddCardToDeckMutation from "../../../graphql/add-card-to-deck.gql";
 import RemoveCardFromDeckMutation from "../../../graphql/remove-card-from-deck.gql";
 import { MutationRemoveCardFromDeckArgs } from "../../../graphql/types";
+import { CardFilters } from "../../../components/card-search-table/card-filters-bar";
 import {
   MutationAddCardToDeckArgs,
   Mutation,
@@ -47,7 +48,7 @@ function getCardSuggestions({
       "Hunt Down And Destroy The Jedi / Their Fire Has Gone Out Of The Universe"
     );
   });
-  if (deck.some(({ id }) => id === destroyTheJedi.id)) {
+  if (deck.some(({ id }) => id === (destroyTheJedi && destroyTheJedi.id))) {
     const cardsInDestroyTheJedi = [
       "•Executor: Holotheatre",
       "•Visage Of The Emperor",
@@ -83,7 +84,10 @@ export default function EditDeck() {
     Mutation,
     MutationRemoveCardFromDeckArgs
   >(gql(RemoveCardFromDeckMutation + ""));
-  const [filters, updateFilters] = useState(undefined);
+  const [filters, updateFilters]: [
+    CardFilters | undefined,
+    (filters: CardFilters) => void
+  ] = useState();
   const [allCards, setCards] = useState<Card[]>([]);
   const side = router.query.side as Side;
   const { id: deckId } = router.query;
