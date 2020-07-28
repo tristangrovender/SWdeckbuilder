@@ -165,7 +165,7 @@ export function CardPanel({
 }: {
   deck?: GetDeckQuery["deck"];
   suggestedCards: DeckCard[];
-  addCard: (card: DeckCard) => void;
+  addCard: (cardId: string) => void;
   removeCard: (card: DeckCard) => void;
 }) {
   const [startingCardIds, setStartingCardIds]: [
@@ -297,7 +297,11 @@ export function CardPanel({
                         fontSize: "12px",
                       },
                       { onClick: () => removeCard(deckCard), text: "-" },
-                      { onClick: () => addCard(deckCard), text: "+" },
+                      {
+                        onClick: () =>
+                          deckCard?.card.id && addCard(deckCard?.card.id),
+                        text: "+",
+                      },
                     ]}
                   />
                 ))
@@ -325,7 +329,11 @@ export function CardPanel({
                         fontSize: "12px",
                       },
                       { onClick: () => removeCard(deckCard), text: "-" },
-                      { onClick: () => addCard(deckCard), text: "+" },
+                      {
+                        onClick: () =>
+                          deckCard?.card.id && addCard(deckCard?.card.id),
+                        text: "+",
+                      },
                     ]}
                   />
                 ))}
@@ -334,20 +342,21 @@ export function CardPanel({
             {suggestedCards.length ? (
               <CardPanelSection>
                 <CardPanelSectionTitle>Suggested Cards</CardPanelSectionTitle>
-                {suggestedCards.map((card, i) => (
+                {suggestedCards.map((deckCard, i) => (
                   <CardPanelRow
                     key={i}
-                    deckCard={card}
+                    deckCard={deckCard}
                     count={0}
                     backgroundColor="black"
                     hoverButtons={[
                       {
-                        onClick: onCardInfoHandler(card),
+                        onClick: onCardInfoHandler(deckCard),
                         text: "i",
                         fontSize: "12px",
                       },
                       {
-                        onClick: () => addCard(card),
+                        onClick: () =>
+                          deckCard?.card.id && addCard(deckCard?.card.id),
                         text: "accept",
                         fontSize: "12px",
                       },
