@@ -72,8 +72,8 @@ function getCardSuggestions({
 
 function isCardInSideDeck(deckCard: DeckCard) {
   return (
-    deckCard?.card.type === "Objective" ||
-    deckCard?.card.type === "Defensive Shield"
+    deckCard?.card?.type === "Objective" ||
+    deckCard?.card?.type === "Defensive Shield"
   );
 }
 

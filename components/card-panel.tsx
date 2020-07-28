@@ -127,8 +127,8 @@ function CardPanelRow({
       onMouseLeave={() => setHovering(false)}
     >
       <CardSnippet
-        title={deckCard?.card.title}
-        imageUrl={deckCard?.card.imageUrl}
+        title={deckCard?.card?.title}
+        imageUrl={deckCard?.card?.imageUrl}
         hoverButtons={hoverButtons}
         backgroundColor={backgroundColor}
         isHovering={isHovering}
@@ -165,7 +165,6 @@ export function CardPanel({
   addCard: (card: DeckCard) => void;
   removeCard: (card: DeckCard) => void;
 }) {
-  console.log("deck", deck);
   const [startingCardIds, setStartingCardIds]: [
     string[],
     (cards: string[]) => void
