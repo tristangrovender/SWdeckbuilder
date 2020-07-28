@@ -35,11 +35,16 @@ export type SuccessResponse = {
   success: Scalars['Boolean'];
 };
 
+export type DeckCardIdResponse = {
+  __typename?: 'DeckCardIDResponse';
+  newDeckCardId: Scalars['ID'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createDeck: Deck;
   login: LoginResponse;
-  addCardToDeck: SuccessResponse;
+  addCardToDeck: DeckCardIdResponse;
   removeCardFromDeck: SuccessResponse;
 };
 
@@ -125,8 +130,8 @@ export type AddCardToDeckMutationVariables = Exact<{
 export type AddCardToDeckMutation = (
   { __typename?: 'Mutation' }
   & { addCardToDeck: (
-    { __typename?: 'SuccessResponse' }
-    & Pick<SuccessResponse, 'success'>
+    { __typename?: 'DeckCardIDResponse' }
+    & Pick<DeckCardIdResponse, 'newDeckCardId'>
   ) }
 );
 

@@ -10,10 +10,13 @@ type LoginResponse {
 type SuccessResponse {
   success: Boolean!
 }
+type DeckCardIDResponse {
+  newDeckCardId: ID!
+}
 type Mutation {
   createDeck(side: Side!): Deck!
   login(username: String!, password: String!): LoginResponse!
-  addCardToDeck(deckId: ID!, cardId: ID!): SuccessResponse!
+  addCardToDeck(deckId: ID!, cardId: ID!): DeckCardIDResponse!
   removeCardFromDeck(deckCardId: ID!): SuccessResponse!
 }
 enum Side {

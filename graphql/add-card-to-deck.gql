@@ -1,5 +1,5 @@
 mutation AddCardToDeck($deckId: ID!, $cardId: ID!) {
   addCardToDeck(deckId: $deckId, cardId: $cardId) {
-    success
+    newDeckCardId
   }
 }

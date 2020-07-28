@@ -193,6 +193,33 @@
       },
       {
         "kind": "OBJECT",
+        "name": "DeckCardIDResponse",
+        "description": null,
+        "fields": [
+          {
+            "name": "newDeckCardId",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "Mutation",
         "description": null,
         "fields": [
@@ -310,7 +337,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "SuccessResponse",
+                "name": "DeckCardIDResponse",
                 "ofType": null
               }
             },

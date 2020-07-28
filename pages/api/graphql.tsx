@@ -65,7 +65,7 @@ const resolvers = {
       if (!_context.userId) {
         throw new Error("Please login");
       }
-      await prisma.deckCard.create({
+      const newDeckCardId = await prisma.deckCard.create({
         data: {
           Card: {
             connect: {
@@ -80,7 +80,7 @@ const resolvers = {
         },
       });
       return {
-        success: true,
+        newDeckCardId,
       };
     },
     removeCardFromDeck: async (_parent, _args, _context) => {
