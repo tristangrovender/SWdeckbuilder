@@ -70,7 +70,7 @@ const CardPanelRowContainer = styled.div`
   }
 `;
 
-type DeckCard = GetDeckQuery["deck"]["deckCards"][];
+type DeckCard = GetDeckQuery["deck"]["deckCards"];
 
 function groupCards(cards: DeckCard[]): { count: number; card: DeckCard }[] {
   const cardsByCount = cards.reduce(
@@ -85,7 +85,7 @@ function groupCards(cards: DeckCard[]): { count: number; card: DeckCard }[] {
       card,
       index
     ) => {
-      if (!all[card.id]) {
+      if (!all[card?.id]) {
         all[card.id] = { card, count: 1, index };
       } else {
         all[card.id].count += 1;
