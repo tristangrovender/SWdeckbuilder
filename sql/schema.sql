@@ -25,7 +25,8 @@ CREATE TABLE "public"."DeckCard"(
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   "cardId" INTEGER NOT NULL, FOREIGN KEY ("cardId") REFERENCES "public"."Card"(id),
-  "deckId" INTEGER NOT NULL, FOREIGN KEY ("deckId") REFERENCES "public"."Deck"(id)
+  "deckId" INTEGER NOT NULL, FOREIGN KEY ("deckId") REFERENCES "public"."Deck"(id),
+  is_in_side_deck Boolean DEFAULT false
 );
 
 create table "public"."Card" (

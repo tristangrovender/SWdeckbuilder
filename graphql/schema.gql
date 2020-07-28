@@ -41,6 +41,7 @@ type DeckCard {
   updatedAt: Date!
   card: Card!
   deck: Deck!
+  isInSideDeck: Boolean!
 }
 type Card {
   id: ID!

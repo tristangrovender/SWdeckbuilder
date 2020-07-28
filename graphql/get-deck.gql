@@ -8,6 +8,7 @@ query GetDeck($id: ID!) {
     }
     deckCards {
       id
+      isInSideDeck
       card {
         id
         card_id
