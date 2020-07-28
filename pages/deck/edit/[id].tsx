@@ -16,10 +16,10 @@ import RemoveCardFromDeckMutation from "../../../graphql/remove-card-from-deck.g
 import GetDeckQuery from "../../../graphql/get-deck.gql";
 import {
   MutationRemoveCardFromDeckArgs,
-  Query,
   GetDeckQueryVariables,
 } from "../../../graphql/types";
 import { CardFilters } from "../../../components/card-search-table/card-filters-bar";
+import { Deck } from "../../../graphql/types";
 import {
   MutationAddCardToDeckArgs,
   Mutation,
@@ -81,7 +81,7 @@ interface DeckCard extends Card {
 
 export default function EditDeck() {
   const router = useRouter();
-  const { data: deckInfo } = useQuery<Query, GetDeckQueryVariables>(
+  const { data: deckInfo } = useQuery<{ deck: Deck }, GetDeckQueryVariables>(
     gql(GetDeckQuery),
     {
       variables: {
