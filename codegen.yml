@@ -6,6 +6,9 @@ generates:
     plugins:
       - "typescript"
       - "typescript-operations"
+      - "typescript-resolvers"
+    config:
+      useIndexSignature: true
   ./graphql.schema.json:
     plugins:
       - "introspection"

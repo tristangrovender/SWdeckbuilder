@@ -32,7 +32,6 @@ type Deck {
   description: String!
   author: User!
   averageRating: Float
-  test: String!
   deckCards: [DeckCard]!
 }
 type DeckCard {

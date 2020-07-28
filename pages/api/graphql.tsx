@@ -4,8 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { recentDecks } from "../../server/resolvers/recent-decks";
 import { getSharedUser } from "../../server/create-shared-user";
 import jwt from "jsonwebtoken";
-import { Card } from "../../graphql/types";
-import { Resolvers } from "@apollo/client";
+import { Resolvers } from "../../graphql/types";
 
 const prisma = new PrismaClient();
 
@@ -162,7 +161,7 @@ const apolloServer = new ApolloServer({
   context: ({ req }) => {
     try {
       const token = req.headers.authorization.split(" ")[1];
-      const decoded = jwt.verify(token, jwtSecret);
+      const decoded = jwt.verify(token, jwtSecret) as { userId: string };
       return { userId: decoded.userId };
     } catch (e) {
       return {};
