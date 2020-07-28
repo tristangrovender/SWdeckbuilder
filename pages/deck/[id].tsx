@@ -223,7 +223,7 @@ export default function Deck() {
 
             <DeckButtons>
               <AverageDestiny>
-                {Math.round(average(destiny))} Avg Destiny
+                {Math.round(average(destiny) * 10) / 10} Avg Destiny
               </AverageDestiny>
               <StarsComponent rating={3.5} />
               <DeckButtonsDropDown>
