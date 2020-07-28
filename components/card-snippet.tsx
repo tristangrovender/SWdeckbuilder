@@ -6,7 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 const CardSnippetTitleContainer = styled.div`
   width: 100%;
   white-space: nowrap;
-  color: ${props => (props.textColor ? props.textColor : "white")};
+  color: ${(props) => (props.textColor ? props.textColor : "white")};
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 1;
@@ -32,9 +32,9 @@ const CardControlButton = styled.div`
 export function FadedImage({
   imageUrl,
   backgroundColor,
-  children
+  children,
 }: {
-  imageUrl: string;
+  imageUrl?: string;
   backgroundColor: string;
   children?: any;
 }) {
@@ -51,13 +51,13 @@ export function FadedImage({
         bottom: "0px",
         right: "0px",
         height: "100%",
-        zIndex: 0
+        zIndex: 0,
       }}
     >
       <div
         style={{
           background: `linear-gradient(to left, rgba(255,255,255,0) 0%, ${backgroundColor} 100%)`,
-          height: "100%"
+          height: "100%",
         }}
       ></div>
       {children}
@@ -73,10 +73,10 @@ export function CardSnippet({
   backgroundColor = darkBlue,
   hoverButtons,
   textColor,
-  onMouseDown
+  onMouseDown,
 }: {
-  title: string;
-  imageUrl: string;
+  title?: string;
+  imageUrl?: string;
   backgroundColor?: string;
   style?: CSSProperties;
   textColor?: string;
@@ -97,7 +97,7 @@ export function CardSnippet({
         display: "flex",
         justifyContent: "space-between",
         flexGrow: 1,
-        position: "relative"
+        position: "relative",
       }}
     >
       <CardSnippetTitleContainer textColor={textColor}>
@@ -116,7 +116,7 @@ export function CardSnippet({
           right: "0px",
           height: "100%",
           backgroundColor: "rgba(0,0,0,0.9)",
-          userSelect: "none"
+          userSelect: "none",
         }}
       >
         {hoverButtons

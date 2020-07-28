@@ -70,7 +70,7 @@ const CardPanelRowContainer = styled.div`
   }
 `;
 
-type DeckCard = GetDeckQuery["deck"]["deckCards"];
+type DeckCard = GetDeckQuery["deck"]["deckCards"][0];
 
 function groupCards(cards: DeckCard[]): { count: number; card: DeckCard }[] {
   const cardsByCount = cards.reduce(
@@ -85,7 +85,10 @@ function groupCards(cards: DeckCard[]): { count: number; card: DeckCard }[] {
       card,
       index
     ) => {
-      if (!all[card?.id]) {
+      if (!card) {
+        return all;
+      }
+      if (!all[card.id]) {
         all[card.id] = { card, count: 1, index };
       } else {
         all[card.id].count += 1;
@@ -100,13 +103,13 @@ function groupCards(cards: DeckCard[]): { count: number; card: DeckCard }[] {
 }
 
 function CardPanelRow({
-  card,
+  deckCard,
   count,
   backgroundColor,
   hoverButtons,
   textColor,
 }: {
-  card: Card;
+  deckCard: DeckCard;
   count: number;
   backgroundColor?: string;
   textColor?: string;
@@ -124,8 +127,8 @@ function CardPanelRow({
       onMouseLeave={() => setHovering(false)}
     >
       <CardSnippet
-        title={card.title}
-        imageUrl={card.imageUrl}
+        title={deckCard?.card.title}
+        imageUrl={deckCard?.card.imageUrl}
         hoverButtons={hoverButtons}
         backgroundColor={backgroundColor}
         isHovering={isHovering}
@@ -160,9 +163,9 @@ export function CardPanel({
 }: {
   cards: CardWithDeckInfo[];
   deck?: GetDeckQuery["deck"];
-  suggestedCards: Card[];
-  addCard: (card: Card) => void;
-  removeCard: (card: Card) => void;
+  suggestedCards: DeckCard[];
+  addCard: (card: DeckCard) => void;
+  removeCard: (card: DeckCard) => void;
 }) {
   console.log("deck", deck);
   const [startingCardIds, setStartingCardIds]: [
@@ -171,22 +174,24 @@ export function CardPanel({
   ] = useState([] as string[]);
   const [scrollDiv, setScrollDiv] = useState(undefined);
   // TODO need to setup this scroll
-  const prev = usePrevious({ cardRowLength: groupCards(cards).length });
+  const prev = usePrevious({
+    cardRowLength: groupCards(deck?.deckCards || []).length,
+  });
   useEffect(() => {
     if (
       prev &&
-      groupCards(cards).length > (prev as any).cardRowLength &&
+      groupCards(deck?.deckCards || []).length > (prev as any).cardRowLength &&
       scrollDiv
     ) {
       (scrollDiv as any).scrollIntoViewIfNeeded({ behavior: "smooth" });
     }
   }, [cards]);
   const [cardInfo, setCardInfo]: [
-    { card: Card; clickAwayActive: boolean } | undefined,
-    (cardInfo: { card: Card; clickAwayActive: boolean } | undefined) => void
+    { card: DeckCard; clickAwayActive: boolean } | undefined,
+    (cardInfo: { card: DeckCard; clickAwayActive: boolean } | undefined) => void
   ] = useState();
-  const onCardInfoHandler = (card: Card) => () => {
-    if (cardInfo && cardInfo.card.id === card.id) {
+  const onCardInfoHandler = (card: DeckCard) => () => {
+    if (cardInfo?.card?.id === card?.id) {
       setCardInfo(undefined);
     } else {
       if (cardInfo) {
@@ -253,9 +258,9 @@ export function CardPanel({
                 groupCards(cardsInMainDeck).map(({ card, count }, i) => (
                   <CardPanelRow
                     key={i}
-                    card={card}
+                    deckCard={card}
                     textColor={
-                      startingCardIds.includes(card.id.toString())
+                      startingCardIds.includes(card?.id.toString() || "")
                         ? goldenColor
                         : undefined
                     }
@@ -263,9 +268,11 @@ export function CardPanel({
                     hoverButtons={[
                       {
                         onClick: () => {
-                          if (startingCardIds.includes(card.id.toString())) {
+                          if (
+                            startingCardIds.includes(card?.id.toString() || "")
+                          ) {
                             const index = startingCardIds.indexOf(
-                              card.id.toString()
+                              card?.id.toString() || ""
                             );
                             setStartingCardIds([
                               ...startingCardIds.slice(0, index),
@@ -274,7 +281,7 @@ export function CardPanel({
                           } else {
                             setStartingCardIds([
                               ...startingCardIds,
-                              card.id.toString(),
+                              card?.id.toString() || "",
                             ]);
                           }
                         },
@@ -307,7 +314,7 @@ export function CardPanel({
                 {groupCards(cardsInSideDeck).map(({ card, count }, i) => (
                   <CardPanelRow
                     key={i}
-                    card={card}
+                    deckCard={card}
                     count={count}
                     hoverButtons={[
                       {
@@ -328,7 +335,7 @@ export function CardPanel({
                 {suggestedCards.map((card, i) => (
                   <CardPanelRow
                     key={i}
-                    card={card}
+                    deckCard={card}
                     count={0}
                     backgroundColor="black"
                     hoverButtons={[
@@ -358,7 +365,7 @@ export function CardPanel({
                 }}
               >
                 <CardInfoContainer>
-                  <img src={cardInfo.card.imageUrl} />
+                  <img src={cardInfo?.card?.card.imageUrl} />
                 </CardInfoContainer>
               </ClickAwayListener>
             ) : null}
