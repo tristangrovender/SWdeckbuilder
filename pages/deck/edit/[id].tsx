@@ -130,16 +130,17 @@ export default function EditDeck() {
     });
   };
   const removeCard = (cardToRemove: DeckCard) => {
-    const index = deckCards
-      .map((deckCard) => deckCard?.id)
-      .lastIndexOf(cardToRemove?.id);
-    // TODO come back to this
-    // removeCardFromDeck({
-    //   variables: {
-    //     deckCardId: deckCards[index].deckCardId,
-    //   },
-    // }).then(() => {});
-    setDeckCards([...deckCards.slice(0, index), ...deckCards.slice(index + 1)]);
+    if (!cardToRemove) {
+      console.log("Unable to remove card", cardToRemove);
+      return;
+    }
+    removeCardFromDeck({
+      variables: {
+        deckCardId: cardToRemove.id,
+      },
+    }).then(() => {
+      refreshDeck();
+    });
   };
   if (!deckId) {
     return (
