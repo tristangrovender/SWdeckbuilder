@@ -143,10 +143,10 @@ export interface CardWithDeckInfo extends CardFromServer {
   isSideDeck: boolean;
 }
 
-function usePrevious(value) {
+function usePrevious(value: string) {
   const ref = useRef();
   useEffect(() => {
-    ref.current = value;
+    (ref as any).current = value;
   });
   return ref.current;
 }
