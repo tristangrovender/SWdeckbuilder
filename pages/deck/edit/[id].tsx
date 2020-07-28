@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Page, Toolbar, Content } from "../../../components/Toolbar";
 import { useRouter } from "next/router";
 import { CardSearchResults } from "../../../components/card-search-table/card-search-results";
-import { Side } from "../../../components/card-search-table/card.interface";
 import {
   CardFiltersBar,
   applyFilters,
@@ -19,7 +18,7 @@ import {
   GetDeckQueryVariables,
 } from "../../../graphql/types";
 import { CardFilters } from "../../../components/card-search-table/card-filters-bar";
-import { GetDeckQuery as GetDeckQueryI } from "../../../graphql/types";
+import { GetDeckQuery as GetDeckQueryI, Side } from "../../../graphql/types";
 import {
   MutationAddCardToDeckArgs,
   Mutation,
@@ -36,7 +35,7 @@ function getCardSuggestions({
   deckCards: DeckCard[];
 }): Card[] {
   if (deckCards.length === 0) {
-    if (side == Side.dark) {
+    if (side == Side.Dark) {
       return allCards.filter(({ title }) => {
         return title === "•Knowledge And Defense (V)";
       });
@@ -158,6 +157,9 @@ export default function EditDeck() {
       </Page>
     );
   }
+  if (!deckInfo || !deckInfo.deck) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Page>
@@ -169,11 +171,13 @@ export default function EditDeck() {
           filters={filters}
           onUpdateFilters={(filters) => updateFilters(filters)}
         />
-        {/* TODO showSide will need to come from /deck/new choice */}
         <div style={{ display: "flex" }}>
           <CardSearchResults
-            cards={applyFilters(allCards, { ...filters, side })}
-            showSide={side}
+            cards={applyFilters(allCards, {
+              ...filters,
+              side: deckInfo.deck.side as any,
+            })}
+            showSide={deckInfo.deck.side}
             onCardSelected={addCard}
             newTab={"_blank"}
             style={{
@@ -182,13 +186,13 @@ export default function EditDeck() {
             }}
           />
           <CardPanel
-            deck={deckInfo && deckInfo.deck}
+            deck={deckInfo.deck}
             suggestedCards={
               allCards.length
                 ? getCardSuggestions({
-                    deckCards: deckInfo?.deck.deckCards || [],
+                    deckCards: deckInfo.deck.deckCards || [],
                     allCards,
-                    side,
+                    side: deckInfo.deck.side,
                   })
                 : []
             }

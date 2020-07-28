@@ -2,6 +2,7 @@ query GetDeck($id: ID!) {
   deck(id: $id) {
     id
     title
+    side
     author {
       id
       username

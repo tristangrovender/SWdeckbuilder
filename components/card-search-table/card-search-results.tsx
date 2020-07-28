@@ -1,11 +1,10 @@
 import { useState } from "react";
 import Link from "next/link";
-import { Side } from "./card.interface";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import AddIcon from "@material-ui/icons/Add";
 import { CardFilters } from "./card-filters-bar";
 import { string } from "prop-types";
-import { Card as CardFromServer } from "../../graphql/types";
+import { Card as CardFromServer, Side } from "../../graphql/types";
 
 function CardRow({
   card,

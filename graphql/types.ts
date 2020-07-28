@@ -179,7 +179,7 @@ export type GetDeckQuery = (
   { __typename?: 'Query' }
   & { deck: (
     { __typename?: 'Deck' }
-    & Pick<Deck, 'id' | 'title'>
+    & Pick<Deck, 'id' | 'title' | 'side'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'username'>
