@@ -19,7 +19,7 @@ import {
   GetDeckQueryVariables,
 } from "../../../graphql/types";
 import { CardFilters } from "../../../components/card-search-table/card-filters-bar";
-import { Deck } from "../../../graphql/types";
+import { GetDeckQuery as GetDeckQueryI } from "../../../graphql/types";
 import {
   MutationAddCardToDeckArgs,
   Mutation,
@@ -81,7 +81,7 @@ interface DeckCard extends Card {
 
 export default function EditDeck() {
   const router = useRouter();
-  const { data: deckInfo } = useQuery<{ deck: Deck }, GetDeckQueryVariables>(
+  const { data: deckInfo } = useQuery<GetDeckQueryI, GetDeckQueryVariables>(
     gql(GetDeckQuery),
     {
       variables: {
@@ -174,7 +174,7 @@ export default function EditDeck() {
           />
           <CardPanel
             cards={deckCards}
-            deckInfo={deckInfo && deckInfo.deck}
+            deck={deckInfo && deckInfo.deck}
             suggestedCards={
               allCards.length
                 ? getCardSuggestions({ deck: deckCards, allCards, side })
