@@ -161,9 +161,13 @@ export function CardSearchResults({
   showSide?: Side;
   style?: CSSProperties;
   newTab?: string;
-  onCardSelected?: (card: CardFromServer) => void;
+  onCardSelected?: (cardId: string) => void;
 }) {
-  const [cardHover, setCardHover] = useState({ card: null, location: null });
+  // TODO types
+  const [cardHover, setCardHover]: [any, any] = useState({
+    card: null,
+    location: null,
+  });
   const showSideColumn = !Boolean(showSide);
   const filteredCards = cards.slice(0, 100);
   return (
@@ -204,7 +208,7 @@ export function CardSearchResults({
                 })
               }
               onMouseOut={() => setCardHover({ card: null, location: null })}
-              onAdd={onCardSelected ? () => onCardSelected(card) : null}
+              onAdd={onCardSelected ? () => onCardSelected(card.id) : undefined}
             />
           );
         })}

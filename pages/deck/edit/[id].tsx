@@ -111,14 +111,14 @@ export default function EditDeck() {
   if (allCards.length === 0) {
     getCards().then(setCards);
   }
-  const addCard = (deckCard: DeckCard) => {
-    if (!deckCard) {
-      console.error("unable to aadd deckCard:", deckCard);
+  const addCard = (cardId: string) => {
+    if (!cardId) {
+      console.error("unable to aadd cardId:", cardId);
       return;
     }
     addCardToDeck({
       variables: {
-        cardId: deckCard.card.id,
+        cardId: cardId,
         deckId: deckId as string,
       },
     }).then(({ data, errors }) => {
@@ -166,8 +166,7 @@ export default function EditDeck() {
           <CardSearchResults
             cards={applyFilters(allCards, { ...filters, side })}
             showSide={side}
-            // TODO fix this!!!
-            onCardSelected={addCard as any}
+            onCardSelected={addCard}
             newTab={"_blank"}
             style={{
               width: "70vw",
