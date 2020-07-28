@@ -186,7 +186,7 @@ export type GetDeckQuery = (
       & Pick<DeckCard, 'id'>
       & { card: (
         { __typename?: 'Card' }
-        & Pick<Card, 'id'>
+        & Pick<Card, 'id' | 'card_id' | 'side' | 'rarity' | 'set' | 'title' | 'type' | 'imageUrl' | 'subType' | 'destiny' | 'power' | 'deploy' | 'forfeit' | 'gametext' | 'lore' | 'gemp_card_id'>
       ) }
     )>> }
   ) }

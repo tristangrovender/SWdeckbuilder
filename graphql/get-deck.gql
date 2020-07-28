@@ -10,6 +10,21 @@ query GetDeck($id: ID!) {
       id
       card {
         id
+        card_id
+        side
+        rarity
+        set
+        title
+        type
+        imageUrl
+        subType
+        destiny
+        power
+        deploy
+        forfeit
+        gametext
+        lore
+        gemp_card_id
       }
     }
   }
