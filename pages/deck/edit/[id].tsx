@@ -15,7 +15,7 @@ import AddCardToDeckMutation from "../../../graphql/add-card-to-deck.gql";
 import {
   MutationAddCardToDeckArgs,
   Mutation,
-  Card as CardFromServer,
+  Card,
 } from "../../../graphql/types";
 
 function getCardSuggestions({
@@ -24,9 +24,9 @@ function getCardSuggestions({
   deck,
 }: {
   side: Side;
-  allCards: CardFromServer[];
-  deck: CardFromServer[];
-}): CardFromServer[] {
+  allCards: Card[];
+  deck: Card[];
+}): Card[] {
   if (deck.length === 0) {
     if (side == Side.dark) {
       return allCards.filter(({ title }) => {
@@ -62,8 +62,13 @@ function getCardSuggestions({
   return [];
 }
 
-function isCardInSideDeck(card: CardFromServer) {
+function isCardInSideDeck(card: Card) {
   return card.type === "Objective" || card.type === "Defensive Shield";
+}
+
+interface DeckCard extends Card {
+  isSideDeck: boolean;
+  deckCardId: string;
 }
 
 export default function EditDeck() {
@@ -71,12 +76,9 @@ export default function EditDeck() {
   const [addCardToDeck] = useMutation<Mutation, MutationAddCardToDeckArgs>(
     gql(AddCardToDeckMutation)
   );
-  const [deckCards, setDeckCards] = useState([]);
+  const [deckCards, setDeckCards] = useState<DeckCard[]>([]);
   const [filters, updateFilters] = useState(undefined);
-  const [allCards, setCards]: [
-    CardFromServer[],
-    (cards: CardFromServer[]) => void
-  ] = useState([]);
+  const [allCards, setCards] = useState<Card[]>([]);
   const side = router.query.side as Side;
   const { id: deckId } = router.query;
   if (!deckId) {
@@ -85,22 +87,27 @@ export default function EditDeck() {
   if (allCards.length === 0) {
     getCards().then(setCards);
   }
-  const addCard = (card: CardFromServer) => {
+  const addCard = (card: Card) => {
     addCardToDeck({
       variables: {
         cardId: card.id,
         deckId: deckId as string,
       },
-    }).then(({ data }) => {
-      console.log(data && data.addCardToDeck.newDeckCardId);
+    }).then(({ data, errors }) => {
+      if (!data) {
+        console.error("Error adding card to deck", errors);
+        return;
+      }
+      const deckCardId = data.addCardToDeck.newDeckCardId;
+      setDeckCards([
+        ...deckCards,
+        { ...card, isSideDeck: isCardInSideDeck(card), deckCardId },
+      ]);
     });
-    setDeckCards([
-      ...deckCards,
-      { ...card, isSideDeck: isCardInSideDeck(card) },
-    ]);
   };
-  const removeCard = (cardToRemove: CardFromServer) => {
+  const removeCard = (cardToRemove: Card) => {
     const index = deckCards.map(({ id }) => id).lastIndexOf(cardToRemove.id);
+    console.log(deckCards[index].deckCardId);
     setDeckCards([...deckCards.slice(0, index), ...deckCards.slice(index + 1)]);
   };
   if (!deckId) {
