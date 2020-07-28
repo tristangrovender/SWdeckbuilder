@@ -72,26 +72,28 @@ const CardPanelRowContainer = styled.div`
 
 type DeckCard = GetDeckQuery["deck"]["deckCards"][0];
 
-function groupCards(cards: DeckCard[]): { count: number; card: DeckCard }[] {
+function groupCards(
+  cards: DeckCard[]
+): { count: number; deckCard: DeckCard }[] {
   const cardsByCount = cards.reduce(
     (
       all: {
         [cardId: string]: {
-          card: DeckCard;
+          deckCard: DeckCard;
           count: number;
           index: number;
         };
       },
-      card,
+      deckCard,
       index
     ) => {
-      if (!card) {
+      if (!deckCard || !deckCard.card) {
         return all;
       }
-      if (!all[card.id]) {
-        all[card.id] = { card, count: 1, index };
+      if (!all[deckCard.card.cardId]) {
+        all[deckCard.card.cardId] = { deckCard, count: 1, index };
       } else {
-        all[card.id].count += 1;
+        all[deckCard.card.cardId].count += 1;
       }
       return all;
     },
@@ -99,7 +101,7 @@ function groupCards(cards: DeckCard[]): { count: number; card: DeckCard }[] {
   );
   return Object.values(cardsByCount).sort(
     ({ index: a }, { index: b }) => a - b
-  ) as { count: number; card: DeckCard }[];
+  ) as { count: number; deckCard: DeckCard }[];
 }
 
 function CardPanelRow({
@@ -252,12 +254,12 @@ export function CardPanel({
                   Click add in the table to add cards to your deck
                 </EmptyDeckState>
               ) : (
-                groupCards(cardsInMainDeck).map(({ card, count }, i) => (
+                groupCards(cardsInMainDeck).map(({ deckCard, count }, i) => (
                   <CardPanelRow
                     key={i}
-                    deckCard={card}
+                    deckCard={deckCard}
                     textColor={
-                      startingCardIds.includes(card?.id.toString() || "")
+                      startingCardIds.includes(deckCard?.id.toString() || "")
                         ? goldenColor
                         : undefined
                     }
@@ -266,10 +268,12 @@ export function CardPanel({
                       {
                         onClick: () => {
                           if (
-                            startingCardIds.includes(card?.id.toString() || "")
+                            startingCardIds.includes(
+                              deckCard?.id.toString() || ""
+                            )
                           ) {
                             const index = startingCardIds.indexOf(
-                              card?.id.toString() || ""
+                              deckCard?.id.toString() || ""
                             );
                             setStartingCardIds([
                               ...startingCardIds.slice(0, index),
@@ -278,7 +282,7 @@ export function CardPanel({
                           } else {
                             setStartingCardIds([
                               ...startingCardIds,
-                              card?.id.toString() || "",
+                              deckCard?.id.toString() || "",
                             ]);
                           }
                         },
@@ -287,12 +291,12 @@ export function CardPanel({
                         tooltip: "Mark as starting card",
                       },
                       {
-                        onClick: onCardInfoHandler(card),
+                        onClick: onCardInfoHandler(deckCard),
                         text: "i",
                         fontSize: "12px",
                       },
-                      { onClick: () => removeCard(card), text: "-" },
-                      { onClick: () => addCard(card), text: "+" },
+                      { onClick: () => removeCard(deckCard), text: "-" },
+                      { onClick: () => addCard(deckCard), text: "+" },
                     ]}
                   />
                 ))
@@ -308,19 +312,19 @@ export function CardPanel({
             {cardsInSideDeck.length ? (
               <CardPanelSection>
                 <CardPanelSectionTitle>Side Deck</CardPanelSectionTitle>
-                {groupCards(cardsInSideDeck).map(({ card, count }, i) => (
+                {groupCards(cardsInSideDeck).map(({ deckCard, count }, i) => (
                   <CardPanelRow
                     key={i}
-                    deckCard={card}
+                    deckCard={deckCard}
                     count={count}
                     hoverButtons={[
                       {
-                        onClick: onCardInfoHandler(card),
+                        onClick: onCardInfoHandler(deckCard),
                         text: "i",
                         fontSize: "12px",
                       },
-                      { onClick: () => removeCard(card), text: "-" },
-                      { onClick: () => addCard(card), text: "+" },
+                      { onClick: () => removeCard(deckCard), text: "-" },
+                      { onClick: () => addCard(deckCard), text: "+" },
                     ]}
                   />
                 ))}

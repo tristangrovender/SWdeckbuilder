@@ -2,7 +2,7 @@ query GetCards {
   cards {
     id
     type
-    card_id
+    cardId
     deploy
     destiny
     forfeit

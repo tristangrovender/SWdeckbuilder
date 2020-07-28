@@ -103,7 +103,7 @@ export type DeckCard = {
 export type Card = {
   __typename?: 'Card';
   id: Scalars['ID'];
-  card_id: Scalars['String'];
+  cardId: Scalars['String'];
   side: Side;
   rarity: Scalars['String'];
   set: Scalars['String'];
@@ -166,7 +166,7 @@ export type GetCardsQuery = (
   { __typename?: 'Query' }
   & { cards: Array<Maybe<(
     { __typename?: 'Card' }
-    & Pick<Card, 'id' | 'type' | 'card_id' | 'deploy' | 'destiny' | 'forfeit' | 'gametext' | 'imageUrl' | 'lore' | 'power' | 'rarity' | 'set' | 'side' | 'subType' | 'title' | 'gemp_card_id'>
+    & Pick<Card, 'id' | 'type' | 'cardId' | 'deploy' | 'destiny' | 'forfeit' | 'gametext' | 'imageUrl' | 'lore' | 'power' | 'rarity' | 'set' | 'side' | 'subType' | 'title' | 'gemp_card_id'>
   )>> }
 );
 
@@ -188,7 +188,7 @@ export type GetDeckQuery = (
       & Pick<DeckCard, 'id' | 'isInSideDeck'>
       & { card: (
         { __typename?: 'Card' }
-        & Pick<Card, 'id' | 'card_id' | 'side' | 'rarity' | 'set' | 'title' | 'type' | 'imageUrl' | 'subType' | 'destiny' | 'power' | 'deploy' | 'forfeit' | 'gametext' | 'lore' | 'gemp_card_id'>
+        & Pick<Card, 'id' | 'cardId' | 'side' | 'rarity' | 'set' | 'title' | 'type' | 'imageUrl' | 'subType' | 'destiny' | 'power' | 'deploy' | 'forfeit' | 'gametext' | 'lore' | 'gemp_card_id'>
       ) }
     )>> }
   ) }
@@ -417,7 +417,7 @@ export type DeckCardResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type CardResolvers<ContextType = any, ParentType extends ResolversParentTypes['Card'] = ResolversParentTypes['Card']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  card_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  cardId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   side?: Resolver<ResolversTypes['Side'], ParentType, ContextType>;
   rarity?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   set?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

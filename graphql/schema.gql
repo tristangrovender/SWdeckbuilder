@@ -44,7 +44,7 @@ type DeckCard {
 }
 type Card {
   id: ID!
-  card_id: String!
+  cardId: String!
   side: Side!
   rarity: String!
   set: String!

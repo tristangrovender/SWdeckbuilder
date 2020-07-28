@@ -138,7 +138,7 @@ const resolvers: Resolvers = {
   Card: {
     id: (_parent) => _parent.id,
     type: (_parent) => _parent.front_type,
-    card_id: (_parent) => _parent.card_id,
+    cardId: (_parent) => _parent.card_id,
     side: (_parent) => _parent.side,
     rarity: (_parent) => _parent.rarity,
     set: (_parent) => _parent.set,

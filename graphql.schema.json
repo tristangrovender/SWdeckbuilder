@@ -692,7 +692,7 @@
             "deprecationReason": null
           },
           {
-            "name": "card_id",
+            "name": "cardId",
             "description": null,
             "args": [],
             "type": {
