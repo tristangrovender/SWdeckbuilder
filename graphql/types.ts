@@ -87,7 +87,6 @@ export type Deck = {
   description: Scalars['String'];
   author: User;
   averageRating?: Maybe<Scalars['Float']>;
-  test: Scalars['String'];
   deckCards: Array<Maybe<DeckCard>>;
 };
 
@@ -402,7 +401,6 @@ export type DeckResolvers<ContextType = any, ParentType extends ResolversParentT
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   averageRating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  test?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   deckCards?: Resolver<Array<Maybe<ResolversTypes['DeckCard']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
