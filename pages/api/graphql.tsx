@@ -105,20 +105,32 @@ const resolvers = {
         },
       });
     },
-    cards: async (_parent) => {
-      const cards = await prisma.card.findMany({
+    deckCards: (_parent) => {
+      return prisma.deckCard.findMany({
         where: {
-          DeckCard: {
-            some: {
-              Deck: {
-                id: _parent.id,
-              },
-            },
+          Deck: {
+            id: _parent.id,
           },
         },
       });
-
-      return cards.sort(sortCardsByName);
+    },
+  },
+  DeckCard: {
+    updatedAt: (_parent) => _parent.updated_at,
+    createdAt: (_parent) => _parent.created_at,
+    card: (_parent) => {
+      return prisma.card.findOne({
+        where: {
+          id: _parent.cardId,
+        },
+      });
+    },
+    deck: (_parent) => {
+      return prisma.deck.findOne({
+        where: {
+          id: _parent.deckId,
+        },
+      });
     },
   },
   Card: {

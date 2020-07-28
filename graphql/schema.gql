@@ -33,7 +33,14 @@ type Deck {
   author: User!
   averageRating: Float
   test: String!
-  cards: [Card]!
+  deckCards: [DeckCard]!
+}
+type DeckCard {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  card: Card!
+  deck: Deck!
 }
 type Card {
   id: ID!
