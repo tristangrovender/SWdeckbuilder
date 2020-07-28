@@ -136,20 +136,16 @@ export function getRandomDeck(allCards: Card[]) {
   return randomDeck;
 }
 
-function CardTypeSection({ cards }: { cards: Card[] }) {
+export function CardTypeSection({ cards }: { cards: Card[] }) {
   if (cards.length === 0) {
     return <div>Loading...</div>;
   }
   return (
     <TypeContainer>
       <TypeTitle>{cards[0].front.type}</TypeTitle>
-      <div
-        style={{
-          backgroundColor: darkBlue
-        }}
-      >
+      <div>
         {cards.map(card => (
-          <DeckCardRow card={card} />
+          <div style={{ color: "red" }}>{card.front.title}</div>
         ))}
       </div>
     </TypeContainer>
@@ -258,14 +254,14 @@ export default function Deck() {
           </DeckInfoContainer>
           {/* <DeckDescription>{deckDescription}</DeckDescription> */}
         </DeckPageContainer>
-        <DeckIdContent></DeckIdContent>
-
+        <DeckIdContent deck={deck}></DeckIdContent>
         {/* {groupBy(deck, ["front", "type"])
             .sort((groupA, groupB) => groupA.length - groupB.length)
             .map((cardsInType, i) => (
               <CardTypeSection key={i} cards={cardsInType} />
             ))} */}
-        {/*^^^^^^^^^^^^^^^^^^^^^^^^ Old stuff ^^^^^^^^^^^^^^^^^^^^^^ */}
+
+        {/* ^^^^^^^^^^^^^^^^^^^^^^^^ Old stuff ^^^^^^^^^^^^^^^^^^^^^^ */}
         <CommentsSection />
       </Content>
       <Footer></Footer>
