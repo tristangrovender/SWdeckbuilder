@@ -205,7 +205,7 @@ export function CardPanel({
   return (
     <StickyContainer>
       <Sticky>
-        {({ style }: { style: CSSProperties }) => (
+        {({ style }) => (
           <div
             style={{
               ...style,
