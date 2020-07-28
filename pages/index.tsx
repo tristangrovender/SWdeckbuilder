@@ -84,7 +84,11 @@ export default function Home() {
                     rating={deck.averageRating || undefined}
                     description={deck.description}
                     author={deck.author.username}
-                    types={deck.cards.map(({ type }) => type)}
+                    types={
+                      deck.deckCards
+                        .map((deckCard) => deckCard?.card.type)
+                        .filter(Boolean) as string[]
+                    }
                   />
                 );
               })}
