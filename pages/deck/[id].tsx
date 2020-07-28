@@ -173,11 +173,18 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
   );
 }
 
+const average = function (numArray) {
+  const sum = numArray.reduce((total, nextNum) => {
+    return total + nextNum;
+  }, 0);
+  return sum / numArray.length;
+};
+
 export default function Deck() {
   const router = useRouter();
   const [allCards, setCards] = useState([]);
   const [exportDropDownOpen, toggleExportDropdown] = useState(false);
-  const [deck, setDeck] = useState([]);
+  const [deck, setDeck]: [Card[], (cards: Card[]) => void] = useState([]);
   const { id: deckId } = router.query;
   if (allCards.length === 0) {
     getCards().then(setCards);
@@ -186,18 +193,12 @@ export default function Deck() {
     setDeck(getRandomDeck(allCards));
   }
 
-  const average = function (numArray) {
-    const sum = numArray.reduce((total, nextNum) => {
-      return total + nextNum;
-    }, 0);
-    return sum / numArray.length;
-  };
   const destiny = deck
     .map((card) => {
-      return card.destiny;
+      return parseInt(card.destiny);
     })
     .filter((destiny) => {
-      return destiny !== undefined;
+      return typeof destiny === "number";
     });
 
   const authorUsername = "Jambree";
