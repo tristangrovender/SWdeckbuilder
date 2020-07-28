@@ -91,6 +91,8 @@ export default function EditDeck() {
         cardId: card.id,
         deckId: deckId as string,
       },
+    }).then(({ data }) => {
+      console.log(data && data.addCardToDeck.newDeckCardId);
     });
     setDeckCards([
       ...deckCards,

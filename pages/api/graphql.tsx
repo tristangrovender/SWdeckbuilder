@@ -65,7 +65,7 @@ const resolvers = {
       if (!_context.userId) {
         throw new Error("Please login");
       }
-      const newDeckCardId = await prisma.deckCard.create({
+      const { id: newDeckCardId } = await prisma.deckCard.create({
         data: {
           Card: {
             connect: {

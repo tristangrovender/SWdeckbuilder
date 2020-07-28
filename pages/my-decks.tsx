@@ -14,9 +14,11 @@ const NoDecksContainer = styled.div`
 `;
 
 export default function MyDecks() {
-  if (!getToken()) {
-    Router.push({ pathname: "/login" });
-  }
+  try {
+    if (!getToken()) {
+      Router.push({ pathname: "/login" });
+    }
+  } catch (e) {}
   return (
     <Page>
       <Toolbar />
