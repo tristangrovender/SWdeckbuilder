@@ -5,6 +5,7 @@ import { recentDecks } from "../../server/resolvers/recent-decks";
 import { getSharedUser } from "../../server/create-shared-user";
 import jwt from "jsonwebtoken";
 import { Resolvers } from "../../graphql/types";
+import { addCardToDeck } from "../../server/resolvers/add-card-to-deck";
 
 const prisma = new PrismaClient();
 
@@ -61,28 +62,7 @@ const resolvers: Resolvers = {
         },
       });
     },
-    addCardToDeck: async (_parent, _args, _context) => {
-      if (!_context.userId) {
-        throw new Error("Please login");
-      }
-      const { id: newDeckCardId } = await prisma.deckCard.create({
-        data: {
-          Card: {
-            connect: {
-              id: parseInt(_args.cardId),
-            },
-          },
-          Deck: {
-            connect: {
-              id: parseInt(_args.deckId),
-            },
-          },
-        },
-      });
-      return {
-        newDeckCardId,
-      };
-    },
+    addCardToDeck: addCardToDeck(prisma),
     removeCardFromDeck: async (_parent, _args, _context) => {
       if (!_context.userId) {
         throw new Error("Please login");

@@ -78,13 +78,6 @@ function getCardSuggestions({
   return [];
 }
 
-function isCardInSideDeck(deckCard: DeckCard) {
-  return (
-    deckCard?.card?.type === "Objective" ||
-    deckCard?.card?.type === "Defensive Shield"
-  );
-}
-
 type DeckCard = GetDeckQueryI["deck"]["deckCards"][0];
 
 export default function EditDeck() {
