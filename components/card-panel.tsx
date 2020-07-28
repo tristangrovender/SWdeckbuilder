@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { ClickAwayListener } from "@material-ui/core";
 import { darkBlue, goldenColor } from "../utils/colors";
 import { CardSnippet } from "./card-snippet";
-import { Card as CardFromServer } from "../graphql/types";
+import { Card as CardFromServer, Query } from "../graphql/types";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
 const CardPanelSection = styled.div`
@@ -153,15 +153,18 @@ function usePrevious(value: string) {
 
 export function CardPanel({
   cards,
+  deckInfo,
   suggestedCards,
   addCard,
   removeCard,
 }: {
   cards: CardWithDeckInfo[];
+  deckInfo: Query["deck"];
   suggestedCards: CardFromServer[];
   addCard: (card: CardFromServer) => void;
   removeCard: (card: CardFromServer) => void;
 }) {
+  console.log("deckInfo", deckInfo);
   const [startingCardIds, setStartingCardIds]: [
     string[],
     (cards: string[]) => void

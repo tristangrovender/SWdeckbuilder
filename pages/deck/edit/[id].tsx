@@ -81,7 +81,7 @@ interface DeckCard extends Card {
 
 export default function EditDeck() {
   const router = useRouter();
-  const { data: deckData } = useQuery<Query, GetDeckQueryVariables>(
+  const { data: deckInfo } = useQuery<Query, GetDeckQueryVariables>(
     gql(GetDeckQuery),
     {
       variables: {
@@ -104,7 +104,6 @@ export default function EditDeck() {
   const [allCards, setCards] = useState<Card[]>([]);
   const side = router.query.side as Side;
   const { id: deckId } = router.query;
-  console.log(deckData);
   if (!deckId) {
     return <div>DeckID not found.</div>;
   }
@@ -175,6 +174,7 @@ export default function EditDeck() {
           />
           <CardPanel
             cards={deckCards}
+            deckInfo={deckInfo}
             suggestedCards={
               allCards.length
                 ? getCardSuggestions({ deck: deckCards, allCards, side })
