@@ -98,6 +98,7 @@ const resolvers = {
     },
   },
   Deck: {
+    title: (_parent) => (_parent.title ? _parent.title : "Un-named Deck"),
     author: (_parent) => {
       return prisma.user.findOne({
         where: {
