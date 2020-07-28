@@ -3,9 +3,9 @@ import { StickyContainer, Sticky } from "react-sticky";
 import styled from "styled-components";
 import { ClickAwayListener } from "@material-ui/core";
 import { darkBlue, goldenColor } from "../utils/colors";
-import { Card } from "./card-search-table/card.interface";
 import { CardSnippet } from "./card-snippet";
 import { Card as CardFromServer } from "../graphql/types";
+import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
 const CardPanelSection = styled.div`
   background-color: black;
@@ -73,14 +73,27 @@ const CardPanelRowContainer = styled.div`
 function groupCards(
   cards: CardWithDeckInfo[]
 ): { count: number; card: CardWithDeckInfo }[] {
-  const cardsByCount = cards.reduce((all, card, index) => {
-    if (!all[card.id]) {
-      all[card.id] = { card, count: 1, index };
-    } else {
-      all[card.id].count += 1;
-    }
-    return all;
-  }, {});
+  const cardsByCount = cards.reduce(
+    (
+      all: {
+        [cardId: string]: {
+          card: CardWithDeckInfo;
+          count: number;
+          index: number;
+        };
+      },
+      card,
+      index
+    ) => {
+      if (!all[card.id]) {
+        all[card.id] = { card, count: 1, index };
+      } else {
+        all[card.id].count += 1;
+      }
+      return all;
+    },
+    {}
+  );
   return Object.values(cardsByCount).sort(
     ({ index: a }, { index: b }) => a - b
   ) as { count: number; card: CardWithDeckInfo }[];
@@ -152,7 +165,7 @@ export function CardPanel({
   const [startingCardIds, setStartingCardIds]: [
     string[],
     (cards: string[]) => void
-  ] = useState([]);
+  ] = useState([] as string[]);
   const [scrollDiv, setScrollDiv] = useState(undefined);
   const prev = usePrevious({ cardRowLength: groupCards(cards).length });
   useEffect(() => {
@@ -166,8 +179,10 @@ export function CardPanel({
   }, [cards]);
   const [cardInfo, setCardInfo]: [
     { card: CardFromServer; clickAwayActive: boolean } | undefined,
-    (cardInfo: { card: CardFromServer; clickAwayActive: boolean }) => void
-  ] = useState(undefined);
+    (
+      cardInfo: { card: CardFromServer; clickAwayActive: boolean } | undefined
+    ) => void
+  ] = useState();
   const onCardInfoHandler = (card: CardFromServer) => () => {
     if (cardInfo && cardInfo.card.id === card.id) {
       setCardInfo(undefined);
@@ -187,7 +202,7 @@ export function CardPanel({
   return (
     <StickyContainer>
       <Sticky>
-        {({ style }) => (
+        {({ style }: { style: CSSProperties }) => (
           <div
             style={{
               ...style,
