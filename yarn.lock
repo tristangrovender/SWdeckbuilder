@@ -1896,6 +1896,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-sticky@^6.0.3":
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react-sticky/-/react-sticky-6.0.3.tgz#94d16a951467b29ad44c224081d9503e7e590434"
+  integrity sha512-tW0Y1hTr2Tao4yX58iKl0i7BaqrdObGXAzsyzd8VGVrWVEgbQuV6P6QKVd/kFC7FroXyelftiVNJ09pnfkcjww==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-transition-group@^4.2.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.0.tgz#882839db465df1320e4753e6e9f70ca7e9b4d46d"

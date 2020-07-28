@@ -143,10 +143,10 @@ export interface CardWithDeckInfo extends CardFromServer {
   isSideDeck: boolean;
 }
 
-function usePrevious(value: string) {
+function usePrevious(value: any) {
   const ref = useRef();
   useEffect(() => {
-    (ref as any).current = value;
+    ref.current = value;
   });
   return ref.current;
 }
@@ -177,7 +177,7 @@ export function CardPanel({
       groupCards(cards).length > (prev as any).cardRowLength &&
       scrollDiv
     ) {
-      scrollDiv.scrollIntoViewIfNeeded({ behavior: "smooth" });
+      (scrollDiv as any).scrollIntoViewIfNeeded({ behavior: "smooth" });
     }
   }, [cards]);
   const [cardInfo, setCardInfo]: [
@@ -296,7 +296,7 @@ export function CardPanel({
                 style={{ height: "0px" }}
                 ref={(ref) => {
                   (window as any).ref = ref;
-                  setScrollDiv(ref);
+                  setScrollDiv(ref as any);
                 }}
               ></div>
             </DeckBuilderCardsContainer>
