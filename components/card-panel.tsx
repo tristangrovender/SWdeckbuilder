@@ -153,18 +153,18 @@ function usePrevious(value: any) {
 
 export function CardPanel({
   cards,
-  deckInfo,
+  deck,
   suggestedCards,
   addCard,
   removeCard,
 }: {
   cards: CardWithDeckInfo[];
-  deckInfo?: Deck;
+  deck?: Deck;
   suggestedCards: CardFromServer[];
   addCard: (card: CardFromServer) => void;
   removeCard: (card: CardFromServer) => void;
 }) {
-  console.log("deckInfo", deckInfo);
+  console.log("deck", deck);
   const [startingCardIds, setStartingCardIds]: [
     string[],
     (cards: string[]) => void
