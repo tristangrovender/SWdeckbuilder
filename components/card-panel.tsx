@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { StickyContainer, Sticky } from "react-sticky";
 import styled from "styled-components";
-import { ClickAwayListener } from "@material-ui/core";
+import { ClickAwayListener, LinearProgress } from "@material-ui/core";
 import { darkBlue, goldenColor } from "../utils/colors";
 import { CardSnippet } from "./card-snippet";
-import { Card, Deck, GetDeckQuery } from "../graphql/types";
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
+import { Card, GetDeckQuery } from "../graphql/types";
 
 const CardPanelSection = styled.div`
   background-color: black;
@@ -170,11 +169,13 @@ function usePrevious(value: any) {
 }
 
 export function CardPanel({
+  loading,
   deck,
   suggestedCards,
   addCard,
   removeCard,
 }: {
+  loading: boolean;
   deck?: GetDeckQuery["deck"];
   suggestedCards: Card[];
   addCard: (cardId: string) => void;
@@ -232,8 +233,18 @@ export function CardPanel({
               border: "2px solid grey",
               margin: "10px",
               color: "white",
+              ...(loading
+                ? {
+                    pointerEvents: "none",
+                  }
+                : {}),
             }}
           >
+            {loading ? (
+              <LinearProgress color="secondary" style={{ height: "3px" }} />
+            ) : (
+              <div style={{ height: "3px" }}></div>
+            )}
             <DeckBuilderHeader>
               <img src="/images/dark.png" style={{ height: "50px" }}></img>
 

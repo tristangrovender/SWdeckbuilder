@@ -82,10 +82,12 @@ type DeckCard = GetDeckQueryI["deck"]["deckCards"][0];
 
 export default function EditDeck() {
   const router = useRouter();
-  const { data: deckInfo, refetch: refreshDeck } = useQuery<
-    GetDeckQueryI,
-    GetDeckQueryVariables
-  >(gql(GetDeckQuery + " "), {
+  const [loading, setLoading] = useState(false);
+  const {
+    data: deckInfo,
+    refetch: refreshDeck,
+    loading: loadingDeck,
+  } = useQuery<GetDeckQueryI, GetDeckQueryVariables>(gql(GetDeckQuery + " "), {
     variables: {
       id: router.query.id as string,
     },
@@ -115,6 +117,7 @@ export default function EditDeck() {
       console.error("unable to aadd cardId:", cardId);
       return;
     }
+    setLoading(true);
     addCardToDeck({
       variables: {
         cardId: cardId,
@@ -125,7 +128,9 @@ export default function EditDeck() {
         console.error("Error adding deckCard to deck", errors);
         return;
       }
-      refreshDeck();
+      refreshDeck().then(() => {
+        setLoading(false);
+      });
     });
   };
   const removeCard = (cardToRemove: DeckCard) => {
@@ -133,12 +138,15 @@ export default function EditDeck() {
       console.log("Unable to remove card", cardToRemove);
       return;
     }
+    setLoading(true);
     removeCardFromDeck({
       variables: {
         deckCardId: cardToRemove.id,
       },
     }).then(() => {
-      refreshDeck();
+      refreshDeck().then(() => {
+        setLoading(false);
+      });
     });
   };
   if (!deckId) {
@@ -178,6 +186,7 @@ export default function EditDeck() {
             }}
           />
           <CardPanel
+            loading={loading}
             deck={deckInfo.deck}
             suggestedCards={
               allCards.length
