@@ -96,6 +96,7 @@ export type DeckCard = {
   updatedAt: Scalars['Date'];
   card: Card;
   deck: Deck;
+  isInSideDeck: Scalars['Boolean'];
 };
 
 export type Card = {
@@ -183,7 +184,7 @@ export type GetDeckQuery = (
       & Pick<User, 'id' | 'username'>
     ), deckCards: Array<Maybe<(
       { __typename?: 'DeckCard' }
-      & Pick<DeckCard, 'id'>
+      & Pick<DeckCard, 'id' | 'isInSideDeck'>
       & { card: (
         { __typename?: 'Card' }
         & Pick<Card, 'id' | 'card_id' | 'side' | 'rarity' | 'set' | 'title' | 'type' | 'imageUrl' | 'subType' | 'destiny' | 'power' | 'deploy' | 'forfeit' | 'gametext' | 'lore' | 'gemp_card_id'>

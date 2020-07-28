@@ -119,6 +119,7 @@ const resolvers = {
   DeckCard: {
     updatedAt: (_parent) => _parent.updated_at,
     createdAt: (_parent) => _parent.created_at,
+    isInSideDeck: (_parent) => _parent.is_in_side_deck,
     card: (_parent) => {
       return prisma.card.findOne({
         where: {
