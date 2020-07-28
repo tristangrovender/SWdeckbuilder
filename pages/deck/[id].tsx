@@ -92,20 +92,17 @@ const PageTitle = styled.div`
 `;
 
 const TypeContainer = styled.div`
-  width: 300px;
-  color: white;
-  margin-right: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  flex: wrap;
+  color: black;
+  width: 50%;
 `;
 
 const TypeTitle = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.9);
   font-size: 16px;
-  padding: 5px;
 `;
 
 const DeckTitleContainer = styled.div`
@@ -142,10 +139,19 @@ export function CardTypeSection({ cards }: { cards: Card[] }) {
   }
   return (
     <TypeContainer>
-      <TypeTitle>{cards[0].front.type}</TypeTitle>
+      <TypeTitle>
+        {cards[0].front.type} ({cards.length})
+      </TypeTitle>
       <div>
         {cards.map(card => (
-          <div style={{ color: "red" }}>{card.front.title}</div>
+          <div
+            style={{
+              color: "red",
+              fontSize: "12px"
+            }}
+          >
+            {card.front.title}
+          </div>
         ))}
       </div>
     </TypeContainer>
@@ -252,16 +258,8 @@ export default function Deck() {
               </DeckButtonsDropDown>
             </DeckButtons>
           </DeckInfoContainer>
-          {/* <DeckDescription>{deckDescription}</DeckDescription> */}
         </DeckPageContainer>
         <DeckIdContent deck={deck}></DeckIdContent>
-        {/* {groupBy(deck, ["front", "type"])
-            .sort((groupA, groupB) => groupA.length - groupB.length)
-            .map((cardsInType, i) => (
-              <CardTypeSection key={i} cards={cardsInType} />
-            ))} */}
-
-        {/* ^^^^^^^^^^^^^^^^^^^^^^^^ Old stuff ^^^^^^^^^^^^^^^^^^^^^^ */}
         <CommentsSection />
       </Content>
       <Footer></Footer>

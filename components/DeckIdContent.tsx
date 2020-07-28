@@ -18,9 +18,15 @@ const LeftContent = styled.div`
 const DeckInfoContainer = styled.div`
   display: flex;
   font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 `;
 
-const DeckCardsContainer = styled.div``;
+const DeckCardsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
 
 const RightContent = styled.div`
   display: flex;
@@ -40,7 +46,6 @@ const Description = styled.div`
 `;
 
 export default function DeckIdContent({ deck }: { deck: Card[] }) {
-  console.log(deck);
   const playerName = "Jambree";
   const p1 =
     "This deck was a lot of fun to make. It's a strategical deck that actually works well enough that it could win a tournament.";
