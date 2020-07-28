@@ -70,14 +70,14 @@ const CardPanelRowContainer = styled.div`
   }
 `;
 
-function groupCards(
-  cards: CardWithDeckInfo[]
-): { count: number; card: CardWithDeckInfo }[] {
+type DeckCard = GetDeckQuery["deck"]["deckCards"][];
+
+function groupCards(cards: DeckCard[]): { count: number; card: DeckCard }[] {
   const cardsByCount = cards.reduce(
     (
       all: {
         [cardId: string]: {
-          card: CardWithDeckInfo;
+          card: DeckCard;
           count: number;
           index: number;
         };
@@ -96,7 +96,7 @@ function groupCards(
   );
   return Object.values(cardsByCount).sort(
     ({ index: a }, { index: b }) => a - b
-  ) as { count: number; card: CardWithDeckInfo }[];
+  ) as { count: number; card: DeckCard }[];
 }
 
 function CardPanelRow({
@@ -199,8 +199,10 @@ export function CardPanel({
       }
     }
   };
-  const cardsInMainDeck = cards.filter(({ isSideDeck }) => !isSideDeck);
-  const cardsInSideDeck = cards.filter(({ isSideDeck }) => isSideDeck);
+  const cardsInMainDeck =
+    deck?.deckCards.filter((deckCard) => !deckCard?.isInSideDeck) || [];
+  const cardsInSideDeck =
+    deck?.deckCards.filter((deckCard) => deckCard?.isInSideDeck) || [];
   return (
     <StickyContainer>
       <Sticky>
