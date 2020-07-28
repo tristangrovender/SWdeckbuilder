@@ -110,7 +110,6 @@ export default function EditDeck() {
     (filters: CardFilters) => void
   ] = useState();
   const [allCards, setCards] = useState<Card[]>([]);
-  const side = router.query.side as Side;
   const { id: deckId } = router.query;
   if (!deckId) {
     return <div>DeckID not found.</div>;
