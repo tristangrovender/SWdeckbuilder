@@ -29,13 +29,13 @@ import {
 function getCardSuggestions({
   side,
   allCards,
-  deck,
+  deckCards,
 }: {
   side: Side;
   allCards: Card[];
-  deck: Card[];
+  deckCards: DeckCard[];
 }): Card[] {
-  if (deck.length === 0) {
+  if (deckCards.length === 0) {
     if (side == Side.dark) {
       return allCards.filter(({ title }) => {
         return title === "•Knowledge And Defense (V)";
@@ -53,7 +53,12 @@ function getCardSuggestions({
       "Hunt Down And Destroy The Jedi / Their Fire Has Gone Out Of The Universe"
     );
   });
-  if (deck.some(({ id }) => id === (destroyTheJedi && destroyTheJedi.id))) {
+  if (
+    deckCards.some(
+      (deckCard) =>
+        deckCard?.card.cardId === (destroyTheJedi && destroyTheJedi.id)
+    )
+  ) {
     const cardsInDestroyTheJedi = [
       "•Executor: Holotheatre",
       "•Visage Of The Emperor",
@@ -63,7 +68,11 @@ function getCardSuggestions({
     return allCards
       .filter(({ title }) => cardsInDestroyTheJedi.includes(title))
       .filter((cardSuggestion) => {
-        return deck.map(({ id }) => id).indexOf(cardSuggestion.id) === -1;
+        return (
+          deckCards
+            .map((deckCard) => deckCard?.card.cardId)
+            .indexOf(cardSuggestion.id) === -1
+        );
       });
   }
 
@@ -178,11 +187,11 @@ export default function EditDeck() {
             suggestedCards={
               // TODO come back to this
               allCards.length
-                ? (getCardSuggestions({
-                    deck: deckCards as any,
+                ? getCardSuggestions({
+                    deckCards: deckCards,
                     allCards,
                     side,
-                  }) as any)
+                  })
                 : []
             }
             addCard={addCard}
