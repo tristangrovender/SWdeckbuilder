@@ -78,7 +78,7 @@ export function DeckTile({
   author: string;
   createdAt: string;
   description: string;
-  rating: number;
+  rating?: number;
   types: string[];
 }) {
   const router = useRouter();

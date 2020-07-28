@@ -67,37 +67,27 @@ export default function Home() {
           </RecentTitleContainer>
           <TileContainer>
             {data &&
-              data.recentDecks.map(
-                (
-                  {
-                    side,
-                    title,
-                    author: { username },
-                    description,
-                    averageRating,
-                    createdAt,
-                    cards,
-                  },
-                  i
-                ) => {
-                  return (
-                    <DeckTile
-                      key={i}
-                      img={
-                        side === Side.Dark
-                          ? "/images/dark.png"
-                          : "/images/light.png"
-                      }
-                      title={title}
-                      createdAt={createdAt}
-                      rating={averageRating}
-                      description={description}
-                      author={username}
-                      types={cards.map(({ type }) => type)}
-                    />
-                  );
+              data.recentDecks.map((deck, i) => {
+                if (!deck) {
+                  return;
                 }
-              )}
+                return (
+                  <DeckTile
+                    key={i}
+                    img={
+                      deck.side === Side.Dark
+                        ? "/images/dark.png"
+                        : "/images/light.png"
+                    }
+                    title={deck.title}
+                    createdAt={deck.createdAt}
+                    rating={deck.averageRating || undefined}
+                    description={deck.description}
+                    author={deck.author.username}
+                    types={deck.cards.map(({ type }) => type)}
+                  />
+                );
+              })}
           </TileContainer>
         </HomePageContent>
       </Content>
