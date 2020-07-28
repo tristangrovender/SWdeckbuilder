@@ -190,3 +190,16 @@ export type LoginMutation = (
     & Pick<LoginResponse, 'jwt'>
   ) }
 );
+
+export type RemoveCardFromDeckMutationVariables = Exact<{
+  deckCardId: Scalars['ID'];
+}>;
+
+
+export type RemoveCardFromDeckMutation = (
+  { __typename?: 'Mutation' }
+  & { removeCardFromDeck: (
+    { __typename?: 'SuccessResponse' }
+    & Pick<SuccessResponse, 'success'>
+  ) }
+);

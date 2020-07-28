@@ -12,6 +12,8 @@ import { CardPanel } from "../../../components/card-panel";
 import Footer from "../../../components/Footer";
 import { useMutation, gql } from "@apollo/client";
 import AddCardToDeckMutation from "../../../graphql/add-card-to-deck.gql";
+import RemoveCardFromDeckMutation from "../../../graphql/remove-card-from-deck.gql";
+import { MutationRemoveCardFromDeckArgs } from "../../../graphql/types";
 import {
   MutationAddCardToDeckArgs,
   Mutation,
@@ -77,6 +79,10 @@ export default function EditDeck() {
     gql(AddCardToDeckMutation)
   );
   const [deckCards, setDeckCards] = useState<DeckCard[]>([]);
+  const [removeCardFromDeck] = useMutation<
+    Mutation,
+    MutationRemoveCardFromDeckArgs
+  >(gql(RemoveCardFromDeckMutation + ""));
   const [filters, updateFilters] = useState(undefined);
   const [allCards, setCards] = useState<Card[]>([]);
   const side = router.query.side as Side;
@@ -107,8 +113,16 @@ export default function EditDeck() {
   };
   const removeCard = (cardToRemove: Card) => {
     const index = deckCards.map(({ id }) => id).lastIndexOf(cardToRemove.id);
-    console.log(deckCards[index].deckCardId);
-    setDeckCards([...deckCards.slice(0, index), ...deckCards.slice(index + 1)]);
+    removeCardFromDeck({
+      variables: {
+        deckCardId: deckCards[index].deckCardId,
+      },
+    }).then(() => {
+      setDeckCards([
+        ...deckCards.slice(0, index),
+        ...deckCards.slice(index + 1),
+      ]);
+    });
   };
   if (!deckId) {
     return (

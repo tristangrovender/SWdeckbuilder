@@ -89,7 +89,7 @@ const resolvers = {
       }
       await prisma.deckCard.delete({
         where: {
-          id: _args.deckCardId,
+          id: parseInt(_args.deckCardId),
         },
       });
       return {

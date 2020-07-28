@@ -1,0 +1,5 @@
+mutation RemoveCardFromDeck($deckCardId: ID!) {
+  removeCardFromDeck(deckCardId: $deckCardId) {
+    success
+  }
+}
