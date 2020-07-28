@@ -5,6 +5,7 @@ import { recentDecks } from "../../server/resolvers/recent-decks";
 import { getSharedUser } from "../../server/create-shared-user";
 import jwt from "jsonwebtoken";
 import { Card } from "../../graphql/types";
+import { Resolvers } from "@apollo/client";
 
 const prisma = new PrismaClient();
 
@@ -13,7 +14,7 @@ const typeDefs = gql(schema + "");
 // TODO put this secret into .env and load via .env npm module
 const jwtSecret = "shhhhh";
 
-function sortCardsByName(a, b) {
+function sortCardsByName(a: any, b: any) {
   const aTitle = a.front_title.replace(/[^0-9a-zA-z_.]/gi, "");
   const bTitle = b.front_title.replace(/[^0-9a-zA-z_.]/gi, "");
 
@@ -26,7 +27,7 @@ function sortCardsByName(a, b) {
   return 0;
 }
 
-const resolvers = {
+const resolvers: Resolvers = {
   Query: {
     hello: (_parent, _args, _context) => "Hello!",
     recentDecks: () => recentDecks(prisma),
