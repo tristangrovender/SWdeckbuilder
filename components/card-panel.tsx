@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { ClickAwayListener } from "@material-ui/core";
 import { darkBlue, goldenColor } from "../utils/colors";
 import { CardSnippet } from "./card-snippet";
-import { Card as CardFromServer, Deck, GetDeckQuery } from "../graphql/types";
+import { Card, Deck, GetDeckQuery } from "../graphql/types";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
 const CardPanelSection = styled.div`
@@ -106,7 +106,7 @@ function CardPanelRow({
   hoverButtons,
   textColor,
 }: {
-  card: CardFromServer;
+  card: Card;
   count: number;
   backgroundColor?: string;
   textColor?: string;
@@ -139,7 +139,7 @@ function CardPanelRow({
   );
 }
 
-export interface CardWithDeckInfo extends CardFromServer {
+export interface CardWithDeckInfo extends Card {
   isSideDeck: boolean;
 }
 
@@ -160,9 +160,9 @@ export function CardPanel({
 }: {
   cards: CardWithDeckInfo[];
   deck?: GetDeckQuery["deck"];
-  suggestedCards: CardFromServer[];
-  addCard: (card: CardFromServer) => void;
-  removeCard: (card: CardFromServer) => void;
+  suggestedCards: Card[];
+  addCard: (card: Card) => void;
+  removeCard: (card: Card) => void;
 }) {
   console.log("deck", deck);
   const [startingCardIds, setStartingCardIds]: [
@@ -170,6 +170,7 @@ export function CardPanel({
     (cards: string[]) => void
   ] = useState([] as string[]);
   const [scrollDiv, setScrollDiv] = useState(undefined);
+  // TODO need to setup this scroll
   const prev = usePrevious({ cardRowLength: groupCards(cards).length });
   useEffect(() => {
     if (
@@ -181,12 +182,10 @@ export function CardPanel({
     }
   }, [cards]);
   const [cardInfo, setCardInfo]: [
-    { card: CardFromServer; clickAwayActive: boolean } | undefined,
-    (
-      cardInfo: { card: CardFromServer; clickAwayActive: boolean } | undefined
-    ) => void
+    { card: Card; clickAwayActive: boolean } | undefined,
+    (cardInfo: { card: Card; clickAwayActive: boolean } | undefined) => void
   ] = useState();
-  const onCardInfoHandler = (card: CardFromServer) => () => {
+  const onCardInfoHandler = (card: Card) => () => {
     if (cardInfo && cardInfo.card.id === card.id) {
       setCardInfo(undefined);
     } else {
