@@ -81,14 +81,14 @@ type DeckCard = GetDeckQueryI["deck"]["deckCards"][0];
 
 export default function EditDeck() {
   const router = useRouter();
-  const { data: deckInfo } = useQuery<GetDeckQueryI, GetDeckQueryVariables>(
-    gql(GetDeckQuery),
-    {
-      variables: {
-        id: router.query.id as string,
-      },
-    }
-  );
+  const { data: deckInfo, refetch: refreshDeck } = useQuery<
+    GetDeckQueryI,
+    GetDeckQueryVariables
+  >(gql(GetDeckQuery), {
+    variables: {
+      id: router.query.id as string,
+    },
+  });
   const [addCardToDeck] = useMutation<Mutation, MutationAddCardToDeckArgs>(
     gql(AddCardToDeckMutation)
   );
@@ -125,11 +125,7 @@ export default function EditDeck() {
         console.error("Error adding card to deck", errors);
         return;
       }
-      // const deckCardId = data.addCardToDeck.newDeckCardId;
-      setDeckCards([
-        ...deckCards,
-        { ...card, isInSideDeck: isCardInSideDeck(card) },
-      ]);
+      refreshDeck();
     });
   };
   const removeCard = (cardToRemove: DeckCard) => {
