@@ -5,13 +5,17 @@ query GetRecentDecks {
     title
     description
     author {
+      id
       username
     }
     createdAt
     averageRating
-    cards {
+    deckCards {
       id
-      type
+      card {
+        id
+        type
+      }
     }
   }
 }
