@@ -73,25 +73,23 @@ const CardPanelRowContainer = styled.div`
 type DeckCard = GetDeckQuery["deck"]["deckCards"][0];
 
 function groupCards(
-  cards: DeckCard[]
+  deckCards: DeckCard[]
 ): { count: number; deckCard: DeckCard }[] {
-  const cardsByCount = cards.reduce(
+  const cardsByCount = Array.from(deckCards).reduce(
     (
       all: {
         [cardId: string]: {
           deckCard: DeckCard;
           count: number;
-          index: number;
         };
       },
-      deckCard,
-      index
+      deckCard
     ) => {
       if (!deckCard || !deckCard.card) {
         return all;
       }
       if (!all[deckCard.card.cardId]) {
-        all[deckCard.card.cardId] = { deckCard, count: 1, index };
+        all[deckCard.card.cardId] = { deckCard, count: 1 };
       } else {
         all[deckCard.card.cardId].count += 1;
       }
@@ -99,9 +97,12 @@ function groupCards(
     },
     {}
   );
-  return Object.values(cardsByCount).sort(
-    ({ index: a }, { index: b }) => a - b
-  ) as { count: number; deckCard: DeckCard }[];
+  const ordering = Object.values(cardsByCount).sort(
+    (a, b) =>
+      new Date(a.deckCard?.createdAt).getTime() -
+      new Date(b.deckCard?.createdAt).getTime()
+  );
+  return ordering;
 }
 
 function CardPanelRow({

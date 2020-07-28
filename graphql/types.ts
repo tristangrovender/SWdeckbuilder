@@ -185,7 +185,7 @@ export type GetDeckQuery = (
       & Pick<User, 'id' | 'username'>
     ), deckCards: Array<Maybe<(
       { __typename?: 'DeckCard' }
-      & Pick<DeckCard, 'id' | 'isInSideDeck'>
+      & Pick<DeckCard, 'id' | 'createdAt' | 'isInSideDeck'>
       & { card: (
         { __typename?: 'Card' }
         & Pick<Card, 'id' | 'cardId' | 'side' | 'rarity' | 'set' | 'title' | 'type' | 'imageUrl' | 'subType' | 'destiny' | 'power' | 'deploy' | 'forfeit' | 'gametext' | 'lore' | 'gemp_card_id'>
