@@ -118,13 +118,13 @@ function groupCards(
 }
 
 function CardPanelRow({
-  deckCard,
+  card,
   count,
   backgroundColor,
   hoverButtons,
   textColor,
 }: {
-  deckCard: DeckCard;
+  card?: Card;
   count: number;
   backgroundColor?: string;
   textColor?: string;
@@ -142,8 +142,8 @@ function CardPanelRow({
       onMouseLeave={() => setHovering(false)}
     >
       <CardSnippet
-        title={deckCard?.card?.title}
-        imageUrl={deckCard?.card?.imageUrl}
+        title={card?.title}
+        imageUrl={card?.imageUrl}
         hoverButtons={hoverButtons}
         backgroundColor={backgroundColor}
         isHovering={isHovering}
@@ -176,7 +176,7 @@ export function CardPanel({
   removeCard,
 }: {
   deck?: GetDeckQuery["deck"];
-  suggestedCards: DeckCard[];
+  suggestedCards: Card[];
   addCard: (cardId: string) => void;
   removeCard: (card: DeckCard) => void;
 }) {
@@ -199,10 +199,10 @@ export function CardPanel({
     }
   }, [deck?.deckCards]);
   const [cardInfo, setCardInfo]: [
-    { card: DeckCard; clickAwayActive: boolean } | undefined,
-    (cardInfo: { card: DeckCard; clickAwayActive: boolean } | undefined) => void
+    { card?: Card; clickAwayActive: boolean } | undefined,
+    (cardInfo: { card?: Card; clickAwayActive: boolean } | undefined) => void
   ] = useState();
-  const onCardInfoHandler = (card: DeckCard) => () => {
+  const onCardInfoHandler = (card?: Card) => () => {
     if (cardInfo?.card?.id === card?.id) {
       setCardInfo(undefined);
     } else {
@@ -270,7 +270,7 @@ export function CardPanel({
                 groupCards(cardsInMainDeck).map(({ deckCard, count }, i) => (
                   <CardPanelRow
                     key={i}
-                    deckCard={deckCard}
+                    card={deckCard?.card}
                     textColor={
                       startingCardIds.includes(deckCard?.id.toString() || "")
                         ? goldenColor
@@ -304,7 +304,7 @@ export function CardPanel({
                         tooltip: "Mark as starting card",
                       },
                       {
-                        onClick: onCardInfoHandler(deckCard),
+                        onClick: onCardInfoHandler(deckCard?.card),
                         text: "i",
                         fontSize: "12px",
                       },
@@ -332,11 +332,11 @@ export function CardPanel({
                 {groupCards(cardsInSideDeck).map(({ deckCard, count }, i) => (
                   <CardPanelRow
                     key={i}
-                    deckCard={deckCard}
+                    card={deckCard?.card}
                     count={count}
                     hoverButtons={[
                       {
-                        onClick: onCardInfoHandler(deckCard),
+                        onClick: onCardInfoHandler(deckCard?.card),
                         text: "i",
                         fontSize: "12px",
                       },
@@ -354,21 +354,20 @@ export function CardPanel({
             {suggestedCards.length ? (
               <CardPanelSection>
                 <CardPanelSectionTitle>Suggested Cards</CardPanelSectionTitle>
-                {suggestedCards.map((deckCard, i) => (
+                {suggestedCards.map((card, i) => (
                   <CardPanelRow
                     key={i}
-                    deckCard={deckCard}
+                    card={card}
                     count={0}
                     backgroundColor="black"
                     hoverButtons={[
                       {
-                        onClick: onCardInfoHandler(deckCard),
+                        onClick: onCardInfoHandler(card),
                         text: "i",
                         fontSize: "12px",
                       },
                       {
-                        onClick: () =>
-                          deckCard?.card.id && addCard(deckCard?.card.id),
+                        onClick: () => card.id && addCard(card.id),
                         text: "accept",
                         fontSize: "12px",
                       },
@@ -388,7 +387,7 @@ export function CardPanel({
                 }}
               >
                 <CardInfoContainer>
-                  <img src={cardInfo?.card?.card.imageUrl} />
+                  <img src={cardInfo?.card?.imageUrl || ""} />
                 </CardInfoContainer>
               </ClickAwayListener>
             ) : null}

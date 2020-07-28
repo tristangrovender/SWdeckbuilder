@@ -56,7 +56,7 @@ function getCardSuggestions({
   if (
     deckCards.some(
       (deckCard) =>
-        deckCard?.card.cardId === (destroyTheJedi && destroyTheJedi.id)
+        deckCard?.card.cardId === (destroyTheJedi && destroyTheJedi.cardId)
     )
   ) {
     const cardsInDestroyTheJedi = [
@@ -71,7 +71,7 @@ function getCardSuggestions({
         return (
           deckCards
             .map((deckCard) => deckCard?.card.cardId)
-            .indexOf(cardSuggestion.id) === -1
+            .indexOf(cardSuggestion.cardId) === -1
         );
       });
   }
@@ -102,7 +102,6 @@ export default function EditDeck() {
   const [addCardToDeck] = useMutation<Mutation, MutationAddCardToDeckArgs>(
     gql(AddCardToDeckMutation)
   );
-  const [deckCards, setDeckCards] = useState<DeckCard[]>([]);
   const [removeCardFromDeck] = useMutation<
     Mutation,
     MutationRemoveCardFromDeckArgs
@@ -185,10 +184,9 @@ export default function EditDeck() {
           <CardPanel
             deck={deckInfo && deckInfo.deck}
             suggestedCards={
-              // TODO come back to this
               allCards.length
                 ? getCardSuggestions({
-                    deckCards: deckCards,
+                    deckCards: deckInfo?.deck.deckCards || [],
                     allCards,
                     side,
                   })
