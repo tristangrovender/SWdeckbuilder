@@ -174,7 +174,7 @@ export default function EditDeck() {
           />
           <CardPanel
             cards={deckCards}
-            deckInfo={deckInfo}
+            deckInfo={deckInfo && deckInfo.deck}
             suggestedCards={
               allCards.length
                 ? getCardSuggestions({ deck: deckCards, allCards, side })

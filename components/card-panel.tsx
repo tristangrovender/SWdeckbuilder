@@ -159,7 +159,7 @@ export function CardPanel({
   removeCard,
 }: {
   cards: CardWithDeckInfo[];
-  deckInfo?: { deck: Deck };
+  deckInfo?: Deck;
   suggestedCards: CardFromServer[];
   addCard: (card: CardFromServer) => void;
   removeCard: (card: CardFromServer) => void;
