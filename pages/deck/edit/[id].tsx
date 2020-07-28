@@ -111,19 +111,19 @@ export default function EditDeck() {
   if (allCards.length === 0) {
     getCards().then(setCards);
   }
-  const addCard = (card: DeckCard) => {
-    if (!card) {
-      console.error("unable to aadd card:", card);
+  const addCard = (deckCard: DeckCard) => {
+    if (!deckCard) {
+      console.error("unable to aadd deckCard:", deckCard);
       return;
     }
     addCardToDeck({
       variables: {
-        cardId: card.id,
+        cardId: deckCard.card.id,
         deckId: deckId as string,
       },
     }).then(({ data, errors }) => {
       if (!data) {
-        console.error("Error adding card to deck", errors);
+        console.error("Error adding deckCard to deck", errors);
         return;
       }
       refreshDeck();
