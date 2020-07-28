@@ -70,14 +70,14 @@ function getCardSuggestions({
   return [];
 }
 
-function isCardInSideDeck(card: Card) {
-  return card.type === "Objective" || card.type === "Defensive Shield";
+function isCardInSideDeck(deckCard: DeckCard) {
+  return (
+    deckCard?.card.type === "Objective" ||
+    deckCard?.card.type === "Defensive Shield"
+  );
 }
 
-interface DeckCard extends Card {
-  isSideDeck: boolean;
-  deckCardId: string;
-}
+type DeckCard = GetDeckQueryI["deck"]["deckCards"][0];
 
 export default function EditDeck() {
   const router = useRouter();
@@ -110,7 +110,11 @@ export default function EditDeck() {
   if (allCards.length === 0) {
     getCards().then(setCards);
   }
-  const addCard = (card: Card) => {
+  const addCard = (card: DeckCard) => {
+    if (!card) {
+      console.error("unable to aadd card:", card);
+      return;
+    }
     addCardToDeck({
       variables: {
         cardId: card.id,
@@ -121,25 +125,24 @@ export default function EditDeck() {
         console.error("Error adding card to deck", errors);
         return;
       }
-      const deckCardId = data.addCardToDeck.newDeckCardId;
+      // const deckCardId = data.addCardToDeck.newDeckCardId;
       setDeckCards([
         ...deckCards,
-        { ...card, isSideDeck: isCardInSideDeck(card), deckCardId },
+        { ...card, isInSideDeck: isCardInSideDeck(card) },
       ]);
     });
   };
-  const removeCard = (cardToRemove: Card) => {
-    const index = deckCards.map(({ id }) => id).lastIndexOf(cardToRemove.id);
-    removeCardFromDeck({
-      variables: {
-        deckCardId: deckCards[index].deckCardId,
-      },
-    }).then(() => {
-      setDeckCards([
-        ...deckCards.slice(0, index),
-        ...deckCards.slice(index + 1),
-      ]);
-    });
+  const removeCard = (cardToRemove: DeckCard) => {
+    const index = deckCards
+      .map((deckCard) => deckCard?.id)
+      .lastIndexOf(cardToRemove?.id);
+    // TODO come back to this
+    // removeCardFromDeck({
+    //   variables: {
+    //     deckCardId: deckCards[index].deckCardId,
+    //   },
+    // }).then(() => {});
+    setDeckCards([...deckCards.slice(0, index), ...deckCards.slice(index + 1)]);
   };
   if (!deckId) {
     return (
@@ -165,7 +168,8 @@ export default function EditDeck() {
           <CardSearchResults
             cards={applyFilters(allCards, { ...filters, side })}
             showSide={side}
-            onCardSelected={addCard}
+            // TODO fix this!!!
+            onCardSelected={addCard as any}
             newTab={"_blank"}
             style={{
               width: "70vw",
@@ -173,11 +177,15 @@ export default function EditDeck() {
             }}
           />
           <CardPanel
-            cards={deckCards}
             deck={deckInfo && deckInfo.deck}
             suggestedCards={
+              // TODO come back to this
               allCards.length
-                ? getCardSuggestions({ deck: deckCards, allCards, side })
+                ? (getCardSuggestions({
+                    deck: deckCards as any,
+                    allCards,
+                    side,
+                  }) as any)
                 : []
             }
             addCard={addCard}

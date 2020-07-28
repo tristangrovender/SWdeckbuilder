@@ -155,13 +155,11 @@ function usePrevious(value: any) {
 }
 
 export function CardPanel({
-  cards,
   deck,
   suggestedCards,
   addCard,
   removeCard,
 }: {
-  cards: CardWithDeckInfo[];
   deck?: GetDeckQuery["deck"];
   suggestedCards: DeckCard[];
   addCard: (card: DeckCard) => void;
@@ -185,7 +183,7 @@ export function CardPanel({
     ) {
       (scrollDiv as any).scrollIntoViewIfNeeded({ behavior: "smooth" });
     }
-  }, [cards]);
+  }, [deck?.deckCards]);
   const [cardInfo, setCardInfo]: [
     { card: DeckCard; clickAwayActive: boolean } | undefined,
     (cardInfo: { card: DeckCard; clickAwayActive: boolean } | undefined) => void
@@ -250,7 +248,7 @@ export function CardPanel({
               }}
             ></textarea>
             <DeckBuilderCardsContainer>
-              {cards.length === 0 ? (
+              {deck?.deckCards?.length === 0 ? (
                 <EmptyDeckState>
                   Click add in the table to add cards to your deck
                 </EmptyDeckState>
