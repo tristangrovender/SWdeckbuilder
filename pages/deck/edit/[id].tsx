@@ -84,10 +84,11 @@ export default function EditDeck() {
   const { data: deckInfo, refetch: refreshDeck } = useQuery<
     GetDeckQueryI,
     GetDeckQueryVariables
-  >(gql(GetDeckQuery), {
+  >(gql(GetDeckQuery + ""), {
     variables: {
       id: router.query.id as string,
     },
+    skip: !Boolean(router.query.id),
   });
   const [addCardToDeck] = useMutation<Mutation, MutationAddCardToDeckArgs>(
     gql(AddCardToDeckMutation)

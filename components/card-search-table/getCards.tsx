@@ -11,7 +11,7 @@ import {
 function fetchCardsFromServer(): Promise<CardFromServer[]> {
   return client
     .query<GetCardsQueryI>({
-      query: gql(GetCardsQuery + ""),
+      query: gql(GetCardsQuery + " "),
     })
     .then(({ data }) => {
       return data.cards;
