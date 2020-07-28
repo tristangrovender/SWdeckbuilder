@@ -168,6 +168,30 @@ export type GetCardsQuery = (
   )>> }
 );
 
+export type GetDeckQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetDeckQuery = (
+  { __typename?: 'Query' }
+  & { deck: (
+    { __typename?: 'Deck' }
+    & Pick<Deck, 'id' | 'title'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    ), deckCards: Array<Maybe<(
+      { __typename?: 'DeckCard' }
+      & Pick<DeckCard, 'id'>
+      & { card: (
+        { __typename?: 'Card' }
+        & Pick<Card, 'id'>
+      ) }
+    )>> }
+  ) }
+);
+
 export type GetRecentDecksQueryVariables = Exact<{ [key: string]: never; }>;
 
 

@@ -10,10 +10,15 @@ import {
 import { getCards } from "../../../components/card-search-table/getCards";
 import { CardPanel } from "../../../components/card-panel";
 import Footer from "../../../components/Footer";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation, gql, useQuery } from "@apollo/client";
 import AddCardToDeckMutation from "../../../graphql/add-card-to-deck.gql";
 import RemoveCardFromDeckMutation from "../../../graphql/remove-card-from-deck.gql";
-import { MutationRemoveCardFromDeckArgs } from "../../../graphql/types";
+import GetDeckQuery from "../../../graphql/get-deck.gql";
+import {
+  MutationRemoveCardFromDeckArgs,
+  Query,
+  GetDeckQueryVariables,
+} from "../../../graphql/types";
 import { CardFilters } from "../../../components/card-search-table/card-filters-bar";
 import {
   MutationAddCardToDeckArgs,
@@ -76,6 +81,14 @@ interface DeckCard extends Card {
 
 export default function EditDeck() {
   const router = useRouter();
+  const { data: deckData } = useQuery<Query, GetDeckQueryVariables>(
+    gql(GetDeckQuery),
+    {
+      variables: {
+        id: router.query.id as string,
+      },
+    }
+  );
   const [addCardToDeck] = useMutation<Mutation, MutationAddCardToDeckArgs>(
     gql(AddCardToDeckMutation)
   );
@@ -91,6 +104,7 @@ export default function EditDeck() {
   const [allCards, setCards] = useState<Card[]>([]);
   const side = router.query.side as Side;
   const { id: deckId } = router.query;
+  console.log(deckData);
   if (!deckId) {
     return <div>DeckID not found.</div>;
   }
