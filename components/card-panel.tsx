@@ -72,6 +72,9 @@ const CardPanelRowContainer = styled.div`
 
 type DeckCard = GetDeckQuery["deck"]["deckCards"][0];
 
+// yea this function is confusing...
+// it gets complicated with adding removing group cards
+// and confirming the order works
 function groupCards(
   deckCards: DeckCard[]
 ): { count: number; deckCard: DeckCard }[] {
@@ -81,6 +84,7 @@ function groupCards(
         [cardId: string]: {
           deckCard: DeckCard;
           count: number;
+          lowestCreatedAt: number;
         };
       },
       deckCard
@@ -89,18 +93,26 @@ function groupCards(
         return all;
       }
       if (!all[deckCard.card.cardId]) {
-        all[deckCard.card.cardId] = { deckCard, count: 1 };
+        all[deckCard.card.cardId] = {
+          deckCard,
+          count: 1,
+          lowestCreatedAt: new Date(deckCard.createdAt).getTime(),
+        };
       } else {
         all[deckCard.card.cardId].count += 1;
+        const time = new Date(deckCard.createdAt).getTime();
+        if (time < all[deckCard.card.cardId].lowestCreatedAt) {
+          all[deckCard.card.cardId].lowestCreatedAt = time;
+        } else {
+          all[deckCard.card.cardId].deckCard = deckCard;
+        }
       }
       return all;
     },
     {}
   );
   const ordering = Object.values(cardsByCount).sort(
-    (a, b) =>
-      new Date(a.deckCard?.createdAt).getTime() -
-      new Date(b.deckCard?.createdAt).getTime()
+    (a, b) => a.lowestCreatedAt - b.lowestCreatedAt
   );
   return ordering;
 }
