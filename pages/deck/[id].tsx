@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Page, Toolbar, Content } from "../../components/Toolbar";
-import { Card } from "../../components/card-search-table/card.interface";
+import { Page, Toolbar } from "../../components/Toolbar";
+import { Card, Type } from "../../components/card-search-table/card.interface";
 import { getCards } from "../../components/card-search-table/getCards";
 import { FadedImage } from "../../components/card-snippet";
 import styled from "styled-components";
@@ -16,6 +16,18 @@ import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
 import DeckIdContent from "../../components/DeckIdContent";
 import Footer from "../../components/Footer";
+
+const WideContent = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+`;
+
+const Content = styled.div`
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+`;
 
 const AverageDestiny = styled.div`
   opacity: 0.5;
@@ -103,6 +115,8 @@ const TypeTitle = styled.div`
   display: flex;
   align-items: center;
   font-size: 16px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 `;
 
 const DeckTitleContainer = styled.div`
@@ -118,6 +132,10 @@ const DeckTitleContainer = styled.div`
   position: relative;
 `;
 
+const TypeImage = styled.img`
+  height: 16px;
+`;
+
 export function getRandomDeck(allCards: Card[]) {
   // map over current array
   const newArray = allCards.map(cards => {
@@ -130,7 +148,28 @@ export function getRandomDeck(allCards: Card[]) {
   // Get sub-array of first 60 elements after shuffle
   let randomDeck = shuffled.slice(0, 60);
 
+  // Delete after images are correct
+  const specificCard = newArray.find(card => {
+    return card.front.type === "Admiral's Order";
+  });
+  randomDeck.push(specificCard);
   return randomDeck;
+}
+
+function getIconName(type: string) {
+  if (type.includes("Jedi")) {
+    return "JediTest";
+  }
+  if (type.includes("Admiral")) {
+    return "AdmiralsOrder";
+  }
+  if (type.includes("Epic")) {
+    return "EpicEvent";
+  }
+  if (type.includes("Defensive")) {
+    return "DefensiveShield";
+  }
+  return type;
 }
 
 export function CardTypeSection({ cards }: { cards: Card[] }) {
@@ -140,17 +179,19 @@ export function CardTypeSection({ cards }: { cards: Card[] }) {
   return (
     <TypeContainer>
       <TypeTitle>
+        <TypeImage
+          src={`/images/type_images/${getIconName(cards[0].front.type)}.png`}
+        />{" "}
         {cards[0].front.type} ({cards.length})
       </TypeTitle>
       <div>
         {cards.map(card => (
           <div
             style={{
-              color: "red",
               fontSize: "12px"
             }}
           >
-            {card.front.title}
+            1x {card.front.title}
           </div>
         ))}
       </div>
@@ -190,78 +231,83 @@ export default function Deck() {
   return (
     <Page>
       <Toolbar />
-      <Content>
-        <DeckPageContainer>
-          <DeckTitleContainer>
-            <PageTitle>{deckTitle}</PageTitle>
-            <GrowComponent />
-            <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
-          </DeckTitleContainer>
-          <DeckInfoContainer>
-            <DeckInfoStatistics>
-              PLAYER: {authorUsername} - PUBLISHED: July 15, 2020 - UPDATED: 2
-              days ago
-            </DeckInfoStatistics>
+      <WideContent>
+        <Content>
+          <DeckPageContainer>
+            <DeckTitleContainer>
+              <PageTitle>{deckTitle}</PageTitle>
+              <GrowComponent />
+              <FadedImage
+                imageUrl={"/images/dark.png"}
+                backgroundColor="black"
+              />
+            </DeckTitleContainer>
+            <DeckInfoContainer>
+              <DeckInfoStatistics>
+                PLAYER: {authorUsername} - PUBLISHED: July 15, 2020 - UPDATED: 2
+                days ago
+              </DeckInfoStatistics>
 
-            <DeckButtons>
-              <AverageDestiny>
-                {Math.round(average(destiny))} Avg Destiny
-              </AverageDestiny>
-              <StarsComponent rating={3.5} />
-              <DeckButtonsDropDown>
-                <GetAppIcon
-                  style={{
-                    marginLeft: "10px",
-                    color: "#7f7f7f",
-                    cursor: "pointer"
-                  }}
-                  onClick={() => toggleExportDropdown(!exportDropDownOpen)}
-                />
-                {exportDropDownOpen ? (
-                  <ClickAwayListener
-                    onClickAway={() => toggleExportDropdown(false)}
-                  >
-                    <ExportContainer>
-                      <Button
-                        style={{ width: "100%" }}
-                        onClick={() => {
-                          router.push(`/deck/print/${deckId}`);
-                        }}
-                      >
-                        PDF Export
-                      </Button>
-                      <Button
-                        style={{ width: "100%" }}
-                        onClick={() => {
-                          saveToFile(
-                            `${(deckTitle + " by " + authorUsername).replace(
-                              / /g,
-                              "_"
-                            )}.txt`,
-                            getDeckText(deck)
-                          );
-                        }}
-                      >
-                        Text Export
-                      </Button>
-                      <Button
-                        style={{ width: "100%" }}
-                        onClick={() => {
-                          console.log("gemp export");
-                        }}
-                      >
-                        Gemp XML Export
-                      </Button>
-                    </ExportContainer>
-                  </ClickAwayListener>
-                ) : null}
-              </DeckButtonsDropDown>
-            </DeckButtons>
-          </DeckInfoContainer>
-        </DeckPageContainer>
-        <DeckIdContent deck={deck}></DeckIdContent>
-        <CommentsSection />
-      </Content>
+              <DeckButtons>
+                <AverageDestiny>
+                  {Math.round(average(destiny))} Avg Destiny
+                </AverageDestiny>
+                <StarsComponent rating={3.5} />
+                <DeckButtonsDropDown>
+                  <GetAppIcon
+                    style={{
+                      marginLeft: "10px",
+                      color: "#7f7f7f",
+                      cursor: "pointer"
+                    }}
+                    onClick={() => toggleExportDropdown(!exportDropDownOpen)}
+                  />
+                  {exportDropDownOpen ? (
+                    <ClickAwayListener
+                      onClickAway={() => toggleExportDropdown(false)}
+                    >
+                      <ExportContainer>
+                        <Button
+                          style={{ width: "100%" }}
+                          onClick={() => {
+                            router.push(`/deck/print/${deckId}`);
+                          }}
+                        >
+                          PDF Export
+                        </Button>
+                        <Button
+                          style={{ width: "100%" }}
+                          onClick={() => {
+                            saveToFile(
+                              `${(deckTitle + " by " + authorUsername).replace(
+                                / /g,
+                                "_"
+                              )}.txt`,
+                              getDeckText(deck)
+                            );
+                          }}
+                        >
+                          Text Export
+                        </Button>
+                        <Button
+                          style={{ width: "100%" }}
+                          onClick={() => {
+                            console.log("gemp export");
+                          }}
+                        >
+                          Gemp XML Export
+                        </Button>
+                      </ExportContainer>
+                    </ClickAwayListener>
+                  ) : null}
+                </DeckButtonsDropDown>
+              </DeckButtons>
+            </DeckInfoContainer>
+          </DeckPageContainer>
+          <DeckIdContent deck={deck}></DeckIdContent>
+          <CommentsSection />
+        </Content>
+      </WideContent>
       <Footer></Footer>
     </Page>
   );

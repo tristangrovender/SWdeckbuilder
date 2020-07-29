@@ -30,15 +30,14 @@ const DeckCardsContainer = styled.div`
 
 const RightContent = styled.div`
   display: flex;
+  flex-direction: column;
   width: 50%;
-  flex-wrap: wrap;
 `;
 
 const PlayerName = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 24px;
+  align-items: ;
 `;
 
 const Description = styled.div`
@@ -81,10 +80,8 @@ export default function DeckIdContent({ deck }: { deck: Card[] }) {
         </LeftContent>
         <RightContent>
           <PlayerName>
-            <PersonIcon />
-            <a style={{ paddingTop: "4px" }} href="/">
-              {playerName}
-            </a>
+            <PersonIcon style={{ fontSize: "31px" }} />
+            <div>{playerName}</div>
           </PlayerName>
           <Description>
             {p1}
