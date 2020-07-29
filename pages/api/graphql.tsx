@@ -50,8 +50,8 @@ const resolvers: Resolvers = {
         jwt: jwt.sign({ userId: user.id }, jwtSecret),
       };
     },
-    createDeck: createDeck(prisma),
-    addCardToDeck: addCardToDeck(prisma),
+    createDeck,
+    addCardToDeck,
     removeCardFromDeck: async (_parent, _args, _context) => {
       if (!_context.userId) {
         throw new Error("Please login");
