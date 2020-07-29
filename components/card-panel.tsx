@@ -193,7 +193,7 @@ export function CardPanel({
                 color: "white",
                 borderBottom: "1px solid black",
               }}
-              value={deck.description}
+              defaultValue={deck.description}
               onBlur={(e) => {
                 updateDeck({
                   variables: {
