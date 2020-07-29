@@ -6,6 +6,7 @@ import { useQuery, gql } from "@apollo/client";
 import { GetDecksQuery, GetDecksQueryVariables } from "../graphql/types";
 import GetDecks from "raw-loader!../graphql/get-decks.gql";
 import { DeckRow } from "../components/deck-row";
+import { LinearProgress } from "@material-ui/core";
 
 const BodyContainer = styled.div`
   display: flex;
@@ -33,7 +34,12 @@ export default function DeckLists() {
   );
   const decks = data && data.decks;
   if (!decks) {
-    return <div>No decks found</div>;
+    return (
+      <Page>
+        <Toolbar />
+        <LinearProgress />
+      </Page>
+    );
   }
   return (
     <Page>
