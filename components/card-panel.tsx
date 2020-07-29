@@ -5,6 +5,7 @@ import { ClickAwayListener, LinearProgress } from "@material-ui/core";
 import { darkBlue, goldenColor } from "../utils/colors";
 import { Card, GetDeckQuery } from "../graphql/types";
 import { CardPanelRow } from "./card-panel-row";
+import { groupCards } from "./card-panel-group-cards";
 
 const CardPanelSection = styled.div`
   background-color: black;
@@ -48,52 +49,7 @@ const EmptyDeckState = styled.div`
   justify-content: center;
 `;
 
-type DeckCard = GetDeckQuery["deck"]["deckCards"][0];
-
-// yea this function is confusing...
-// it gets complicated with adding removing group cards
-// and confirming the order works
-function groupCards(
-  deckCards: DeckCard[]
-): { count: number; deckCard: DeckCard }[] {
-  const cardsByCount = Array.from(deckCards).reduce(
-    (
-      all: {
-        [cardId: string]: {
-          deckCard: DeckCard;
-          count: number;
-          lowestCreatedAt: number;
-        };
-      },
-      deckCard
-    ) => {
-      if (!deckCard || !deckCard.card) {
-        return all;
-      }
-      if (!all[deckCard.card.cardId]) {
-        all[deckCard.card.cardId] = {
-          deckCard,
-          count: 1,
-          lowestCreatedAt: new Date(deckCard.createdAt).getTime(),
-        };
-      } else {
-        all[deckCard.card.cardId].count += 1;
-        const time = new Date(deckCard.createdAt).getTime();
-        if (time < all[deckCard.card.cardId].lowestCreatedAt) {
-          all[deckCard.card.cardId].lowestCreatedAt = time;
-        } else {
-          all[deckCard.card.cardId].deckCard = deckCard;
-        }
-      }
-      return all;
-    },
-    {}
-  );
-  const ordering = Object.values(cardsByCount).sort(
-    (a, b) => a.lowestCreatedAt - b.lowestCreatedAt
-  );
-  return ordering;
-}
+export type DeckCard = GetDeckQuery["deck"]["deckCards"][0];
 
 export interface CardWithDeckInfo extends Card {
   isSideDeck: boolean;
