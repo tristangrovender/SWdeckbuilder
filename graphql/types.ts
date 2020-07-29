@@ -42,6 +42,11 @@ export type DeckCardIdResponse = {
   newDeckCardId: Scalars['ID'];
 };
 
+export type DeckUpdate = {
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createDeck: Deck;
@@ -49,6 +54,7 @@ export type Mutation = {
   addCardToDeck: DeckCardIdResponse;
   removeCardFromDeck: SuccessResponse;
   setStartingCard: DeckCard;
+  updateDeck: Deck;
 };
 
 
@@ -77,6 +83,12 @@ export type MutationRemoveCardFromDeckArgs = {
 export type MutationSetStartingCardArgs = {
   deckCardId: Scalars['ID'];
   isStartingCard: Scalars['Boolean'];
+};
+
+
+export type MutationUpdateDeckArgs = {
+  deckId: Scalars['ID'];
+  updates: DeckUpdate;
 };
 
 export enum Side {
@@ -351,6 +363,7 @@ export type ResolversTypes = ResolversObject<{
   SuccessResponse: ResolverTypeWrapper<SuccessResponse>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   DeckCardIDResponse: ResolverTypeWrapper<DeckCardIdResponse>;
+  DeckUpdate: DeckUpdate;
   Mutation: ResolverTypeWrapper<{}>;
   Side: Side;
   Date: ResolverTypeWrapper<Scalars['Date']>;
@@ -372,6 +385,7 @@ export type ResolversParentTypes = ResolversObject<{
   SuccessResponse: SuccessResponse;
   Boolean: Scalars['Boolean'];
   DeckCardIDResponse: DeckCardIdResponse;
+  DeckUpdate: DeckUpdate;
   Mutation: {};
   Date: Scalars['Date'];
   Deck: Deck;
@@ -410,6 +424,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   addCardToDeck?: Resolver<ResolversTypes['DeckCardIDResponse'], ParentType, ContextType, RequireFields<MutationAddCardToDeckArgs, 'deckId' | 'cardId'>>;
   removeCardFromDeck?: Resolver<ResolversTypes['SuccessResponse'], ParentType, ContextType, RequireFields<MutationRemoveCardFromDeckArgs, 'deckCardId'>>;
   setStartingCard?: Resolver<ResolversTypes['DeckCard'], ParentType, ContextType, RequireFields<MutationSetStartingCardArgs, 'deckCardId' | 'isStartingCard'>>;
+  updateDeck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType, RequireFields<MutationUpdateDeckArgs, 'deckId' | 'updates'>>;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {

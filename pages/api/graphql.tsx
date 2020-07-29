@@ -51,6 +51,17 @@ const resolvers: Resolvers = {
         jwt: jwt.sign({ userId: user.id }, jwtSecret),
       };
     },
+    updateDeck: async (_parent, _args) => {
+      return prisma.deck.update({
+        where: {
+          id: parseInt(_args.deckId),
+        },
+        data: {
+          title: _args.updates.title,
+          description: _args.updates.description,
+        },
+      });
+    },
     setStartingCard,
     createDeck,
     addCardToDeck,

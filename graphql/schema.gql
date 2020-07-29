@@ -13,12 +13,18 @@ type SuccessResponse {
 type DeckCardIDResponse {
   newDeckCardId: ID!
 }
+input DeckUpdate {
+  title: String
+  description: String
+}
+
 type Mutation {
   createDeck(side: Side!): Deck!
   login(username: String!, password: String!): LoginResponse!
   addCardToDeck(deckId: ID!, cardId: ID!): DeckCardIDResponse!
   removeCardFromDeck(deckCardId: ID!): SuccessResponse!
   setStartingCard(deckCardId: ID!, isStartingCard: Boolean!): DeckCard!
+  updateDeck(deckId: ID!, updates: DeckUpdate!): Deck!
 }
 enum Side {
   Dark
