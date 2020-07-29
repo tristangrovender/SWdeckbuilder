@@ -5,7 +5,7 @@ import { DEFAULT_OPTION, lightOrange } from "./card-filters-bar";
 import styled from "styled-components";
 import { darkBlue } from "../../utils/colors";
 
-const FilterName = styled.div`
+const FilterName = styled.div<{ isFiltered: boolean }>`
   margin-left: 3px;
   white-space: nowrap;
   overflow: hidden;
@@ -34,7 +34,7 @@ const ClickableFilterIcon = styled.div`
   justify-content: space-between;
 `;
 
-const FilterIconContainer = styled.div`
+const FilterIconContainer = styled.div<{ isFiltered: boolean }>`
   z-index: 10;
   position: relative;
   border-radius: 50px;
