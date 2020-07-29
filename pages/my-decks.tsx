@@ -1,4 +1,5 @@
 import { Toolbar, Content, Page } from "../components/Toolbar";
+import { LinearProgress } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Link from "next/link";
 import styled from "styled-components";
@@ -58,7 +59,12 @@ export default function MyDecks() {
   );
   const decks = data && data.decks;
   if (!decks) {
-    return <div>No decks found</div>;
+    return (
+      <Page>
+        <Toolbar />
+        <LinearProgress />
+      </Page>
+    );
   }
   return (
     <Page>
