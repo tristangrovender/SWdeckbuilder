@@ -70,7 +70,13 @@ const ratingChanged = (newRating: number) => {
 
 type Deck = GetDecksQuery["decks"][0];
 
-export function DeckRow({ deck, editable }: { editable: boolean; deck: Deck }) {
+export function DeckRow({
+  deck,
+  editable = false,
+}: {
+  editable?: boolean;
+  deck: Deck;
+}) {
   const router = useRouter();
   const [dropDownOpen, setDropDownOpen] = useState(false);
   if (!deck) {
