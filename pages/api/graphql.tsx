@@ -9,6 +9,7 @@ import { addCardToDeck } from "../../server/resolvers/add-card-to-deck";
 import { CardResolver } from "../../server/resolvers/Card";
 import { createDeck } from "../../server/resolvers/create-deck";
 import { DeckCard } from "../../server/resolvers/DeckCard";
+import { setStartingCard } from "../../server/resolvers/set-starting-card";
 
 export const prisma = new PrismaClient();
 
@@ -50,7 +51,7 @@ const resolvers: Resolvers = {
         jwt: jwt.sign({ userId: user.id }, jwtSecret),
       };
     },
-    // setStartingCard: (_parent, _args) => {},
+    setStartingCard,
     createDeck,
     addCardToDeck,
     removeCardFromDeck: async (_parent, _args, _context) => {
