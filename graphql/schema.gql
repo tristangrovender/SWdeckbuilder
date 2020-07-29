@@ -41,6 +41,7 @@ type DeckCard {
   card: Card!
   deck: Deck!
   isInSideDeck: Boolean!
+  isStartingCard: Boolean!
 }
 type Card {
   id: ID!

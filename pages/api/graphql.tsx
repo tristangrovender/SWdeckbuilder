@@ -8,8 +8,9 @@ import { Resolvers } from "../../graphql/types";
 import { addCardToDeck } from "../../server/resolvers/add-card-to-deck";
 import { CardResolver } from "../../server/resolvers/Card";
 import { createDeck } from "../../server/resolvers/create-deck";
+import { DeckCard } from "../../server/resolvers/DeckCard";
 
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
 const typeDefs = gql(schema + "");
 
@@ -84,25 +85,7 @@ const resolvers: Resolvers = {
       });
     },
   },
-  DeckCard: {
-    updatedAt: (_parent) => _parent.updated_at,
-    createdAt: (_parent) => _parent.created_at,
-    isInSideDeck: (_parent) => _parent.is_in_side_deck,
-    card: (_parent) => {
-      return prisma.card.findOne({
-        where: {
-          id: _parent.cardId,
-        },
-      });
-    },
-    deck: (_parent) => {
-      return prisma.deck.findOne({
-        where: {
-          id: _parent.deckId,
-        },
-      });
-    },
-  },
+  DeckCard: DeckCard,
   Card: CardResolver,
 };
 
