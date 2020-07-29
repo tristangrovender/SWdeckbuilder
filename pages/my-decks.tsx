@@ -8,6 +8,7 @@ import Router from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import { GetDecksQuery, GetDecksQueryVariables } from "../graphql/types";
 import GetDecks from "raw-loader!../graphql/get-decks.gql";
+import { DeckRow } from "../components/deck-row";
 
 const NoDecksContainer = styled.div`
   display: flex;
@@ -26,6 +27,16 @@ function NoDecks() {
         </Button>
       </Link>
     </NoDecksContainer>
+  );
+}
+
+function DeckList({ decks }: { decks: GetDecksQuery["decks"] }) {
+  return (
+    <div>
+      {decks.map((deck) => (
+        <DeckRow deck={deck} />
+      ))}
+    </div>
   );
 }
 
@@ -49,12 +60,11 @@ export default function MyDecks() {
   if (!decks) {
     return <div>No decks found</div>;
   }
-  console.log(decks);
   return (
     <Page>
       <Toolbar />
       <Content>
-        <NoDecks />
+        {decks.length > 0 ? <DeckList decks={decks} /> : <NoDecks />}
       </Content>
       <Footer></Footer>
     </Page>
