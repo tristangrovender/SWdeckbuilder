@@ -8,7 +8,8 @@ import { setContext } from "@apollo/client/link/context";
 import { getToken } from "../utils/frontend-auth";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:3000/api/graphql",
+  // TODO figure out how to make this work on local and production
+  uri: "https://sw-deckbuilder.danielrasmuson.vercel.app/api/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
