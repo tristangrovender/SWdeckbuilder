@@ -106,40 +106,42 @@ export function DeckRow({
         </TileRatingContainer>
         <Days>Created {moment(deck.createdAt).from(moment(new Date()))}</Days>
       </IconDaysDiv>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-          setDropDownOpen(!dropDownOpen);
-        }}
-      >
-        <KeyboardArrowDownIcon />
-        {dropDownOpen ? (
-          <ClickAwayListener onClickAway={() => setDropDownOpen(false)}>
-            <div
-              style={{
-                position: "absolute",
-                backgroundColor: "white",
-                padding: "10px",
-                height: "60px",
-                bottom: "-35px",
-                right: "0px",
-                zIndex: 3,
-                border: "1px solid black",
-              }}
-            >
-              <MenuItem onClick={() => router.push(`/deck/edit/${deck.id}`)}>
-                Edit
-              </MenuItem>
-            </div>
-          </ClickAwayListener>
-        ) : null}
-      </div>
+      {editable && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            setDropDownOpen(!dropDownOpen);
+          }}
+        >
+          <KeyboardArrowDownIcon />
+          {dropDownOpen ? (
+            <ClickAwayListener onClickAway={() => setDropDownOpen(false)}>
+              <div
+                style={{
+                  position: "absolute",
+                  backgroundColor: "white",
+                  padding: "10px",
+                  height: "60px",
+                  bottom: "-35px",
+                  right: "0px",
+                  zIndex: 3,
+                  border: "1px solid black",
+                }}
+              >
+                <MenuItem onClick={() => router.push(`/deck/edit/${deck.id}`)}>
+                  Edit
+                </MenuItem>
+              </div>
+            </ClickAwayListener>
+          ) : null}
+        </div>
+      )}
     </DeckDiv>
   );
 }
