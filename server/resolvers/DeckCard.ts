@@ -1,4 +1,5 @@
 import { prisma } from "../../pages/api/graphql";
+import { Card } from "../../graphql/types";
 
 export const DeckCard = {
   updatedAt: (_parent) => _parent.updated_at,

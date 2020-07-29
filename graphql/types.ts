@@ -98,6 +98,7 @@ export type DeckCard = {
   card: Card;
   deck: Deck;
   isInSideDeck: Scalars['Boolean'];
+  isStartingCard: Scalars['Boolean'];
 };
 
 export type Card = {
@@ -412,6 +413,7 @@ export type DeckCardResolvers<ContextType = any, ParentType extends ResolversPar
   card?: Resolver<ResolversTypes['Card'], ParentType, ContextType>;
   deck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType>;
   isInSideDeck?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isStartingCard?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 

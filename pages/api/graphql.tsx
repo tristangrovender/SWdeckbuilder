@@ -50,6 +50,7 @@ const resolvers: Resolvers = {
         jwt: jwt.sign({ userId: user.id }, jwtSecret),
       };
     },
+    // setStartingCard: (_parent, _args) => {},
     createDeck,
     addCardToDeck,
     removeCardFromDeck: async (_parent, _args, _context) => {
