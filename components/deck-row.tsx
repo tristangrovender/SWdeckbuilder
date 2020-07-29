@@ -1,8 +1,11 @@
+import { useState } from "react";
 import StarsRating from "stars-rating";
 import moment from "moment";
 import styled from "styled-components";
 import { GetDecksQuery, Side } from "../graphql/types";
 import { useRouter } from "next/router";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import { ClickAwayListener } from "@material-ui/core";
 
 const DeckDiv = styled.div`
   cursor: pointer;
@@ -67,8 +70,9 @@ const ratingChanged = (newRating: number) => {
 
 type Deck = GetDecksQuery["decks"][0];
 
-export function DeckRow({ deck }: { deck: Deck }) {
+export function DeckRow({ deck, editable }: { editable: boolean; deck: Deck }) {
   const router = useRouter();
+  const [dropDownOpen, setDropDownOpen] = useState(false);
   if (!deck) {
     return null;
   }
@@ -96,6 +100,35 @@ export function DeckRow({ deck }: { deck: Deck }) {
         </TileRatingContainer>
         <Days>Created {moment(deck.createdAt).from(moment(new Date()))}</Days>
       </IconDaysDiv>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+          setDropDownOpen(!dropDownOpen);
+        }}
+      >
+        <KeyboardArrowDownIcon />
+        {dropDownOpen ? (
+          <ClickAwayListener onClickAway={() => setDropDownOpen(false)}>
+            <div
+              style={{
+                position: "absolute",
+                backgroundColor: "white",
+                padding: "10px",
+                bottom: "-20px",
+                right: "0px",
+              }}
+            >
+              dropdown!
+            </div>
+          </ClickAwayListener>
+        ) : null}
+      </div>
     </DeckDiv>
   );
 }

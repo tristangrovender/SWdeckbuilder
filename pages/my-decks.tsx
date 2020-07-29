@@ -35,7 +35,7 @@ function DeckList({ decks }: { decks: GetDecksQuery["decks"] }) {
   return (
     <div>
       {decks.map((deck) => (
-        <DeckRow deck={deck} />
+        <DeckRow deck={deck} editable={true} />
       ))}
     </div>
   );
