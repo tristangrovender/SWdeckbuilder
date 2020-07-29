@@ -256,7 +256,8 @@ export default function Deck() {
                               / /g,
                               "_"
                             )}.txt`,
-                            getDeckText(deck)
+                            // TODO this is broken
+                            getDeckText(deck as any)
                           );
                         }}
                       >
