@@ -1,0 +1,13 @@
+query GetDecks {
+  decks {
+    id
+    title
+    createdAt
+    side
+    averageRating
+    author {
+      id
+      username
+    }
+  }
+}

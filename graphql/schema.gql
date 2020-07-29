@@ -3,6 +3,7 @@ type Query {
   recentDecks: [Deck]!
   cards: [Card]!
   deck(id: ID!): Deck!
+  decks: [Deck]!
 }
 type LoginResponse {
   jwt: String!

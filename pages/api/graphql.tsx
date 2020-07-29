@@ -38,10 +38,13 @@ const resolvers: Resolvers = {
     cards: async () => {
       return (await prisma.card.findMany()).sort(sortCardsByName);
     },
-    deck: async (_parent, _args) => {
+    deck: (_parent, _args) => {
       return prisma.deck.findOne({
         where: { id: parseInt(_args.id) },
       });
+    },
+    decks: (_parent, _args) => {
+      return prisma.deck.findMany();
     },
   },
   Mutation: {
@@ -80,8 +83,10 @@ const resolvers: Resolvers = {
     },
   },
   Deck: {
+    createdAt: (_parent) => _parent.created_at,
     title: (_parent) => _parent.title || "Un-named Deck",
     description: (_parent) => _parent.description || "",
+    averageRating: () => 4.5,
     author: (_parent) => {
       return prisma.user.findOne({
         where: {

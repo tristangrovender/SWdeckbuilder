@@ -1,12 +1,15 @@
 import { Toolbar, Content, Page } from "../components/Toolbar";
-import { dummyDeck } from "../cards/dummyDecks";
 import styled from "styled-components";
 import { DeckFilter } from "../components/DeckFilter";
 import StarsRating from "stars-rating";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Footer from "../components/Footer";
+import { useQuery, gql } from "@apollo/client";
+import { GetDecksQuery, GetDecksQueryVariables, Side } from "../graphql/types";
+import GetDecks from "raw-loader!../graphql/get-decks.gql";
+import moment from "moment";
 
-const ratingChanged = newRating => {
+const ratingChanged = (newRating: number) => {
   console.log(newRating);
 };
 
@@ -88,6 +91,13 @@ const Days = styled.div`
 `;
 
 export default function DeckLists() {
+  const { data } = useQuery<GetDecksQuery, GetDecksQueryVariables>(
+    gql(GetDecks)
+  );
+  const decks = data && data.decks;
+  if (!decks) {
+    return <div>No decks found</div>;
+  }
   const router = useRouter();
   return (
     <Page>
@@ -98,30 +108,43 @@ export default function DeckLists() {
             <DeckFilter></DeckFilter>
           </DeckFilterContainer>
           <Table>
-            {dummyDeck.map(deck => (
-              <DeckDiv key={deck.id} onClick={() => router.push("/deck/111")}>
-                <Image src={deck.img}></Image>
-                <TitleAuthorContainer>
-                  <Title>{deck.title}</Title>
-                  <Author>By {deck.author}</Author>
-                </TitleAuthorContainer>
-                <IconDaysDiv>
-                  <TileRatingContainer>
-                    <StarsRating
-                      count={5} // number of stars
-                      onChange={ratingChanged}
-                      size={15}
-                      color2={"#ffd700"}
-                      edit={false}
-                      value={deck.rating}
-                      half={true}
-                    />
-                    <RatingText>133 ratings</RatingText>
-                  </TileRatingContainer>
-                  <Days>Created {deck.days} days ago</Days>
-                </IconDaysDiv>
-              </DeckDiv>
-            ))}
+            {decks.map((deck) => {
+              if (!deck) {
+                return null;
+              }
+              return (
+                <DeckDiv key={deck.id} onClick={() => router.push("/deck/111")}>
+                  <Image
+                    src={
+                      deck.side === Side.Dark
+                        ? "/images/dark.png"
+                        : "/images/light.png"
+                    }
+                  ></Image>
+                  <TitleAuthorContainer>
+                    <Title>{deck.title}</Title>
+                    <Author>By {deck.author.username}</Author>
+                  </TitleAuthorContainer>
+                  <IconDaysDiv>
+                    <TileRatingContainer>
+                      <StarsRating
+                        count={5} // number of stars
+                        onChange={ratingChanged}
+                        size={15}
+                        color2={"#ffd700"}
+                        edit={false}
+                        value={deck.averageRating}
+                        half={true}
+                      />
+                      <RatingText>133 ratings</RatingText>
+                    </TileRatingContainer>
+                    <Days>
+                      Created {moment(deck.createdAt).from(moment(new Date()))}
+                    </Days>
+                  </IconDaysDiv>
+                </DeckDiv>
+              );
+            })}
           </Table>
         </BodyContainer>
       </Content>

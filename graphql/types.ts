@@ -20,6 +20,7 @@ export type Query = {
   recentDecks: Array<Maybe<Deck>>;
   cards: Array<Maybe<Card>>;
   deck: Deck;
+  decks: Array<Maybe<Deck>>;
 };
 
 
@@ -212,6 +213,21 @@ export type GetDeckQuery = (
       ) }
     )>> }
   ) }
+);
+
+export type GetDecksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetDecksQuery = (
+  { __typename?: 'Query' }
+  & { decks: Array<Maybe<(
+    { __typename?: 'Deck' }
+    & Pick<Deck, 'id' | 'title' | 'createdAt' | 'side' | 'averageRating'>
+    & { author: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'username'>
+    ) }
+  )>> }
 );
 
 export type GetRecentDecksQueryVariables = Exact<{ [key: string]: never; }>;
@@ -416,6 +432,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   recentDecks?: Resolver<Array<Maybe<ResolversTypes['Deck']>>, ParentType, ContextType>;
   cards?: Resolver<Array<Maybe<ResolversTypes['Card']>>, ParentType, ContextType>;
   deck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType, RequireFields<QueryDeckArgs, 'id'>>;
+  decks?: Resolver<Array<Maybe<ResolversTypes['Deck']>>, ParentType, ContextType>;
 }>;
 
 export type LoginResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['LoginResponse'] = ResolversParentTypes['LoginResponse']> = ResolversObject<{
