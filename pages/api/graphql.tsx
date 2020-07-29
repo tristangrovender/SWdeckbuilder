@@ -44,7 +44,17 @@ const resolvers: Resolvers = {
       });
     },
     decks: (_parent, _args) => {
-      return prisma.deck.findMany();
+      return prisma.deck.findMany(
+        _args.authorId
+          ? {
+              where: {
+                User: {
+                  id: parseInt(_args.authorId),
+                },
+              },
+            }
+          : undefined
+      );
     },
   },
   Mutation: {

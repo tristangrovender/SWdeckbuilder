@@ -104,7 +104,18 @@
           {
             "name": "decks",
             "description": null,
-            "args": [],
+            "args": [
+              {
+                "name": "authorId",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "NON_NULL",
               "name": null,

@@ -28,6 +28,11 @@ export type QueryDeckArgs = {
   id: Scalars['ID'];
 };
 
+
+export type QueryDecksArgs = {
+  authorId?: Maybe<Scalars['ID']>;
+};
+
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   jwt: Scalars['String'];
@@ -432,7 +437,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   recentDecks?: Resolver<Array<Maybe<ResolversTypes['Deck']>>, ParentType, ContextType>;
   cards?: Resolver<Array<Maybe<ResolversTypes['Card']>>, ParentType, ContextType>;
   deck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType, RequireFields<QueryDeckArgs, 'id'>>;
-  decks?: Resolver<Array<Maybe<ResolversTypes['Deck']>>, ParentType, ContextType>;
+  decks?: Resolver<Array<Maybe<ResolversTypes['Deck']>>, ParentType, ContextType, RequireFields<QueryDecksArgs, never>>;
 }>;
 
 export type LoginResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['LoginResponse'] = ResolversParentTypes['LoginResponse']> = ResolversObject<{

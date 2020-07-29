@@ -5,6 +5,9 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import { getToken } from "../utils/frontend-auth";
 import Router from "next/router";
+import { useQuery, gql } from "@apollo/client";
+import { GetDecksQuery, GetDecksQueryVariables } from "../graphql/types";
+import GetDecks from "raw-loader!../graphql/get-decks.gql";
 
 const NoDecksContainer = styled.div`
   display: flex;
@@ -32,6 +35,14 @@ export default function MyDecks() {
       Router.push({ pathname: "/login" });
     }
   } catch (e) {}
+  const { data } = useQuery<GetDecksQuery, GetDecksQueryVariables>(
+    gql(GetDecks)
+  );
+  const decks = data && data.decks;
+  if (!decks) {
+    return <div>No decks found</div>;
+  }
+  console.log(decks);
   return (
     <Page>
       <Toolbar />
