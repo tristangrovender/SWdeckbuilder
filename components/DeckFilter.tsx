@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-const FilterLink = styled.div`
+const FilterLink = styled.div<{ active: Boolean }>`
   display: flex;
   background-color: ${(props) => (props.active ? "#222" : "initial")};
   color: ${(props) => (props.active ? "white" : "black")};
