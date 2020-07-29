@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import Link from "next/link";
 import styled from "styled-components";
 import Footer from "../components/Footer";
-import { getToken } from "../utils/frontend-auth";
+import { getToken, getUserId } from "../utils/frontend-auth";
 import Router from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import { GetDecksQuery, GetDecksQueryVariables } from "../graphql/types";
@@ -30,13 +30,20 @@ function NoDecks() {
 }
 
 export default function MyDecks() {
+  let userId;
   try {
+    userId = getUserId();
     if (!getToken()) {
       Router.push({ pathname: "/login" });
     }
   } catch (e) {}
   const { data } = useQuery<GetDecksQuery, GetDecksQueryVariables>(
-    gql(GetDecks)
+    gql(GetDecks),
+    {
+      variables: {
+        authorId: userId,
+      },
+    }
   );
   const decks = data && data.decks;
   if (!decks) {

@@ -1,5 +1,5 @@
-query GetDecks {
-  decks {
+query GetDecks($authorId: ID) {
+  decks(authorId: $authorId) {
     id
     title
     createdAt

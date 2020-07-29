@@ -220,7 +220,9 @@ export type GetDeckQuery = (
   ) }
 );
 
-export type GetDecksQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetDecksQueryVariables = Exact<{
+  authorId?: Maybe<Scalars['ID']>;
+}>;
 
 
 export type GetDecksQuery = (
