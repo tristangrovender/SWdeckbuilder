@@ -3,7 +3,7 @@ import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import { darkBlue } from "../utils/colors";
 import Tooltip from "@material-ui/core/Tooltip";
 
-const CardSnippetTitleContainer = styled.div`
+const CardSnippetTitleContainer = styled.div<{ textColor: string }>`
   width: 100%;
   white-space: nowrap;
   color: ${(props) => (props.textColor ? props.textColor : "white")};
