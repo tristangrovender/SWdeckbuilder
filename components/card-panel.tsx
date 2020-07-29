@@ -3,8 +3,8 @@ import { StickyContainer, Sticky } from "react-sticky";
 import styled from "styled-components";
 import { ClickAwayListener, LinearProgress } from "@material-ui/core";
 import { darkBlue, goldenColor } from "../utils/colors";
-import { CardSnippet } from "./card-snippet";
 import { Card, GetDeckQuery } from "../graphql/types";
+import { CardPanelRow } from "./card-panel-row";
 
 const CardPanelSection = styled.div`
   background-color: black;
@@ -28,15 +28,6 @@ const CardInfoContainer = styled.div`
   left: -350px;
 `;
 
-const CardSnippetCountContainer = styled.div`
-  color: ${goldenColor};
-  font-size: 12px;
-  display: flex;
-  width: 15px;
-  justify-content: center;
-  align-items: center;
-`;
-
 const DeckBuilderTitle = styled.div`
   display: flex;
   justify-content: center;
@@ -55,18 +46,6 @@ const EmptyDeckState = styled.div`
   color: rgba(255, 255, 255, 0.5);
   font-size: 12px;
   justify-content: center;
-`;
-
-const CardPanelRowContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  color: white;
-  padding-left: 3px;
-  border: 1px solid transparent;
-
-  &:hover {
-    border: 1px solid #fcd144;
-  }
 `;
 
 type DeckCard = GetDeckQuery["deck"]["deckCards"][0];
@@ -114,46 +93,6 @@ function groupCards(
     (a, b) => a.lowestCreatedAt - b.lowestCreatedAt
   );
   return ordering;
-}
-
-function CardPanelRow({
-  card,
-  count,
-  backgroundColor,
-  hoverButtons,
-  textColor,
-}: {
-  card?: Card;
-  count: number;
-  backgroundColor?: string;
-  textColor?: string;
-  hoverButtons?: {
-    text: string;
-    fontSize?: string;
-    tooltip?: string;
-    onClick: () => void;
-  }[];
-}) {
-  const [isHovering, setHovering] = useState(false);
-  return (
-    <CardPanelRowContainer
-      onMouseOver={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-    >
-      <CardSnippet
-        title={card?.title}
-        imageUrl={card?.imageUrl}
-        hoverButtons={hoverButtons}
-        backgroundColor={backgroundColor}
-        isHovering={isHovering}
-        textColor={textColor}
-        style={{ maxWidth: "94%" }}
-      />
-      <CardSnippetCountContainer>
-        {count > 1 ? count : null}
-      </CardSnippetCountContainer>
-    </CardPanelRowContainer>
-  );
 }
 
 export interface CardWithDeckInfo extends Card {

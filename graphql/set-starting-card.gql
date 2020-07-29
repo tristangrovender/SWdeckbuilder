@@ -1,0 +1,6 @@
+mutation SetStartingCard($deckCardId: ID!, $isStartingCard: Boolean) {
+  setStartingCard(deckCardId: $deckCardId, isStartingCard: $isStartingCard) {
+    id
+    isStartingCard
+  }
+}
