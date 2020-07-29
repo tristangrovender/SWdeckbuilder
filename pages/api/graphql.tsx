@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import { Resolvers } from "../../graphql/types";
 import { addCardToDeck } from "../../server/resolvers/add-card-to-deck";
 import { CardResolver } from "../../server/resolvers/Card";
+import { createDeck } from "../../server/resolvers/create-deck";
 
 const prisma = new PrismaClient();
 
@@ -48,21 +49,7 @@ const resolvers: Resolvers = {
         jwt: jwt.sign({ userId: user.id }, jwtSecret),
       };
     },
-    createDeck: async (_parent, _args, _context) => {
-      if (!_context.userId) {
-        throw new Error("Please login");
-      }
-      return prisma.deck.create({
-        data: {
-          side: _args.side,
-          User: {
-            connect: {
-              id: _context.userId,
-            },
-          },
-        },
-      });
-    },
+    createDeck: createDeck(prisma),
     addCardToDeck: addCardToDeck(prisma),
     removeCardFromDeck: async (_parent, _args, _context) => {
       if (!_context.userId) {
