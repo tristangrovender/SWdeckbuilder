@@ -1,8 +1,7 @@
-import { Card } from "./card.interface";
 import { memoize } from "../../utils/utils";
 import { client } from "../apollo-client";
 import { gql } from "@apollo/client";
-import GetCardsQuery from "../../graphql/get-cards.gql";
+import GetCardsQuery from "raw-loader!../../graphql/get-cards.gql";
 import {
   GetCardsQuery as GetCardsQueryI,
   Card as CardFromServer,

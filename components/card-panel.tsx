@@ -12,8 +12,8 @@ import {
 import { CardPanelRow } from "./card-panel-row";
 import { groupCards } from "./card-panel-group-cards";
 import { useMutation, gql } from "@apollo/client";
-import SetStartingCard from "../graphql/set-starting-card.gql";
-import UpdateDeck from "../graphql/update-deck.gql";
+import SetStartingCard from "raw-loader!../graphql/set-starting-card.gql";
+import UpdateDeck from "raw-loader!../graphql/update-deck.gql";
 import {
   UpdateDeckMutation,
   UpdateDeckMutationVariables,

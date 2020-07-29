@@ -45,8 +45,8 @@
     "@types/react": "^16.9.41",
     "@types/react-sticky": "^6.0.3",
     "@types/styled-components": "^5.1.1",
-    "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-styled-components": "latest",
+    "raw-loader": "^4.0.1",
     "typescript": "^3.9.6"
   }
 }

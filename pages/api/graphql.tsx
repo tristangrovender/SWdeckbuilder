@@ -1,5 +1,5 @@
 import { ApolloServer, gql } from "apollo-server-micro";
-import schema from "../../graphql/schema.gql";
+import schema from "raw-loader!../../graphql/schema.gql";
 import { PrismaClient } from "@prisma/client";
 import { recentDecks } from "../../server/resolvers/recent-decks";
 import { getSharedUser } from "../../server/create-shared-user";

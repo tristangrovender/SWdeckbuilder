@@ -10,9 +10,9 @@ import { getCards } from "../../../components/card-search-table/getCards";
 import { CardPanel } from "../../../components/card-panel";
 import Footer from "../../../components/Footer";
 import { useMutation, gql, useQuery } from "@apollo/client";
-import AddCardToDeckMutation from "../../../graphql/add-card-to-deck.gql";
-import RemoveCardFromDeckMutation from "../../../graphql/remove-card-from-deck.gql";
-import GetDeckQuery from "../../../graphql/get-deck.gql";
+import AddCardToDeckMutation from "raw-loader!../../../graphql/add-card-to-deck.gql";
+import RemoveCardFromDeckMutation from "raw-loader!../../../graphql/remove-card-from-deck.gql";
+import GetDeckQuery from "raw-loader!../../../graphql/get-deck.gql";
 import {
   MutationRemoveCardFromDeckArgs,
   GetDeckQueryVariables,

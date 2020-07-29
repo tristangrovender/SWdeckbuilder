@@ -2,7 +2,7 @@ import { Page, Toolbar, Content } from "../components/Toolbar";
 import Footer from "../components/Footer";
 import { Input, Button } from "@material-ui/core";
 import { useMutation, gql } from "@apollo/client";
-import LoginMutation from "../graphql/login.gql";
+import LoginMutation from "raw-loader!../graphql/login.gql";
 import { MutationLoginArgs, Mutation } from "../graphql/types";
 import Router from "next/router";
 import { setToken } from "../utils/frontend-auth";

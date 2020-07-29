@@ -5,7 +5,7 @@ import Radio from "@material-ui/core/Radio";
 import styled from "styled-components";
 import Router from "next/router";
 import Footer from "../../components/Footer";
-import CreateDeckQuery from "../../graphql/create-deck.gql";
+import CreateDeckQuery from "raw-loader!../../graphql/create-deck.gql";
 import { useMutation, gql } from "@apollo/client";
 import { MutationCreateDeckArgs, Side, Mutation } from "../../graphql/types";
 

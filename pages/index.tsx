@@ -7,7 +7,7 @@ import {
   GetRecentDecksQuery as GetRecentDecksQueryI,
   Side,
 } from "../graphql/types";
-import GetRecentDecksQuery from "../graphql/get-recent-decks.gql";
+import GetRecentDecksQuery from "raw-loader!../graphql/get-recent-decks.gql";
 
 const HomePageContent = styled.div`
   display: flex;
