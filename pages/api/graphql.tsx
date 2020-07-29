@@ -4,7 +4,6 @@ import { PrismaClient, Deck } from "@prisma/client";
 import { recentDecks } from "../../server/resolvers/recent-decks";
 import { getSharedUser } from "../../server/create-shared-user";
 import jwt from "jsonwebtoken";
-import { Resolvers } from "../../graphql/types";
 import { addCardToDeck } from "../../server/resolvers/add-card-to-deck";
 import { CardResolver } from "../../server/resolvers/Card";
 import { createDeck } from "../../server/resolvers/create-deck";
@@ -31,7 +30,7 @@ function sortCardsByName(a: any, b: any) {
   return 0;
 }
 
-const resolvers: Resolvers = {
+const resolvers = {
   Query: {
     hello: (_parent, _args, _context) => "Hello!",
     recentDecks: () => recentDecks(prisma),
