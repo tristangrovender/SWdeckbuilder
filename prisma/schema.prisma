@@ -41,14 +41,15 @@ model Deck {
 }
 
 model DeckCard {
-  id              Int      @default(autoincrement()) @id
-  created_at      DateTime @default(now())
-  updated_at      DateTime @default(now())
-  cardId          Int
-  deckId          Int
-  is_in_side_deck Boolean? @default(false)
-  Card            Card     @relation(fields: [cardId], references: [id])
-  Deck            Deck     @relation(fields: [deckId], references: [id])
+  id               Int      @default(autoincrement()) @id
+  created_at       DateTime @default(now())
+  updated_at       DateTime @default(now())
+  cardId           Int
+  deckId           Int
+  is_in_side_deck  Boolean? @default(false)
+  is_starting_card Boolean? @default(false)
+  Card             Card     @relation(fields: [cardId], references: [id])
+  Deck             Deck     @relation(fields: [deckId], references: [id])
 }
 
 model User {
