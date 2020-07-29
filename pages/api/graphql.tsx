@@ -1,6 +1,6 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import schema from "raw-loader!../../graphql/schema.gql";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Deck } from "@prisma/client";
 import { recentDecks } from "../../server/resolvers/recent-decks";
 import { getSharedUser } from "../../server/create-shared-user";
 import jwt from "jsonwebtoken";
@@ -44,8 +44,11 @@ const resolvers: Resolvers = {
       });
     },
     decks: (_parent, _args) => {
-      return prisma.deck.findMany(
-        _args.authorId
+      return prisma.deck.findMany({
+        orderBy: {
+          updated_at: "desc",
+        },
+        ...(_args.authorId
           ? {
               where: {
                 User: {
@@ -53,8 +56,8 @@ const resolvers: Resolvers = {
                 },
               },
             }
-          : undefined
-      );
+          : {}),
+      });
     },
   },
   Mutation: {
