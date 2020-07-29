@@ -18,6 +18,7 @@ type Mutation {
   login(username: String!, password: String!): LoginResponse!
   addCardToDeck(deckId: ID!, cardId: ID!): DeckCardIDResponse!
   removeCardFromDeck(deckCardId: ID!): SuccessResponse!
+  setStartingCard(deckCardId: ID!, isStartingCard: Boolean!): DeckCard!
 }
 enum Side {
   Dark
