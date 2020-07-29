@@ -1,0 +1,10 @@
+mutation UpdateDeck($deckId: ID!, $title: String, $description: String) {
+  updateDeck(
+    deckId: $deckId
+    updates: { title: $title, description: $description }
+  ) {
+    id
+    title
+    description
+  }
+}

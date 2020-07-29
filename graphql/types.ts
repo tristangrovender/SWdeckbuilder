@@ -199,7 +199,7 @@ export type GetDeckQuery = (
   { __typename?: 'Query' }
   & { deck: (
     { __typename?: 'Deck' }
-    & Pick<Deck, 'id' | 'title' | 'side'>
+    & Pick<Deck, 'id' | 'title' | 'description' | 'side'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'username'>
@@ -274,6 +274,21 @@ export type SetStartingCardMutation = (
   & { setStartingCard: (
     { __typename?: 'DeckCard' }
     & Pick<DeckCard, 'id' | 'isStartingCard'>
+  ) }
+);
+
+export type UpdateDeckMutationVariables = Exact<{
+  deckId: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+}>;
+
+
+export type UpdateDeckMutation = (
+  { __typename?: 'Mutation' }
+  & { updateDeck: (
+    { __typename?: 'Deck' }
+    & Pick<Deck, 'id' | 'title' | 'description'>
   ) }
 );
 

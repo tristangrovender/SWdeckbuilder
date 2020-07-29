@@ -87,7 +87,7 @@ export default function EditDeck() {
     data: deckInfo,
     refetch: refreshDeck,
     loading: loadingDeck,
-  } = useQuery<GetDeckQueryI, GetDeckQueryVariables>(gql(GetDeckQuery + ""), {
+  } = useQuery<GetDeckQueryI, GetDeckQueryVariables>(gql(GetDeckQuery + " "), {
     variables: {
       id: router.query.id as string,
     },

@@ -13,6 +13,11 @@ import { CardPanelRow } from "./card-panel-row";
 import { groupCards } from "./card-panel-group-cards";
 import { useMutation, gql } from "@apollo/client";
 import SetStartingCard from "../graphql/set-starting-card.gql";
+import UpdateDeck from "../graphql/update-deck.gql";
+import {
+  UpdateDeckMutation,
+  UpdateDeckMutationVariables,
+} from "../graphql/types";
 
 const CardPanelSection = styled.div`
   background-color: black;
@@ -87,6 +92,10 @@ export function CardPanel({
     SetStartingCardMutation,
     SetStartingCardMutationVariables
   >(gql(SetStartingCard));
+  const [updateDeck] = useMutation<
+    UpdateDeckMutation,
+    UpdateDeckMutationVariables
+  >(gql(UpdateDeck));
   const [scrollDiv, setScrollDiv] = useState(undefined);
   // TODO need to setup this scroll
   const prev = usePrevious({
@@ -123,6 +132,9 @@ export function CardPanel({
     deck?.deckCards.filter((deckCard) => !deckCard?.isInSideDeck) || [];
   const cardsInSideDeck =
     deck?.deckCards.filter((deckCard) => deckCard?.isInSideDeck) || [];
+  if (!deck) {
+    return <div>Loading...</div>;
+  }
   return (
     <StickyContainer>
       <Sticky>
@@ -154,8 +166,16 @@ export function CardPanel({
                 <span
                   contentEditable={true}
                   suppressContentEditableWarning={true}
+                  onBlur={(e) => {
+                    updateDeck({
+                      variables: {
+                        deckId: deck.id,
+                        title: e.target.innerText,
+                      },
+                    });
+                  }}
                 >
-                  Un-named Deck
+                  {deck.title}
                 </span>
                 <span style={{ color: "rgba(255,255,255,0.5)" }}>
                   &nbsp;({cardsInMainDeck.length}/60)
@@ -172,6 +192,15 @@ export function CardPanel({
                 textAlign: "center",
                 color: "white",
                 borderBottom: "1px solid black",
+              }}
+              value={deck.description}
+              onBlur={(e) => {
+                updateDeck({
+                  variables: {
+                    deckId: deck.id,
+                    description: e.target.value,
+                  },
+                });
               }}
             ></textarea>
             <DeckBuilderCardsContainer>

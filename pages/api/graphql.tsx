@@ -80,7 +80,8 @@ const resolvers: Resolvers = {
     },
   },
   Deck: {
-    title: (_parent) => (_parent.title ? _parent.title : "Un-named Deck"),
+    title: (_parent) => _parent.title || "Un-named Deck",
+    description: (_parent) => _parent.description || "",
     author: (_parent) => {
       return prisma.user.findOne({
         where: {
