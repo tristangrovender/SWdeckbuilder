@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { GetDecksQuery, Side } from "../graphql/types";
 import { useRouter } from "next/router";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import { ClickAwayListener } from "@material-ui/core";
+import { ClickAwayListener, Menu, MenuItem } from "@material-ui/core";
 
 const DeckDiv = styled.div`
   cursor: pointer;
@@ -120,11 +120,16 @@ export function DeckRow({ deck, editable }: { editable: boolean; deck: Deck }) {
                 position: "absolute",
                 backgroundColor: "white",
                 padding: "10px",
-                bottom: "-20px",
+                height: "60px",
+                bottom: "-35px",
                 right: "0px",
+                zIndex: 3,
+                border: "1px solid black",
               }}
             >
-              dropdown!
+              <MenuItem onClick={() => router.push(`/deck/edit/${deck.id}`)}>
+                Edit
+              </MenuItem>
             </div>
           </ClickAwayListener>
         ) : null}

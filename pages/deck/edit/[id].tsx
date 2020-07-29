@@ -19,6 +19,7 @@ import {
 } from "../../../graphql/types";
 import { CardFilters } from "../../../components/card-search-table/card-filters-bar";
 import { GetDeckQuery as GetDeckQueryI, Side } from "../../../graphql/types";
+import { LinearProgress } from "@material-ui/core";
 import {
   MutationAddCardToDeckArgs,
   Mutation,
@@ -107,7 +108,12 @@ export default function EditDeck() {
   const [allCards, setCards] = useState<Card[]>([]);
   const { id: deckId } = router.query;
   if (!deckId) {
-    return <div>DeckID not found.</div>;
+    return (
+      <Page>
+        <Toolbar />
+        <LinearProgress />
+      </Page>
+    );
   }
   if (allCards.length === 0) {
     getCards().then(setCards);
@@ -149,16 +155,13 @@ export default function EditDeck() {
       });
     });
   };
-  if (!deckId) {
+  if (!deckId || !deckInfo || !deckInfo.deck) {
     return (
       <Page>
         <Toolbar />
-        <Content>Deck not found: {deckId}</Content>
+        <LinearProgress />
       </Page>
     );
-  }
-  if (!deckInfo || !deckInfo.deck) {
-    return <div>Loading...</div>;
   }
 
   return (
