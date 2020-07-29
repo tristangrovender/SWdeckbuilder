@@ -3,9 +3,16 @@ import { StickyContainer, Sticky } from "react-sticky";
 import styled from "styled-components";
 import { ClickAwayListener, LinearProgress } from "@material-ui/core";
 import { darkBlue, goldenColor } from "../utils/colors";
-import { Card, GetDeckQuery } from "../graphql/types";
+import {
+  Card,
+  GetDeckQuery,
+  SetStartingCardMutation,
+  SetStartingCardMutationVariables,
+} from "../graphql/types";
 import { CardPanelRow } from "./card-panel-row";
 import { groupCards } from "./card-panel-group-cards";
+import { useMutation, gql } from "@apollo/client";
+import SetStartingCard from "../graphql/set-starting-card.gql";
 
 const CardPanelSection = styled.div`
   background-color: black;
@@ -76,10 +83,10 @@ export function CardPanel({
   addCard: (cardId: string) => void;
   removeCard: (card: DeckCard) => void;
 }) {
-  const [startingCardIds, setStartingCardIds]: [
-    string[],
-    (cards: string[]) => void
-  ] = useState([] as string[]);
+  const [setStartingCard] = useMutation<
+    SetStartingCardMutation,
+    SetStartingCardMutationVariables
+  >(gql(SetStartingCard));
   const [scrollDiv, setScrollDiv] = useState(undefined);
   // TODO need to setup this scroll
   const prev = usePrevious({
@@ -178,32 +185,25 @@ export function CardPanel({
                     key={i}
                     card={deckCard?.card}
                     textColor={
-                      startingCardIds.includes(deckCard?.id.toString() || "")
-                        ? goldenColor
-                        : undefined
+                      deckCard?.isStartingCard ? goldenColor : undefined
                     }
                     count={count}
                     hoverButtons={[
                       {
                         onClick: () => {
-                          if (
-                            startingCardIds.includes(
-                              deckCard?.id.toString() || ""
-                            )
-                          ) {
-                            const index = startingCardIds.indexOf(
-                              deckCard?.id.toString() || ""
+                          if (!deckCard) {
+                            console.error(
+                              "Unable to set starting card for",
+                              deckCard
                             );
-                            setStartingCardIds([
-                              ...startingCardIds.slice(0, index),
-                              ...startingCardIds.slice(index + 1),
-                            ]);
-                          } else {
-                            setStartingCardIds([
-                              ...startingCardIds,
-                              deckCard?.id.toString() || "",
-                            ]);
+                            return;
                           }
+                          setStartingCard({
+                            variables: {
+                              deckCardId: deckCard.id,
+                              isStartingCard: !Boolean(deckCard.isStartingCard),
+                            },
+                          });
                         },
                         text: "s",
                         fontSize: "12px",

@@ -48,6 +48,7 @@ export type Mutation = {
   login: LoginResponse;
   addCardToDeck: DeckCardIdResponse;
   removeCardFromDeck: SuccessResponse;
+  setStartingCard: DeckCard;
 };
 
 
@@ -70,6 +71,12 @@ export type MutationAddCardToDeckArgs = {
 
 export type MutationRemoveCardFromDeckArgs = {
   deckCardId: Scalars['ID'];
+};
+
+
+export type MutationSetStartingCardArgs = {
+  deckCardId: Scalars['ID'];
+  isStartingCard: Scalars['Boolean'];
 };
 
 export enum Side {
@@ -186,7 +193,7 @@ export type GetDeckQuery = (
       & Pick<User, 'id' | 'username'>
     ), deckCards: Array<Maybe<(
       { __typename?: 'DeckCard' }
-      & Pick<DeckCard, 'id' | 'createdAt' | 'isInSideDeck'>
+      & Pick<DeckCard, 'id' | 'createdAt' | 'isInSideDeck' | 'isStartingCard'>
       & { card: (
         { __typename?: 'Card' }
         & Pick<Card, 'id' | 'cardId' | 'side' | 'rarity' | 'set' | 'title' | 'type' | 'imageUrl' | 'subType' | 'destiny' | 'power' | 'deploy' | 'forfeit' | 'gametext' | 'lore' | 'gemp_card_id'>
@@ -241,6 +248,20 @@ export type RemoveCardFromDeckMutation = (
   & { removeCardFromDeck: (
     { __typename?: 'SuccessResponse' }
     & Pick<SuccessResponse, 'success'>
+  ) }
+);
+
+export type SetStartingCardMutationVariables = Exact<{
+  deckCardId: Scalars['ID'];
+  isStartingCard: Scalars['Boolean'];
+}>;
+
+
+export type SetStartingCardMutation = (
+  { __typename?: 'Mutation' }
+  & { setStartingCard: (
+    { __typename?: 'DeckCard' }
+    & Pick<DeckCard, 'id' | 'isStartingCard'>
   ) }
 );
 
@@ -388,6 +409,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   login?: Resolver<ResolversTypes['LoginResponse'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'username' | 'password'>>;
   addCardToDeck?: Resolver<ResolversTypes['DeckCardIDResponse'], ParentType, ContextType, RequireFields<MutationAddCardToDeckArgs, 'deckId' | 'cardId'>>;
   removeCardFromDeck?: Resolver<ResolversTypes['SuccessResponse'], ParentType, ContextType, RequireFields<MutationRemoveCardFromDeckArgs, 'deckCardId'>>;
+  setStartingCard?: Resolver<ResolversTypes['DeckCard'], ParentType, ContextType, RequireFields<MutationSetStartingCardArgs, 'deckCardId' | 'isStartingCard'>>;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {

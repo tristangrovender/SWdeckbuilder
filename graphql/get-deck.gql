@@ -11,6 +11,7 @@ query GetDeck($id: ID!) {
       id
       createdAt
       isInSideDeck
+      isStartingCard
       card {
         id
         cardId
