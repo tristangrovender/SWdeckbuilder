@@ -13,6 +13,19 @@ const NoDecksContainer = styled.div`
   height: 100%;
 `;
 
+function NoDecks() {
+  return (
+    <NoDecksContainer>
+      <div>Build your first deck:&nbsp;</div>
+      <Link href="/deck/new">
+        <Button variant="contained" color="primary">
+          New Deck
+        </Button>
+      </Link>
+    </NoDecksContainer>
+  );
+}
+
 export default function MyDecks() {
   try {
     if (!getToken()) {
@@ -23,14 +36,7 @@ export default function MyDecks() {
     <Page>
       <Toolbar />
       <Content>
-        <NoDecksContainer>
-          <div>Build your first deck:&nbsp;</div>
-          <Link href="/deck/new">
-            <Button variant="contained" color="primary">
-              New Deck
-            </Button>
-          </Link>
-        </NoDecksContainer>
+        <NoDecks />
       </Content>
       <Footer></Footer>
     </Page>
