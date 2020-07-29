@@ -212,7 +212,10 @@ export function CardFiltersBar({
           placeholder="Search"
           defaultValue={filters && filters.titleFilter}
           onKeyUp={(e) =>
-            onUpdateFilters({ ...filters, titleFilter: e.target.value })
+            onUpdateFilters({
+              ...filters,
+              titleFilter: (e.target as any).value,
+            })
           }
         ></Input>
       </SearchContainer>
