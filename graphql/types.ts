@@ -51,6 +51,7 @@ export type DeckCardIdResponse = {
 export type DeckUpdate = {
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  published?: Maybe<Scalars['Boolean']>;
 };
 
 export type Mutation = {

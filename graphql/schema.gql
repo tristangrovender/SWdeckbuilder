@@ -17,6 +17,7 @@ type DeckCardIDResponse {
 input DeckUpdate {
   title: String
   description: String
+  published: Boolean
 }
 
 type Mutation {
