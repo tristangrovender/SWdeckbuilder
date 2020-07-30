@@ -49,7 +49,7 @@ type Deck {
   published: Boolean!
   description: String!
   author: User!
-  averageRating: Float
+  ratings: [DeckRating]!
   deckCards: [DeckCard]!
 }
 type DeckCard {

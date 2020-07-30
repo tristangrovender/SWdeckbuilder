@@ -9,7 +9,10 @@ query GetRecentDecks {
       username
     }
     createdAt
-    averageRating
+    ratings {
+      id
+      rating
+    }
     deckCards {
       id
       card {

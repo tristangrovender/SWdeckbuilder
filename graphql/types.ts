@@ -62,6 +62,7 @@ export type Mutation = {
   removeCardFromDeck: SuccessResponse;
   setStartingCard: DeckCard;
   updateDeck: Deck;
+  createDeckRating: DeckRating;
 };
 
 
@@ -98,11 +99,26 @@ export type MutationUpdateDeckArgs = {
   updates: DeckUpdate;
 };
 
+
+export type MutationCreateDeckRatingArgs = {
+  deckId: Scalars['ID'];
+  rating: Scalars['Float'];
+};
+
 export enum Side {
   Dark = 'Dark',
   Light = 'Light'
 }
 
+
+export type DeckRating = {
+  __typename?: 'DeckRating';
+  id: Scalars['ID'];
+  createdAt: Scalars['Date'];
+  updatedAt: Scalars['Date'];
+  rating: Scalars['Float'];
+  deck: Deck;
+};
 
 export type Deck = {
   __typename?: 'Deck';
@@ -113,7 +129,7 @@ export type Deck = {
   published: Scalars['Boolean'];
   description: Scalars['String'];
   author: User;
-  averageRating?: Maybe<Scalars['Float']>;
+  ratings: Array<Maybe<DeckRating>>;
   deckCards: Array<Maybe<DeckCard>>;
 };
 
@@ -231,8 +247,11 @@ export type GetDecksQuery = (
   { __typename?: 'Query' }
   & { decks: Array<Maybe<(
     { __typename?: 'Deck' }
-    & Pick<Deck, 'id' | 'title' | 'createdAt' | 'published' | 'side' | 'averageRating'>
-    & { author: (
+    & Pick<Deck, 'id' | 'title' | 'createdAt' | 'published' | 'side'>
+    & { ratings: Array<Maybe<(
+      { __typename?: 'DeckRating' }
+      & Pick<DeckRating, 'id' | 'rating'>
+    )>>, author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'username'>
     ) }
@@ -246,11 +265,14 @@ export type GetRecentDecksQuery = (
   { __typename?: 'Query' }
   & { recentDecks: Array<Maybe<(
     { __typename?: 'Deck' }
-    & Pick<Deck, 'id' | 'side' | 'title' | 'description' | 'createdAt' | 'averageRating'>
+    & Pick<Deck, 'id' | 'side' | 'title' | 'description' | 'createdAt'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'username'>
-    ), deckCards: Array<Maybe<(
+    ), ratings: Array<Maybe<(
+      { __typename?: 'DeckRating' }
+      & Pick<DeckRating, 'id' | 'rating'>
+    )>>, deckCards: Array<Maybe<(
       { __typename?: 'DeckCard' }
       & Pick<DeckCard, 'id'>
       & { card: (
@@ -406,10 +428,11 @@ export type ResolversTypes = ResolversObject<{
   DeckCardIDResponse: ResolverTypeWrapper<DeckCardIdResponse>;
   DeckUpdate: DeckUpdate;
   Mutation: ResolverTypeWrapper<{}>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   Side: Side;
   Date: ResolverTypeWrapper<Scalars['Date']>;
+  DeckRating: ResolverTypeWrapper<DeckRating>;
   Deck: ResolverTypeWrapper<Deck>;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
   DeckCard: ResolverTypeWrapper<DeckCard>;
   Card: ResolverTypeWrapper<Card>;
   User: ResolverTypeWrapper<User>;
@@ -428,9 +451,10 @@ export type ResolversParentTypes = ResolversObject<{
   DeckCardIDResponse: DeckCardIdResponse;
   DeckUpdate: DeckUpdate;
   Mutation: {};
-  Date: Scalars['Date'];
-  Deck: Deck;
   Float: Scalars['Float'];
+  Date: Scalars['Date'];
+  DeckRating: DeckRating;
+  Deck: Deck;
   DeckCard: DeckCard;
   Card: Card;
   User: User;
@@ -467,11 +491,21 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   removeCardFromDeck?: Resolver<ResolversTypes['SuccessResponse'], ParentType, ContextType, RequireFields<MutationRemoveCardFromDeckArgs, 'deckCardId'>>;
   setStartingCard?: Resolver<ResolversTypes['DeckCard'], ParentType, ContextType, RequireFields<MutationSetStartingCardArgs, 'deckCardId' | 'isStartingCard'>>;
   updateDeck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType, RequireFields<MutationUpdateDeckArgs, 'deckId' | 'updates'>>;
+  createDeckRating?: Resolver<ResolversTypes['DeckRating'], ParentType, ContextType, RequireFields<MutationCreateDeckRatingArgs, 'deckId' | 'rating'>>;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date';
 }
+
+export type DeckRatingResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeckRating'] = ResolversParentTypes['DeckRating']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  rating?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  deck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+}>;
 
 export type DeckResolvers<ContextType = any, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -481,7 +515,7 @@ export type DeckResolvers<ContextType = any, ParentType extends ResolversParentT
   published?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  averageRating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  ratings?: Resolver<Array<Maybe<ResolversTypes['DeckRating']>>, ParentType, ContextType>;
   deckCards?: Resolver<Array<Maybe<ResolversTypes['DeckCard']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
@@ -534,6 +568,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   DeckCardIDResponse?: DeckCardIdResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Date?: GraphQLScalarType;
+  DeckRating?: DeckRatingResolvers<ContextType>;
   Deck?: DeckResolvers<ContextType>;
   DeckCard?: DeckCardResolvers<ContextType>;
   Card?: CardResolvers<ContextType>;

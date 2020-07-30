@@ -1,6 +1,6 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import schema from "raw-loader!../../graphql/schema.gql";
-import { PrismaClient, Deck } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { recentDecks } from "../../server/resolvers/recent-decks";
 import { getSharedUser } from "../../server/create-shared-user";
 import jwt from "jsonwebtoken";
@@ -12,6 +12,7 @@ import { setStartingCard } from "../../server/resolvers/mutation/set-starting-ca
 import { updateDeck } from "../../server/resolvers/mutation/update-deck";
 import { decks } from "../../server/resolvers/query/decks";
 import { createDeckRating } from "../../server/resolvers/mutation/create-deck-rating";
+import { Deck } from "../../server/resolvers/types/Deck";
 
 export const prisma = new PrismaClient();
 
@@ -73,28 +74,7 @@ const resolvers = {
       };
     },
   },
-  Deck: {
-    createdAt: (_parent) => _parent.created_at,
-    title: (_parent) => _parent.title || "Un-named Deck",
-    description: (_parent) => _parent.description || "",
-    averageRating: () => 4.5,
-    author: (_parent) => {
-      return prisma.user.findOne({
-        where: {
-          id: _parent.authorId,
-        },
-      });
-    },
-    deckCards: (_parent) => {
-      return prisma.deckCard.findMany({
-        where: {
-          Deck: {
-            id: _parent.id,
-          },
-        },
-      });
-    },
-  },
+  Deck,
   DeckCard: DeckCard,
   Card: CardResolver,
 };

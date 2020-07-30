@@ -5,7 +5,10 @@ query GetDecks($authorId: ID) {
     createdAt
     published
     side
-    averageRating
+    ratings {
+      id
+      rating
+    }
     author {
       id
       username
