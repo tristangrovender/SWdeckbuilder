@@ -11,12 +11,12 @@ export function createDeckRating(_parent, _args, _context) {
     data: {
       Deck: {
         connect: {
-          id: _args.deckId,
+          id: parseInt(_args.deckId),
         },
       },
       User: {
         connect: {
-          id: _context.userId,
+          id: parseInt(_context.userId),
         },
       },
       rating: _args.rating,
