@@ -35,6 +35,7 @@ model Deck {
   title       String?
   side        String?
   description String?
+  published   Boolean?   @default(false)
   authorId    Int
   User        User       @relation(fields: [authorId], references: [id])
   DeckCard    DeckCard[]

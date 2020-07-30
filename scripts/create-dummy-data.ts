@@ -11,7 +11,7 @@ function mapToString(val: any): string {
   return val === undefined || val === null ? undefined : val.toString();
 }
 
-function createCards(prisma, allCards) {
+function createCards(prisma: PrismaClient, allCards: Card[]) {
   const cardPromises = allCards
     .filter(({ legacy }) => {
       return legacy == false;
@@ -45,7 +45,7 @@ function createCards(prisma, allCards) {
   return Promise.all(cardPromises);
 }
 
-function createDecks(userId, dummyDeckData): Promise<Deck[]> {
+function createDecks(userId: string, dummyDeckData): Promise<Deck[]> {
   const decks = dummyDeckData.map((deck) => {
     try {
       return prisma.deck.create({
@@ -57,6 +57,7 @@ function createDecks(userId, dummyDeckData): Promise<Deck[]> {
           },
           title: deck.title,
           side: deck.side,
+          published: true,
         },
       });
     } catch (e) {
@@ -66,7 +67,7 @@ function createDecks(userId, dummyDeckData): Promise<Deck[]> {
   return Promise.all(decks);
 }
 
-async function getCards(prisma: PrismaClient, cards) {
+async function getCards(prisma: PrismaClient, cards: Card[]) {
   if ((await prisma.card.count()) === 0) {
     return createCards(prisma, cards);
   }
