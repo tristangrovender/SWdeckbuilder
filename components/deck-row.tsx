@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { ClickAwayListener, Menu, MenuItem } from "@material-ui/core";
 import { useMutation, gql } from "@apollo/client";
-import UpdateDeck from "../graphql/update-deck.gql";
+import UpdateDeck from "raw-loader!../graphql/update-deck.gql";
 
 const DeckDiv = styled.div`
   cursor: pointer;
