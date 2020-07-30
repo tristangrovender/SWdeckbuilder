@@ -8,7 +8,7 @@ import { StarsComponent } from "../../components/StarsComponent";
 import { DeckCardRow } from "./DeckCardRow";
 import { CommentsSection } from "../../components/comments-section";
 import GetAppIcon from "@material-ui/icons/GetApp";
-import { Button, ClickAwayListener } from "@material-ui/core";
+import { Button, ClickAwayListener, LinearProgress } from "@material-ui/core";
 import FileSaver from "file-saver";
 import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
@@ -19,8 +19,13 @@ import {
   MutationCreateDeckRatingArgs,
   CreateDeckRatingMutation,
 } from "../../graphql/types";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import CreateDeckRating from "raw-loader!../../graphql/create-deck-rating.gql";
+import {
+  GetDeckQuery as GetDeckQueryI,
+  GetDeckQueryVariables,
+} from "../../graphql/types";
+import GetDeckQuery from "raw-loader!../../graphql/get-deck.gql";
 
 const AverageDestiny = styled.div`
   opacity: 0.5;
@@ -182,6 +187,16 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
 export default function Deck() {
   const router = useRouter();
   const [allCards, setCards] = useState([]);
+  const {
+    data: deckInfo,
+    refetch: refreshDeck,
+    loading: loadingDeck,
+  } = useQuery<GetDeckQueryI, GetDeckQueryVariables>(gql(GetDeckQuery), {
+    variables: {
+      id: router.query.id as string,
+    },
+    skip: !Boolean(router.query.id),
+  });
   const [createRating] = useMutation<
     CreateDeckRatingMutation,
     MutationCreateDeckRatingArgs
@@ -208,6 +223,14 @@ export default function Deck() {
   const deckTitle = "Planet Destroyer";
   const deckDescription =
     "Deck is designed to take out opponents characters, then bring in big intrigue characters with pillage to limit cards in hand to limit opponents ability to defend against strong intrigue challenges.";
+  if (!deckInfo) {
+    return (
+      <Page>
+        <Toolbar />
+        <LinearProgress />
+      </Page>
+    );
+  }
   return (
     <Page>
       <Toolbar />
@@ -229,7 +252,7 @@ export default function Deck() {
                 {Math.round(average(destiny) * 10) / 10} Avg Destiny
               </AverageDestiny>
               <StarsComponent
-                ratings={[]}
+                ratings={deckInfo.deck.ratings}
                 onChange={(rating: number) => {
                   createRating({
                     variables: {

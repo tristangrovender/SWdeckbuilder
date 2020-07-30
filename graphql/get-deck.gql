@@ -4,6 +4,10 @@ query GetDeck($id: ID!) {
     title
     description
     side
+    ratings {
+      id
+      rating
+    }
     author {
       id
       username

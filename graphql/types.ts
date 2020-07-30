@@ -246,7 +246,10 @@ export type GetDeckQuery = (
   & { deck: (
     { __typename?: 'Deck' }
     & Pick<Deck, 'id' | 'title' | 'description' | 'side'>
-    & { author: (
+    & { ratings: Array<Maybe<(
+      { __typename?: 'DeckRating' }
+      & Pick<DeckRating, 'id' | 'rating'>
+    )>>, author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'username'>
     ), deckCards: Array<Maybe<(
