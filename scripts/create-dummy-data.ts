@@ -52,7 +52,7 @@ function createDecks(userId: string, dummyDeckData): Promise<Deck[]> {
         data: {
           User: {
             connect: {
-              id: userId,
+              id: parseInt(userId),
             },
           },
           title: deck.title,
