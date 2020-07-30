@@ -81,7 +81,7 @@ export default function Home() {
                     }
                     title={deck.title}
                     createdAt={deck.createdAt}
-                    rating={deck.averageRating || undefined}
+                    ratings={deck.ratings}
                     description={deck.description}
                     author={deck.author.username}
                     types={

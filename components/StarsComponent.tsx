@@ -1,6 +1,15 @@
 import StarsRating from "stars-rating";
 import { RatingText } from "./DeckTile";
-export function StarsComponent({ rating }: { rating: number }) {
+import { average } from "../utils/utils";
+import { Maybe } from "../graphql/types";
+export function StarsComponent({
+  ratings,
+}: {
+  ratings: Maybe<{ id: string; rating: number }>[];
+}) {
+  const scores = ratings
+    .map((rating) => rating?.rating)
+    .filter((rating) => rating !== null && rating !== undefined) as number[];
   return (
     <>
       <StarsRating
@@ -8,10 +17,10 @@ export function StarsComponent({ rating }: { rating: number }) {
         size={15}
         color2={"#ffd700"}
         edit={false}
-        value={rating}
+        value={average(scores)}
         half={true}
       />
-      <RatingText>133 ratings</RatingText>
+      <RatingText>{ratings.length} ratings</RatingText>
     </>
   );
 }

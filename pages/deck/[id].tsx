@@ -3,7 +3,7 @@ import { Page, Toolbar, Content } from "../../components/Toolbar";
 import { FadedImage } from "../../components/card-snippet";
 import styled from "styled-components";
 import { darkBlue } from "../../utils/colors";
-import { groupBy } from "../../utils/utils";
+import { groupBy, average } from "../../utils/utils";
 import { StarsComponent } from "../../components/StarsComponent";
 import { DeckCardRow } from "./DeckCardRow";
 import { CommentsSection } from "../../components/comments-section";
@@ -172,13 +172,6 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
     </TypeContainer>
   );
 }
-
-const average = function (numArray) {
-  const sum = numArray.reduce((total, nextNum) => {
-    return total + nextNum;
-  }, 0);
-  return sum / numArray.length;
-};
 
 export default function Deck() {
   const router = useRouter();

@@ -37,3 +37,10 @@ export function memoize<T>(func: Function) {
     return result;
   };
 }
+
+export const average = function (numArray: number[]) {
+  const sum = numArray.reduce((total, nextNum) => {
+    return total + nextNum;
+  }, 0);
+  return sum / numArray.length;
+};

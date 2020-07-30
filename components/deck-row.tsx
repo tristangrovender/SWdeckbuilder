@@ -12,6 +12,8 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { ClickAwayListener, Menu, MenuItem } from "@material-ui/core";
 import { useMutation, gql } from "@apollo/client";
 import UpdateDeck from "raw-loader!../graphql/update-deck.gql";
+import { GetDecksQuery } from "../graphql/types";
+import { StarsComponent } from "./StarsComponent";
 
 const DeckDiv = styled.div`
   cursor: pointer;
@@ -103,16 +105,7 @@ export function DeckRow({
       </TitleAuthorContainer>
       <IconDaysDiv>
         <TileRatingContainer>
-          <StarsRating
-            count={5} // number of stars
-            onChange={ratingChanged}
-            size={15}
-            color2={"#ffd700"}
-            edit={false}
-            value={deck.averageRating}
-            half={true}
-          />
-          <RatingText>133 ratings</RatingText>
+          <StarsComponent ratings={deck.ratings} />
         </TileRatingContainer>
         <Days>Created {moment(deck.createdAt).from(moment(new Date()))}</Days>
       </IconDaysDiv>

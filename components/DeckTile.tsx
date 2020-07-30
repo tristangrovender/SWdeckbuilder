@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { StarsComponent } from "./StarsComponent";
 import moment from "moment";
+import { GetRecentDecksQuery, Maybe } from "../graphql/types";
 
 const Tile = styled.div`
   cursor: pointer;
@@ -70,7 +71,7 @@ export function DeckTile({
   author,
   createdAt,
   description,
-  rating,
+  ratings,
   types,
 }: {
   img: string;
@@ -78,7 +79,7 @@ export function DeckTile({
   author: string;
   createdAt: string;
   description: string;
-  rating?: number;
+  ratings: Maybe<{ id: string; rating: number }>[];
   types: string[];
 }) {
   const router = useRouter();
@@ -110,7 +111,7 @@ export function DeckTile({
           .join(" • ")}
       </TileDeckCardTypes>
       <TileRatingContainer>
-        <StarsComponent rating={rating}></StarsComponent>
+        <StarsComponent ratings={ratings}></StarsComponent>
       </TileRatingContainer>
     </Tile>
   );
