@@ -34,8 +34,8 @@ function NoDecks() {
 function DeckList({ decks }: { decks: GetDecksQuery["decks"] }) {
   return (
     <div>
-      {decks.map((deck) => (
-        <DeckRow deck={deck} editable={true} />
+      {decks.map((deck, i) => (
+        <DeckRow key={i} deck={deck} editable={true} />
       ))}
     </div>
   );

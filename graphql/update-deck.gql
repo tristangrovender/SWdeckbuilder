@@ -11,5 +11,6 @@ mutation UpdateDeck(
     id
     title
     description
+    published
   }
 }

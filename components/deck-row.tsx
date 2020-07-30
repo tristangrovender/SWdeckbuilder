@@ -2,7 +2,11 @@ import { useState } from "react";
 import StarsRating from "stars-rating";
 import moment from "moment";
 import styled from "styled-components";
-import { GetDecksQuery, Side } from "../graphql/types";
+import {
+  Side,
+  UpdateDeckMutation,
+  UpdateDeckMutationVariables,
+} from "../graphql/types";
 import { useRouter } from "next/router";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { ClickAwayListener, Menu, MenuItem } from "@material-ui/core";
@@ -80,9 +84,10 @@ export function DeckRow({
   deck: Deck;
 }) {
   const router = useRouter();
-  const [updateDeck] = useMutation<GetDecksQuery, GetDecksQueryVariables>(
-    gql(UpdateDeck)
-  );
+  const [updateDeck] = useMutation<
+    UpdateDeckMutation,
+    UpdateDeckMutationVariables
+  >(gql(UpdateDeck));
   const [dropDownOpen, setDropDownOpen] = useState(false);
   if (!deck) {
     return null;
@@ -132,8 +137,7 @@ export function DeckRow({
                   position: "absolute",
                   backgroundColor: "white",
                   padding: "10px",
-                  height: "60px",
-                  bottom: "-35px",
+                  bottom: "-75px",
                   right: "0px",
                   zIndex: 3,
                   border: "1px solid black",
@@ -146,6 +150,7 @@ export function DeckRow({
                   onClick={() => {
                     updateDeck({
                       variables: {
+                        deckId: deck.id,
                         published: !deck.published,
                       },
                     });

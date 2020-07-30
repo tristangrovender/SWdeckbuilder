@@ -50,8 +50,8 @@ export default function DeckLists() {
             <DeckFilter></DeckFilter>
           </DeckFilterContainer>
           <Table>
-            {decks.map((deck) => {
-              return <DeckRow deck={deck} />;
+            {decks.map((deck, i) => {
+              return <DeckRow key={i} deck={deck} />;
             })}
           </Table>
         </BodyContainer>

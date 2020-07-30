@@ -314,7 +314,7 @@ export type UpdateDeckMutation = (
   { __typename?: 'Mutation' }
   & { updateDeck: (
     { __typename?: 'Deck' }
-    & Pick<Deck, 'id' | 'title' | 'description'>
+    & Pick<Deck, 'id' | 'title' | 'description' | 'published'>
   ) }
 );
 
