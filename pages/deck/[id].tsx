@@ -218,7 +218,7 @@ export default function Deck() {
               <AverageDestiny>
                 {Math.round(average(destiny) * 10) / 10} Avg Destiny
               </AverageDestiny>
-              <StarsComponent rating={3.5} />
+              <StarsComponent ratings={[]} />
               <DeckButtonsDropDown>
                 <GetAppIcon
                   style={{
