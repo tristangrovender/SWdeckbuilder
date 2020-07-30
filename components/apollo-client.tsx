@@ -1,15 +1,17 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  createHttpLink,
-  gql,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { getToken } from "../utils/frontend-auth";
 
+function getOrigin() {
+  try {
+    return window.location.origin;
+  } catch (e) {
+    return;
+  }
+}
+
 const httpLink = createHttpLink({
-  // TODO figure out how to make this work on local and production
-  uri: "https://sw-deckbuilder.danielrasmuson.vercel.app/api/graphql",
+  uri: getOrigin() + "/api/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
