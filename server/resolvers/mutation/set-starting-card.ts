@@ -1,4 +1,4 @@
-import { prisma } from "../../pages/api/graphql";
+import { prisma } from "../../../pages/api/graphql";
 
 export async function setStartingCard(_parent, _args) {
   const startingCard = await prisma.deckCard.update({

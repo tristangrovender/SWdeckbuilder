@@ -1,5 +1,5 @@
 import { Card } from "@prisma/client";
-import { prisma } from "../../pages/api/graphql";
+import { prisma } from "../../../pages/api/graphql";
 
 function isCardInSideDeck(card: Card) {
   return (

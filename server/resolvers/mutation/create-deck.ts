@@ -1,4 +1,4 @@
-import { prisma } from "../../pages/api/graphql";
+import { prisma } from "../../../pages/api/graphql";
 
 export async function createDeck(_parent, _args, _context) {
   if (!_context.userId) {
