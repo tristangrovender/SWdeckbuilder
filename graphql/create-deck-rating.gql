@@ -1,0 +1,13 @@
+mutation CreateDeckRating($deckId: ID!, $rating: Float!) {
+  createDeckRating(deckId: $deckId, rating: $rating) {
+    id
+    rating
+    deck {
+      id
+      ratings {
+        id
+        rating
+      }
+    }
+  }
+}

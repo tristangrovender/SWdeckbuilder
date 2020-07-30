@@ -14,7 +14,13 @@ import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
 import { getCards } from "../../components/card-search-table/getCards";
-import { Card } from "../../graphql/types";
+import {
+  Card,
+  MutationCreateDeckRatingArgs,
+  CreateDeckRatingMutation,
+} from "../../graphql/types";
+import { gql, useMutation } from "@apollo/client";
+import CreateDeckRating from "raw-loader!../../graphql/create-deck-rating.gql";
 
 const AverageDestiny = styled.div`
   opacity: 0.5;
@@ -176,6 +182,10 @@ function CardTypeSection({ cards }: { cards: Card[] }) {
 export default function Deck() {
   const router = useRouter();
   const [allCards, setCards] = useState([]);
+  const [createRating] = useMutation<
+    CreateDeckRatingMutation,
+    MutationCreateDeckRatingArgs
+  >(gql(CreateDeckRating));
   const [exportDropDownOpen, toggleExportDropdown] = useState(false);
   const [deck, setDeck]: [Card[], (cards: Card[]) => void] = useState([]);
   const { id: deckId } = router.query;
@@ -218,7 +228,17 @@ export default function Deck() {
               <AverageDestiny>
                 {Math.round(average(destiny) * 10) / 10} Avg Destiny
               </AverageDestiny>
-              <StarsComponent ratings={[]} />
+              <StarsComponent
+                ratings={[]}
+                onChange={(rating: number) => {
+                  createRating({
+                    variables: {
+                      deckId: deckId as string,
+                      rating,
+                    },
+                  });
+                }}
+              />
               <DeckButtonsDropDown>
                 <GetAppIcon
                   style={{

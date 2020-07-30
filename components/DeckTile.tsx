@@ -66,6 +66,7 @@ const TileDeckCardTypes = styled.div`
 `;
 
 export function DeckTile({
+  id,
   img,
   title,
   author,
@@ -74,6 +75,7 @@ export function DeckTile({
   ratings,
   types,
 }: {
+  id: string;
   img: string;
   title: string;
   author: string;
@@ -84,7 +86,7 @@ export function DeckTile({
 }) {
   const router = useRouter();
   return (
-    <Tile onClick={() => router.push("/deck/111")}>
+    <Tile onClick={() => router.push(`/deck/${id}`)}>
       <TileBannerContainer>
         <TileBannerImage src={img} />
         <TileBanner>

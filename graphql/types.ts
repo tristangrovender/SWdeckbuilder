@@ -190,6 +190,28 @@ export type AddCardToDeckMutation = (
   ) }
 );
 
+export type CreateDeckRatingMutationVariables = Exact<{
+  deckId: Scalars['ID'];
+  rating: Scalars['Float'];
+}>;
+
+
+export type CreateDeckRatingMutation = (
+  { __typename?: 'Mutation' }
+  & { createDeckRating: (
+    { __typename?: 'DeckRating' }
+    & Pick<DeckRating, 'id' | 'rating'>
+    & { deck: (
+      { __typename?: 'Deck' }
+      & Pick<Deck, 'id'>
+      & { ratings: Array<Maybe<(
+        { __typename?: 'DeckRating' }
+        & Pick<DeckRating, 'id' | 'rating'>
+      )>> }
+    ) }
+  ) }
+);
+
 export type CreateDeckMutationVariables = Exact<{
   side: Side;
 }>;

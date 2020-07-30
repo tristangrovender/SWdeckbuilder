@@ -4,7 +4,9 @@ import { average } from "../utils/utils";
 import { Maybe } from "../graphql/types";
 export function StarsComponent({
   ratings,
+  onChange,
 }: {
+  onChange?: (rating: number) => void;
   ratings: Maybe<{ id: string; rating: number }>[];
 }) {
   const scores = ratings
@@ -16,9 +18,10 @@ export function StarsComponent({
         count={5}
         size={15}
         color2={"#ffd700"}
-        edit={false}
+        edit={Boolean(onChange)}
         value={average(scores)}
         half={true}
+        onChange={onChange}
       />
       <RatingText>{ratings.length} ratings</RatingText>
     </>

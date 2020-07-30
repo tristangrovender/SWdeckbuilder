@@ -74,6 +74,7 @@ export default function Home() {
                 return (
                   <DeckTile
                     key={i}
+                    id={deck.id}
                     img={
                       deck.side === Side.Dark
                         ? "/images/dark.png"
