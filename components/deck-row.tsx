@@ -95,7 +95,7 @@ export function DeckRow({
     return null;
   }
   return (
-    <DeckDiv key={deck.id} onClick={() => router.push("/deck/111")}>
+    <DeckDiv key={deck.id} onClick={() => router.push(`/deck/${deck.id}`)}>
       <Image
         src={deck.side === Side.Dark ? "/images/dark.png" : "/images/light.png"}
       ></Image>
