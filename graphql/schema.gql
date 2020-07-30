@@ -39,6 +39,7 @@ type DeckRating {
   createdAt: Date!
   updatedAt: Date!
   rating: Float!
+  deck: Deck!
 }
 type Deck {
   id: ID!
