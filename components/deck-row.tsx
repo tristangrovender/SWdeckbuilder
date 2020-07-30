@@ -6,6 +6,8 @@ import { GetDecksQuery, Side } from "../graphql/types";
 import { useRouter } from "next/router";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { ClickAwayListener, Menu, MenuItem } from "@material-ui/core";
+import { useMutation, gql } from "@apollo/client";
+import UpdateDeck from "../graphql/update-deck.gql";
 
 const DeckDiv = styled.div`
   cursor: pointer;
@@ -78,6 +80,9 @@ export function DeckRow({
   deck: Deck;
 }) {
   const router = useRouter();
+  const [updateDeck] = useMutation<GetDecksQuery, GetDecksQueryVariables>(
+    gql(UpdateDeck)
+  );
   const [dropDownOpen, setDropDownOpen] = useState(false);
   if (!deck) {
     return null;
@@ -136,6 +141,17 @@ export function DeckRow({
               >
                 <MenuItem onClick={() => router.push(`/deck/edit/${deck.id}`)}>
                   Edit
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    updateDeck({
+                      variables: {
+                        published: !deck.published,
+                      },
+                    });
+                  }}
+                >
+                  {deck.published ? "Unpublish" : "Publish"}
                 </MenuItem>
               </div>
             </ClickAwayListener>

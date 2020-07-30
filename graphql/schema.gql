@@ -38,6 +38,7 @@ type Deck {
   createdAt: Date!
   side: Side!
   title: String!
+  published: Boolean!
   description: String!
   author: User!
   averageRating: Float

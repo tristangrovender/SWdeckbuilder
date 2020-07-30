@@ -10,6 +10,7 @@ import { createDeck } from "../../server/resolvers/mutation/create-deck";
 import { DeckCard } from "../../server/resolvers/DeckCard";
 import { setStartingCard } from "../../server/resolvers/mutation/set-starting-card";
 import { updateDeck } from "../../server/resolvers/mutation/update-deck";
+import { decks } from "../../server/resolvers/query/decks";
 
 export const prisma = new PrismaClient();
 
@@ -43,22 +44,7 @@ const resolvers = {
         where: { id: parseInt(_args.id) },
       });
     },
-    decks: (_parent, _args) => {
-      return prisma.deck.findMany({
-        orderBy: {
-          updated_at: "desc",
-        },
-        ...(_args.authorId
-          ? {
-              where: {
-                User: {
-                  id: parseInt(_args.authorId),
-                },
-              },
-            }
-          : {}),
-      });
-    },
+    decks,
   },
   Mutation: {
     login: async () => {

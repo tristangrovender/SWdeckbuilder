@@ -110,6 +110,7 @@ export type Deck = {
   createdAt: Scalars['Date'];
   side: Side;
   title: Scalars['String'];
+  published: Scalars['Boolean'];
   description: Scalars['String'];
   author: User;
   averageRating?: Maybe<Scalars['Float']>;
@@ -230,7 +231,7 @@ export type GetDecksQuery = (
   { __typename?: 'Query' }
   & { decks: Array<Maybe<(
     { __typename?: 'Deck' }
-    & Pick<Deck, 'id' | 'title' | 'createdAt' | 'side' | 'averageRating'>
+    & Pick<Deck, 'id' | 'title' | 'createdAt' | 'published' | 'side' | 'averageRating'>
     & { author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'username'>
@@ -305,6 +306,7 @@ export type UpdateDeckMutationVariables = Exact<{
   deckId: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  published?: Maybe<Scalars['Boolean']>;
 }>;
 
 
@@ -476,6 +478,7 @@ export type DeckResolvers<ContextType = any, ParentType extends ResolversParentT
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   side?: Resolver<ResolversTypes['Side'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  published?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   averageRating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;

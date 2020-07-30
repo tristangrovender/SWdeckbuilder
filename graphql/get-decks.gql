@@ -3,6 +3,7 @@ query GetDecks($authorId: ID) {
     id
     title
     createdAt
+    published
     side
     averageRating
     author {
