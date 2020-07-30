@@ -4,11 +4,12 @@ import { PrismaClient, Deck } from "@prisma/client";
 import { recentDecks } from "../../server/resolvers/recent-decks";
 import { getSharedUser } from "../../server/create-shared-user";
 import jwt from "jsonwebtoken";
-import { addCardToDeck } from "../../server/resolvers/add-card-to-deck";
+import { addCardToDeck } from "../../server/resolvers/mutation/add-card-to-deck";
 import { CardResolver } from "../../server/resolvers/Card";
-import { createDeck } from "../../server/resolvers/create-deck";
+import { createDeck } from "../../server/resolvers/mutation/create-deck";
 import { DeckCard } from "../../server/resolvers/DeckCard";
-import { setStartingCard } from "../../server/resolvers/set-starting-card";
+import { setStartingCard } from "../../server/resolvers/mutation/set-starting-card";
+import { updateDeck } from "../../server/resolvers/mutation/update-deck";
 
 export const prisma = new PrismaClient();
 
@@ -66,17 +67,7 @@ const resolvers = {
         jwt: jwt.sign({ userId: user.id }, jwtSecret),
       };
     },
-    updateDeck: async (_parent, _args) => {
-      return prisma.deck.update({
-        where: {
-          id: parseInt(_args.deckId),
-        },
-        data: {
-          title: _args.updates.title,
-          description: _args.updates.description,
-        },
-      });
-    },
+    updateDeck,
     setStartingCard,
     createDeck,
     addCardToDeck,
