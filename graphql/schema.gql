@@ -27,12 +27,19 @@ type Mutation {
   removeCardFromDeck(deckCardId: ID!): SuccessResponse!
   setStartingCard(deckCardId: ID!, isStartingCard: Boolean!): DeckCard!
   updateDeck(deckId: ID!, updates: DeckUpdate!): Deck!
+  createDeckRating(deckId: ID!, rating: Float!): DeckRating!
 }
 enum Side {
   Dark
   Light
 }
 scalar Date
+type DeckRating {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  rating: Float!
+}
 type Deck {
   id: ID!
   createdAt: Date!

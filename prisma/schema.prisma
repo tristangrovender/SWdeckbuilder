@@ -58,7 +58,7 @@ model DeckRating {
   id         Int      @default(autoincrement()) @id
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  rating     Int
+  rating     Float
   authorId   Int
   deckId     Int
   User       User     @relation(fields: [authorId], references: [id])

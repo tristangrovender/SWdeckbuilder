@@ -55,7 +55,7 @@ create table "public"."DeckRating" (
 	id SERIAL PRIMARY KEY NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-	rating int NOT NULL,
+	rating float NOT NULL,
   "authorId" INTEGER NOT NULL, FOREIGN KEY ("authorId") REFERENCES "public"."User"(id),
   "deckId" INTEGER NOT NULL, FOREIGN KEY ("deckId") REFERENCES "public"."Deck"(id)
 );
