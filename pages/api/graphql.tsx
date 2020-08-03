@@ -14,6 +14,7 @@ import { decks } from "../../server/resolvers/query/decks";
 import { createDeckRating } from "../../server/resolvers/mutation/create-deck-rating";
 import { Deck } from "../../server/resolvers/types/Deck";
 import { createComment } from "../../server/resolvers/mutation/create-comment";
+import { Comment } from "../../server/resolvers/query/Comment";
 
 export const prisma = new PrismaClient();
 
@@ -76,9 +77,10 @@ const resolvers = {
       };
     },
   },
+  Card: CardResolver,
+  Comment,
   Deck,
   DeckCard: DeckCard,
-  Card: CardResolver,
 };
 
 const apolloServer = new ApolloServer({

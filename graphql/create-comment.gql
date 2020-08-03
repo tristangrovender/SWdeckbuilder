@@ -1,0 +1,23 @@
+mutation CreateComment($comment: String!, $deckId: ID, $cardId: ID) {
+  createComment(deckId: $deckId, cardId: $cardId, comment: $comment) {
+    id
+    createdAt
+    comment
+    card {
+      id
+      comments {
+        id
+        createdAt
+        comment
+      }
+    }
+    deck {
+      id
+      comments {
+        id
+        createdAt
+        comment
+      }
+    }
+  }
+}
