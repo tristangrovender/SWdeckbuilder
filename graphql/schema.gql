@@ -63,6 +63,7 @@ type Deck {
   author: User!
   ratings: [DeckRating]!
   deckCards: [DeckCard]!
+  comments: [Comment]!
 }
 type DeckCard {
   id: ID!
@@ -73,6 +74,7 @@ type DeckCard {
   isInSideDeck: Boolean!
   isStartingCard: Boolean!
 }
+
 type Card {
   id: ID!
   cardId: String!
@@ -90,7 +92,9 @@ type Card {
   gametext: String
   lore: String
   gemp_card_id: String
+  comments: [Comment]!
 }
+
 type User {
   id: ID!
   username: String!
