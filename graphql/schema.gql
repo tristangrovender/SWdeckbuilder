@@ -2,6 +2,7 @@ type Query {
   hello: String!
   recentDecks: [Deck]!
   cards: [Card]!
+  card(id: ID!): Card!
   deck(id: ID!): Deck!
   decks(authorId: ID): [Deck]!
 }

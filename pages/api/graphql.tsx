@@ -40,6 +40,13 @@ const resolvers = {
   Query: {
     hello: (_parent, _args, _context) => "Hello!",
     recentDecks: () => recentDecks(prisma),
+    card: (_parent, _args) => {
+      return prisma.card.findOne({
+        where: {
+          id: parseInt(_args.id),
+        },
+      });
+    },
     cards: async () => {
       return (await prisma.card.findMany()).sort(sortCardsByName);
     },

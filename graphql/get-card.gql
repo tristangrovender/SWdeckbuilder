@@ -1,0 +1,11 @@
+query GetCard($id: ID!) {
+  card(id: $id) {
+    id
+    title
+    side
+    type
+    subType
+    imageUrl
+    gametext
+  }
+}
