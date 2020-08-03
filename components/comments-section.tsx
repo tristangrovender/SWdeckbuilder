@@ -62,7 +62,15 @@ type CommentI = {
   };
 };
 
-export function CommentsSection({ comments }: { comments: CommentI[] }) {
+export function CommentsSection({
+  comments,
+  deckId,
+  cardId,
+}: {
+  comments: CommentI[];
+  deckId?: string;
+  cardId?: string;
+}) {
   const [comment, setComment] = useState("");
   const [createComment] = useMutation<
     CreateCommentMutation,
@@ -113,8 +121,7 @@ export function CommentsSection({ comments }: { comments: CommentI[] }) {
           createComment({
             variables: {
               comment,
-              // TODO
-              deckId: "1",
+              ...(deckId ? { deckId } : { cardId }),
             },
           })
         }

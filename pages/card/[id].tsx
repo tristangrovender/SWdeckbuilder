@@ -39,7 +39,10 @@ export default function CardPage(params) {
               {card.side}: {card.type} - {card.subType}
             </div>
             <div style={{ fontStyle: "italic" }}>{card.gametext}</div>
-            <CommentsSection comments={card.comments}></CommentsSection>
+            <CommentsSection
+              comments={card.comments}
+              cardId={router.query.id as string}
+            ></CommentsSection>
           </div>
           <img src={card.imageUrl} style={{ height: "500px" }}></img>
         </div>
