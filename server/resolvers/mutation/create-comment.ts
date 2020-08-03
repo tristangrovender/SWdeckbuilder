@@ -1,6 +1,9 @@
 import { prisma } from "../../../pages/api/graphql";
 
 export function createComment(_parent, _args, _context) {
+  if (!_context.userId) {
+    throw new Error("Please signin");
+  }
   if (!_args.deckId && !_args.cardId) {
     throw new Error("Either deckId or cardId is required for a comment");
   }
