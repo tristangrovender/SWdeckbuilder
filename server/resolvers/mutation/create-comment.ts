@@ -18,16 +18,21 @@ export function createComment(_parent, _args, _context) {
           id: _context.userId,
         },
       },
-      Deck: {
-        connect: {
-          id: parseInt(_args.deckId),
-        },
-      },
-      Card: {
-        connect: {
-          id: parseInt(_args.cardId),
-        },
-      },
+      ...(_args.deckId
+        ? {
+            Deck: {
+              connect: {
+                id: parseInt(_args.deckId),
+              },
+            },
+          }
+        : {
+            Card: {
+              connect: {
+                id: parseInt(_args.cardId),
+              },
+            },
+          }),
       comment: _args.comment,
     },
   });
