@@ -4,39 +4,30 @@ import { useRouter } from "next/router";
 import { getCards } from "../../components/card-search-table/getCards";
 import { CommentsSection } from "../../components/comments-section";
 import Footer from "../../components/Footer";
-import { Card } from "../../graphql/types";
+import { Card, GetCardQuery, GetCardQueryVariables } from "../../graphql/types";
+import { useQuery, gql } from "@apollo/client";
+import GetCard from "raw-loader!../../graphql/get-card.gql";
+import { LinearProgress } from "@material-ui/core";
 
 export default function CardPage(params) {
   const router = useRouter();
-  const [cards, setCards] = useState(null);
-  if (cards === null) {
-    getCards().then(setCards);
+  const { data, loading } = useQuery<GetCardQuery, GetCardQueryVariables>(
+    gql(GetCard),
+    {
+      variables: {
+        id: router.query.id as string,
+      },
+    }
+  );
+  if (loading) {
     return (
       <Page>
         <Toolbar />
-        <Content>Loading card...</Content>
+        <LinearProgress />
       </Page>
     );
   }
-  const { id: cardId } = router.query;
-  const card: Card = cards.find(({ id }) => id.toString() === cardId);
-  console.log("card:", card);
-  if (!cardId) {
-    return (
-      <Page>
-        <Toolbar />
-        <Content>Loading card...</Content>
-      </Page>
-    );
-  }
-  if (!card) {
-    return (
-      <Page>
-        <Toolbar />
-        <Content>Card not found: {cardId}</Content>
-      </Page>
-    );
-  }
+  const card = data.card;
   return (
     <Page>
       <Toolbar />
@@ -48,7 +39,7 @@ export default function CardPage(params) {
               {card.side}: {card.type} - {card.subType}
             </div>
             <div style={{ fontStyle: "italic" }}>{card.gametext}</div>
-            <CommentsSection></CommentsSection>
+            <CommentsSection comments={card.comments}></CommentsSection>
           </div>
           <img src={card.imageUrl} style={{ height: "500px" }}></img>
         </div>

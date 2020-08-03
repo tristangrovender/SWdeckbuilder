@@ -7,5 +7,14 @@ query GetCard($id: ID!) {
     subType
     imageUrl
     gametext
+    comments {
+      id
+      createdAt
+      comment
+      author {
+        id
+        username
+      }
+    }
   }
 }

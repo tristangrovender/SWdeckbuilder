@@ -19,8 +19,14 @@ export type Query = {
   hello: Scalars['String'];
   recentDecks: Array<Maybe<Deck>>;
   cards: Array<Maybe<Card>>;
+  card: Card;
   deck: Deck;
   decks: Array<Maybe<Deck>>;
+};
+
+
+export type QueryCardArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -229,6 +235,10 @@ export type CreateCommentMutation = (
       & { comments: Array<Maybe<(
         { __typename?: 'Comment' }
         & Pick<Comment, 'id' | 'createdAt' | 'comment'>
+        & { author: (
+          { __typename?: 'User' }
+          & Pick<User, 'id' | 'username'>
+        ) }
       )>> }
     )>, deck?: Maybe<(
       { __typename?: 'Deck' }
@@ -236,6 +246,10 @@ export type CreateCommentMutation = (
       & { comments: Array<Maybe<(
         { __typename?: 'Comment' }
         & Pick<Comment, 'id' | 'createdAt' | 'comment'>
+        & { author: (
+          { __typename?: 'User' }
+          & Pick<User, 'id' | 'username'>
+        ) }
       )>> }
     )> }
   ) }
@@ -273,6 +287,27 @@ export type CreateDeckMutation = (
   & { createDeck: (
     { __typename?: 'Deck' }
     & Pick<Deck, 'id' | 'side'>
+  ) }
+);
+
+export type GetCardQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetCardQuery = (
+  { __typename?: 'Query' }
+  & { card: (
+    { __typename?: 'Card' }
+    & Pick<Card, 'id' | 'title' | 'side' | 'type' | 'subType' | 'imageUrl' | 'gametext'>
+    & { comments: Array<Maybe<(
+      { __typename?: 'Comment' }
+      & Pick<Comment, 'id' | 'createdAt' | 'comment'>
+      & { author: (
+        { __typename?: 'User' }
+        & Pick<User, 'id' | 'username'>
+      ) }
+    )>> }
   ) }
 );
 
@@ -543,6 +578,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   hello?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   recentDecks?: Resolver<Array<Maybe<ResolversTypes['Deck']>>, ParentType, ContextType>;
   cards?: Resolver<Array<Maybe<ResolversTypes['Card']>>, ParentType, ContextType>;
+  card?: Resolver<ResolversTypes['Card'], ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
   deck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType, RequireFields<QueryDeckArgs, 'id'>>;
   decks?: Resolver<Array<Maybe<ResolversTypes['Deck']>>, ParentType, ContextType, RequireFields<QueryDecksArgs, never>>;
 }>;

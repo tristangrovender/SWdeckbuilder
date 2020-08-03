@@ -11,20 +11,14 @@ import { gql, useMutation } from "@apollo/client";
 function Comment({
   author,
   text,
-  profilePhoto,
   createdAt,
 }: {
   author: string;
   text: string;
-  profilePhoto: string;
   createdAt: Date;
 }) {
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
-      <img
-        src={profilePhoto}
-        style={{ width: "40px", height: "40px", borderRadius: "5px" }}
-      ></img>
       <div
         style={{
           display: "flex",
@@ -58,27 +52,23 @@ function Comment({
   );
 }
 
-export function CommentsSection() {
+type CommentI = {
+  id: string;
+  createdAt: string;
+  comment: string;
+  author: {
+    id: string;
+    username: string;
+  };
+};
+
+export function CommentsSection({ comments }: { comments: CommentI[] }) {
   const [comment, setComment] = useState("");
   const [createComment] = useMutation<
     CreateCommentMutation,
     CreateCommentMutationVariables
   >(gql(CreateComment));
 
-  const comments = [
-    {
-      author: "Dan Rasmuson",
-      text: "Fantastic!",
-      createdAt: new Date(),
-      profilePhoto: "/images/Tristan.jpg",
-    },
-    {
-      author: "Tristan Grovender",
-      text: "Really effective!",
-      createdAt: new Date(),
-      profilePhoto: "/images/Hank.jpg",
-    },
-  ];
   return (
     <div>
       <div
@@ -92,13 +82,12 @@ export function CommentsSection() {
       >
         Comments
       </div>
-      {comments.map(({ author, text, createdAt, profilePhoto }, i) => (
+      {comments.map(({ author, comment, createdAt }, i) => (
         <Comment
           key={i}
-          author={author}
-          text={text}
-          createdAt={createdAt}
-          profilePhoto={profilePhoto}
+          author={author.username}
+          text={comment}
+          createdAt={new Date(createdAt)}
         ></Comment>
       ))}
       <textarea

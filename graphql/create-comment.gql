@@ -9,6 +9,10 @@ mutation CreateComment($comment: String!, $deckId: ID, $cardId: ID) {
         id
         createdAt
         comment
+        author {
+          id
+          username
+        }
       }
     }
     deck {
@@ -17,6 +21,10 @@ mutation CreateComment($comment: String!, $deckId: ID, $cardId: ID) {
         id
         createdAt
         comment
+        author {
+          id
+          username
+        }
       }
     }
   }
