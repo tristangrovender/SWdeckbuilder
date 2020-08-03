@@ -25,7 +25,21 @@ model Card {
   front_lore     String?
   counterpart    String?
   gemp_card_id   String?
+  Comment        Comment[]
   DeckCard       DeckCard[]
+}
+
+model Comment {
+  id         Int      @default(autoincrement()) @id
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  comment    String?
+  authorId   Int
+  deckId     Int?
+  cardId     Int?
+  User       User     @relation(fields: [authorId], references: [id])
+  Card       Card?    @relation(fields: [cardId], references: [id])
+  Deck       Deck?    @relation(fields: [deckId], references: [id])
 }
 
 model Deck {
@@ -38,6 +52,7 @@ model Deck {
   published   Boolean?     @default(false)
   authorId    Int
   User        User         @relation(fields: [authorId], references: [id])
+  Comment     Comment[]
   DeckCard    DeckCard[]
   DeckRating  DeckRating[]
 }
@@ -73,6 +88,7 @@ model User {
   last_name  String?
   email      String       @unique
   username   String?
+  Comment    Comment[]
   Deck       Deck[]
   DeckRating DeckRating[]
 }

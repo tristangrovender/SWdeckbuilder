@@ -59,3 +59,13 @@ create table "public"."DeckRating" (
   "authorId" INTEGER NOT NULL, FOREIGN KEY ("authorId") REFERENCES "public"."User"(id),
   "deckId" INTEGER NOT NULL, FOREIGN KEY ("deckId") REFERENCES "public"."Deck"(id)
 );
+
+create table "public"."Comment" (
+	id SERIAL PRIMARY KEY NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	comment VARCHAR(8000),
+  "authorId" INTEGER NOT NULL, FOREIGN KEY ("authorId") REFERENCES "public"."User"(id),
+  "deckId" INTEGER, FOREIGN KEY ("deckId") REFERENCES "public"."Deck"(id),
+  "cardId" INTEGER, FOREIGN KEY ("cardId") REFERENCES "public"."Card"(id)
+);
