@@ -28,4 +28,16 @@ export const Deck = {
       },
     });
   },
+  comments: (_parent) => {
+    return prisma.comment.findMany({
+      orderBy: {
+        created_at: "desc",
+      },
+      where: {
+        Deck: {
+          id: _parent.id,
+        },
+      },
+    });
+  },
 };

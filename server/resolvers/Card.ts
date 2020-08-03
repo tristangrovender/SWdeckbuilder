@@ -1,3 +1,4 @@
+import { prisma } from "../../pages/api/graphql";
 export const CardResolver = {
   id: (_parent) => _parent.id,
   type: (_parent) => _parent.front_type,
@@ -15,4 +16,16 @@ export const CardResolver = {
   gametext: (_parent) => _parent.front_gametext,
   lore: (_parent) => _parent.front_lore,
   gemp_card_id: (_parent) => _parent.gemp_card_id,
+  comments: (_parent) => {
+    return prisma.comment.findMany({
+      orderBy: {
+        created_at: "desc",
+      },
+      where: {
+        Card: {
+          id: _parent.id,
+        },
+      },
+    });
+  },
 };
