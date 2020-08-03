@@ -28,7 +28,19 @@ type Mutation {
   setStartingCard(deckCardId: ID!, isStartingCard: Boolean!): DeckCard!
   updateDeck(deckId: ID!, updates: DeckUpdate!): Deck!
   createDeckRating(deckId: ID!, rating: Float!): DeckRating!
+  createComment(deckId: ID, cardId: ID, comment: String!): Comment!
 }
+
+type Comment {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  comment: String!
+  author: User!
+  card: Card
+  deck: Deck
+}
+
 enum Side {
   Dark
   Light

@@ -13,6 +13,7 @@ import { updateDeck } from "../../server/resolvers/mutation/update-deck";
 import { decks } from "../../server/resolvers/query/decks";
 import { createDeckRating } from "../../server/resolvers/mutation/create-deck-rating";
 import { Deck } from "../../server/resolvers/types/Deck";
+import { createComment } from "../../server/resolvers/mutation/create-comment";
 
 export const prisma = new PrismaClient();
 
@@ -59,6 +60,7 @@ const resolvers = {
     setStartingCard,
     createDeck,
     createDeckRating,
+    createComment,
     addCardToDeck,
     removeCardFromDeck: async (_parent, _args, _context) => {
       if (!_context.userId) {
