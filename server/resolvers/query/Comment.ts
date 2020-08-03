@@ -2,16 +2,24 @@ import { prisma } from "../../../pages/api/graphql";
 export const Comment = {
   createdAt: (_parent) => _parent.created_at,
   updatedAt: (_parent) => _parent.updated_at,
-  deck: (_parent) =>
-    prisma.deck.findOne({
+  deck: (_parent) => {
+    if (!_parent.deckId) {
+      return null;
+    }
+    return prisma.deck.findOne({
       where: {
         id: _parent.deckId,
       },
-    }),
-  card: (_parent) =>
-    prisma.card.findOne({
+    });
+  },
+  card: (_parent) => {
+    if (!_parent.cardId) {
+      return null;
+    }
+    return prisma.card.findOne({
       where: {
         id: _parent.cardId,
       },
-    }),
+    });
+  },
 };

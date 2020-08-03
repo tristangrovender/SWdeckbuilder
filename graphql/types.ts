@@ -63,6 +63,7 @@ export type Mutation = {
   setStartingCard: DeckCard;
   updateDeck: Deck;
   createDeckRating: DeckRating;
+  createComment: Comment;
 };
 
 
@@ -105,6 +106,24 @@ export type MutationCreateDeckRatingArgs = {
   rating: Scalars['Float'];
 };
 
+
+export type MutationCreateCommentArgs = {
+  deckId?: Maybe<Scalars['ID']>;
+  cardId?: Maybe<Scalars['ID']>;
+  comment: Scalars['String'];
+};
+
+export type Comment = {
+  __typename?: 'Comment';
+  id: Scalars['ID'];
+  createdAt: Scalars['Date'];
+  updatedAt: Scalars['Date'];
+  comment: Scalars['String'];
+  author: User;
+  card?: Maybe<Card>;
+  deck?: Maybe<Deck>;
+};
+
 export enum Side {
   Dark = 'Dark',
   Light = 'Light'
@@ -131,6 +150,7 @@ export type Deck = {
   author: User;
   ratings: Array<Maybe<DeckRating>>;
   deckCards: Array<Maybe<DeckCard>>;
+  comments: Array<Maybe<Comment>>;
 };
 
 export type DeckCard = {
@@ -162,6 +182,7 @@ export type Card = {
   gametext?: Maybe<Scalars['String']>;
   lore?: Maybe<Scalars['String']>;
   gemp_card_id?: Maybe<Scalars['String']>;
+  comments: Array<Maybe<Comment>>;
 };
 
 export type User = {
@@ -187,6 +208,36 @@ export type AddCardToDeckMutation = (
   & { addCardToDeck: (
     { __typename?: 'DeckCardIDResponse' }
     & Pick<DeckCardIdResponse, 'newDeckCardId'>
+  ) }
+);
+
+export type CreateCommentMutationVariables = Exact<{
+  comment: Scalars['String'];
+  deckId?: Maybe<Scalars['ID']>;
+  cardId?: Maybe<Scalars['ID']>;
+}>;
+
+
+export type CreateCommentMutation = (
+  { __typename?: 'Mutation' }
+  & { createComment: (
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'id' | 'createdAt' | 'comment'>
+    & { card?: Maybe<(
+      { __typename?: 'Card' }
+      & Pick<Card, 'id'>
+      & { comments: Array<Maybe<(
+        { __typename?: 'Comment' }
+        & Pick<Comment, 'id' | 'createdAt' | 'comment'>
+      )>> }
+    )>, deck?: Maybe<(
+      { __typename?: 'Deck' }
+      & Pick<Deck, 'id'>
+      & { comments: Array<Maybe<(
+        { __typename?: 'Comment' }
+        & Pick<Comment, 'id' | 'createdAt' | 'comment'>
+      )>> }
+    )> }
   ) }
 );
 
@@ -454,6 +505,7 @@ export type ResolversTypes = ResolversObject<{
   DeckUpdate: DeckUpdate;
   Mutation: ResolverTypeWrapper<{}>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  Comment: ResolverTypeWrapper<Comment>;
   Side: Side;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   DeckRating: ResolverTypeWrapper<DeckRating>;
@@ -477,6 +529,7 @@ export type ResolversParentTypes = ResolversObject<{
   DeckUpdate: DeckUpdate;
   Mutation: {};
   Float: Scalars['Float'];
+  Comment: Comment;
   Date: Scalars['Date'];
   DeckRating: DeckRating;
   Deck: Deck;
@@ -517,6 +570,18 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   setStartingCard?: Resolver<ResolversTypes['DeckCard'], ParentType, ContextType, RequireFields<MutationSetStartingCardArgs, 'deckCardId' | 'isStartingCard'>>;
   updateDeck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType, RequireFields<MutationUpdateDeckArgs, 'deckId' | 'updates'>>;
   createDeckRating?: Resolver<ResolversTypes['DeckRating'], ParentType, ContextType, RequireFields<MutationCreateDeckRatingArgs, 'deckId' | 'rating'>>;
+  createComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'comment'>>;
+}>;
+
+export type CommentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  comment?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType>;
+  deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -542,6 +607,7 @@ export type DeckResolvers<ContextType = any, ParentType extends ResolversParentT
   author?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   ratings?: Resolver<Array<Maybe<ResolversTypes['DeckRating']>>, ParentType, ContextType>;
   deckCards?: Resolver<Array<Maybe<ResolversTypes['DeckCard']>>, ParentType, ContextType>;
+  comments?: Resolver<Array<Maybe<ResolversTypes['Comment']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
@@ -573,6 +639,7 @@ export type CardResolvers<ContextType = any, ParentType extends ResolversParentT
   gametext?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   lore?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   gemp_card_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  comments?: Resolver<Array<Maybe<ResolversTypes['Comment']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 }>;
 
@@ -592,6 +659,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   SuccessResponse?: SuccessResponseResolvers<ContextType>;
   DeckCardIDResponse?: DeckCardIdResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Comment?: CommentResolvers<ContextType>;
   Date?: GraphQLScalarType;
   DeckRating?: DeckRatingResolvers<ContextType>;
   Deck?: DeckResolvers<ContextType>;
