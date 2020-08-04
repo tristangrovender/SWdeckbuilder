@@ -71,7 +71,10 @@ export function CommentsSection({
   deckId?: string;
   cardId?: string;
 }) {
-  const [comment, setComment] = useState("");
+  const [textAreaRef, setTextAreaRef]: [
+    HTMLTextAreaElement,
+    (ref: HTMLTextAreaElement) => void
+  ] = useState(undefined);
   const [createComment] = useMutation<
     CreateCommentMutation,
     CreateCommentMutationVariables
@@ -106,7 +109,7 @@ export function CommentsSection({
           resize: "vertical",
           marginBottom: "5px",
         }}
-        onKeyUp={(e) => setComment((e.target as any).value)}
+        ref={(ref) => setTextAreaRef(ref)}
       ></textarea>
       <Button
         variant="outlined"
@@ -117,14 +120,15 @@ export function CommentsSection({
           color: "black",
           marginBottom: "10px",
         }}
-        onClick={() =>
+        onClick={() => {
           createComment({
             variables: {
-              comment,
+              comment: textAreaRef.value,
               ...(deckId ? { deckId } : { cardId }),
             },
-          })
-        }
+          });
+          textAreaRef.value = "";
+        }}
       >
         <div>Add Reply</div>
       </Button>

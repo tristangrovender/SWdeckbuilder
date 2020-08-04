@@ -8,6 +8,15 @@ query GetDeck($id: ID!) {
       id
       rating
     }
+    comments {
+      id
+      createdAt
+      comment
+      author {
+        id
+        username
+      }
+    }
     author {
       id
       username

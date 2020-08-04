@@ -335,6 +335,13 @@ export type GetDeckQuery = (
     & { ratings: Array<Maybe<(
       { __typename?: 'DeckRating' }
       & Pick<DeckRating, 'id' | 'rating'>
+    )>>, comments: Array<Maybe<(
+      { __typename?: 'Comment' }
+      & Pick<Comment, 'id' | 'createdAt' | 'comment'>
+      & { author: (
+        { __typename?: 'User' }
+        & Pick<User, 'id' | 'username'>
+      ) }
     )>>, author: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'username'>

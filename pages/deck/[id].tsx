@@ -329,7 +329,10 @@ export default function Deck() {
               <CardTypeSection key={i} cards={cardsInType} />
             ))}
         </TypeSectionsContainer>
-        <CommentsSection />
+        <CommentsSection
+          comments={deckInfo.deck.comments}
+          deckId={deckId as string}
+        />
       </Content>
       <Footer></Footer>
     </Page>

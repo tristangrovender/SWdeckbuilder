@@ -31,7 +31,7 @@ export const Deck = {
   comments: (_parent) => {
     return prisma.comment.findMany({
       orderBy: {
-        created_at: "desc",
+        created_at: "asc",
       },
       where: {
         Deck: {
