@@ -21,9 +21,6 @@ export const prisma = new PrismaClient();
 
 const typeDefs = gql(schema + "");
 
-// TODO put this secret into .env and load via .env npm module
-const jwtSecret = "shhhhh";
-
 function sortCardsByName(a: any, b: any) {
   const aTitle = a.front_title.replace(/[^0-9a-zA-z_.]/gi, "");
   const bTitle = b.front_title.replace(/[^0-9a-zA-z_.]/gi, "");
@@ -92,7 +89,9 @@ const apolloServer = new ApolloServer({
   context: ({ req }) => {
     try {
       const token = req.headers.authorization.split(" ")[1];
-      const decoded = jwt.verify(token, jwtSecret) as { userId: string };
+      const decoded = jwt.verify(token, process.env.JWT_SECRET) as {
+        userId: string;
+      };
       return { userId: decoded.userId };
     } catch (e) {
       return {};
