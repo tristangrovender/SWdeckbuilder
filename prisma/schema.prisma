@@ -86,8 +86,7 @@ model User {
   updated_at DateTime     @default(now())
   first_name String?
   last_name  String?
-  email      String       @unique
-  username   String?
+  username   String       @unique
   Comment    Comment[]
   Deck       Deck[]
   DeckRating DeckRating[]

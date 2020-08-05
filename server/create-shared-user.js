@@ -44,7 +44,7 @@ function getSharedUser(prisma) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, prisma.user.findOne({
                         where: {
-                            email: "allusers@example.com"
+                            username: "allusers"
                         }
                     })];
                 case 1:
@@ -54,7 +54,6 @@ function getSharedUser(prisma) {
                     }
                     return [2 /*return*/, prisma.user.create({
                             data: {
-                                email: "allusers@example.com",
                                 first_name: "Shared User",
                                 last_name: "For All Accounts",
                                 username: "allusers"
