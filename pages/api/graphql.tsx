@@ -1,8 +1,8 @@
+require("dotenv").config();
 import { ApolloServer, gql } from "apollo-server-micro";
 import schema from "raw-loader!../../graphql/schema.gql";
 import { PrismaClient } from "@prisma/client";
 import { recentDecks } from "../../server/resolvers/recent-decks";
-import { getSharedUser } from "../../server/create-shared-user";
 import jwt from "jsonwebtoken";
 import { addCardToDeck } from "../../server/resolvers/mutation/add-card-to-deck";
 import { CardResolver } from "../../server/resolvers/Card";
@@ -10,6 +10,7 @@ import { createDeck } from "../../server/resolvers/mutation/create-deck";
 import { DeckCard } from "../../server/resolvers/DeckCard";
 import { setStartingCard } from "../../server/resolvers/mutation/set-starting-card";
 import { updateDeck } from "../../server/resolvers/mutation/update-deck";
+import { login } from "../../server/resolvers/mutation/login";
 import { decks } from "../../server/resolvers/query/decks";
 import { createDeckRating } from "../../server/resolvers/mutation/create-deck-rating";
 import { Deck } from "../../server/resolvers/types/Deck";
@@ -58,12 +59,7 @@ const resolvers = {
     decks,
   },
   Mutation: {
-    login: async () => {
-      const user = await getSharedUser(prisma);
-      return {
-        jwt: jwt.sign({ userId: user.id }, jwtSecret),
-      };
-    },
+    login,
     updateDeck,
     setStartingCard,
     createDeck,

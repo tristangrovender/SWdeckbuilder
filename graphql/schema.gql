@@ -23,7 +23,7 @@ input DeckUpdate {
 
 type Mutation {
   createDeck(side: Side!): Deck!
-  login(username: String!, password: String!): LoginResponse!
+  login(awsJWTToken: String!): LoginResponse!
   addCardToDeck(deckId: ID!, cardId: ID!): DeckCardIDResponse!
   removeCardFromDeck(deckCardId: ID!): SuccessResponse!
   setStartingCard(deckCardId: ID!, isStartingCard: Boolean!): DeckCard!
