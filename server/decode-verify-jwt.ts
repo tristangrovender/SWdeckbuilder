@@ -104,7 +104,6 @@ const handler = async (
     if (claim.token_use !== "access") {
       throw new Error("claim use is not access");
     }
-    console.log(`claim confirmed for ${claim.username}`);
     result = {
       userName: claim.username,
       clientId: claim.client_id,
