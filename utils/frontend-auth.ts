@@ -6,6 +6,9 @@ export function getToken() {
 export function setToken(token: string) {
   return localStorage.setItem(JWT_KEY, token);
 }
+export function removeToken() {
+  return localStorage.removeItem(JWT_KEY);
+}
 export function getUserId() {
   const token = getToken();
   if (!token) {
