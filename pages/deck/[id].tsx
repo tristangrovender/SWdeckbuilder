@@ -146,11 +146,12 @@ export function getRandomDeck(allCards: Card[]) {
   const shuffled = newArray.sort(() => 0.5 - Math.random());
 
   // Get sub-array of first 60 elements after shuffle
-  let randomDeck = shuffled.slice(0, 60);
+  let randomDeck = shuffled.slice(0, 30);
+  randomDeck = [...randomDeck, ...randomDeck];
 
   // Delete after images are correct
   const specificCard = newArray.find(card => {
-    return card.front.type === "Admiral's Order";
+    return card.front.type === "Location";
   });
   randomDeck.push(specificCard);
   return randomDeck;
@@ -173,6 +174,12 @@ function getIconName(type: string) {
 }
 
 export function CardTypeSection({ cards }: { cards: Card[] }) {
+  function counter(oldTitle, newTitle, titleCount) {
+    if (oldTitle === newTitle) {
+      return titleCount + 1;
+    }
+  }
+
   if (cards.length === 0) {
     return <div>Loading...</div>;
   }
@@ -191,7 +198,7 @@ export function CardTypeSection({ cards }: { cards: Card[] }) {
               fontSize: "12px"
             }}
           >
-            1x {card.front.title}
+            {counter(card, card, 0)}x {card.front.title}
           </div>
         ))}
       </div>
@@ -211,6 +218,8 @@ export default function Deck() {
   if (allCards.length && deck.length === 0) {
     setDeck(getRandomDeck(allCards));
   }
+
+  console.log(deck);
 
   const average = function(numArray) {
     const sum = numArray.reduce((total, nextNum) => {

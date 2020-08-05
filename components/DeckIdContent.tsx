@@ -37,7 +37,6 @@ const RightContent = styled.div`
 const PlayerName = styled.div`
   display: flex;
   font-size: 24px;
-  align-items: ;
 `;
 
 const Description = styled.div`
