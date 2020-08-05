@@ -30,7 +30,11 @@ export default function Callback() {
         console.log("JWT not found", data);
       }
     });
-    return <LinearProgress />;
+    return (
+      <div>
+        <LinearProgress />
+      </div>
+    );
   } catch (e) {
     console.log(e);
     return <div>Error</div>;
