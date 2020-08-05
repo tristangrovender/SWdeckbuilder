@@ -37,6 +37,10 @@ export default function Callback() {
     );
   } catch (e) {
     console.log(e);
-    return <div>Error</div>;
+    return (
+      <div>
+        <LinearProgress />
+      </div>
+    );
   }
 }

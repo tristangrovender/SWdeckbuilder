@@ -9,6 +9,9 @@ export function setToken(token: string) {
 export function removeToken() {
   return localStorage.removeItem(JWT_KEY);
 }
+export function getSignInUrl() {
+  return "https://swccgdb.auth.us-east-2.amazoncognito.com/login?client_id=4ab8m6p1nglpa4110o2jhpk17&response_type=token&scope=email+openid+profile&redirect_uri=http://localhost:3000/callback";
+}
 export function getUserId() {
   const token = getToken();
   if (!token) {
