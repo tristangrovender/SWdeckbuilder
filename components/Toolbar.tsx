@@ -1,8 +1,16 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import { SearchBar } from "../components/SearchBar";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core";
+import {
+  ThemeProvider,
+  createMuiTheme,
+  ClickAwayListener,
+  MenuItem,
+} from "@material-ui/core";
 import { grey, blueGrey } from "@material-ui/core/colors";
+import { getToken, removeToken } from "../utils/frontend-auth";
+import PersonIcon from "@material-ui/icons/Person";
 
 const contentWidth = 960;
 
@@ -70,6 +78,7 @@ export function Content({ children }) {
 }
 
 export function Toolbar() {
+  const [showAvatarMenu, setAvatarMenu] = useState(false);
   return (
     <ToolbarContainer>
       <ToolbarContent>
@@ -96,6 +105,48 @@ export function Toolbar() {
         </Link>
         <div style={{ flexGrow: 1 }}></div>
         <SearchBar></SearchBar>
+        {getToken() ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+            }}
+          >
+            <PersonIcon
+              style={{
+                color: "white",
+                fontSize: "22px",
+                marginLeft: "5px",
+                cursor: "pointer",
+              }}
+              onClick={() => setAvatarMenu(true)}
+            />
+            {showAvatarMenu ? (
+              <ClickAwayListener onClickAway={() => setAvatarMenu(false)}>
+                <div
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "white",
+                    bottom: "-50px",
+                    right: "0px",
+                    color: "black",
+                  }}
+                >
+                  <MenuItem
+                    onClick={() => {
+                      removeToken();
+                      setAvatarMenu(false);
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </div>
+              </ClickAwayListener>
+            ) : null}
+          </div>
+        ) : null}
       </ToolbarContent>
     </ToolbarContainer>
   );

@@ -49,7 +49,7 @@ export default function MyDecks() {
         <Page>
           <Toolbar />
           <Content>
-            <CenterContentContainer style={{ marginTop: "20vh" }}>
+            <CenterContentContainer>
               <div style={{ marginRight: "20px" }}>
                 You must be logged in to access this page
               </div>

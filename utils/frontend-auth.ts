@@ -1,7 +1,11 @@
 import jwt from "jsonwebtoken";
 const JWT_KEY = "JWT";
 export function getToken() {
-  return localStorage.getItem(JWT_KEY);
+  try {
+    return localStorage.getItem(JWT_KEY);
+  } catch {
+    return;
+  }
 }
 export function setToken(token: string) {
   return localStorage.setItem(JWT_KEY, token);
