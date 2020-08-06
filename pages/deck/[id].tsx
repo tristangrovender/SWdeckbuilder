@@ -276,9 +276,9 @@ export default function Deck() {
             <DeckInfoContainer>
               <DeckInfoStatistics>
                 PLAYER: {authorUsername} - PUBLISHED:{" "}
-                {moment(deckInfo.deck.createdAt).format("dddd, MMMM Do YYYY")} -
+                {moment(deckInfo.deck.createdAt).format("Do MMMM, YYYY")} -
                 UPDATED:{" "}
-                {moment(new Date()).from(moment(deckInfo.deck.updatedAt))}
+                {moment(deckInfo.deck.updatedAt).format("Do MMMM, YYYY")}
               </DeckInfoStatistics>
 
               <DeckButtons>
