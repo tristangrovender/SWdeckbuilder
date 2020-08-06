@@ -1,6 +1,7 @@
 import { prisma } from "../../../pages/api/graphql";
 export const Deck = {
   createdAt: (_parent) => _parent.created_at,
+  updatedAt: (_parent) => _parent.updated_at,
   title: (_parent) => _parent.title || "Un-named Deck",
   description: (_parent) => _parent.description || "",
   ratings: async (_parent) => {

@@ -57,6 +57,7 @@ type DeckRating {
 type Deck {
   id: ID!
   createdAt: Date!
+  updatedAt: Date!
   side: Side!
   title: String!
   published: Boolean!

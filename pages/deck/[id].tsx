@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Page, Toolbar } from "../../components/Toolbar";
+import moment from "moment";
 import { FadedImage } from "../../components/card-snippet";
 import styled from "styled-components";
 import { StarsComponent } from "../../components/StarsComponent";
@@ -274,8 +275,10 @@ export default function Deck() {
             </DeckTitleContainer>
             <DeckInfoContainer>
               <DeckInfoStatistics>
-                PLAYER: {authorUsername} - PUBLISHED: July 15, 2020 - UPDATED: 2
-                days ago
+                PLAYER: {authorUsername} - PUBLISHED:{" "}
+                {moment(deckInfo.deck.createdAt).format("dddd, MMMM Do YYYY")} -
+                UPDATED:{" "}
+                {moment(new Date()).from(moment(deckInfo.deck.updatedAt))}
               </DeckInfoStatistics>
 
               <DeckButtons>

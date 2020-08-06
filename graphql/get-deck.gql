@@ -3,6 +3,8 @@ query GetDeck($id: ID!) {
     id
     title
     description
+    createdAt
+    updatedAt
     side
     ratings {
       id

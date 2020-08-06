@@ -148,6 +148,7 @@ export type Deck = {
   __typename?: 'Deck';
   id: Scalars['ID'];
   createdAt: Scalars['Date'];
+  updatedAt: Scalars['Date'];
   side: Side;
   title: Scalars['String'];
   published: Scalars['Boolean'];
@@ -330,7 +331,7 @@ export type GetDeckQuery = (
   { __typename?: 'Query' }
   & { deck: (
     { __typename?: 'Deck' }
-    & Pick<Deck, 'id' | 'title' | 'description' | 'side'>
+    & Pick<Deck, 'id' | 'title' | 'description' | 'createdAt' | 'updatedAt' | 'side'>
     & { ratings: Array<Maybe<(
       { __typename?: 'DeckRating' }
       & Pick<DeckRating, 'id' | 'rating'>
@@ -641,6 +642,7 @@ export type DeckRatingResolvers<ContextType = any, ParentType extends ResolversP
 export type DeckResolvers<ContextType = any, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   side?: Resolver<ResolversTypes['Side'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   published?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
