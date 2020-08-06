@@ -1,23 +1,21 @@
 import { useState } from "react";
-import { Page, Toolbar, Content } from "../../components/Toolbar";
+import { Page, Toolbar } from "../../components/Toolbar";
 import { FadedImage } from "../../components/card-snippet";
 import styled from "styled-components";
-import { darkBlue } from "../../utils/colors";
-import { groupBy, average } from "../../utils/utils";
 import { StarsComponent } from "../../components/StarsComponent";
-import { DeckCardRow } from "./DeckCardRow";
 import { CommentsSection } from "../../components/comments-section";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { Button, ClickAwayListener, LinearProgress } from "@material-ui/core";
 import FileSaver from "file-saver";
 import { getDeckText } from "../../components/getDeckText";
 import { useRouter } from "next/router";
+import DeckIdContent from "../../components/DeckIdContent";
 import Footer from "../../components/Footer";
-import { getCards } from "../../components/card-search-table/getCards";
 import {
   Card,
   MutationCreateDeckRatingArgs,
   CreateDeckRatingMutation,
+  DeckCard,
 } from "../../graphql/types";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import CreateDeckRating from "raw-loader!../../graphql/create-deck-rating.gql";
@@ -26,6 +24,18 @@ import {
   GetDeckQueryVariables,
 } from "../../graphql/types";
 import GetDeckQuery from "raw-loader!../../graphql/get-deck.gql";
+
+const WideContent = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+`;
+
+const Content = styled.div`
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+`;
 
 const AverageDestiny = styled.div`
   opacity: 0.5;
@@ -101,26 +111,20 @@ const PageTitle = styled.div`
   align-items: center;
 `;
 
-const TypeSectionsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
 const TypeContainer = styled.div`
-  width: 300px;
-  color: white;
-  margin-right: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  flex: wrap;
+  color: black;
+  width: 50%;
 `;
 
 const TypeTitle = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.9);
   font-size: 16px;
-  padding: 5px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 `;
 
 const DeckTitleContainer = styled.div`
@@ -148,6 +152,9 @@ ${deck
   .join("\n")}
 </deck>`;
 }
+const TypeImage = styled.img`
+  height: 16px;
+`;
 
 export function getRandomDeck(allCards: Card[]) {
   // map over current array
@@ -159,25 +166,60 @@ export function getRandomDeck(allCards: Card[]) {
   const shuffled = newArray.sort(() => 0.5 - Math.random());
 
   // Get sub-array of first 60 elements after shuffle
-  let randomDeck = shuffled.slice(0, 60);
+  let randomDeck = shuffled.slice(0, 30);
+  randomDeck = [...randomDeck, ...randomDeck];
 
+  // Delete after images are correct
+  const specificCard = newArray.find((card) => {
+    return card.type === "Location";
+  });
+  randomDeck.push(specificCard);
   return randomDeck;
 }
 
-function CardTypeSection({ cards }: { cards: Card[] }) {
-  if (cards.length === 0) {
+function getIconName(type: string) {
+  if (type.includes("Jedi")) {
+    return "JediTest";
+  }
+  if (type.includes("Admiral")) {
+    return "AdmiralsOrder";
+  }
+  if (type.includes("Epic")) {
+    return "EpicEvent";
+  }
+  if (type.includes("Defensive")) {
+    return "DefensiveShield";
+  }
+  return type;
+}
+
+export function CardTypeSection({ deckCards }: { deckCards: DeckCard[] }) {
+  function counter(oldTitle, newTitle, titleCount) {
+    if (oldTitle === newTitle) {
+      return titleCount + 1;
+    }
+  }
+
+  if (deckCards.length === 0) {
     return <div>Loading...</div>;
   }
   return (
     <TypeContainer>
-      <TypeTitle>{cards[0].type}</TypeTitle>
-      <div
-        style={{
-          backgroundColor: darkBlue,
-        }}
-      >
-        {cards.map((card) => (
-          <DeckCardRow card={card} />
+      <TypeTitle>
+        <TypeImage
+          src={`/images/type_images/${getIconName(deckCards[0].card.type)}.png`}
+        />{" "}
+        {deckCards[0].card.type} ({deckCards.length})
+      </TypeTitle>
+      <div>
+        {deckCards.map((deckCard) => (
+          <div
+            style={{
+              fontSize: "12px",
+            }}
+          >
+            {counter(deckCard, deckCard, 0)}x {deckCard.card.title}
+          </div>
         ))}
       </div>
     </TypeContainer>
@@ -202,18 +244,17 @@ export default function Deck() {
     MutationCreateDeckRatingArgs
   >(gql(CreateDeckRating));
   const [exportDropDownOpen, toggleExportDropdown] = useState(false);
-  const [deck, setDeck]: [Card[], (cards: Card[]) => void] = useState([]);
   const { id: deckId } = router.query;
-  if (allCards.length === 0) {
-    getCards().then(setCards);
-  }
-  if (allCards.length && deck.length === 0) {
-    setDeck(getRandomDeck(allCards));
-  }
 
-  const destiny = deck
-    .map((card) => {
-      return parseInt(card.destiny);
+  const average = function (numArray) {
+    const sum = numArray.reduce((total, nextNum) => {
+      return total + nextNum;
+    }, 0);
+    return sum / numArray.length;
+  };
+  const destiny = deckInfo.deck.deckCards
+    .map((deckCard) => {
+      return parseInt(deckCard.card.destiny);
     })
     .filter((destiny) => {
       return typeof destiny === "number";
@@ -234,106 +275,98 @@ export default function Deck() {
   return (
     <Page>
       <Toolbar />
-      <Content>
-        <DeckPageContainer>
-          <DeckTitleContainer>
-            <PageTitle>{deckTitle}</PageTitle>
-            <GrowComponent />
-            <FadedImage imageUrl={"/images/dark.png"} backgroundColor="black" />
-          </DeckTitleContainer>
-          <DeckInfoContainer>
-            <DeckInfoStatistics>
-              PLAYER: {authorUsername} - PUBLISHED: July 15, 2020 - UPDATED: 2
-              days ago
-            </DeckInfoStatistics>
-
-            <DeckButtons>
-              <AverageDestiny>
-                {Math.round(average(destiny) * 10) / 10} Avg Destiny
-              </AverageDestiny>
-              <StarsComponent
-                ratings={deckInfo.deck.ratings}
-                onChange={(rating: number) => {
-                  createRating({
-                    variables: {
-                      deckId: deckId as string,
-                      rating,
-                    },
-                  });
-                }}
+      <WideContent>
+        <Content>
+          <DeckPageContainer>
+            <DeckTitleContainer>
+              <PageTitle>{deckTitle}</PageTitle>
+              <GrowComponent />
+              <FadedImage
+                imageUrl={"/images/dark.png"}
+                backgroundColor="black"
               />
-              <DeckButtonsDropDown>
-                <GetAppIcon
-                  style={{
-                    marginLeft: "10px",
-                    color: "#7f7f7f",
-                    cursor: "pointer",
+            </DeckTitleContainer>
+            <DeckInfoContainer>
+              <DeckInfoStatistics>
+                PLAYER: {authorUsername} - PUBLISHED: July 15, 2020 - UPDATED: 2
+                days ago
+              </DeckInfoStatistics>
+
+              <DeckButtons>
+                <AverageDestiny>
+                  {Math.round(average(destiny))} Avg Destiny
+                </AverageDestiny>
+                <StarsComponent
+                  ratings={deckInfo.deck.ratings}
+                  onChange={(rating: number) => {
+                    createRating({
+                      variables: {
+                        deckId: deckId as string,
+                        rating,
+                      },
+                    });
                   }}
-                  onClick={() => toggleExportDropdown(!exportDropDownOpen)}
                 />
-                {exportDropDownOpen ? (
-                  <ClickAwayListener
-                    onClickAway={() => toggleExportDropdown(false)}
-                  >
-                    <ExportContainer>
-                      <Button
-                        style={{ width: "100%" }}
-                        onClick={() => {
-                          router.push(`/deck/print/${deckId}`);
-                        }}
-                      >
-                        PDF Export
-                      </Button>
-                      <Button
-                        style={{ width: "100%" }}
-                        onClick={() => {
-                          saveToFile(
-                            `${(deckTitle + " by " + authorUsername).replace(
-                              / /g,
-                              "_"
-                            )}.txt`,
-                            // TODO this is broken
-                            getDeckText(deck as any)
-                          );
-                        }}
-                      >
-                        Text Export
-                      </Button>
-                      <Button
-                        style={{ width: "100%" }}
-                        onClick={() => {
-                          saveToFile(
-                            `gemp_import--${(
-                              deckTitle +
-                              " by " +
-                              authorUsername
-                            ).replace(/ /g, "_")}.xml`,
-                            getGempXML(deck)
-                          );
-                        }}
-                      >
-                        Gemp XML Export
-                      </Button>
-                    </ExportContainer>
-                  </ClickAwayListener>
-                ) : null}
-              </DeckButtonsDropDown>
-            </DeckButtons>
-          </DeckInfoContainer>
-          <DeckDescription>{deckDescription}</DeckDescription>
-        </DeckPageContainer>
-        <TypeSectionsContainer>
-          {groupBy(deck, ["type"])
-            .sort((groupA, groupB) => groupA.length - groupB.length)
-            .map((cardsInType, i) => (
-              <CardTypeSection key={i} cards={cardsInType} />
-            ))}
-        </TypeSectionsContainer>
-        <CommentsSection
-          comments={deckInfo.deck.comments}
-          deckId={deckId as string}
-        />
-      </Content>
+                <DeckButtonsDropDown>
+                  <GetAppIcon
+                    style={{
+                      marginLeft: "10px",
+                      color: "#7f7f7f",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => toggleExportDropdown(!exportDropDownOpen)}
+                  />
+                  {exportDropDownOpen ? (
+                    <ClickAwayListener
+                      onClickAway={() => toggleExportDropdown(false)}
+                    >
+                      <ExportContainer>
+                        <Button
+                          style={{ width: "100%" }}
+                          onClick={() => {
+                            router.push(`/deck/print/${deckId}`);
+                          }}
+                        >
+                          PDF Export
+                        </Button>
+                        <Button
+                          style={{ width: "100%" }}
+                          onClick={() => {
+                            saveToFile(
+                              `${(deckTitle + " by " + authorUsername).replace(
+                                / /g,
+                                "_"
+                              )}.txt`,
+                              getDeckText(deckInfo.deck.deckCards as DeckCard[])
+                            );
+                          }}
+                        >
+                          Text Export
+                        </Button>
+                        <Button
+                          style={{ width: "100%" }}
+                          onClick={() => {
+                            console.log("gemp export");
+                          }}
+                        >
+                          Gemp XML Export
+                        </Button>
+                      </ExportContainer>
+                    </ClickAwayListener>
+                  ) : null}
+                </DeckButtonsDropDown>
+              </DeckButtons>
+            </DeckInfoContainer>
+          </DeckPageContainer>
+          <DeckIdContent
+            deckCards={deckInfo.deck.deckCards as DeckCard[]}
+          ></DeckIdContent>
+          <CommentsSection
+            comments={deckInfo.deck.comments}
+            deckId={deckId as string}
+          />
+        </Content>
+      </WideContent>
       <Footer></Footer>
     </Page>
   );

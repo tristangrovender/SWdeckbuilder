@@ -1,6 +1,7 @@
-import { Card, Type } from "./card-search-table/card.interface";
-export function getDeckText(deck: Card[]): string {
-  const getTitle = (card: Card) => card.front.title;
+import { Type } from "./card-search-table/card.interface";
+import { DeckCard } from "../graphql/types";
+export function getDeckText(deck: DeckCard[]): string {
+  const getTitle = (deckCard: DeckCard) => deckCard.card.title;
   const [
     characterTitles,
     objectiveTitles,
@@ -14,7 +15,7 @@ export function getDeckText(deck: Card[]): string {
     interruptTitles,
     epicEventTitles,
     podracerTitles,
-    admiralsOrdersTitles
+    admiralsOrdersTitles,
   ] = [
     Type.Character,
     Type.Objective,
@@ -28,17 +29,18 @@ export function getDeckText(deck: Card[]): string {
     Type.Interrupt,
     Type.EpicEvent,
     Type.Podracer,
-    Type.AdmiralsOrder
-  ].map(type => {
-    return deck.filter(card => card.front.type === type).map(getTitle);
+    Type.AdmiralsOrder,
+  ].map((type) => {
+    return deck.filter((deckCard) => deckCard.card.type === type).map(getTitle);
   });
   const jediTestTitles = deck
-    .filter(card => card.front.type.includes("Jedi Test"))
+    .filter((deckCard) => deckCard.card.type.includes("Jedi Test"))
     .map(getTitle);
   const sideDeckTitles = deck
     .filter(
-      card =>
-        card.front.type === "Defensive Shield" || card.front.type === "Game Aid"
+      (deckCard) =>
+        deckCard.card.type === "Defensive Shield" ||
+        deckCard.card.type === "Game Aid"
     )
     .map(getTitle);
 
