@@ -191,15 +191,6 @@ function getIconName(type: string) {
 }
 
 export function CardTypeSection({ deckCards }: { deckCards: DeckCard[] }) {
-  function counter(oldTitle, newTitle, titleCount) {
-    if (oldTitle === newTitle) {
-      return titleCount + 1;
-    }
-  }
-
-  if (deckCards.length === 0) {
-    return <div>Loading...</div>;
-  }
   return (
     <TypeContainer>
       <TypeTitle>
@@ -211,18 +202,30 @@ export function CardTypeSection({ deckCards }: { deckCards: DeckCard[] }) {
         </div>
       </TypeTitle>
       <div>
-        {deckCards.map((deckCard) => (
-          <div
-            style={{
-              fontSize: "12px",
-            }}
-          >
-            {counter(deckCard, deckCard, 0)}x{" "}
-            <Link href={`/card/${deckCard.card.id}`}>
-              {deckCard.card.title}
-            </Link>
-          </div>
-        ))}
+        {deckCards
+          .reduce((all, next) => {
+            const index = all.findIndex(
+              ({ deckCard }) => deckCard.card.id === next.card.id
+            );
+            if (index === -1) {
+              return [...all, { deckCard: next, count: 1 }];
+            } else {
+              all[index].count += 1;
+              return all;
+            }
+          }, [])
+          .map(({ deckCard, count }) => (
+            <div
+              style={{
+                fontSize: "12px",
+              }}
+            >
+              {count}x{" "}
+              <Link href={`/card/${deckCard.card.id}`}>
+                {deckCard.card.title}
+              </Link>
+            </div>
+          ))}
       </div>
     </TypeContainer>
   );
