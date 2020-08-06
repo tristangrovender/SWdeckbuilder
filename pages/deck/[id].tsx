@@ -141,13 +141,13 @@ const DeckTitleContainer = styled.div`
   position: relative;
 `;
 
-function getGempXML(deck: Card[]): string {
+function getGempXML(deckCards: DeckCard[]): string {
   // TODO add the below for side deck
   // <cardOutsideDeck blueprintId="200_93" title="A Useless Gesture"/>
   return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <deck>
-${deck
-  .map(({ gemp_card_id, title }) => {
+${deckCards
+  .map(({ card: { gemp_card_id, title } }) => {
     return `<card blueprintId="${gemp_card_id}" title="${title}"/>`;
   })
   .join("\n")}
@@ -347,7 +347,7 @@ export default function Deck() {
                                 " by " +
                                 authorUsername
                               ).replace(/ /g, "_")}.xml`,
-                              getGempXML(deck)
+                              getGempXML(deckInfo.deck.deckCards as DeckCard[])
                             );
                           }}
                         >
