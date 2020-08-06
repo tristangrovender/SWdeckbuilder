@@ -260,7 +260,7 @@ export default function Deck() {
       return parseInt(deckCard.card.destiny);
     })
     .filter((destiny) => {
-      return typeof destiny === "number";
+      return Number.isInteger(destiny);
     });
 
   const authorUsername = "Jambree";
@@ -289,7 +289,7 @@ export default function Deck() {
 
               <DeckButtons>
                 <AverageDestiny>
-                  {Math.round(average(destiny))} Avg Destiny
+                  {Math.round(average(destiny) * 10) / 10} Avg Destiny
                 </AverageDestiny>
                 <StarsComponent
                   ratings={deckInfo.deck.ratings}
@@ -341,7 +341,14 @@ export default function Deck() {
                         <Button
                           style={{ width: "100%" }}
                           onClick={() => {
-                            console.log("gemp export");
+                            saveToFile(
+                              `gemp_import--${(
+                                deckTitle +
+                                " by " +
+                                authorUsername
+                              ).replace(/ /g, "_")}.xml`,
+                              getGempXML(deck)
+                            );
                           }}
                         >
                           Gemp XML Export
