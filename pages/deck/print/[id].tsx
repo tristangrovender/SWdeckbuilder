@@ -3,7 +3,14 @@ import styled from "styled-components";
 import { getRandomDeck } from "../[id]";
 import { getCards } from "../../../components/card-search-table/getCards";
 import { Type } from "../../../components/card-search-table/card.interface";
-import { Card } from "../../../graphql/types";
+import {
+  Card,
+  GetDeckQuery as GetDeckQueryI,
+  GetDeckQueryVariables,
+} from "../../../graphql/types";
+import { useQuery, gql } from "@apollo/client";
+import GetDeckQuery from "raw-loader!../../../graphql/get-deck.gql";
+import { useRouter } from "next/router";
 
 const TableContainer = styled.table`
   margin-top: 5px;
@@ -53,6 +60,17 @@ function orderCardsByType(cards: Card[]) {
 }
 
 export default function PrintDeck() {
+  const router = useRouter();
+  const { data: deckInfo, loading: loadingDeck } = useQuery<
+    GetDeckQueryI,
+    GetDeckQueryVariables
+  >(gql(GetDeckQuery), {
+    variables: {
+      id: router.query.id as string,
+    },
+    skip: !Boolean(router.query.id),
+  });
+  console.log(deckInfo);
   const [allCards, setCards] = useState([]);
   const [deck, setDeck] = useState([]);
   if (allCards.length === 0) {
@@ -65,7 +83,6 @@ export default function PrintDeck() {
     return <div>Loading...</div>;
   }
 
-  console.log(Array.from(new Set(allCards.map(({ front: { type } }) => type))));
   return (
     <TableContainer>
       <table style={{ border: "0px" }} width="100%" cellPadding="3">
