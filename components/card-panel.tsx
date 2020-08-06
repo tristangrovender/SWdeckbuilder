@@ -212,7 +212,7 @@ export function CardPanel({
                 groupCards(cardsInMainDeck).map(({ deckCard, count }, i) => (
                   <CardPanelRow
                     key={i}
-                    card={deckCard?.card}
+                    card={deckCard?.card as Card}
                     textColor={
                       deckCard?.isStartingCard ? goldenColor : undefined
                     }
@@ -239,7 +239,7 @@ export function CardPanel({
                         tooltip: "Mark as starting card",
                       },
                       {
-                        onClick: onCardInfoHandler(deckCard?.card),
+                        onClick: onCardInfoHandler(deckCard?.card as Card),
                         text: "i",
                         fontSize: "12px",
                       },
@@ -267,11 +267,11 @@ export function CardPanel({
                 {groupCards(cardsInSideDeck).map(({ deckCard, count }, i) => (
                   <CardPanelRow
                     key={i}
-                    card={deckCard?.card}
+                    card={deckCard?.card as Card}
                     count={count}
                     hoverButtons={[
                       {
-                        onClick: onCardInfoHandler(deckCard?.card),
+                        onClick: onCardInfoHandler(deckCard?.card as Card),
                         text: "i",
                         fontSize: "12px",
                       },

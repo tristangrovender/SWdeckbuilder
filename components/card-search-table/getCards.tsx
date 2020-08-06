@@ -13,7 +13,7 @@ function fetchCardsFromServer(): Promise<CardFromServer[]> {
       query: gql(GetCardsQuery + " "),
     })
     .then(({ data }) => {
-      return data.cards;
+      return data.cards as CardFromServer[];
     });
 }
 
