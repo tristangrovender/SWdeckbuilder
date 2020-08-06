@@ -1,7 +1,4 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { getRandomDeck } from "../[id]";
-import { getCards } from "../../../components/card-search-table/getCards";
 import { Type } from "../../../components/card-search-table/card.interface";
 import {
   Card,
@@ -11,6 +8,7 @@ import {
 import { useQuery, gql } from "@apollo/client";
 import GetDeckQuery from "raw-loader!../../../graphql/get-deck.gql";
 import { useRouter } from "next/router";
+import { LinearProgress } from "@material-ui/core";
 
 const TableContainer = styled.table`
   margin-top: 5px;
@@ -29,7 +27,9 @@ const CardCell = styled.td`
   line-height: 14pt;
 `;
 
-function orderCardsByType(cards: Card[]) {
+type DeckCard = GetDeckQueryI["deck"]["deckCards"][0];
+
+function orderCardsByType(cards: DeckCard[]) {
   const typeOrder = [
     Type.Objective,
     Type.Location,
@@ -53,10 +53,15 @@ function orderCardsByType(cards: Card[]) {
     Type.GameAid,
     Type.DefensiveShield,
   ];
-  return cards.sort((a, b) => {
-    // TODO any hack
-    return typeOrder.indexOf(a.type as any) - typeOrder.indexOf(b.type as any);
-  });
+  return cards
+    .map((deckCard) => deckCard)
+    .sort((a, b) => {
+      // TODO any hack
+      return (
+        typeOrder.indexOf(a.card.type as any) -
+        typeOrder.indexOf(b.card.type as any)
+      );
+    });
 }
 
 export default function PrintDeck() {
@@ -70,18 +75,15 @@ export default function PrintDeck() {
     },
     skip: !Boolean(router.query.id),
   });
-  console.log(deckInfo);
-  const [allCards, setCards] = useState([]);
-  const [deck, setDeck] = useState([]);
-  if (allCards.length === 0) {
-    getCards().then(setCards);
+  if (loadingDeck || !deckInfo) {
+    return (
+      <div>
+        <LinearProgress />
+      </div>
+    );
   }
-  if (allCards.length && deck.length === 0) {
-    setDeck(orderCardsByType(getRandomDeck(allCards)));
-  }
-  if (deck.length === 0) {
-    return <div>Loading...</div>;
-  }
+
+  const deckCards = orderCardsByType(deckInfo.deck.deckCards);
 
   return (
     <TableContainer>
@@ -121,9 +123,9 @@ export default function PrintDeck() {
                 <br />
                 <b>CARD TITLE</b>
                 <br />
-                {deck.slice(0, 37).map((card, i) => (
+                {deckCards.slice(0, 37).map((deckCard, i) => (
                   <>
-                    {i + 1}. {card.front.title}
+                    {i + 1}. {deckCard.card.title}
                     <br />
                   </>
                 ))}
@@ -138,9 +140,9 @@ export default function PrintDeck() {
                 <br />
                 <b>CARD TITLE</b>
                 <br />
-                {deck.slice(37).map((card, i) => (
+                {deckCards.slice(37).map((deckCard, i) => (
                   <>
-                    {i + 38}. {card.front.title}
+                    {i + 38}. {deckCard.card.title}
                     <br />
                   </>
                 ))}
