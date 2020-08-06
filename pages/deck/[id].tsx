@@ -24,6 +24,7 @@ import {
   GetDeckQueryVariables,
 } from "../../graphql/types";
 import GetDeckQuery from "raw-loader!../../graphql/get-deck.gql";
+import { average } from "../../utils/utils";
 
 const WideContent = styled.div`
   width: 100vw;
@@ -245,13 +246,15 @@ export default function Deck() {
   >(gql(CreateDeckRating));
   const [exportDropDownOpen, toggleExportDropdown] = useState(false);
   const { id: deckId } = router.query;
+  if (!deckInfo) {
+    return (
+      <Page>
+        <Toolbar />
+        <LinearProgress />
+      </Page>
+    );
+  }
 
-  const average = function (numArray) {
-    const sum = numArray.reduce((total, nextNum) => {
-      return total + nextNum;
-    }, 0);
-    return sum / numArray.length;
-  };
   const destiny = deckInfo.deck.deckCards
     .map((deckCard) => {
       return parseInt(deckCard.card.destiny);
@@ -264,14 +267,6 @@ export default function Deck() {
   const deckTitle = "Planet Destroyer";
   const deckDescription =
     "Deck is designed to take out opponents characters, then bring in big intrigue characters with pillage to limit cards in hand to limit opponents ability to defend against strong intrigue challenges.";
-  if (!deckInfo) {
-    return (
-      <Page>
-        <Toolbar />
-        <LinearProgress />
-      </Page>
-    );
-  }
   return (
     <Page>
       <Toolbar />
