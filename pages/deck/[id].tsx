@@ -52,13 +52,6 @@ const DeckButtonsDropDown = styled.div`
   justify-content: center;
 `;
 
-const DeckDescription = styled.div`
-  padding: 5px;
-  color: grey;
-  font-style: italic;
-  font-size: 14px;
-`;
-
 function saveToFile(fileName: string, body: string) {
   var blob = new Blob([body], { type: "text/plain;charset=utf-8" });
   FileSaver.saveAs(blob, fileName);
@@ -263,10 +256,8 @@ export default function Deck() {
       return Number.isInteger(destiny);
     });
 
-  const authorUsername = "Jambree";
-  const deckTitle = "Planet Destroyer";
-  const deckDescription =
-    "Deck is designed to take out opponents characters, then bring in big intrigue characters with pillage to limit cards in hand to limit opponents ability to defend against strong intrigue challenges.";
+  const authorUsername = deckInfo.deck.author.username;
+  const deckTitle = deckInfo.deck.title;
   return (
     <Page>
       <Toolbar />
@@ -361,6 +352,8 @@ export default function Deck() {
             </DeckInfoContainer>
           </DeckPageContainer>
           <DeckIdContent
+            username={authorUsername}
+            description={deckInfo.deck.description || "No description"}
             deckCards={deckInfo.deck.deckCards as DeckCard[]}
           ></DeckIdContent>
           <CommentsSection
