@@ -125,7 +125,7 @@ export function getCoordinatesInViewPort(
   };
 }
 
-function CardHover({
+export function CardHover({
   card,
   location,
 }: {
@@ -141,10 +141,10 @@ function CardHover({
         pointerEvents: "none",
         position: "absolute",
         zIndex: 11,
-        ...getCoordinatesInViewPort(location, 400),
+        ...getCoordinatesInViewPort(location, 500),
       }}
     >
-      <img src={card.imageUrl} style={{ height: "400px" }}></img>
+      <img src={card.imageUrl} style={{ height: "500px" }}></img>
     </div>
   );
 }
@@ -162,8 +162,7 @@ export function CardSearchResults({
   newTab?: string;
   onCardSelected?: (cardId: string) => void;
 }) {
-  // TODO types
-  const [cardHover, setCardHover]: [any, any] = useState({
+  const [cardHover, setCardHover] = useState({
     card: null,
     location: null,
   });

@@ -27,6 +27,7 @@ import {
 import GetDeckQuery from "raw-loader!../../graphql/get-deck.gql";
 import { average } from "../../utils/utils";
 import Link from "next/link";
+import { CardHover } from "../../components/card-search-table/card-search-results";
 
 const WideContent = styled.div`
   width: 100vw;
@@ -191,6 +192,10 @@ function getIconName(type: string) {
 }
 
 export function CardTypeSection({ deckCards }: { deckCards: DeckCard[] }) {
+  const [cardHover, setCardHover] = useState({
+    card: null,
+    location: null,
+  });
   return (
     <TypeContainer>
       <TypeTitle>
@@ -219,6 +224,13 @@ export function CardTypeSection({ deckCards }: { deckCards: DeckCard[] }) {
               style={{
                 fontSize: "12px",
               }}
+              onMouseOver={(e) =>
+                setCardHover({
+                  card: deckCard.card,
+                  location: { x: e.pageX, y: e.pageY },
+                })
+              }
+              onMouseOut={() => setCardHover({ card: null, location: null })}
             >
               {count}x{" "}
               <Link href={`/card/${deckCard.card.id}`}>
@@ -227,6 +239,7 @@ export function CardTypeSection({ deckCards }: { deckCards: DeckCard[] }) {
             </div>
           ))}
       </div>
+      <CardHover {...cardHover} />
     </TypeContainer>
   );
 }
