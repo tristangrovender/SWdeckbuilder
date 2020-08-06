@@ -26,6 +26,7 @@ import {
 } from "../../graphql/types";
 import GetDeckQuery from "raw-loader!../../graphql/get-deck.gql";
 import { average } from "../../utils/utils";
+import Link from "next/link";
 
 const WideContent = styled.div`
   width: 100vw;
@@ -216,7 +217,10 @@ export function CardTypeSection({ deckCards }: { deckCards: DeckCard[] }) {
               fontSize: "12px",
             }}
           >
-            {counter(deckCard, deckCard, 0)}x {deckCard.card.title}
+            {counter(deckCard, deckCard, 0)}x{" "}
+            <Link href={`/card/${deckCard.card.id}`}>
+              {deckCard.card.title}
+            </Link>
           </div>
         ))}
       </div>
