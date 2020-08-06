@@ -115,6 +115,7 @@ const TypeContainer = styled.div`
 `;
 
 const TypeTitle = styled.div`
+  height: 40px;
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -204,7 +205,9 @@ export function CardTypeSection({ deckCards }: { deckCards: DeckCard[] }) {
         <TypeImage
           src={`/images/type_images/${getIconName(deckCards[0].card.type)}.png`}
         />{" "}
-        {deckCards[0].card.type} ({deckCards.length})
+        <div style={{ marginLeft: "5px" }}>
+          {deckCards[0].card.type} ({deckCards.length})
+        </div>
       </TypeTitle>
       <div>
         {deckCards.map((deckCard) => (
