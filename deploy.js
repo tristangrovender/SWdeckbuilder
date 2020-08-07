@@ -13,7 +13,5 @@ const exec = util.promisify(require("child_process").exec);
     "now"
   );
 
-  const { stdout, stderr } = await exec(deployCmd);
-
-  console.log(stdout, stderr);
+  await exec(deployCmd);
 })();
