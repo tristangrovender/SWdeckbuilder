@@ -10,7 +10,7 @@ const exec = util.promisify(require("child_process").exec);
     (command, [envName, { computed: envValue }]) => {
       return `${command} -e ${envName}="${envValue}"`;
     },
-    "now"
+    "now --regions pdx1"
   );
 
   const { stdout: success, stderr: failure } = await exec(deployCmd);
