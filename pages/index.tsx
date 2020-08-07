@@ -8,6 +8,7 @@ import {
   Side,
 } from "../graphql/types";
 import GetRecentDecksQuery from "raw-loader!../graphql/get-recent-decks.gql";
+import { LinearProgress } from "@material-ui/core";
 
 const HomePageContent = styled.div`
   display: flex;
@@ -29,6 +30,7 @@ const HomePageH2 = styled.div`
 
 const RecentTitleContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   border-bottom: 2px solid #404040;
   width: 100%;
@@ -53,7 +55,9 @@ const TileContainer = styled.div`
 `;
 
 export default function Home() {
-  const { data } = useQuery<GetRecentDecksQueryI>(gql(GetRecentDecksQuery));
+  const { data, loading } = useQuery<GetRecentDecksQueryI>(
+    gql(GetRecentDecksQuery)
+  );
 
   return (
     <Page>
@@ -64,6 +68,7 @@ export default function Home() {
           <HomePageH2>Deckbuilder for the Star Wars Card Game</HomePageH2>
           <RecentTitleContainer>
             <RecentTitle>Recent decks</RecentTitle>
+            {loading && <LinearProgress style={{ width: "100%" }} />}
           </RecentTitleContainer>
           <TileContainer>
             {data &&
