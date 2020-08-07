@@ -17,6 +17,7 @@ import {
   MutationCreateDeckRatingArgs,
   CreateDeckRatingMutation,
   DeckCard,
+  Side,
 } from "../../graphql/types";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import CreateDeckRating from "raw-loader!../../graphql/create-deck-rating.gql";
@@ -125,10 +126,10 @@ const TypeTitle = styled.div`
   padding-top: 10px;
 `;
 
-const DeckTitleContainer = styled.div`
+const DeckTitleContainer = styled.div<{ backgroundColor: string }>`
   width: 100%;
   display: flex;
-  background-color: black;
+  background-color: ${(props) => props.backgroundColor};
   color: white;
   padding: 0px 20px;
   height: 50px;
@@ -282,18 +283,24 @@ export default function Deck() {
 
   const authorUsername = deckInfo.deck.author.username;
   const deckTitle = deckInfo.deck.title;
+  const headerBackgroundColor =
+    deckInfo.deck.side === Side.Dark ? "black" : "#888888";
   return (
     <Page>
       <Toolbar />
       <WideContent>
         <Content>
           <DeckPageContainer>
-            <DeckTitleContainer>
+            <DeckTitleContainer backgroundColor={headerBackgroundColor}>
               <PageTitle>{deckTitle}</PageTitle>
               <GrowComponent />
               <FadedImage
-                imageUrl={"/images/dark.png"}
-                backgroundColor="black"
+                imageUrl={
+                  deckInfo.deck.side === Side.Dark
+                    ? "/images/dark.png"
+                    : "/images/light.png"
+                }
+                backgroundColor={headerBackgroundColor}
               />
             </DeckTitleContainer>
             <DeckInfoContainer>
