@@ -9,7 +9,13 @@ node --version
 // v14.5.0
 ```
 
-#### 2. Start an instance of PostgresQL locally
+#### 2. Install doppler
+
+You'll need the environment variables for Amazon Cognito. Doppler is a secret management service. Email danielrasmuson@gmail.com for access to the SWCCGDB vault.
+
+https://docs.doppler.com/docs/enclave-installation
+
+#### 3. Start an instance of PostgresQL locally
 
 A running postgresql database
 
