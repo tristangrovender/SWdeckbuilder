@@ -147,6 +147,7 @@ export function CardPanel({
               border: "2px solid grey",
               margin: "10px",
               color: "white",
+              position: "relative",
               ...(loading
                 ? {
                     pointerEvents: "none",
