@@ -88,6 +88,20 @@ export default function MyDecks() {
       <Toolbar />
       <Content>
         {decks.length > 0 ? <DeckList decks={decks} /> : <NoDecks />}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "20px",
+          }}
+        >
+          <Link href="/deck/new">
+            <Button variant="contained" color="primary">
+              New Deck
+            </Button>
+          </Link>
+        </div>
       </Content>
       <Footer></Footer>
     </Page>
