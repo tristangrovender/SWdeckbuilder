@@ -84,9 +84,11 @@ type Deck = GetDecksQuery["decks"][0];
 
 export function DeckRow({
   deck,
+  onDeleted,
   editable = false,
 }: {
   editable?: boolean;
+  onDeleted: () => void;
   deck: Deck;
 }) {
   const router = useRouter();
@@ -165,7 +167,7 @@ export function DeckRow({
                       variables: {
                         deckId: deck.id,
                       },
-                    });
+                    }).then(onDeleted);
                   }}
                 >
                   Delete

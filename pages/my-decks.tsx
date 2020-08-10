@@ -30,11 +30,17 @@ function NoDecks() {
   );
 }
 
-function DeckList({ decks }: { decks: GetDecksQuery["decks"] }) {
+function DeckList({
+  decks,
+  refetchDecks,
+}: {
+  decks: GetDecksQuery["decks"];
+  refetchDecks: () => void;
+}) {
   return (
     <div>
       {decks.map((deck, i) => (
-        <DeckRow key={i} deck={deck} editable={true} />
+        <DeckRow key={i} deck={deck} editable={true} onDeleted={refetchDecks} />
       ))}
     </div>
   );
@@ -66,14 +72,14 @@ export default function MyDecks() {
       );
     }
   } catch (e) {}
-  const { data } = useQuery<GetDecksQuery, GetDecksQueryVariables>(
-    gql(GetDecks),
-    {
-      variables: {
-        authorId: userId,
-      },
-    }
-  );
+  const { data, refetch: refetchDecks } = useQuery<
+    GetDecksQuery,
+    GetDecksQueryVariables
+  >(gql(GetDecks), {
+    variables: {
+      authorId: userId,
+    },
+  });
   const decks = data && data.decks;
   if (!decks) {
     return (
@@ -87,7 +93,11 @@ export default function MyDecks() {
     <Page>
       <Toolbar />
       <Content>
-        {decks.length > 0 ? <DeckList decks={decks} /> : <NoDecks />}
+        {decks.length > 0 ? (
+          <DeckList decks={decks} refetchDecks={() => refetchDecks()} />
+        ) : (
+          <NoDecks />
+        )}
         <div
           style={{
             display: "flex",
