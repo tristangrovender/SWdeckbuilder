@@ -44,23 +44,24 @@ export function getDeckText(deck: DeckCard[]): string {
     )
     .map(getTitle);
 
-  return `Objectives: (${objectiveTitles.length})\n${objectiveTitles.join(
-    "\n"
-  )}\n
-Locations: (${locationTitles.length})\n${locationTitles.join("\n")}\n
-Characters: (${characterTitles.length})\n${characterTitles.join("\n")}\n
-Creatures: (${creatureTitles.length})\n${creatureTitles.join("\n")}\n
-Weapons: (${weaponTitles.length})\n${weaponTitles.join("\n")}\n
-Devices: (${deviceTitles.length})\n${deviceTitles.join("\n")}\n
-Starships: (${starshipTitles.length})\n${starshipTitles.join("\n")}\n
-Vehicles: (${vehicleTitles.length})\n${vehicleTitles.join("\n")}\n
-Effects: (${effectTitles.length})\n${effectTitles.join("\n")}\n
-Interrupts: (${interruptTitles.length})\n${interruptTitles.join("\n")}\n
-Epic Events: (${epicEventTitles.length})\n${epicEventTitles.join("\n")}\n
-Jedi Tests: (${jediTestTitles.length})\n${jediTestTitles.join("\n")}\n
-Admiral's Orders: (${admiralsOrdersTitles.length})\n${admiralsOrdersTitles.join(
-    "\n"
-  )}\n
-Podracers: (${podracerTitles.length})\n${podracerTitles.join("\n")}\n
-Side Deck: (${sideDeckTitles.length})\n${sideDeckTitles.join("\n")}\n`;
+  return [
+    { name: `Objectives`, items: objectiveTitles },
+    { name: `Locations`, items: locationTitles },
+    { name: `Characters`, items: characterTitles },
+    { name: `Creatures`, items: creatureTitles },
+    { name: `Weapons`, items: weaponTitles },
+    { name: `Devices`, items: deviceTitles },
+    { name: `Starships`, items: starshipTitles },
+    { name: `Vehicles`, items: vehicleTitles },
+    { name: `Effects`, items: effectTitles },
+    { name: `Interrupts`, items: interruptTitles },
+    { name: `Epic Events`, items: epicEventTitles },
+    { name: `Jedi Tests`, items: jediTestTitles },
+    { name: `Admiral's Orders`, items: admiralsOrdersTitles },
+    { name: `Podracers`, items: podracerTitles },
+    { name: `Side Deck`, items: sideDeckTitles },
+  ]
+    .filter(({ items }) => items.length > 0)
+    .map(({ name, items }) => `${name}: (${items.length})\n${items.join("\n")}`)
+    .join("\n\n");
 }
