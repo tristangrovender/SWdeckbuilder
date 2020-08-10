@@ -21,6 +21,7 @@ export function decks(
             updated_at: "desc",
           },
           where: {
+            deleted: false,
             User: {
               id: parseInt(_args.authorId),
             },
@@ -34,6 +35,7 @@ export function decks(
       updated_at: "desc",
     },
     where: {
+      deleted: false,
       published: true,
     },
   });

@@ -17,6 +17,7 @@ CREATE TABLE "public"."Deck"
   side VARCHAR(255),
   description VARCHAR(8000),
   published Boolean DEFAULT false,
+  deleted Boolean DEFAULT false,
   "authorId" INTEGER NOT NULL, FOREIGN KEY ("authorId") REFERENCES "public"."User"(id)
 );
 

@@ -51,6 +51,7 @@ model Deck {
   description String?
   published   Boolean?     @default(false)
   authorId    Int
+  deleted     Boolean?     @default(false)
   User        User         @relation(fields: [authorId], references: [id])
   Comment     Comment[]
   DeckCard    DeckCard[]
