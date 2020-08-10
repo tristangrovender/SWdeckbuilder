@@ -10,6 +10,7 @@ import { createDeck } from "../../server/resolvers/mutation/create-deck";
 import { DeckCard } from "../../server/resolvers/DeckCard";
 import { setStartingCard } from "../../server/resolvers/mutation/set-starting-card";
 import { updateDeck } from "../../server/resolvers/mutation/update-deck";
+import { deleteDeck } from "../../server/resolvers/mutation/delete-deck";
 import { login } from "../../server/resolvers/mutation/login";
 import { decks } from "../../server/resolvers/query/decks";
 import { createDeckRating } from "../../server/resolvers/mutation/create-deck-rating";
@@ -58,6 +59,7 @@ const resolvers = {
   Mutation: {
     login,
     updateDeck,
+    deleteDeck,
     setStartingCard,
     createDeck,
     createDeckRating,

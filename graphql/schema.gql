@@ -30,6 +30,7 @@ type Mutation {
   updateDeck(deckId: ID!, updates: DeckUpdate!): Deck!
   createDeckRating(deckId: ID!, rating: Float!): DeckRating!
   createComment(deckId: ID, cardId: ID, comment: String!): Comment!
+  deleteDeck(deckId: ID): SuccessResponse!
 }
 
 type Comment {
