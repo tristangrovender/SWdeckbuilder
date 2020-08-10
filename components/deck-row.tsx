@@ -151,6 +151,13 @@ export function DeckRow({
                 >
                   {deck.published ? "Unpublish" : "Publish"}
                 </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    console.log("delete deck");
+                  }}
+                >
+                  Delete
+                </MenuItem>
               </div>
             </ClickAwayListener>
           ) : null}
