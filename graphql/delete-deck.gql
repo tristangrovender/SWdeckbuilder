@@ -1,0 +1,5 @@
+mutation DeleteDeck($deckId: ID!) {
+  deleteDeck(deckId: $deckId) {
+    success
+  }
+}

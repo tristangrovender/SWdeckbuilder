@@ -1,5 +1,4 @@
 import { useState } from "react";
-import StarsRating from "stars-rating";
 import moment from "moment";
 import styled from "styled-components";
 import {
@@ -12,8 +11,13 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { ClickAwayListener, Menu, MenuItem } from "@material-ui/core";
 import { useMutation, gql } from "@apollo/client";
 import UpdateDeck from "raw-loader!../graphql/update-deck.gql";
-import { GetDecksQuery } from "../graphql/types";
+import {
+  GetDecksQuery,
+  DeleteDeckMutation,
+  DeleteDeckMutationVariables,
+} from "../graphql/types";
 import { StarsComponent } from "./StarsComponent";
+import DeleteDeck from "raw-loader!../graphql/delete-deck.gql";
 
 const DeckDiv = styled.div`
   cursor: pointer;
@@ -90,6 +94,10 @@ export function DeckRow({
     UpdateDeckMutation,
     UpdateDeckMutationVariables
   >(gql(UpdateDeck));
+  const [deleteDeck] = useMutation<
+    DeleteDeckMutation,
+    DeleteDeckMutationVariables
+  >(gql(DeleteDeck));
   const [dropDownOpen, setDropDownOpen] = useState(false);
   if (!deck) {
     return null;
@@ -153,7 +161,11 @@ export function DeckRow({
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
-                    console.log("delete deck");
+                    deleteDeck({
+                      variables: {
+                        deckId: deck.id,
+                      },
+                    });
                   }}
                 >
                   Delete

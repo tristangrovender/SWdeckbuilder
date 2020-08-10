@@ -70,6 +70,7 @@ export type Mutation = {
   updateDeck: Deck;
   createDeckRating: DeckRating;
   createComment: Comment;
+  deleteDeck: SuccessResponse;
 };
 
 
@@ -116,6 +117,11 @@ export type MutationCreateCommentArgs = {
   deckId?: Maybe<Scalars['ID']>;
   cardId?: Maybe<Scalars['ID']>;
   comment: Scalars['String'];
+};
+
+
+export type MutationDeleteDeckArgs = {
+  deckId?: Maybe<Scalars['ID']>;
 };
 
 export type Comment = {
@@ -287,6 +293,19 @@ export type CreateDeckMutation = (
   & { createDeck: (
     { __typename?: 'Deck' }
     & Pick<Deck, 'id' | 'side'>
+  ) }
+);
+
+export type DeleteDeckMutationVariables = Exact<{
+  deckId: Scalars['ID'];
+}>;
+
+
+export type DeleteDeckMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteDeck: (
+    { __typename?: 'SuccessResponse' }
+    & Pick<SuccessResponse, 'success'>
   ) }
 );
 
@@ -613,6 +632,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateDeck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType, RequireFields<MutationUpdateDeckArgs, 'deckId' | 'updates'>>;
   createDeckRating?: Resolver<ResolversTypes['DeckRating'], ParentType, ContextType, RequireFields<MutationCreateDeckRatingArgs, 'deckId' | 'rating'>>;
   createComment?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationCreateCommentArgs, 'comment'>>;
+  deleteDeck?: Resolver<ResolversTypes['SuccessResponse'], ParentType, ContextType, RequireFields<MutationDeleteDeckArgs, never>>;
 }>;
 
 export type CommentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = ResolversObject<{
