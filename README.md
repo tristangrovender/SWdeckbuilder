@@ -15,25 +15,21 @@ You'll need the environment variables for Amazon Cognito. Doppler is a secret ma
 
 https://docs.doppler.com/docs/enclave-installation
 
-#### 3. Start an instance of PostgresQL locally
+#### 3. Start an instance of MySQL locally
 
-A running postgresql database
+A running mysql database
 
-- Here is a guide if you want help https://www.prisma.io/docs/guides/database-workflows/setting-up-a-database/postgresql
-
-Make a new database and user on the postgres instance.
+Make a new database on the instance
 
 ```
-psql
+mysql
 > CREATE DATABASE swccgdb;
-> create user root with encrypted password 'password';
-> grant all privileges on database swccgdb to root;
 ```
 
 next from the root of the project build the schema
 
 ```
-psql -h localhost -d swccgdb -U root -f sql/schema.sql
+mysql --host=127.0.0.1 --port=3306 --user=root -p "swccgdb" < "sql/schema.sql"
 ```
 
 next make a new file "prisma/.env"
@@ -41,7 +37,7 @@ next make a new file "prisma/.env"
 with the contents (assuming you used the above commands to setup your database)
 
 ```
-DATABASE_URL="postgresql://root:password@localhost:5432/swccgdb?schema=public"
+DATABASE_URL="mysql://root:password@localhost:3306/swccgdb"
 ```
 
 ### Setup commands
