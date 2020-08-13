@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -12,11 +12,11 @@ model Card {
   card_id        Int?
   side           String?
   rarity         String?
-  set            String?
+  card_set       String?
   front_title    String?
-  front_imageurl String?
+  front_imageUrl String?
   front_type     String?
-  front_subtype  String?
+  front_subType  String?
   front_destiny  String?
   front_power    String?
   front_deploy   String?
@@ -40,6 +40,10 @@ model Comment {
   User       User     @relation(fields: [authorId], references: [id])
   Card       Card?    @relation(fields: [cardId], references: [id])
   Deck       Deck?    @relation(fields: [deckId], references: [id])
+
+  @@index([authorId], name: "authorId")
+  @@index([cardId], name: "cardId")
+  @@index([deckId], name: "deckId")
 }
 
 model Deck {
@@ -50,12 +54,14 @@ model Deck {
   side        String?
   description String?
   published   Boolean?     @default(false)
-  authorId    Int
   deleted     Boolean?     @default(false)
+  authorId    Int
   User        User         @relation(fields: [authorId], references: [id])
   Comment     Comment[]
   DeckCard    DeckCard[]
   DeckRating  DeckRating[]
+
+  @@index([authorId], name: "authorId")
 }
 
 model DeckCard {
@@ -68,6 +74,9 @@ model DeckCard {
   is_starting_card Boolean? @default(false)
   Card             Card     @relation(fields: [cardId], references: [id])
   Deck             Deck     @relation(fields: [deckId], references: [id])
+
+  @@index([cardId], name: "cardId")
+  @@index([deckId], name: "deckId")
 }
 
 model DeckRating {
@@ -79,6 +88,9 @@ model DeckRating {
   deckId     Int
   User       User     @relation(fields: [authorId], references: [id])
   Deck       Deck     @relation(fields: [deckId], references: [id])
+
+  @@index([authorId], name: "authorId")
+  @@index([deckId], name: "deckId")
 }
 
 model User {
