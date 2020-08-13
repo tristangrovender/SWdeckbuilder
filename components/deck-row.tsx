@@ -88,7 +88,7 @@ export function DeckRow({
   editable = false,
 }: {
   editable?: boolean;
-  onDeleted: () => void;
+  onDeleted?: () => void;
   deck: Deck;
 }) {
   const router = useRouter();
@@ -167,7 +167,7 @@ export function DeckRow({
                       variables: {
                         deckId: deck.id,
                       },
-                    }).then(onDeleted);
+                    }).then(onDeleted ? onDeleted : () => {});
                   }}
                 >
                   Delete
