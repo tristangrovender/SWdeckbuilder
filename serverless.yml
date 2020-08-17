@@ -1,2 +1,9 @@
 myNextApplication:
   component: "@sls-next/serverless-component@1.16.0" # it is recommended you pin the latest stable version of serverless-next.js
+  inputs:
+    env:
+      COGNITO_POOL_ID: ${env:COGNITO_POOL_ID}
+      COGNITO_REGION: ${env:COGNITO_REGION}
+      DATABASE_URL: ${env:DATABASE_URL}
+      JWT_SECRET: ${env:JWT_SECRET}
+      TEST: ${env:TEST}

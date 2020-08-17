@@ -6,7 +6,7 @@
     "dev": "doppler run -- next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "node deploy.js",
+    "deploy": "doppler run --config=prd -- sls",
     "generate": "graphql-codegen --config codegen.yml",
     "dummy-data": "npx tsc ./scripts/create-dummy-data.ts; node ./scripts/create-dummy-data.js"
   },
