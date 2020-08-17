@@ -24,7 +24,12 @@ Sentry.init({
     "https://dfe37cca0f544903b41e99336b4f6b9a@o435259.ingest.sentry.io/5393702",
 });
 
-export const prisma = new PrismaClient();
+let prisma;
+try {
+  prisma = new PrismaClient();
+} catch (err) {
+  Sentry.captureException(err);
+}
 
 const typeDefs = gql(schema + "");
 
