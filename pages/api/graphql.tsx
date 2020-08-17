@@ -17,6 +17,12 @@ import { createDeckRating } from "../../server/resolvers/mutation/create-deck-ra
 import { Deck } from "../../server/resolvers/types/Deck";
 import { createComment } from "../../server/resolvers/mutation/create-comment";
 import { Comment } from "../../server/resolvers/query/Comment";
+import * as Sentry from "@sentry/node";
+
+Sentry.init({
+  dsn:
+    "https://dfe37cca0f544903b41e99336b4f6b9a@o435259.ingest.sentry.io/5393702",
+});
 
 export const prisma = new PrismaClient();
 
