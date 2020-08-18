@@ -33,3 +33,5 @@ scripts/*.js
 
 .serverless
 .serverless_nextjs
+
+load-secrets.ts
