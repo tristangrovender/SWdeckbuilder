@@ -18,6 +18,7 @@ import { Deck } from "../../server/resolvers/types/Deck";
 import { createComment } from "../../server/resolvers/mutation/create-comment";
 import { Comment } from "../../server/resolvers/query/Comment";
 import * as Sentry from "@sentry/node";
+import { secrets } from "../../server/load-secrets";
 
 Sentry.init({
   dsn:
@@ -97,7 +98,7 @@ const apolloServer = new ApolloServer({
   context: ({ req }) => {
     try {
       const token = req.headers.authorization.split(" ")[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET) as {
+      const decoded = jwt.verify(token, secrets.JWT_SECRET) as {
         userId: string;
       };
       return { userId: decoded.userId };

@@ -32,13 +32,14 @@ async function getEnvironmentVariablesFromDoppler(env) {
   const environmentVariables = (
     await getEnvironmentVariablesFromDoppler(env)
   ).map(({ key, value }) => {
-    return `process.env.${key} = "${value}"`;
+    return `${key}: "${value}"`;
   });
 
   const fileBody = `// This is a generated file from write-secrets.js
 // AWS Lambda doesn't support environment variables so this is a work around
-${environmentVariables.join("\n")}
-export {}
+export const secrets = {
+  ${environmentVariables.join(",\n  ")}
+}
 `;
 
   writeFile("server/load-secrets.ts", fileBody);
