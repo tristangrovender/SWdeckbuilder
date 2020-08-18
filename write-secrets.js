@@ -14,8 +14,10 @@ function writeFile(path, contents) {
   });
 }
 
-async function getEnvironmentVariablesFromDoppler() {
-  const { stdout } = await exec("doppler enclave secrets --config prd --json");
+async function getEnvironmentVariablesFromDoppler(env) {
+  const { stdout } = await exec(
+    `doppler enclave secrets --config ${env} --json`
+  );
   const envVars = JSON.parse(stdout);
   return Object.entries(envVars).map(([envName, { computed: envValue }]) => {
     return { key: envName, value: envValue };
@@ -23,11 +25,15 @@ async function getEnvironmentVariablesFromDoppler() {
 }
 
 (async () => {
-  const environmentVariables = (await getEnvironmentVariablesFromDoppler()).map(
-    ({ key, value }) => {
-      return `process.env.${key} = "${value}"`;
-    }
-  );
+  const env = process.argv[2];
+  if (!env) {
+    throw new Error("Please provided env arg. node write-secrets.js dev");
+  }
+  const environmentVariables = (
+    await getEnvironmentVariablesFromDoppler(env)
+  ).map(({ key, value }) => {
+    return `process.env.${key} = "${value}"`;
+  });
 
   const fileBody = `// This is a generated file from write-secrets.js
 // AWS Lambda doesn't support environment variables so this is a work around
