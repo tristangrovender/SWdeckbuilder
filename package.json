@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "node write-secrets.js dev && next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "npx next build",
+    "start": "npx next start",
     "deploy": "node write-secrets.js prd && sls",
     "generate": "graphql-codegen --config codegen.yml",
     "dummy-data": "npx tsc ./scripts/create-dummy-data.ts; node ./scripts/create-dummy-data.js"
