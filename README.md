@@ -6,7 +6,7 @@
 
 ```
 node --version
-// v14.5.0
+// v12.9.1
 ```
 
 #### 2. Install doppler
