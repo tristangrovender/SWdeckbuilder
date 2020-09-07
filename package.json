@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "v12.9.1"
+    "node": "12.9.1"
   },
   "scripts": {
     "dev": "node write-secrets.js dev && next dev",
