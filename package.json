@@ -19,7 +19,6 @@
     "@material-ui/icons": "^4.9.1",
     "@prisma/cli": "^2.3.0",
     "@prisma/client": "^2.3.0",
-    "@sentry/node": "5.20.1",
     "apollo-server-micro": "^2.16.0",
     "axios": "^0.19.2",
     "date-fns": "^2.11.1",
