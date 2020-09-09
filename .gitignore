@@ -37,3 +37,8 @@ scripts/*.js
 .serverless_nextjs
 
 load-secrets.ts
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
