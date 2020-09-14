@@ -33,7 +33,7 @@ async function getEnvironmentVariablesFromDoppler(env) {
     await getEnvironmentVariablesFromDoppler(env)
   ).map(({ key, value }) => {
     return `  - option_name: ${key}
-  value: ${value}`;
+    value: ${value}`;
   });
 
   const fileBody = `option_settings:
