@@ -56,3 +56,15 @@ npx prisma generate
 ```
 
 read more about this here: https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch-sql-typescript-postgres
+
+## Deployment
+
+1. Make sure doppler cli is installed and logged in
+
+2. Make sure elastic beanstalk cli is installed
+
+3. Run
+
+```
+npm run deploy
+```
