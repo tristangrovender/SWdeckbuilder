@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import { prisma } from "../../../pages/api/graphql";
 import { handler } from "../../decode-verify-jwt";
-import { secrets } from "../../load-secrets";
 
 export async function login(_parent, _args) {
   const { error, userName } = await handler({ token: _args.awsJWTToken });
@@ -23,6 +22,6 @@ export async function login(_parent, _args) {
   }
 
   return {
-    jwt: jwt.sign({ userId: user.id }, secrets.JWT_SECRET),
+    jwt: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
   };
 }

@@ -1,7 +1,6 @@
 import { promisify } from "util";
 import * as Axios from "axios";
 import * as jsonwebtoken from "jsonwebtoken";
-import { secrets } from "./load-secrets";
 const jwkToPem = require("jwk-to-pem");
 
 export interface ClaimVerifyRequest {
@@ -49,8 +48,8 @@ interface Claim {
   client_id: string;
 }
 
-const cognitoPoolId = secrets.COGNITO_POOL_ID;
-const cognitoRegion = secrets.COGNITO_REGION;
+const cognitoPoolId = process.env.COGNITO_POOL_ID;
+const cognitoRegion = process.env.COGNITO_REGION;
 if (!cognitoPoolId) {
   throw new Error("env var required for cognito pool");
 }

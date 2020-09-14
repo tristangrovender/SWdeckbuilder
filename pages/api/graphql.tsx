@@ -17,7 +17,6 @@ import { createDeckRating } from "../../server/resolvers/mutation/create-deck-ra
 import { Deck } from "../../server/resolvers/types/Deck";
 import { createComment } from "../../server/resolvers/mutation/create-comment";
 import { Comment } from "../../server/resolvers/query/Comment";
-import { secrets } from "../../server/load-secrets";
 
 export const prisma = new PrismaClient();
 
@@ -92,7 +91,7 @@ const apolloServer = new ApolloServer({
   context: ({ req }) => {
     try {
       const token = req.headers.authorization.split(" ")[1];
-      const decoded = jwt.verify(token, secrets.JWT_SECRET) as {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET) as {
         userId: string;
       };
       return { userId: decoded.userId };

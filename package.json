@@ -6,7 +6,7 @@
     "node": "12.9.1"
   },
   "scripts": {
-    "dev": "node write-secrets.js dev && next dev",
+    "dev": "doppler run --project swccgdb --config dev -- npx next dev",
     "build": "npx next build",
     "start": "npx next start --port=8080",
     "deploy": "bash deploy.sh",
