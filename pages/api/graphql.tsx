@@ -1,4 +1,3 @@
-import * as _ from "../../server/load-secrets";
 import { ApolloServer, gql } from "apollo-server-micro";
 import schema from "raw-loader!../../graphql/schema.gql";
 import { PrismaClient } from "@prisma/client";
