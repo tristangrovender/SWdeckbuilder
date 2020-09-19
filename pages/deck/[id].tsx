@@ -146,7 +146,10 @@ function getGempXML(deckCards: DeckCard[]): string {
 <deck>
 ${deckCards
   .map(({ card: { gemp_card_id, title } }) => {
-    return `<card blueprintId="${gemp_card_id}" title="${title}"/>`;
+    return `<card blueprintId="${gemp_card_id}" title="${title.replace(
+      /\&/g,
+      "&amp;"
+    )}"/>`;
   })
   .join("\n")}
 </deck>`;
