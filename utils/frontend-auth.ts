@@ -32,7 +32,7 @@ export function getSignInUrl() {
   const developmentUrl =
     "https://swccgdb.auth.us-east-2.amazoncognito.com/login?client_id=4ab8m6p1nglpa4110o2jhpk17&response_type=token&scope=email+openid+profile&redirect_uri=http://localhost:3000/callback";
   const productionUrl =
-    "https://swccgdb-production.auth.us-east-2.amazoncognito.com/login?client_id=3hganbcfgre49cutjo2acf2kv0&response_type=token&scope=email+openid+profile&redirect_uri=https://sw-deckbuilder-gamma.vercel.app/callback";
+    "https://swccgdb-production.auth.us-east-2.amazoncognito.com/login?client_id=3hganbcfgre49cutjo2acf2kv0&response_type=token&scope=email+openid+profile&redirect_uri=https://test.swccgdb-staging.com/callback";
   if (getEnvironment() === Environment.prod) {
     return productionUrl;
   } else {
