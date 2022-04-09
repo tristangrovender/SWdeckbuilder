@@ -27,7 +27,7 @@
     "gray-matter": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.4",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "next": "^9.4.4",
     "react": "16.13.1",
     "react-click-away-listener": "^1.2.0",
